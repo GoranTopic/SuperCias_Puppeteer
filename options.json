@@ -1,0 +1,12 @@
+{
+		"debugging": true,
+		"proxyRotation": true,
+		"concurrent_processes": 1,
+		"browser": {
+				"headless": false,
+				"slowMo": 1,
+				"excludeSwitches": "enable-automation",
+				"args": [ "" ]
+		}
+
+}
