@@ -7,73 +7,84 @@ import input_company_name from '../../states/supercia.gov.ec/input_company_name.
 import close_browser from '../../states/supercia.gov.ec/close_browser.js'
 import scrap_company from '../../states/supercia.gov.ec/scrap_company.js'
 import options from '../../options.js'
+import makeLogger from '../../logger.js'
 import puppeteer from 'puppeteer';
 
 // options of browser
 let browserOptions = options.browser;
+// is debugging
+let debugging = options.debugging;
+// use proxies
+let withProxy = options.proxyRotation;
+// number of concorrent browsers
+let concurrent = options.concurrent_processes;
+// minutes until timeout , can be null
+let minutesToTimeout = options.minutesToTimeout
 
 async function main(){
-		let engine = new PromiseEngine(1);
+		let engine = new PromiseEngine(concurrent);
 		let proxy_r = new ProxyRotator();
 		let names = read_json('./data/mined/names/company_names.json');
 		let checklist = new Checklist('companies', names);
 		let errored = new DiskList('errored_companies');
-		let retries_max = 1;
-
+		let retries_max = options.triesWithProxies;
+		
 		// set timeout 1000ms * 60s * 5m
-		engine.setTimeout(1000 * 60 * 5 );
+		if(minutesToTimeout) 
+				engine.setTimeout( 1000 * 60 *  minutesToTimeout );
 
 		// create timeout process
-		const create_promise =  async ( name, proxy, retries = 0 ) => {
-				// set new proxy
-				browserOptions.args = [ `--proxy-server=${ proxy.proxy }` ];
-				// create new browser
-				const browser = await puppeteer.launch(browserOptions)
-				// retun new promise
-				let max_loop = 5;
-				let loops = 0;
-				let isDone = false
-				while( loops < max_loop ){
-						try{
-								// go to the company
-								await goto_company_search_page(browser);
-								// input company name
-								await input_company_name(browser, name);
-								// scrap comany 
-								isDone = await scrap_company(browser, name);
-								// if we successfull scraped comany
-								if(isDone){
-										// close browser
-										await close_browser(browser);
-										// stop loop
-										loops = max_loop;
-										console.log(`${name} is done`);
-										return { name, proxy }
+		const create_promise 	=	( name, proxy, log, retries = 0 ) =>
+				new Promise( async (resolve, reject) => {
+						if(withProxy) // set new proxy
+								browserOptions.args = [ `--proxy-server=${ proxy.proxy }` ];
+						// create new browser
+						const browser = await puppeteer.launch(browserOptions)
+						// retun new promise
+						let max_loop = options.triesPerProxy;
+						let loops = 0;
+						let isDone = false
+						while( loops < max_loop ){
+								try{
+										// go to the company
+										await goto_company_search_page(browser, log);
+										// input company name
+										await input_company_name(browser, name, log);
+										// scrap comany 
+										isDone = await scrap_company(browser, name, log);
+										// if we successfull scraped comany
+										if(isDone){
+												// close browser
+												await close_browser(browser, log);
+												// stop loop
+												loops = max_loop;
+												log(`${name} is done.`);
+												resolve( { name, proxy, log } )
+										}
+								}catch(e){ // something went wrong
+										console.error(e)
 								}
-						}catch(e){ // something went wrong
-								console.error(e)
+								debugging && log("looped");
+								loops++;
 						}
-						console.log("looped");
-						loops++;
-				}
-				await close_browser(browser)
-				console.log(`Could not finishd scrapping ${name}`)
-				return { name, proxy, error: "did not finished company scrap" }
-		}
+						await close_browser(browser, log)
+						log(`Could not finishd scrapping ${name}`)
+						reject( { name, proxy, log, error: "did not finished company scrap" } )
+				})
 
 		// create timeout process
-		const create_callback = ( name, proxy, retries = 0) => 
+		const create_callback = ( name, proxy, log, retries = 0) =>
 				result =>  {
+						console.log('CALLBACK RAN')
 						// if there was an error
 						if(result?.error){ 
-								console.log("this ran");
 								// set proxy dead
 								proxy_r.setDead(result.proxy);
 								// stop trying if many tries
 								if(result.retries > retries_max) 
 										errored.add(name)
 								else // let's try it again 
-										return create_promise( name, proxy_r.next(), retries + 1) 
+										return create_promise(name, proxy_r.next(), log, retries+1) 
 						}else // proxy was successfull
 								checklist.check(name)
 				}
@@ -82,9 +93,10 @@ async function main(){
 		engine.setNextPromise( () => {
 				let name = checklist.nextMissing()
 				let proxy = proxy_r.next();
-				let promise = create_promise( name, proxy )
-				let callback = create_callback( name, proxy )
-				return [ promise, callback ]
+				let logger = makeLogger( withProxy? `[${proxy.proxy}] ` : "" );
+				let promise = create_promise( name, proxy, logger );
+				let callback = create_callback( name, proxy, logger );
+				return [ promise, callback ];
 		});
 
 		//set stop function
@@ -92,18 +104,21 @@ async function main(){
 				if(proxy_r.getAliveList().length === 0) return true
 				else return false
 		})
+
 		// when fuffiled
 		engine.whenFulfilled( result => 
-				(result && console.log(`[${result.proxy.proxy}] Fuffiled: ${result.name}`) )
+				(result && result.log(`[${result.proxy}] Fuffiled: ${result.name}`) )
 		)
+
 		// when rejected
 		engine.whenRejected( result => 
-				( result && console.log(`[${result.proxy.proxy}] Rejected: ${result.name} with ${result.error}`) )
+				( result && result.log(`[${result.proxy.proxy}] Rejected: ${result.name} with ${result.error}`) )
 		)
+		
 		//engine.whenResolved(isResolved_callback);
 		await engine.start()
 		// done message
-				.then(() => console.log("done =)"))
+				.then(() => console.log("Engine done"))
 
 }
 

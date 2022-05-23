@@ -1,9 +1,12 @@
 {
 		"debugging": true,
 		"proxyRotation": true,
+		"triesWithProxies": 3,
+		"triesPerProxy": 5, 
+		"minutesToTimeout": 5,
 		"concurrent_processes": 1,
 		"browser": {
-				"headless": false,
+				"headless": true,
 				"slowMo": 1,
 				"excludeSwitches": "enable-automation",
 				"args": [ "" ]

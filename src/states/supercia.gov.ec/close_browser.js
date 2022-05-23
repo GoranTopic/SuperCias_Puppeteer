@@ -6,8 +6,8 @@ const has_browser = async browser =>
 		(browser)? true : false
 		
 
-const close_browser_script  = async (browser, proxy) => {
-		console.log('closing browser')
+const close_browser_script  = async (browser, log) => {
+		log('closing browser')
 		// close browser
 		await browser.close();
 }

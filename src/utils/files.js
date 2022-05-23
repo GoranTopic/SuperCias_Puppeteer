@@ -1,12 +1,16 @@
 import fs from 'fs'
 
+// get options
+let options = JSON.stringify(fs.readFileSync('./options.json'));
+let debugging = options.debugging;
+
 const write_json = (obj, path) => {
 		try{
 				let str = JSON.stringify(obj)
 				fs.writeFileSync(path, str);
 				return true
 		}catch(e) {
-				console.error('could not write file');
+				debugging && console.error('could not write file');
 				console.error(e)
 				return false
 		}
@@ -17,7 +21,7 @@ const read_json = path => {
 				let str = fs.readFileSync(path);
 				return JSON.parse(str)
 		}catch(e) {
-				console.error('could not read file ' + e);
+				debugging && console.error('could not read file ' + e);
 				return null
 		}
 }
@@ -26,7 +30,7 @@ const delete_json = path => {
 		try{
 				return fs.unlinkSync(path);
 		}catch(e) {
-				console.error('could not delete json file ' + e);
+				debugging && console.error('could not delete json file ' + e);
 				return null
 		}
 }
@@ -35,7 +39,7 @@ const fileExists = path =>{
 		try{
 				return fs.existsSync(path)  
 		}catch(e) {
-				console.error('could not find file ' + e);
+				debugging && console.error('could not find file ' + e);
 				return false
 		}
 }
@@ -47,13 +51,13 @@ const mkdir = path =>
 						// If current directory does not exist then create it
 						fs.mkdir(path, { recursive: true }, (error) => {
 								if (error) {
-										console.log(error);
+										console.error(error);
 								} else {
-										console.log(`${path} created successfully !!`);
+										debugging && console.log(`${path} created`);
 								}
 						});
 				} else {
-						console.log("Given Directory already exists !!");
+						debugging && console.log("${path} already exists");
 				}
 		});
 

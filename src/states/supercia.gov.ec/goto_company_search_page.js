@@ -17,7 +17,7 @@ const has_open_tab_and_null_url = async browser =>
 				( ( await browser.pages() )[0].url() === "about:blank")
 
 // script to handle the home page
-const goto_page_script = async browser => {
+const goto_page_script = async (browser, log) => {
 		// get page
 		let page = ( await browser.pages() )[0];
 		// read cookies

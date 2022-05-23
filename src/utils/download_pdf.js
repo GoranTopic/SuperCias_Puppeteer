@@ -1,4 +1,7 @@
-import fs from 'fs'
+import fs from 'fs';
+import options from '../options.js';
+
+let debugging = options.debugging;
 
 const download_pdf = async (url, page, path) => {
 		let pdfString = await page.evaluate( async url => 
@@ -14,9 +17,15 @@ const download_pdf = async (url, page, path) => {
 		// save pdf binary string 
 		const pdfData = Buffer.from(pdfString, 'binary');
 		let filename = path + ".pdf"
-		let result = fs.writeFileSync( filename , pdfData);
-		console.log(`downloaded pdf: ${filename}`)
-		return result
+		try{ 
+				fs.writeFileSync( filename , pdfData);
+				//if(debugging) console.log(`downloaded pdf: ${filename}`);
+				return true;
+		}catch(e){
+				// did it downloaded
+				console.error(`could not downloaded pdf: ${filename}`, e);
+				return false
+		}
 }
 
 export default download_pdf

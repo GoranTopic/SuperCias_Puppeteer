@@ -12,7 +12,7 @@ import options from '../../options.js'
 let debugging = options.debugging;
 
 /* this function tries to scrap the certificado of general information of a company */
-let get_credential_pdf = async (page, path) => {
+let get_credential_pdf = async (page, path, log) => {
 		try{
 				// if there is button
 				let [ certificado_button ] = await page.$x('//span[text()="Imprimir certificado"]/..')
@@ -30,7 +30,7 @@ let get_credential_pdf = async (page, path) => {
 						// download pdf
 						await waitUntilRequestDone(page, 2000);
 						let result = await download_pdf(src, page, path) 
-						if(result) console.log('Got pdf:', src)
+						if(result) log('Downloaded:' + path)
 						// close window
 						try{
 								await (
@@ -48,13 +48,13 @@ let get_credential_pdf = async (page, path) => {
 				}
 		}catch(e){
 				console.error(e)
-				console.log('could not get certificado');
-				console.log('closing windows with console')
+				log('could not get certificado');
+				log('closing windows with console')
 		}
 }
 
 /* function of scraping general infomation tab */
-let scrap_informacion_general = async (page, name, path) => {
+let scrap_informacion_general = async (page, name, path, log) => {
 		// add tab name
 		path += '/information_general'
 		// make dir if it does not exits
@@ -76,21 +76,21 @@ let scrap_informacion_general = async (page, name, path) => {
 		// write_file 
 		write_json(information_general, path + '/information_general.json')
 		// get pdf credentials
-		await get_credential_pdf(page, path + '/information_general');
+		await get_credential_pdf(page, path + '/information_general', log);
 		// got  to the end
 		return true
 }
 
 /* this function, get the tabs of online documents ans scrap all of them */
-const scrap_documents = async (page, name, path) => {
+const scrap_documents = async (page, name, path, log) => {
 		/* scrap documetns  */
-		console.log('scrap documents ran')
+		debugging && log('scrap documents ran')
 		// wait until page is loaded
 		await waitUntilRequestDone(page, 1000);
 		// get docuemtn tabs 
 		let document_tabs = await page.$x('//form[@id="frmInformacionCompanias"]//li')
 		//make usre we got dem tabs
-		console.log('document_tabs:', document_tabs.length)
+		debugging && log('document_tabs: ' + document_tabs.length)
 		if(document_tabs.length === 0) throw Error("Could not extract document_tabs")
 		let tab_names  = (await getText(document_tabs)).map(t => t.trim());
 		// make checklist for each document tabs
@@ -114,16 +114,16 @@ const scrap_documents = async (page, name, path) => {
 						let panels = await panel_container.$x('./div')
 						// get same pane as clicked tab
 						// wait until pdfs show up
-						console.log("got up to here")
+						debugging && log("got up to here")
 						let panel = panels[i]
-						if(panel) console.log("got panel")
+						if(panel) debugging && log("got panel")
 						// refresh selectors - get selector
 						await waitUntilRequestDone(page, 1000);
 						let [ selector ] = await panel.$x('.//select')
-						if(selector) console.log("got selector")
+						if(selector) debugging && log("got selector")
 						// click selector
 						await selector.click()
-						console.log("selector clicked")
+						debugging && log("selector clicked")
 						// wait  for tab to be loaded
 						await waitUntilRequestDone(page, 1000);
 						// select all documents
@@ -134,7 +134,7 @@ const scrap_documents = async (page, name, path) => {
 						await waitUntilRequestDone(page, 1000);
 						// get all pdf even rows
 						let rows = await panel.$x( './/tr[@class="ui-widget-content ui-datatable-even"] | .//tr[@class="ui-widget-content ui-datatable-odd"]');
-						if(rows) console.log("got rows")
+						if(rows) debugging && log("got rows")
 						// for every row in pdf
 						for( let row of rows ){
 								// get name based on the table values
@@ -145,41 +145,62 @@ const scrap_documents = async (page, name, path) => {
 								// if file doe not exists already
 								let filename = cur_path +'/' + sanitize(pdf_name);
 								if(fileExists(filename + ".pdf")){
-										console.log(`Already have pdf: ${filename + ".pdf"}`)
+										debugging && log(`Already have pdf: ${filename + ".pdf"}`)
 								}else{ // scrap file
 										// click url 
 										await pdf_column.click();
-										// wait until pdfs show up
-										await waitUntilRequestDone(page, 100);
-										// get url
-										let [ iframe ] = await page.$x('//iframe');
-										if(iframe) console.log('got iframe');
-										// get the iframe src
-										let coded_src = await page.evaluate( iframe => iframe.src, iframe )
-										// decode src
-										let src = decodeURIComponent(coded_src.split('file=')[1])
-										console.log('got src:', src)
-										// download pdf
-										await download_pdf(src, page, filename)
-										// wait?
-										await waitUntilRequestDone(page, 2000);
-										// close window
-										try {
-												await (
-														await page.waitForXPath('//form[@id="frmPresentarDocumentoPdf"]//button')
-												).click();
-										}catch(e){
-												console.error(e)
-												console.log('closing windows with console')
+										// if it has digital signatures
+										if( await pdf_column.getProperty('aria-labelledby') ){
+												//await aria-labelledby="dlgPresentarDocumentoPdfConFirmasElectronicas_title
+												debugging && log('found pdf with digital signature')
+												let [ digitalSignEl ] = 
+														await page.$x('//form[@id="frmPresentarDocumentoPdfConFirmasElectronicas"]//button')
+												let src = await page.evaluate( button => 
+														button.onclick.toString().split(';').map(v=>v.trim())[1].split("'")[1],
+														digitalSignEl)
+												let didDownload = await download_pdf(src, page, filename)
+												if(didDownload) log(`Downloaded: ${filename + ".pdf"}`)
+												// close with electonic signature
 												await page.evaluate( () => {
 														PrimeFaces.bcn( this,event,[ 
-																function(event){PF('dlgPresentarDocumentoPdf').hide() } 
+																function(event){PF('dlgPresentarDocumentoPdfConFirmasElectronicas').hide() } 
 														] );
 												})
+										}else{
+												// wait until pdfs show up
+												await waitUntilRequestDone(page, 100);
+												// get url
+												let [ iframe ] = await page.$x('//iframe');
+												if(iframe) debugging && log('got iframe');
+												// get the iframe src
+												let coded_src = await page.evaluate( iframe => iframe.src, iframe )
+												// decode src
+												let src = decodeURIComponent(coded_src.split('file=')[1])
+												debugging && log('got src:' + src)
+												// download pdf
+												let didDownload = await download_pdf(src, page, filename)
+												if(didDownload) 
+														log(`Downloaded: ${filename + ".pdf"}`)
+												// wait?
+												await waitUntilRequestDone(page, 2000);
+												// close window
+												try {
+														await (
+																await page.waitForXPath('//form[@id="frmPresentarDocumentoPdf"]//button')
+														).click();
+												}catch(e){
+														console.error(e)
+														debugging && log('closing windows with console')
+														await page.evaluate( () => {
+																PrimeFaces.bcn( this,event,[ 
+																		function(event){PF('dlgPresentarDocumentoPdf').hide() } 
+																] );
+														})
+												}
+												debugging && log('closed pdf viewer')
+												// wait until it is down
+												await waitUntilRequestDone(page, 1000);
 										}
-										console.log('closed pdf viewer')
-										// wait until it is down
-										await waitUntilRequestDone(page, 1000);
 								}
 						}
 						// check off the document tab
@@ -211,7 +232,7 @@ const condition = async browser =>
 		( ( await browser.pages() ).length === 1 &&
 				(( await browser.pages() )[0].url() === information_de_companies ) )
 
-const scrap_companies_script = async ( browser, name ) => {
+const scrap_companies_script = async ( browser, name, log ) => {
 		// directory where to stor mined data
 		let companies_dir = './data/mined/companies'
 
@@ -232,7 +253,7 @@ const scrap_companies_script = async ( browser, name ) => {
 
 		// get page again
 		let page = ( await browser.pages() )[0];
-		console.log('got new page')
+		debugging && log('got new page')
 
 		//wait until page loads
 		await waitUntilRequestDone(page, 500);
@@ -242,7 +263,7 @@ const scrap_companies_script = async ( browser, name ) => {
 		// get tabs a tags 
 		let tabs = await tabs_element.$x('.//span/..')
 
-		debugging && console.log("got tabs:", tabs.length )
+		debugging && log("got tabs:", tabs.length )
 		// for every tab
 		for( let current_tab of tabs ){
 				// get name of the current tab
@@ -254,11 +275,11 @@ const scrap_companies_script = async ( browser, name ) => {
 								try{
 										// click on first tab 
 										await current_tab.click() // and wait
-										console.log(`tab ${ await getText(current_tab) } clicked`)
+										debugging && log(`tab ${ await getText(current_tab) } clicked`)
 										await waitUntilRequestDone(page, 100);
 										let result = // run function
 												await tab_scrapers[current_tab_name](
-														page, name, path + `/${current_tab_name}`
+														page, name, path + `/${current_tab_name}`, log
 												) 
 										// if function successfull, check off list
 										if(result) // check off tabs
