@@ -58,35 +58,36 @@ async function main(){
 												await close_browser(browser, log);
 												// stop loop
 												loops = max_loop;
-												log(`${name} is done.`);
+												log(`${name} is completed.`);
 												resolve( { name, proxy, log } )
 										}
 								}catch(e){ // something went wrong
-										console.error(e)
+										console.error("error:" + e)
 								}
-								debugging && log("looped");
+								debugging && log("let's try that again");
 								loops++;
 						}
 						await close_browser(browser, log)
 						log(`Could not finishd scrapping ${name}`)
-						reject( { name, proxy, log, error: "did not finished company scrap" } )
+						reject( { name, proxy, log, error: "Did not finished company scrap" } )
 				})
 
 		// create timeout process
 		const create_callback = ( name, proxy, log, retries = 0) =>
 				result =>  {
-						console.log('CALLBACK RAN')
 						// if there was an error
 						if(result?.error){ 
 								// set proxy dead
 								proxy_r.setDead(result.proxy);
 								// stop trying if many tries
 								if(result.retries > retries_max) 
-										errored.add(name)
+										errored.add(name);
 								else // let's try it again 
-										return create_promise(name, proxy_r.next(), log, retries+1) 
-						}else // proxy was successfull
-								checklist.check(name)
+										return create_promise(name, proxy_r.next(), log, retries+1);
+						}else{ // proxy was successfull
+								checklist.check(name);
+								log(`${name} checked off`);
+						}
 				}
 
 		// set promise next function
@@ -107,12 +108,13 @@ async function main(){
 
 		// when fuffiled
 		engine.whenFulfilled( result => 
-				(result && result.log(`[${result.proxy}] Fuffiled: ${result.name}`) )
+				(result && result.log(`Fuffiled: ${result.name}`) )
 		)
 
 		// when rejected
 		engine.whenRejected( result => 
-				( result && result.log(`[${result.proxy.proxy}] Rejected: ${result.name} with ${result.error}`) )
+				( result && result.log && result.log(`Rejected: ${result.name} with ${result.error}`) )
+				// can return object without the log function
 		)
 		
 		//engine.whenResolved(isResolved_callback);

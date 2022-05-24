@@ -71,7 +71,6 @@ class Checklist{
 				this.missing_values.shift();
 
 		check = (value, mark = true) => {
-				console.log(value);
 				if(this._isObject(value)) 
 						value = JSON.stringify(value)
 				this.checklist[value] = mark;

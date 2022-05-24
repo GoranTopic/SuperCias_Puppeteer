@@ -7,7 +7,7 @@ const has_browser = async browser =>
 		
 
 const close_browser_script  = async (browser, log) => {
-		log('closing browser')
+		log('Closing browser')
 		// close browser
 		await browser.close();
 }

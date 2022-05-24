@@ -30,13 +30,14 @@ let get_credential_pdf = async (page, path, log) => {
 						// download pdf
 						await waitUntilRequestDone(page, 2000);
 						let result = await download_pdf(src, page, path) 
-						if(result) log('Downloaded:' + path)
+						if(result) log('Downloaded general infomation pdf:' + path)
 						// close window
 						try{
 								await (
 										await page.waitForXPath('//form[@id="frmPresentarDocumentoPdf"]//button')
 								).click();
 						}catch{
+								log('Closing windows with console command')
 								await page.evaluate( () => PrimeFaces.bcn(this,event,[
 												function(event){PF('dlgPresentarDocumentoPdf').hide()}
 										])
@@ -48,8 +49,7 @@ let get_credential_pdf = async (page, path, log) => {
 				}
 		}catch(e){
 				console.error(e)
-				log('could not get certificado');
-				log('closing windows with console')
+				log('Could not get certificado pdf');
 		}
 }
 
@@ -91,7 +91,8 @@ const scrap_documents = async (page, name, path, log) => {
 		let document_tabs = await page.$x('//form[@id="frmInformacionCompanias"]//li')
 		//make usre we got dem tabs
 		debugging && log('document_tabs: ' + document_tabs.length)
-		if(document_tabs.length === 0) throw Error("Could not extract document_tabs")
+		if(document_tabs.length === 0) 
+				throw Error("Could not extract the Document category tabs")
 		let tab_names  = (await getText(document_tabs)).map(t => t.trim());
 		// make checklist for each document tabs
 		let checklist_document_tabs = new Checklist( name + "_document_tabs", tab_names);
@@ -107,6 +108,7 @@ const scrap_documents = async (page, name, path, log) => {
 						mkdir(cur_path)
 						// click on tab
 						await tab.click();
+						debugging && log(`Clicked on ${tab_names[i]} tab`)
 						// wait for tab to be loaded
 						await waitUntilRequestDone(page, 1000);
 						// get panels 
@@ -114,16 +116,16 @@ const scrap_documents = async (page, name, path, log) => {
 						let panels = await panel_container.$x('./div')
 						// get same pane as clicked tab
 						// wait until pdfs show up
-						debugging && log("got up to here")
 						let panel = panels[i]
-						if(panel) debugging && log("got panel")
+						if(panel) debugging && log("The Panel for the documents tab")
 						// refresh selectors - get selector
 						await waitUntilRequestDone(page, 1000);
 						let [ selector ] = await panel.$x('.//select')
-						if(selector) debugging && log("got selector")
+						if(selector) 
+								debugging && log("Got the selector for the number of documents")
 						// click selector
 						await selector.click()
-						debugging && log("selector clicked")
+						debugging && log("clicked on the selector for the number of documents")
 						// wait  for tab to be loaded
 						await waitUntilRequestDone(page, 1000);
 						// select all documents
@@ -145,14 +147,14 @@ const scrap_documents = async (page, name, path, log) => {
 								// if file doe not exists already
 								let filename = cur_path +'/' + sanitize(pdf_name);
 								if(fileExists(filename + ".pdf")){
-										debugging && log(`Already have pdf: ${filename + ".pdf"}`)
+										debugging && log(`PDF already exists: ${filename + ".pdf"}`)
 								}else{ // scrap file
 										// click url 
 										await pdf_column.click();
 										// if it has digital signatures
 										if( await pdf_column.getProperty('aria-labelledby') ){
 												//await aria-labelledby="dlgPresentarDocumentoPdfConFirmasElectronicas_title
-												debugging && log('found pdf with digital signature')
+												debugging && log('Found a pdf with digital signature')
 												let [ digitalSignEl ] = 
 														await page.$x('//form[@id="frmPresentarDocumentoPdfConFirmasElectronicas"]//button')
 												let src = await page.evaluate( button => 
@@ -171,12 +173,12 @@ const scrap_documents = async (page, name, path, log) => {
 												await waitUntilRequestDone(page, 100);
 												// get url
 												let [ iframe ] = await page.$x('//iframe');
-												if(iframe) debugging && log('got iframe');
+												if(iframe) debugging && log('Got the iframe where pdf is');
 												// get the iframe src
 												let coded_src = await page.evaluate( iframe => iframe.src, iframe )
 												// decode src
 												let src = decodeURIComponent(coded_src.split('file=')[1])
-												debugging && log('got src:' + src)
+												debugging && log('Got the url src for the pdf' + src)
 												// download pdf
 												let didDownload = await download_pdf(src, page, filename)
 												if(didDownload) 
@@ -190,14 +192,14 @@ const scrap_documents = async (page, name, path, log) => {
 														).click();
 												}catch(e){
 														console.error(e)
-														debugging && log('closing windows with console')
+														debugging && log('Closing pdf viewer with windows with console')
 														await page.evaluate( () => {
 																PrimeFaces.bcn( this,event,[ 
 																		function(event){PF('dlgPresentarDocumentoPdf').hide() } 
 																] );
 														})
 												}
-												debugging && log('closed pdf viewer')
+												debugging && log('Pdf Viewer closed')
 												// wait until it is down
 												await waitUntilRequestDone(page, 1000);
 										}
@@ -253,7 +255,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 
 		// get page again
 		let page = ( await browser.pages() )[0];
-		debugging && log('got new page')
+		debugging && log('Got Browser page')
 
 		//wait until page loads
 		await waitUntilRequestDone(page, 500);
@@ -263,7 +265,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 		// get tabs a tags 
 		let tabs = await tabs_element.$x('.//span/..')
 
-		debugging && log("got tabs:", tabs.length )
+		debugging && log("Got Document Portal tabs" + tabs.length )
 		// for every tab
 		for( let current_tab of tabs ){
 				// get name of the current tab
@@ -275,7 +277,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 								try{
 										// click on first tab 
 										await current_tab.click() // and wait
-										debugging && log(`tab ${ await getText(current_tab) } clicked`)
+										debugging && log(`Tab ${await getText(current_tab)} was clicked`)
 										await waitUntilRequestDone(page, 100);
 										let result = // run function
 												await tab_scrapers[current_tab_name](

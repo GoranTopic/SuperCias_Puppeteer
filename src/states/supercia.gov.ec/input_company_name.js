@@ -1,7 +1,7 @@
 import make_state from '../makeState.js';
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js'
-import { busqueda_de_companias } from '../../urls.js'
 import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js'
+import { busqueda_de_companias } from '../../urls.js'
 import options from '../../options.js'
 
 // set debugging 
@@ -16,7 +16,7 @@ const input_name_condition = async browser =>
 
 /* scraps a id from a single company name */
 const input_name_script = async (browser, name, log) => {
-		log(`Scraping ${name}...`)
+		log(`Starting scrap of ${name}...`)
 		// for page to load
 		let [ page ] = await browser.pages();
 		//await waitUntilRequestDone(page, 2000)
@@ -25,26 +25,24 @@ const input_name_script = async (browser, name, log) => {
 
 		// click on the name radio
 		if(radio_el) await radio_el.click();
-		else throw new Error('could not get radio element')
-
-		// until it loads the name
-		debugging && log("getting text input")
-		//await waitUntilRequestDone(page, 1000)
+		else throw new Error('Could not get name radion selector element')
 
 		// get the main text input
 		let [ text_input ] = 
 				await page.$x('//input[@id="frmBusquedaCompanias:parametroBusqueda_input"]')
 
-		// clear the input just in case,
+		// logged
+		if(text_input) debugging && log("Got search comany name textInput element")
+
 		// clear text input
 		await page.evaluate(input => input.value = "", text_input);
 		// awai for browser to be done
 		await waitUntilRequestDone(page, 1000)
 		// type name of company
-		debugging && log("typing name")
+		debugging && log("Typing the name of the company")
 		await text_input.type(name, {delay: 10});
 		await waitUntilRequestDone(page, 1000)
-		debugging && log("waiting for suggestions")
+		debugging && log("Wating for sudgestions")
 
 		// wait for sugeestions
 		await page.waitForXPath('//ul[@class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"]')
@@ -63,9 +61,9 @@ const input_name_script = async (browser, name, log) => {
 		let captchan_buffer = await captchan.screenshot();
 
 		// recognize the captchan
-		debugging && log("recognizing captchan...")
+		debugging && log("Recognizing captchan...")
 		let captchan_text = await recognizeCaptchan(captchan_buffer);
-		log("recognized captchan: " + captchan_text)
+		log("Recognized captchan as: " + captchan_text)
 
 		// get the captchan input 
 		let [ captchan_input ] = 
@@ -76,7 +74,7 @@ const input_name_script = async (browser, name, log) => {
 
 		
 		// getting the search button
-		debugging && log("getting search button..")
+		debugging && log("getting comapny search button..")
 		let [ search_button ] =
 				await page.$x('//button[@id="frmBusquedaCompanias:btnConsultarCompania"]')
 
@@ -85,7 +83,7 @@ const input_name_script = async (browser, name, log) => {
 		await search_button.click({delay: 1});
 
 		// wait until new page loads
-		debugging && log("waiting for new page to load...")
+		debugging && log("waiting for new page")
 		await waitUntilRequestDone(page, 2000);
 }
 

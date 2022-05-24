@@ -22,7 +22,9 @@ const goto_page_script = async (browser, log) => {
 		let page = ( await browser.pages() )[0];
 		// read cookies
 		await read_cookies(page);
-		//console.log('page to load');
+		//se user agent
+		await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+		// go to page
 		await page.goto( target_url, { waitUntil: 'networkidle0' });
 		// wait for page to load
 		await waitUntilRequestDone(page, 500)
