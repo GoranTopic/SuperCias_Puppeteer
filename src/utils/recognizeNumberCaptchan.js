@@ -1,14 +1,23 @@
-import Tesseract from 'tesseract.js';
+import { createWorker } from 'tesseract.js';
 
-const recognizeNumbers = async file  => 
-		await Tesseract.recognize(
-				file,
-				'eng',
-				//{ logger: m => console.log(m) }
-		).then( 
-				({ data: { text } }) => text 
-		).catch(
-				e => console.error(e)
-		) 
+const worker = createWorker()
+
+let isReady = false
+// Called as early as possible
+await worker.load()
+await worker.loadLanguage("eng")
+await worker.initialize("eng")
+isReady = true
+
+// Do other stuffs
+
+const recognizeNumbers = async img  => {
+		if(isReady){
+				const {
+						data: { text },
+				} = await worker.recognize(img)
+				return text.trim()
+		}
+}
 
 export default recognizeNumbers

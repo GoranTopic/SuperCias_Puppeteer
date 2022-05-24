@@ -70,7 +70,7 @@ async function main(){
 						await close_browser(browser, log)
 						log(`Could not finishd scrapping ${name}`)
 						reject( { name, proxy, log, error: "Did not finished company scrap" } )
-				})
+				}).catch( e => e)
 
 		// create timeout process
 		const create_callback = ( name, proxy, log, retries = 0) =>

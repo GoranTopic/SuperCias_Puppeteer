@@ -4,7 +4,7 @@
 		"triesWithProxies": 3,
 		"triesPerProxy": 5, 
 		"minutesToTimeout": 2,
-		"concurrent_processes": 1,
+		"concurrent_processes": 5,
 		"browser": {
 				"headless": true,
 				"slowMo": 1,
