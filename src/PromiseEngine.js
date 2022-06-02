@@ -92,14 +92,13 @@ export default class PromiseEngine {
 		// this is a timeout 
 		_timeoutAfter = timeout => new Promise(
 				(resolve, reject) => {
-						setTimeout(() => reject(new Error(`timed out`)), timeout);
+						setTimeout(() => reject( new Error(`timed out`) ), timeout);
 				}
 		)
 
-
+		/* promise wrapper for promise, a promise condom, if you will... */
+		// Don't create a wrapper for promises that can already be queried.
 		_promiseMonitor(promise) {
-				/* promise wrapper for promise, a promise condom, if you will... */
-				// Don't create a wrapper for promises that can already be queried.
 				if (promise.isResolved) return promise;
 				var callback = promise.callback ?? null;
 				var isResolved = false
@@ -113,13 +112,16 @@ export default class PromiseEngine {
 						result = Promise.race(promises)
 				}else
 						result = promise
-
 				// Observe the promise, saving the fulfillment in a closure scope.
 				result.then(
 						function(v) { isFulfilled = true; value = v; return v; }, 
 						function(e) { isRejected = true; value = e; throw e; }
 				).catch(e => { 
-						throw e;
+						if( e.message === 'timed out' ){ 
+								// if timout error, quitely end 
+								console.error(e);
+						}else // else throw error
+								throw e;
 				}) 
 				// getters
 				result.getValue    = function() { return value };

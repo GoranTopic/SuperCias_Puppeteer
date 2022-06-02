@@ -44,8 +44,11 @@ const input_name_script = async (browser, name, log) => {
 		await waitUntilRequestDone(page, 1000)
 		debugging && log("Wating for sudgestions")
 
-		// wait for sugeestions
-		await page.waitForXPath('//ul[@class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"]')
+		try{ // if we getsuggestion correcly 
+				// wait for sugeestions
+				await page.waitForXPath('//ul[@class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"]',
+						{timeout: 1000})
+		}catch(e){ log(e) }
 
 		// select suggestion
 		await page.keyboard.press('Enter');
@@ -72,7 +75,6 @@ const input_name_script = async (browser, name, log) => {
 		// input captchan numbers
 		await captchan_input.type(captchan_text, {delay: 130});
 
-		
 		// getting the search button
 		debugging && log("getting comapny search button..")
 		let [ search_button ] =

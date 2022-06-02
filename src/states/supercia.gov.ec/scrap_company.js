@@ -11,6 +11,17 @@ import options from '../../options.js'
 // set debugging 
 let debugging = options.debugging;
 
+
+/* close all modelas in the window*/
+let close_modals = async (page, log) => {
+		page.evaluate(() => {
+				if(PF('dlgPresentarDocumentoPdf').isVisible())
+						PF('dlgPresentarDocumentoPdf').hide(); 
+				if(PF('dlgPresentarDocumentoPdfConFirmasElectronicas').isVisible())
+						PF('dlgPresentarDocumentoPdfConFirmasElectronicas').hide(); 
+		})
+}
+
 /* this function tries to scrap the certificado of general information of a company */
 let get_credential_pdf = async (page, path, log) => {
 		try{
@@ -38,10 +49,7 @@ let get_credential_pdf = async (page, path, log) => {
 								).click();
 						}catch{
 								log('Closing windows with console command')
-								await page.evaluate( () => PrimeFaces.bcn(this,event,[
-												function(event){PF('dlgPresentarDocumentoPdf').hide()}
-										])
-								)
+								await close_modals(page);
 						}
 						// wait until it is down
 						await waitUntilRequestDone(page, 1000);
@@ -89,7 +97,7 @@ const scrap_documents = async (page, name, path, log) => {
 		await waitUntilRequestDone(page, 1000);
 		// get docuemtn tabs 
 		let document_tabs = await page.$x('//form[@id="frmInformacionCompanias"]//li')
-		//make usre we got dem tabs
+		//let user know we got dem tabs
 		debugging && log('document_tabs: ' + document_tabs.length)
 		if(document_tabs.length === 0) 
 				throw Error("Could not extract the Document category tabs")
@@ -148,6 +156,7 @@ const scrap_documents = async (page, name, path, log) => {
 								let filename = cur_path +'/' + sanitize(pdf_name);
 								if(fileExists(filename + ".pdf")){
 										debugging && log(`PDF already exists: ${filename + ".pdf"}`)
+										await close_modals(page);
 								}else{ // scrap file
 										// click url 
 										await pdf_column.click();
@@ -163,11 +172,7 @@ const scrap_documents = async (page, name, path, log) => {
 												let didDownload = await download_pdf(src, page, filename)
 												if(didDownload) log(`Downloaded: ${filename + ".pdf"}`)
 												// close with electonic signature
-												await page.evaluate( () => {
-														PrimeFaces.bcn( this,event,[ 
-																function(event){PF('dlgPresentarDocumentoPdfConFirmasElectronicas').hide() } 
-														] );
-												})
+												await close_modals(page)
 										}else{
 												// wait until pdfs show up
 												await waitUntilRequestDone(page, 100);
@@ -193,11 +198,7 @@ const scrap_documents = async (page, name, path, log) => {
 												}catch(e){
 														console.error(e)
 														debugging && log('Closing pdf viewer with windows with console')
-														await page.evaluate( () => {
-																PrimeFaces.bcn( this,event,[ 
-																		function(event){PF('dlgPresentarDocumentoPdf').hide() } 
-																] );
-														})
+														await close_modals(page);
 												}
 												debugging && log('Pdf Viewer closed')
 												// wait until it is down

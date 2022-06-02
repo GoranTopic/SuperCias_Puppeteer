@@ -29,9 +29,9 @@ async function main(){
 		let errored = new DiskList('errored_companies');
 		let retries_max = options.triesWithProxies;
 		
-		// set timeout 1000ms * 60s * 5m
+		// set timeout 1000ms * 60s * minutesToTimeout 
 		if(minutesToTimeout) 
-				engine.setTimeout( 1000 * 60 *  minutesToTimeout );
+				engine.setTimeout( 1000 * 60 * minutesToTimeout );
 
 		// create timeout process
 		const create_promise 	=	( name, proxy, log, retries = 0 ) =>
@@ -70,7 +70,10 @@ async function main(){
 						await close_browser(browser, log)
 						log(`Could not finishd scrapping ${name}`)
 						reject( { name, proxy, log, error: "Did not finished company scrap" } )
-				}).catch( e => e)
+				}).catch( e =>{
+						console.log("it cam out here", e);
+						return e;
+				})
 
 		// create timeout process
 		const create_callback = ( name, proxy, log, retries = 0) =>
