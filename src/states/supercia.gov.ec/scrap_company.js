@@ -93,12 +93,14 @@ let scrap_informacion_general = async (page, name, path, log) => {
 const scrap_documents = async (page, name, path, log) => {
 		/* scrap documetns  */
 		debugging && log('scrap documents ran')
+		debugger;
 		// wait until page is loaded
 		await waitUntilRequestDone(page, 1000);
 		// get docuemtn tabs 
 		let document_tabs = await page.$x('//form[@id="frmInformacionCompanias"]//li')
 		//let user know we got dem tabs
 		debugging && log('document_tabs: ' + document_tabs.length)
+		debugger;
 		if(document_tabs.length === 0) 
 				throw Error("Could not extract the Document category tabs")
 		let tab_names  = (await getText(document_tabs)).map(t => t.trim());
@@ -117,6 +119,7 @@ const scrap_documents = async (page, name, path, log) => {
 						// click on tab
 						await tab.click();
 						debugging && log(`Clicked on ${tab_names[i]} tab`)
+						debugger;
 						// wait for tab to be loaded
 						await waitUntilRequestDone(page, 1000);
 						// get panels 
@@ -131,9 +134,11 @@ const scrap_documents = async (page, name, path, log) => {
 						let [ selector ] = await panel.$x('.//select')
 						if(selector) 
 								debugging && log("Got the selector for the number of documents")
+						debugger;
 						// click selector
 						await selector.click()
 						debugging && log("clicked on the selector for the number of documents")
+						debugger;
 						// wait  for tab to be loaded
 						await waitUntilRequestDone(page, 1000);
 						// select all documents
@@ -156,6 +161,7 @@ const scrap_documents = async (page, name, path, log) => {
 								let filename = cur_path +'/' + sanitize(pdf_name);
 								if(fileExists(filename + ".pdf")){
 										debugging && log(`PDF already exists: ${filename + ".pdf"}`)
+										debugger;
 										await close_modals(page);
 								}else{ // scrap file
 										// click url 
@@ -164,6 +170,7 @@ const scrap_documents = async (page, name, path, log) => {
 										if( await pdf_column.getProperty('aria-labelledby') ){
 												//await aria-labelledby="dlgPresentarDocumentoPdfConFirmasElectronicas_title
 												debugging && log('Found a pdf with digital signature')
+												debugger;
 												let [ digitalSignEl ] = 
 														await page.$x('//form[@id="frmPresentarDocumentoPdfConFirmasElectronicas"]//button')
 												let src = await page.evaluate( button => 
@@ -179,11 +186,13 @@ const scrap_documents = async (page, name, path, log) => {
 												// get url
 												let [ iframe ] = await page.$x('//iframe');
 												if(iframe) debugging && log('Got the iframe where pdf is');
+												debugger;
 												// get the iframe src
 												let coded_src = await page.evaluate( iframe => iframe.src, iframe )
 												// decode src
 												let src = decodeURIComponent(coded_src.split('file=')[1])
 												debugging && log('Got the url src for the pdf' + src)
+												debugger;
 												// download pdf
 												let didDownload = await download_pdf(src, page, filename)
 												if(didDownload) 
@@ -198,9 +207,11 @@ const scrap_documents = async (page, name, path, log) => {
 												}catch(e){
 														console.error(e)
 														debugging && log('Closing pdf viewer with windows with console')
+														debugger;
 														await close_modals(page);
 												}
 												debugging && log('Pdf Viewer closed')
+												debugger;
 												// wait until it is down
 												await waitUntilRequestDone(page, 1000);
 										}
@@ -257,6 +268,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 		// get page again
 		let page = ( await browser.pages() )[0];
 		debugging && log('Got Browser page')
+		debugger;
 
 		//wait until page loads
 		await waitUntilRequestDone(page, 500);
@@ -267,6 +279,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 		let tabs = await tabs_element.$x('.//span/..')
 
 		debugging && log("Got Document Portal tabs" + tabs.length )
+		debugger;
 		// for every tab
 		for( let current_tab of tabs ){
 				// get name of the current tab
@@ -279,6 +292,7 @@ const scrap_companies_script = async ( browser, name, log ) => {
 										// click on first tab 
 										await current_tab.click() // and wait
 										debugging && log(`Tab ${await getText(current_tab)} was clicked`)
+										debugger;
 										await waitUntilRequestDone(page, 100);
 										let result = // run function
 												await tab_scrapers[current_tab_name](

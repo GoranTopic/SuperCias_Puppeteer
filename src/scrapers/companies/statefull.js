@@ -30,8 +30,10 @@ async function main(){
 		let retries_max = options.triesWithProxies;
 		
 		// set timeout 1000ms * 60s * minutesToTimeout 
-		if(minutesToTimeout) 
-				engine.setTimeout( 1000 * 60 * minutesToTimeout );
+		// don't use the timeout from the promise engine, 
+		// it make handeling with the timeout error so musch complicated
+		//if(minutesToTimeout) engine.setTimeout( 1000 * 60 * minutesToTimeout );
+		// use this. 
 
 		// create timeout process
 		const create_promise 	=	( name, proxy, log, retries = 0 ) =>
@@ -46,6 +48,10 @@ async function main(){
 						let isDone = false
 						while( loops < max_loop ){
 								try{
+										if(minutesToTimeout) setTimeout(() => 
+												reject( { name, proxy, log, error: "Timed out function" } ),
+												1000 * 60 * minutesToTimeout 
+										)
 										// go to the company
 										await goto_company_search_page(browser, log);
 										// input company name
@@ -60,11 +66,13 @@ async function main(){
 												loops = max_loop;
 												log(`${name} is completed.`);
 												resolve( { name, proxy, log } )
+												return;
 										}
 								}catch(e){ // something went wrong
 										console.error("error:" + e)
 								}
 								debugging && log("let's try that again");
+								debugger;
 								loops++;
 						}
 						await close_browser(browser, log)
@@ -72,24 +80,31 @@ async function main(){
 						reject( { name, proxy, log, error: "Did not finished company scrap" } )
 				}).catch( e =>{
 						console.log("it cam out here", e);
+						debugger;
 						return e;
 				})
 
 		// create timeout process
 		const create_callback = ( name, proxy, log, retries = 0) =>
 				result =>  {
+						debugging && log("Callback Called");
+						debugger;
 						// if there was an error
-						if(result?.error){ 
+						if(result?.error || result.message === 'timed out'){ 
 								// set proxy dead
-								proxy_r.setDead(result.proxy);
+								result.proxy && proxy_r.setDead(result.proxy);
 								// stop trying if many tries
-								if(result.retries > retries_max) 
+								if(result.retries && ( result.retries > retries_max )) {
 										errored.add(name);
-								else // let's try it again 
+										throw new Error('Process rejected');
+
+								}else{ // let's try it again 
 										return create_promise(name, proxy_r.next(), log, retries+1);
+								}
 						}else{ // proxy was successfull
 								checklist.check(name);
 								log(`${name} checked off`);
+								debugger;
 						}
 				}
 
@@ -110,21 +125,22 @@ async function main(){
 		})
 
 		// when fuffiled
-		engine.whenFulfilled( result => 
-				(result && result.log(`Fuffiled: ${result.name}`) )
-		)
+		engine.whenFulfilled( result => {
+				result && result.log(`Fuffiled: ${result.name}`) 
+				debugger;
+		})
 
 		// when rejected
-		engine.whenRejected( result => 
-				( result && result.log && result.log(`Rejected: ${result.name} with ${result.error}`) )
+		engine.whenRejected( result => {
 				// can return object without the log function
-		)
+				result && result.log && result.log(`Rejected: ${result.name} with ${result.error}`) 
+				debugger;
+		})
 		
 		//engine.whenResolved(isResolved_callback);
 		await engine.start()
 		// done message
 				.then(() => console.log("Engine done"))
-
 }
 
 main();

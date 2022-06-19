@@ -11,10 +11,12 @@ let debugging = options.debugging;
 let target_url = busqueda_de_companias;
 
 // make home page condition
-const has_open_tab_and_null_url = async browser => 
+const has_open_tab_and_null_url = async browser =>{ 
 		// if it dow not have a page yet, and it is at null url
-		( await browser.pages() ).length === 1 &&
-				( ( await browser.pages() )[0].url() === "about:blank")
+		let pageNum = await browser.pages()
+		let bankURL = ( await browser.pages() )[0]
+		return (pageNum.length === 1) &&  (bankURL.url() === "chrome://new-tab-page/")
+}
 
 // script to handle the home page
 const goto_page_script = async (browser, log) => {

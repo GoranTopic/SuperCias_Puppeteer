@@ -33,6 +33,7 @@ const input_name_script = async (browser, name, log) => {
 
 		// logged
 		if(text_input) debugging && log("Got search comany name textInput element")
+		debugger;
 
 		// clear text input
 		await page.evaluate(input => input.value = "", text_input);
@@ -40,9 +41,11 @@ const input_name_script = async (browser, name, log) => {
 		await waitUntilRequestDone(page, 1000)
 		// type name of company
 		debugging && log("Typing the name of the company")
+		debugger;
 		await text_input.type(name, {delay: 10});
 		await waitUntilRequestDone(page, 1000)
 		debugging && log("Wating for sudgestions")
+		debugger;
 
 		try{ // if we getsuggestion correcly 
 				// wait for sugeestions
@@ -65,6 +68,7 @@ const input_name_script = async (browser, name, log) => {
 
 		// recognize the captchan
 		debugging && log("Recognizing captchan...")
+		debugger;
 		let captchan_text = await recognizeCaptchan(captchan_buffer);
 		log("Recognized captchan as: " + captchan_text)
 
@@ -77,15 +81,18 @@ const input_name_script = async (browser, name, log) => {
 
 		// getting the search button
 		debugging && log("getting comapny search button..")
+		debugger;
 		let [ search_button ] =
 				await page.$x('//button[@id="frmBusquedaCompanias:btnConsultarCompania"]')
 
 		// click seach button
 		debugging && log("clicking search_button...")
+		debugger;
 		await search_button.click({delay: 1});
 
 		// wait until new page loads
 		debugging && log("waiting for new page")
+		debugger;
 		await waitUntilRequestDone(page, 2000);
 }
 

@@ -1,0 +1,9 @@
+# you can start the debugging eviroment with the command.
+node --experimental-repl-await inspect ./scripted.js
+# when in the debung eviroment you can press c for the next debugger command;
+# n to go the next line 
+# s to step inside a function 
+# o to step out of a function 
+# repl for the comandline. You cannot run async code only read valiables. 
+
+
