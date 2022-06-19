@@ -3,7 +3,7 @@
 		"proxyRotation": false,
 		"triesWithProxies": 5,
 		"triesPerProxy": 5, 
-		"minutesToTimeout": 0.1,
+		"minutesToTimeout": 0.5,
 		"concurrent_processes": 1,
 		"browser": {
 				"headless": false,

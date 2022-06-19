@@ -15,7 +15,6 @@ export default class PromiseEngine {
 				this.resolvedCB = null;
 		}
 
-
 		// setters
 		setStopFunction = stopFunction => this.stopFunction = stopFunction 
 		setNextPromise =  nextPromise  => this.nextPromise = nextPromise;
@@ -114,15 +113,20 @@ export default class PromiseEngine {
 						result = promise
 				// Observe the promise, saving the fulfillment in a closure scope.
 				result.then(
-						function(v) { isFulfilled = true; value = v; return v; }, 
-						function(e) { isRejected = true; value = e; throw e; }
-				).catch(e => { 
+						function(v) { isFulfilled = true; value = v; return v; }
+				).catch(
+						function(e) { isRejected = true; value = e; return e; }
+				)
+				/*
+				e => { 
 						if( e.message === 'timed out' ){ 
 								// if timout error, quitely end 
 								console.error(e);
 						}else // else throw error
-								throw e;
-				}) 
+								return e;}
+				) 
+				*/
+
 				// getters
 				result.getValue    = function() { return value };
 				result.isResolved  = function() { return isFulfilled || isRejected };
@@ -192,7 +196,6 @@ export default class PromiseEngine {
 												if(this.promises.every( p => p.isResolved() ) ){
 														this.halt = true
 												}
-												//if(loop_num ++ > loop_max) this.halt = true;
 										}catch(e){
 												this.halt = true;
 												console.error(e);

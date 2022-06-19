@@ -46,12 +46,15 @@ async function main(){
 						let max_loop = options.triesPerProxy;
 						let loops = 0;
 						let isDone = false
+						let timer = (minutesToTimeout)? setTimeout( async () => {
+								await close_browser(browser, log)
+								reject( { name, proxy, log, error: "Timed out" } )
+								loops = max_loop; // stop loop
+						},
+								1000 * 60 * minutesToTimeout 
+						) : null
 						while( loops < max_loop ){
 								try{
-										if(minutesToTimeout) setTimeout(() => 
-												reject( { name, proxy, log, error: "Timed out function" } ),
-												1000 * 60 * minutesToTimeout 
-										)
 										// go to the company
 										await goto_company_search_page(browser, log);
 										// input company name
@@ -63,25 +66,25 @@ async function main(){
 												// close browser
 												await close_browser(browser, log);
 												// stop loop
-												loops = max_loop;
 												log(`${name} is completed.`);
-												resolve( { name, proxy, log } )
-												return;
+												if(timer) clearTimeout(timer)
+												return resolve( { name, proxy, log } )
 										}
 								}catch(e){ // something went wrong
-										console.error("error:" + e)
+										console.error("error: " + e)
 								}
-								debugging && log("let's try that again");
-								debugger;
 								loops++;
+								if(debugging){
+										log(`${loops}/${max_loop} tries`)
+										if(loops < max_loop) log("trying again...");
+										else log("giving up ");
+								}
+								debugger;
 						}
 						await close_browser(browser, log)
 						log(`Could not finishd scrapping ${name}`)
-						reject( { name, proxy, log, error: "Did not finished company scrap" } )
-				}).catch( e =>{
-						console.log("it cam out here", e);
-						debugger;
-						return e;
+						if(timer) clearTimeout(timer)
+						return reject( { name, proxy, log, error: "Did not finished company scrap" } )
 				})
 
 		// create timeout process
@@ -90,15 +93,16 @@ async function main(){
 						debugging && log("Callback Called");
 						debugger;
 						// if there was an error
-						if(result?.error || result.message === 'timed out'){ 
+						if(result instanceof Error || result?.error){ 
 								// set proxy dead
-								result.proxy && proxy_r.setDead(result.proxy);
+								proxy && proxy_r.setDead(proxy);
 								// stop trying if many tries
-								if(result.retries && ( result.retries > retries_max )) {
+								if( retries > retries_max ) {
 										errored.add(name);
-										throw new Error('Process rejected');
-
+										//throw new Error('Process rejected');
 								}else{ // let's try it again 
+										debugging && log("new Promised issued")
+										debugger
 										return create_promise(name, proxy_r.next(), log, retries+1);
 								}
 						}else{ // proxy was successfull
