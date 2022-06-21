@@ -1,6 +1,6 @@
 {
 		"debugging": true,
-		"proxyRotation": false,
+		"proxyRotation": true,
 		"triesWithProxies": 5,
 		"triesPerProxy": 5, 
 		"minutesToTimeout": 5,
