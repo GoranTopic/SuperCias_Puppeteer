@@ -2,7 +2,7 @@ import { read_cookies } from '../../utils/cookies.js'
 import getText from '../../utils/getText.js'
 import { busqueda_de_companias } from '../../urls.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js'
-import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js'
+//import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js'
 import { write_json, read_json, mkdir, fileExists } from '../..//utils/files.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
