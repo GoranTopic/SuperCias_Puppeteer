@@ -6,9 +6,9 @@ const company_page = 'https://appscvs1.supercias.gob.ec/portalCia/contenedor.zul
 
 const company_documents_page_base = 'https://appscvsmovil.supercias.gob.ec/portaldedocumentos'
 
-const busqueda_de_companias = 'https://appscvsconsultas.supercias.gob.ec/consultaCompanias/busquedaCompanias.jsf'
+const busqueda_de_companias = 'https://appscvsconsultas.supercias.gob.ec/consultaCompanias/societario/busquedaCompanias.jsf'
 
-const information_de_companies = 'https://appscvsconsultas.supercias.gob.ec/consultaCompanias/informacionCompanias.jsf'
+const information_de_companies = 'https://appscvsconsultas.supercias.gob.ec/consultaCompanias/societario/informacionCompanias.jsf'
 
 const base_url_download = 'https://appscvsmovil.supercias.gob.ec/'
 
