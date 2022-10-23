@@ -22,12 +22,12 @@ let concurrent = options.concurrent_processes;
 let minutesToTimeout = options.minutesToTimeout
 
 async function main(){
-	let engine = new PromiseEngine(concurrent);
-	let proxy_r = new ProxyRotator();
-	let names = read_json('./data/mined/names/company_names.json');
-	let checklist = new Checklist('companies', names);
-	let errored = new DiskList('errored_companies');
-	let retries_max = options.triesWithProxies;
+    let engine = new PromiseEngine(concurrent);
+    let proxy_r = new ProxyRotator();
+    let names = read_json('./data/mined/names/company_names.json');
+    let checklist = new Checklist('companies', names);
+    let errored = new DiskList('errored_companies');
+    let retries_max = options.triesWithProxies;
 
 	// set timeout 1000ms * 60s * minutesToTimeout 
 	// don't use the timeout from the promise engine, 

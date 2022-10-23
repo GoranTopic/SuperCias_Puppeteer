@@ -1,40 +1,40 @@
 {
-		"name": "supercia",
-		"version": "1.0.0",
-		"description": "\" scrpper for the super intencecia de companias de Ecuador\" ",
-		"main": "main.js",
-		"type": "module",
-		"scripts": {
-				"companies": "node src/scrapers/companies/statefull.js",
-				"script": "node --experimental-repl-await inspect src/scrapers/companies/scripted.js",
-				"debug": "node --experimental-repl-await inspect src/scrapers/companies/statefull.js",
-				"test": "node tests/test.js",
-				"test_proxies": "node tests/proxies.js",
-				"test_timeout": "node tests/setTimeout.js",
-				"test_proxy_rotator": "node tests/proxy_rotator.js"
-		},
-		"repository": {
-				"type": "git",
-				"url": "git+https://github.com/GoranTopic/supercia_scrapper.git"
-		},
-		"keywords": [
-				"SuperCia",
-				"puppeteer",
-				"js",
-				"javascript",
-				"datamining",
-				"scraping"
-		],
-		"author": "Goran Topic",
-		"license": "ISC",
-		"bugs": {
-				"url": "https://github.com/GoranTopic/supercia_scrapper/issues"
-		},
-		"homepage": "https://github.com/GoranTopic/supercia_scrapper#readme",
-		"dependencies": {
-				"chalk": "^5.0.1",
-				"puppeteer": "^14.1.1",
-				"tesseract.js": "^2.0.0-beta.2",
-				"truncate-utf8-bytes": "^1.0.2"
-		}
+	"name": "supercia",
+	"version": "1.0.0",
+	"description": "\" scrpper for the super intencecia de companias de Ecuador\" ",
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"companies": "node src/scrapers/companies/statefull.js",
+		"script": "node --experimental-repl-await inspect src/scrapers/companies/scripted.js",
+		"debug": "node --experimental-repl-await inspect src/scrapers/companies/statefull.js",
+		"test": "node tests/test.js",
+		"test_proxies": "node tests/proxies.js",
+		"test_timeout": "node tests/setTimeout.js",
+		"test_proxy_rotator": "node tests/proxy_rotator.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GoranTopic/supercia_scrapper.git"
+	},
+	"keywords": [
+		"SuperCia",
+		"puppeteer",
+		"js",
+		"javascript",
+		"datamining",
+		"scraping"
+	],
+	"author": "Goran Topic",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/GoranTopic/supercia_scrapper/issues"
+	},
+	"homepage": "https://github.com/GoranTopic/supercia_scrapper#readme",
+	"dependencies": {
+		"chalk": "^5.0.1",
+		"puppeteer": "^14.1.1",
+		"tesseract.js": "^2.0.0-beta.2",
+		"truncate-utf8-bytes": "^1.0.2"
+	}
 }

@@ -1,15 +1,15 @@
 {
-		"debugging": true,
-		"proxyRotation": true,
-		"triesWithProxies": 5,
-		"triesPerProxy": 5, 
-		"minutesToTimeout": 5,
-		"concurrent_processes": 1,
-		"browser": {
-				"headless": false,
-				"slowMo": 1,
-				"excludeSwitches": "enable-automation",
-				"args": [ "" ]
-		}
+	"debugging": true,
+	"proxyRotation": false,
+	"triesWithProxies": 5,
+	"triesPerProxy": 5, 
+	"minutesToTimeout": 5,
+	"concurrent_processes": 1,
+	"browser": {
+		"headless": false,
+		"slowMo": 1,
+		"excludeSwitches": "enable-automation",
+		"args": [ "" ]
+	}
 
 }
