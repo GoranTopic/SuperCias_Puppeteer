@@ -1,6 +1,6 @@
 {
     "browser": {
-        "headless": true,
+        "headless": false,
         "slowMo": 1,
         "excludeSwitches": "enable-automation",
         "args": [
