@@ -1,4 +1,5 @@
 import goto_company_search_page from '../../states/supercia.gov.ec/goto_company_search_page.js'
+import { information_de_companies } from '../../urls.js';
 import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, fileExists } from '../../utils/files.js';
@@ -84,7 +85,8 @@ let result = await send_request(
 
 /*--------- company scrap ---------*/
 // not thet captachn has been accpeted we can load company page
-let company_url = 'https://appscvsconsultas.supercias.gob.ec/consultaCompanias/informacionCompanias.jsf';
+let company_url = information_de_companies;
+
 // if it is not in the comany url, go there
 let current_page = ( await browser.pages() )[0].url()
 if( current_page !== company_url )
