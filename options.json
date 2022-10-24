@@ -1,0 +1,18 @@
+{
+    "browser": {
+        "headless": true,
+        "slowMo": 1,
+        "excludeSwitches": "enable-automation",
+        "args": [
+            "--disable-web-security",
+            "--allow-file-access-from-files"
+        ]
+    },
+    "debugging": true,
+    "proxyRotation": false,
+    "triesWithProxies": 5,
+    "triesPerProxy": 5,
+    "minutesToTimeout": 5,
+    "nameQueryTimeout": 3,
+    "concurrent_processes": 1
+}
