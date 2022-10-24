@@ -1,15 +1,25 @@
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
 import { check_first_captchan_parameters, check_captchan_parameters } from '../client_source_code/ABParameters.js';
-// this function handles the messangin to the serve
-// sometimes the server will as for a captchan, this function handles everytime the server
-// asks for it.
+
 
 // followAlong placeholder
 let error_count = 0;
 let error_max = 0;
 let followAlong = true;
 
+/**
+ * send_request. 
+ * this function handles the messangin to the serve
+ * sometimes the server will as for a captchan, this function handles everytime the server
+ * asks for it.
+ *
+ * @param {} parameters this are the paramenter that are asked to to the backend
+ * @param {} callback, this is the function that after the opertations has been successfull
+ *  (response, status, i, C) => { return "return me" }
+ * @param {} page, this is the page of the pupeteer browser
+ * @param {} log, this is the log object
+ */
 let send_request = async (parameters, callback, page, log) => {
     // let's get the parameters of the function, the call back and the, page
     let isCaptchan = false;
