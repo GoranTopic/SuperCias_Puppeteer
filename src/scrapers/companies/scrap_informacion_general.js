@@ -1,10 +1,10 @@
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
-import { write_json, mkdir, fileExists } from '../..//utils/files.js';
+import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
 import getText from '../../utils/getText.js';
 import options from '../../options.js';
-import send_request from '../../client_source_code/send_request.js'
+import send_request from '../../websites_code/send_request.js'
 
 export default async (page, path, log) => {
     // first, lets make a diretory for our info

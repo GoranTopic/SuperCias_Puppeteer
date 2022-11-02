@@ -2,9 +2,9 @@ import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
-import send_request from '../../client_source_code/send_request.js';
 import options from '../../options.js';
-import { query_table_parameters } from '../../client_source_code/ABParameters.js';
+import send_request from '../../websites_code/send_request.js';
+import { query_table_parameters } from '../../websites_code/queries/ABParameters.js';
 
 export default async (page, path, log) => {
     // let's make our dir

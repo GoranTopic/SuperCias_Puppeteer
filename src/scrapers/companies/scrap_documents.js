@@ -2,11 +2,12 @@ import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
-import send_request from '../../client_source_code/send_request.js';
-import query_documentos_online from '../../client_source_code/query_documentos_online.js';
 import options from '../../options.js';
-import { query_table_parameters, 
-    get_all_document_tables  } from '../../client_source_code/ABParameters.js';
+import send_request from '../../websites_code/send_request.js';
+// query the documents online
+import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
+// qury all tables in the 
+import query_all_table_rows from '../../websites_code/queries/query_all_table_rows.js'
 
 export default async (page, path, log) => {
     // let's make our dir

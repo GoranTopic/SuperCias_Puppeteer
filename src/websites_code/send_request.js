@@ -1,6 +1,6 @@
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
-import { check_first_captchan_parameters, check_captchan_parameters } from '../client_source_code/ABParameters.js';
+import { check_first_captchan_parameters, check_captchan_parameters } from './queries/ABParameters.js';
 
 
 // followAlong placeholder

@@ -3,19 +3,17 @@ import { information_de_companies } from '../../urls.js';
 import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, fileExists } from '../../utils/files.js';
-import custom_components from '../../client_source_code/custom_components.js';
-import custom_createWidget from '../../client_source_code/custom_createWidget.js';
-import custom_ajax from '../../client_source_code/custom_ajax.js';
+import custom_ajax from '../../websites_code/custom_code/custom_ajax.js';
 import download_pdf from '../../utils/download_pdf.js';
 import scrap_informacion_general from './scrap_informacion_general.js';
-import scrap_administradores_actuales from './scrap_administradores_actuales.js';
-import scrap_documentacion from './scrap_documentacion.js';
+import scrap_documents from './scrap_documents.js';
+//import scrap_administradores_actuales from './scrap_administradores_actuales.js';
 import { Checklist, DiskList } from '../../progress.js';
 import puppeteer from 'puppeteer';
 import options from '../../options.js';
-import send_request from '../../client_source_code/send_request.js'
-import custom_functions from '../../client_source_code/custom_functions.js'
-import { select_item_parameter } from '../../client_source_code/ABParameters.js'
+import send_request from '../../websites_code/send_request.js'
+import custom_functions from '../../websites_code/custom_code/custom_functions.js'
+import { select_item_parameter } from '../../websites_code/queries/ABParameters.js'
 import strToBinary from '../../utils/strToBinary.js';
 
 // set debugging
@@ -121,7 +119,7 @@ let tab_menus = {
     'Kárdex de accionistas': null,
     'Información anual presentada': null,
     'Consulta de cumplimiento': null,
-    'Documentos online': scrap_documentacion, //scrap_documents,
+    'Documentos online': scrap_documents, 
     'Valores adeudados': null,
     'Valores pagados': null,
     'Notificaciones generales': null,

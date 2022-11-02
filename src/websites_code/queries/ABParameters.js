@@ -82,4 +82,4 @@ const get_all_document_tables = async (table, page) => {
 }
 
 
-export { check_first_captchan_parameters, check_captchan_parameters, query_table_parameters, select_item_parameter }
+export { check_first_captchan_parameters, check_captchan_parameters, select_item_parameter }
