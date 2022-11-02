@@ -4,6 +4,7 @@ import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
 import getText from '../../utils/getText.js';
 import options from '../../options.js';
+import send_request from '../../client_source_code/send_request.js'
 
 export default async (page, path, log) => {
     // first, lets make a diretory for our info
@@ -29,16 +30,35 @@ export default async (page, path, log) => {
     // write_file
     write_json(information_general, path + `/${menu_name}.json`)
 
-    // let's get the pdf
+    // let's get the pdf from the general infromatino
     // get the iframe src for the pdf
-    let coded_src = await page.evaluate( () =>
-        document.getElementById('frmPresentarDocumentoPdf\:j_idt1075').src
+    let coded_src = await page.evaluate( 
+        () => document.getElementById('frmInformacionCompanias\:j_idt84').src
     );
+
+    debugger
+    // let sent the request to select the company and get the captchan
+    let result = await send_request( 
+        { 
+            s:"frmInformacionCompanias:j_idt84",
+            u:"dlgPresentarDocumentoPdf panelPresentarDocumentoPdf dlgCaptcha frmCaptcha:panelCaptcha",
+        },
+        (response, status, i, C) => {
+            console.log("document callback ran");
+            return "return me";
+        },
+        page,
+        log
+    )
+    debugger
+
     // decode src of the pdf
+    /*
     let src = decodeURIComponent(coded_src.split('file=')[1])
     // download pdf
     let didDownload = await download_pdf(src, page, path + menu_name)
     if(didDownload) console.log(`Downloaded: ${menu_name + ".pdf"}`)
+    */
 
     // if we got to here withou errors, we did it!
     log("General Infomation Scraped");

@@ -23,6 +23,12 @@ export default () => {
             reader.readAsBinaryString(file);
         })
 
+    /**
+     * window.to_binary_string.
+     * converts an image to a binary string, so that it can be send to puppetter
+     *
+     * @param {binary obj} image, 
+     */
     window.to_binary_string = async image => {
         const data = await image.blob();
         console.log("data:", data)
@@ -37,9 +43,27 @@ export default () => {
             eval("("+func_str+")(response, status, i, C)");
         })
 
+    /**
+     * window.parse_table. 
+     * parses tables, of online documents
+     *
+     * @param String table_id,
+     * It is the key of how the table is stored in PrimeFaces.widgets obj
+     *
+     * for Example: 
+     *  PrimeFaces.widgets['tblDocumentosGenerales'].rows
+     *
+     * Posible values:
+     *  'tblDocumentosGenerales'
+     *  'tblDocumentosEconomicos'
+     *  'tblDocumentosJuridicos'
+     *
+     *  then it
+     *
+     *  returns a table object
+     */
     window.parse_table = table_id => {
-        let rows = PrimeFaces.widgets[table_id].rows;
-        // ex: PrimeFaces.widgets['widget_frmInformacionCompanias_j_idt673_tblDocumentosGenerales'].rows
+        let rows = PrimeFaces.widgets[table_id].rows; 
         let table = [];
         for(let row of rows){
             let doc = {title:"", id:""};

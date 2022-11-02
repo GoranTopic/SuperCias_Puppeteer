@@ -51,7 +51,7 @@ let page = ( await browser.pages() )[0];
 
 // go to the company search page
 await goto_company_search_page(browser, log);
-debugger;
+
 // check if server is ofline
 await check_server_offline(browser, log);
 
@@ -98,12 +98,13 @@ if( current_page !== company_url )
 // wait for page to load
 await waitUntilRequestDone(page, 500);
 
+// load custom client code
 await page.evaluate(custom_ajax);
 await page.evaluate(custom_functions);
 log("custom code loaded")
 
 // make user there is companies folder
-let companies_dir = './data/mined/companies_testing'
+let companies_dir = './data/mined/companies';
 mkdir(companies_dir)
 // company diretory 
 let company_dir = companies_dir + "/" + company.name
@@ -130,18 +131,20 @@ let tab_menus = {
 let checklist_company_menu = new Checklist(
     name + "_menu", // name for how chelist save
     // only make check list of what we have scraping functions for
-    Object.keys(tab_menus).filter( k => tab_menus[k])
+    Object.keys(tab_menus).filter( k => tab_menus[k] )
 )
 
+// for every menu, run the associated scrapper if found
 for( let menu of Object.keys(tab_menus) ) {
     // if it is not already chekoff
     if( !checklist_company_menu.isCheckedOff(menu) ){
         // and we have function for it
         if( tab_menus[menu] ){ // run it
-            await waitUntilRequestDone(page, 1000);
             // wait for page to load
+            await waitUntilRequestDone(page, 1000);
+            // run the function
             let outcome = await tab_menus[menu](page, company_dir, log);
-            // if outcome successfull , check it off
+            // if outcome successfull, check it off
             if(outcome) checklist_company_menu.check(menu)
         }
     }
