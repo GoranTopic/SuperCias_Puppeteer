@@ -137,13 +137,17 @@ for( let menu of Object.keys(tab_menus) ) {
     // if it is not already chekoff
     if( !checklist_company_menu.isCheckedOff(menu) ){
         // and we have function for it
-        if( tab_menus[menu] ){ // run it
-            // wait for page to load
-            await waitUntilRequestDone(page, 1000);
-            // run the function
-            let outcome = await tab_menus[menu](page, company_dir, log);
-            // if outcome successfull, check it off
-            if(outcome) checklist_company_menu.check(menu)
+        try{
+            if( tab_menus[menu] ){ // run it
+                // wait for page to load
+                await waitUntilRequestDone(page, 1000);
+                // run the function
+                let outcome = await tab_menus[menu](page, company_dir, log);
+                // if outcome successfull, check it off
+                if(outcome) checklist_company_menu.check(menu)
+            }
+        }catch(e){
+            console.error(e);
         }
     }
 }

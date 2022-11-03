@@ -97,12 +97,12 @@ let send_request = async (parameters, callback, page, log) => {
         // recognize the bytes image
         let captchan_text = await recognizeCaptchan(captchan_bin);
         log("captchan regonized as:", captchan_text);
-        // now tlet test whether the capthacn was correct
-        // we change the parameters depending on wheather this is the first of a normal captchan
+        // now let's test wether the capthacn was correct
+        // we change the parameters depending on whether this is the first of a normal captchan
         let parameters_cptch;
         if(response.isFirstCaptchan) parameters_cptch = check_first_captchan_parameters
         if(response.isCaptchan) parameters_cptch = check_captchan_parameters
-        // get the callback
+        // get the callback, which runs after the captchan is send
         let original_oncomplete_str_cptch = parameters_cptch.oncomplete?.toString();
         let onsuccess_str_cptch = parameters_cptch.onsuccess?.toString();
         // send the captachn back to the browser
