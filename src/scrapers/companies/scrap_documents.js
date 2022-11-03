@@ -4,9 +4,7 @@ import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
 import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js';
-// query the documents online
 import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
-// qury all tables in the 
 import query_all_table_rows from '../../websites_code/queries/query_all_table_rows.js'
 
 export default async (page, path, log) => {
@@ -16,8 +14,8 @@ export default async (page, path, log) => {
     mkdir(path);
 
     console.log('scrap documents ran')
-    debugger
 
+    debugger
     // query the documentos online
     let tables = await send_request(
         query_documentos_online, // paramter need to make the reuqe
@@ -25,6 +23,18 @@ export default async (page, path, log) => {
             //return window.parse_table();
             return true
         },
+        page, // puppetter page
+        log // logger
+    );
+
+    debugger
+    // query for all the rows in the general documents table
+    let rows = await send_request(
+        query_all_table_rows(), // paramter need to make the reuqe
+        (response, status, i, C) => { 
+            console.log('query all rows callback ran' );
+            return true
+        }, // callback
         page, // puppetter page
         log // logger
     );
