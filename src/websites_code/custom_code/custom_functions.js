@@ -2,7 +2,6 @@ export default () => {
     /* this is the place where we define some usefull function to have in the browser side */   
 
     window.parser = new DOMParser();
-
     window.parse_html_str = html_str =>
         window.parser.parseFromString(html_str, 'text/html');
 

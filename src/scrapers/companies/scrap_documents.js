@@ -34,7 +34,7 @@ export default async (page, path, log) => {
 
     debugger;
     // query for all the rows in the general documents table
-    console.log('sending query documentos rows request')
+    console.log('sending query rows request')
     let rows = await send_request(
         query_all_table_rows(), // paramter need to make the reuqe
         (response, status, i, C) => { 
@@ -44,7 +44,7 @@ export default async (page, path, log) => {
         page, // puppetter page
         log // logger
     );
-    console.log('query documentos rows request finished')
+    console.log('query rows request finished')
 
 
     /*

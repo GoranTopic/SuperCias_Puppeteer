@@ -10,6 +10,7 @@ let followAlong = true;
 
 /**
  * send_request. 
+ * Welcome, this might be the most complex function in the scrapper.
  * this function handles the messangin to the serve
  * sometimes the server will as for a captchan, this function handles everytime the server
  * asks for it.
@@ -76,15 +77,15 @@ let send_request = async (parameters, callback, page, log) => {
                         );
                     }
                     if(followAlong){ // run the callbacks which normaly run with the query
-                        eval("("+original_oncomplete_str+")(response, status, i, C)");
-                        eval("("+onsuccess_str+")(response, status, i, C)");
+                        eval("("+original_oncomplete_str+")(response, status, i )");
+                        eval("("+onsuccess_str+")(response, status, i )");
                     }
                 }
             })
         }), {parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
-   //log("response:",response)
+   log("response:",response)
 
     // if we have response that is capthan
     if(response.isCaptchan || response.isFirstCaptchan){

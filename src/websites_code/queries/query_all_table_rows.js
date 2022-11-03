@@ -12,12 +12,12 @@
  *  the command needed to query all the rows of document table
  *  to the server.
  *
- * @param {} tableName, optionl
+ * @param String tableName, optionl
  *  this is the name of the table we want to query all rows from 
  *  tblDocumentosGenerales
  *  tblDocumentosEconomicos
  *  tblDocumentosJudiciales
- * @param {} documentCount
+ * @param String documentCount
  *  this is the name of the table we want to query all rows from 
  *  if undefined, it send a really big number
  */
