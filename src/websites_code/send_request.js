@@ -64,19 +64,18 @@ let send_request = async (parameters, callback, page, log) => {
                         let captchan_img = await window.fetch(captchan_src);
                         // now that we have the captchan src, let's fetch the image
                         console.log("captchan_img:", captchan_img);
-                        //
                         let bin_str = await window.to_binary_string( captchan_img );
                         resolve({ // on success
                             isCaptchan: (window.isCaptchan)? true : false,
                             isFirstCaptchan: (window.isFirstCaptchan)? true : false,
                             bin_str
                         });
-                    }else{
+                    }else{ // run the callback passed as second parameter
                         resolve(
-                            eval("await ("+callback_str+")(response, status, i, C)")
+                            eval("("+callback_str+")(response, status, i, C)")
                         );
                     }
-                    if(followAlong){
+                    if(followAlong){ // run the callbacks which normaly run with the query
                         eval("("+original_oncomplete_str+")(response, status, i, C)");
                         eval("("+onsuccess_str+")(response, status, i, C)");
                     }
@@ -85,11 +84,12 @@ let send_request = async (parameters, callback, page, log) => {
         }), {parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
-    //log("response:",response)
+   //log("response:",response)
 
     // if we have response that is capthan
     if(response.isCaptchan || response.isFirstCaptchan){
         log("Captchan Recived");
+        debugger;
         let binary_string = response.bin_str;
         // if we have a captahcn we need to converte form to binay from a binary string
         // let't rever back the from str to binary

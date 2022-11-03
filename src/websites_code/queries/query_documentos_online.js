@@ -15,6 +15,7 @@ const query_documentos_online = {
             PF('tblDocumentosJuridicos').clearFilters();           
         if (PF('tblDocumentosEconomicos') != null) 
             PF('tblDocumentosEconomicos').clearFilters();
+        return true;
     },
     source: "frmMenu:menuDocumentacion",
     update: "frmInformacionCompanias:panelGroupInformacionCompanias frmCaptcha:panelCaptcha",

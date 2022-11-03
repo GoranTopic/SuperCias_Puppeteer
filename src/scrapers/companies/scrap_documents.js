@@ -15,8 +15,12 @@ export default async (page, path, log) => {
 
     console.log('scrap documents ran')
 
-    debugger
+    // wait for page to load
+    await waitUntilRequestDone(page, 500);
+
+    debugger;
     // query the documentos online
+    console.log('sending query documentos request')
     let tables = await send_request(
         query_documentos_online, // paramter need to make the reuqe
         (response, status, i, C) => { // the callback, this is goin to run in the browser,
@@ -26,9 +30,11 @@ export default async (page, path, log) => {
         page, // puppetter page
         log // logger
     );
+    console.log('query documents request finished')
 
-    debugger
+    debugger;
     // query for all the rows in the general documents table
+    console.log('sending query documentos rows request')
     let rows = await send_request(
         query_all_table_rows(), // paramter need to make the reuqe
         (response, status, i, C) => { 
@@ -38,6 +44,7 @@ export default async (page, path, log) => {
         page, // puppetter page
         log // logger
     );
+    console.log('query documentos rows request finished')
 
 
     /*
@@ -89,5 +96,6 @@ export default async (page, path, log) => {
     */
 
     // retunr for debuggin porposes
+    console.log('scrap documents finished')
     return false;
 }
