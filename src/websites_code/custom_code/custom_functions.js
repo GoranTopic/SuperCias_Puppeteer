@@ -44,7 +44,8 @@ export default () => {
 
     /**
      * window.parse_table. 
-     * parses tables, of online documents
+     * this function read from the tables in the windows, 
+     * returns the tables 
      *
      * @param String table_id,
      * It is the key of how the table is stored in PrimeFaces.widgets obj
@@ -57,9 +58,9 @@ export default () => {
      *  'tblDocumentosEconomicos'
      *  'tblDocumentosJuridicos'
      *
-     *  then it
+     *  then it, parses the html to the id and the title of the pdf document
      *
-     *  returns a table object
+     *  returns an array with the id of the pdf and the title
      */
     window.parse_table = table_id => {
         let rows = PrimeFaces.widgets[table_id].rows; 
@@ -75,6 +76,28 @@ export default () => {
             table.push(doc)
         }
         return table;
+    }
+
+    /**
+     * windows.parse_pdf_src.
+     *  this function take the response from the server when query_pdf_link is send, 
+     *  it parses the response and return only the pointing to the pdf.
+     *
+     * @param {String} response
+     *  Html string of the response from th server
+     */
+    windows.parse_pdf_src = response => {
+        let response_html_str = response.responseText;
+        let extension_tag = response_html_str.responseText
+            .split('<extension ln="primefaces" type="args">')[1]
+            .split('</extension>')[0];
+        let extension_obj = JSON.parse(extension_tag);
+        if(extension_obj.urlDocumentoPdf) 
+            return extension_obj.urlDocumentoPdf
+        else{
+            console.error('Could not find the document url from the extension');
+            return null;
+        }
     }
 
 }

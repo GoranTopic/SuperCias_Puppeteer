@@ -24,7 +24,6 @@ export default async (page, path, log) => {
     let tables = await send_request(
         query_documentos_online, // paramter need to make the reuqe
         (response, status, i, C) => { // the callback, this is goin to run in the browser,
-            //return window.parse_table();
             return true
         },
         page, // puppetter page
@@ -35,17 +34,33 @@ export default async (page, path, log) => {
     debugger;
     // query for all the rows in the general documents table
     console.log('sending query rows request')
-    let rows = await send_request(
-        query_all_table_rows(), // paramter need to make the reuqe
+    let pdfs = await send_request(
+        query_all_table_rows('tblDocumentosGenerales'),
         (response, status, i, C) => { 
             console.log('query all rows callback ran' );
-            return true
-        }, // callback
-        page, // puppetter page
-        log // logger
+            // let get a list of all pdf documents
+            return window.parse_table('tblDocumentosGenerales');
+        },
+        page,
+        log
     );
-    console.log('query rows request finished')
+    console.log('rows: ', rows);
+    console.log('query rows request finished');
 
+    for(let pdf of pfds){ 
+        let pdf_src = await send_request(
+            (response, status, i, C) => { 
+                console.log('query all rows callback ran' );
+                // let get a list of all pdf documents
+                return window.parse_table('tblDocumentosGenerales');
+            },
+            page,
+            log
+        );
+
+        dow
+
+    }
 
     /*
     // let get the paramter need to make the call the server

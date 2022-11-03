@@ -5,7 +5,6 @@
  * This code was grabed from the webite console, printed by a custom AB Function on nov 2, 2022
  **/
 
-
 /**
  * get_all_table_rows. 
  *  this function takes two optional paramters and returns 
