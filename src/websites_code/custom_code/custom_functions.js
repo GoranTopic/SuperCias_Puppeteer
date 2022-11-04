@@ -86,7 +86,7 @@ export default () => {
      * @param {String} response
      *  Html string of the response from th server
      */
-    windows.parse_pdf_src = response => {
+    window.parse_pdf_src = response => {
         let response_html_str = response.responseText;
         let extension_tag = response_html_str.responseText
             .split('<extension ln="primefaces" type="args">')[1]
@@ -94,10 +94,10 @@ export default () => {
         let extension_obj = JSON.parse(extension_tag);
         if(extension_obj.urlDocumentoPdf) 
             return extension_obj.urlDocumentoPdf
-        else{
+        else
             console.error('Could not find the document url from the extension');
-            return null;
-        }
+        // todo: write more code in case the url was not there 
+        return null;
     }
 
 }

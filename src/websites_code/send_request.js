@@ -1,6 +1,8 @@
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
-import { check_first_captchan_parameters, check_captchan_parameters } from './queries/ABParameters.js';
+
+import query_company_captchan from './queries/query_company_captchan.js';
+import submit_captchan from './queries/submit_captchan.js';
 
 
 // followAlong placeholder
@@ -11,25 +13,59 @@ let followAlong = true;
 /**
  * send_request. 
  * Welcome, this might be the most complex function in the scrapper.
- * this function handles the messangin to the serve
- * sometimes the server will as for a captchan, this function handles everytime the server
- * asks for it.
+ * this function handles the messangin to the serve, and uses the AB function from the website's 
+ * code the to handle all the server client interaction. 
+ *
+ * Sometimes the server will ask for a captchan, 
+ * the interation is as follows:
+ *
+ *      Client       |      Server
+ *  send a query ----->
+ *              <-----  sends captchan html Update
+ *  sends solved capthan ----->
+ *              <-----  sends query's response html Update
+ *
+ *
+ * Whe this function does is basically it calls 
+ * the AB function in the browser with the passed paramters 
+ * It highjacks the oncomplete function of the AB function to 
+ * run the callback  passed as the second arguemnt and the original 
+ * oncomplete, and onsuccess function found in the paramters
+ *
+ * if the srver's responce is with captchan it handles the captcha, 
+ * tries to solve it and sends the solution the server, 
+ * then it will run the passed callback
+ *
+ * to be ablet to send the function to the browser, I had to convert them to strings.
+ * Then run them with the eval. (I know eval is evil...) It cannot handle the 'await' key word, 
+ * thus the passed callback cannot be an asycn fucntion.
+ * 
+ *
+ * Only running the callback, passed in the second paramters 
+ * once the soluction to the captchan has been accepted
  *
  * @param {} parameters this are the paramenter that are asked to to the backend
  * @param {} callback, this is the function that after the opertations has been successfull
  *  (response, status, i, C) => { return "return me" }
  * @param {} page, this is the page of the pupeteer browser
  * @param {} log, this is the log object
+ * 
+ * return whaever the return of the passed callback is 
  */
 let send_request = async (parameters, callback, page, log) => {
     // let's get the parameters of the function, the call back and the, page
     let isCaptchan = false;
+
     let isFirstCaptchan = false;
+
+    // make the functinos into string so that they can be passed to the browser
     let original_oncomplete_str = parameters.oncomplete?.toString();
     let onsuccess_str = parameters.onsuccess?.toString();
     let callback_str = callback.toString();
+
     //console.log('callback_str:', callback_str);
     //console.log('original_oncomplete_str:', original_oncomplete_str);
+    
     let response = await page.evaluate(
         async ({parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str}) =>
@@ -48,6 +84,7 @@ let send_request = async (parameters, callback, page, log) => {
                     let extension = html.getElementsByTagName('extension');
                     if(extension.length){ // if go captchan
                         extension = extension[0].innerText;
+                        console.log('extension:', extension);
                         window.isCaptchan = JSON.parse(extension).presentarPopupCaptcha;
                     }
 
@@ -73,12 +110,12 @@ let send_request = async (parameters, callback, page, log) => {
                         });
                     }else{ // run the callback passed as second parameter
                         resolve(
-                            eval("("+callback_str+")(response, status, i, C)")
+                            eval("("+callback_str+")(response, status, i)")
                         );
                     }
                     if(followAlong){ // run the callbacks which normaly run with the query
-                        eval("("+original_oncomplete_str+")(response, status, i )");
-                        eval("("+onsuccess_str+")(response, status, i )");
+                        eval("("+original_oncomplete_str+")(response, status, i)");
+                        eval("("+onsuccess_str+")(response, status, i)");
                     }
                 }
             })
@@ -108,6 +145,7 @@ let send_request = async (parameters, callback, page, log) => {
         let onsuccess_str_cptch = parameters_cptch.onsuccess?.toString();
         // send the captachn back to the browser
         //console.log(response)
+        debugger;
         response = await page.evaluate(
             async ({ parameters_cptch, captchan_text, callback_str,
                 followAlong, original_oncomplete_str_cptch, 
@@ -121,7 +159,7 @@ let send_request = async (parameters, callback, page, log) => {
                 (document.getElementById('frmBusquedaCompanias:captcha'))?
                     document.getElementById('frmBusquedaCompanias:captcha').value = captchan_text :
                     null;
-                // send request
+                // send captachn
                 PrimeFaces.ab({
                     ...parameters_cptch,
                     oncomplete: async (response, status, i, C) => {
@@ -142,8 +180,8 @@ let send_request = async (parameters, callback, page, log) => {
                             let return_value = eval("("+callback_str+")(response, status, i, C)");
                             resolve( { isCaptchanCorrect, return_value } );
                             if(followAlong){ // if follow with browser, run original callback
-                                eval("("+original_oncomplete_str_cptch+")(response, status, i, C)");
-                                eval("("+onsuccess_str_cptch+")(response, status, i, C)");
+                                //eval("("+original_oncomplete_str_cptch+")(response, status, i, C)");
+                                //eval("("+onsuccess_str_cptch+")(response, status, i, C)");
                             }
                         }else
                             resolve(  { isCaptchanCorrect } );

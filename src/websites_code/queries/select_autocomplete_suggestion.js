@@ -5,8 +5,6 @@
  * This code was grabed from the browser around mid-2022
  **/
 
-
-
 /**
  * select_autocomplete_suggestion. 
  *  

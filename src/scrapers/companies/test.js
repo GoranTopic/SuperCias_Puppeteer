@@ -13,7 +13,7 @@ import puppeteer from 'puppeteer';
 import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js'
 import custom_functions from '../../websites_code/custom_code/custom_functions.js'
-import { select_item_parameter } from '../../websites_code/queries/ABParameters.js'
+import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
 import strToBinary from '../../utils/strToBinary.js';
 
 // set debugging
@@ -63,22 +63,20 @@ await page.waitForTimeout(1000);
 await page.evaluate(custom_ajax);
 await page.evaluate(custom_functions);
 
-// make company name
-let company_name = company.id + ' - ' + company.ruc + ' - ' + company.name;
-
-// let selecte the company we want to scrap
-select_item_parameter.params[0].value = company_name;
-let parameters = select_item_parameter;
-
+debugger;
 // let sent the request to select the company and get the captchan
+
 let result = await send_request(
-    parameters, // parameters
+    select_autocomplete_company(company), // parameters
     (response, status, i, C) => {
-        return "return me";
+        return "company selected";
     },
     page,
     log
 );
+
+// handle the first catchan 
+
 
 /*--------- company scrap ---------*/
 // not thet captachn has been accpeted we can load company page

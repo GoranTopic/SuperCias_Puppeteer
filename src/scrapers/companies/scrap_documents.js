@@ -24,7 +24,7 @@ export default async (page, path, log) => {
     let tables = await send_request(
         query_documentos_online, // paramter need to make the reuqe
         (response, status, i, C) => { // the callback, this is goin to run in the browser,
-            return true
+            return response
         },
         page, // puppetter page
         log // logger
@@ -34,12 +34,13 @@ export default async (page, path, log) => {
     debugger;
     // query for all the rows in the general documents table
     console.log('sending query rows request')
-    let pdfs = await send_request(
-        query_all_table_rows('tblDocumentosGenerales'),
+    let pdf_ids = await send_request(
+        query_all_table_rows(),
         (response, status, i, C) => { 
             console.log('query all rows callback ran' );
             // let get a list of all pdf documents
-            return window.parse_table('tblDocumentosGenerales');
+            return response
+           // window.parse_table('tblDocumentosGenerales');
         },
         page,
         log
@@ -47,20 +48,31 @@ export default async (page, path, log) => {
     console.log('rows: ', rows);
     console.log('query rows request finished');
 
-    for(let pdf of pfds){ 
+    /*
+    for(let pdf_id of pdf_ids){ 
+        // get the table
+        let table = pdf_id.split(':')[2];
+        // get the id
+        let pdf_num = pdf_id.split(':')[3];
+        // request link
+        debugger;
         let pdf_src = await send_request(
+            query_pdf(table, pdf_num),
             (response, status, i, C) => { 
-                console.log('query all rows callback ran' );
-                // let get a list of all pdf documents
-                return window.parse_table('tblDocumentosGenerales');
+                // return the src of the pdf
+                return window.parse_pdf_src(response);
             },
             page,
             log
         );
-
-        dow
-
+        console.log('pdf_src:', pdf_src);
+        debugger;
+        // download pdf
+        let result = await download_pdf(src, page, path) 
+        if(result) console.log('Got pdf:', src)
     }
+    */
+
 
     /*
     // let get the paramter need to make the call the server
