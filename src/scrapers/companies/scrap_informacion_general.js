@@ -30,13 +30,17 @@ export default async (page, path, log) => {
     // write_file
     write_json(information_general, path + `/${menu_name}.json`)
 
+
+    /*
+     * the following code is to download the pdf of the general informatoin
+     * curredlt not working
+     
     // let's get the pdf from the general infromatino
     // get the iframe src for the pdf
     let coded_src = await page.evaluate( 
         () => document.getElementById('frmInformacionCompanias\:j_idt84').src
     );
 
-    debugger
     // let sent the request to select the company and get the captchan
     let result = await send_request( 
         { 
@@ -50,10 +54,10 @@ export default async (page, path, log) => {
         page,
         log
     )
-    debugger
+
 
     // decode src of the pdf
-    /*
+    
     let src = decodeURIComponent(coded_src.split('file=')[1])
     // download pdf
     let didDownload = await download_pdf(src, page, path + menu_name)
@@ -61,6 +65,7 @@ export default async (page, path, log) => {
     */
 
     // if we got to here withou errors, we did it!
+    debugger
     log("General Infomation Scraped");
     return true
 }

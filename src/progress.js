@@ -1,4 +1,4 @@
-import { read_json, write_json, delete_json } from './utils/files.js'
+import { read_json, write_json, delete_json, mkdir } from './utils/files.js'
 
 /* this class make a list that is saved disk, and or read from */
 class DiskList{
@@ -60,7 +60,7 @@ class Checklist{
     /* this function takes list of name name to check and */
     constructor(name, values, path){
         // only for script
-        this.dir_path =  path ?? './data/resources/checklist/';
+        this.dir_path =  path ?? './data/resources/checklists/';
         this.name = name + ".json";
         this.filename = this.dir_path + this.name
         this.checklist = read_json( this.filename );

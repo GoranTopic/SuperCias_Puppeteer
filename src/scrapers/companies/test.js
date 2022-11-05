@@ -19,8 +19,10 @@ let debugging = options.debugging;
 let browserOptions = options.browser;
 
 // target
-let names = read_json('./data/mined/names/company_names.json');
-let name = names[3005]; // random name
+//let names = read_json('./data/mined/names/company_names.json');
+//let name = names[3005]; // random name
+
+mkdir('./data/resources/checklists/')
 
 let proxy = null;
 // set new proxy, while keeping args
@@ -69,13 +71,15 @@ debugger;
 // not thet captachn has been accpeted we can load company page
 let company_url = information_de_companies;
 
-// if it is not in the comany url, go there
+/*
+    // if it is not in the comany url, go there
 let current_page = ( await browser.pages() )[0].url()
 if( current_page !== company_url )
     await page.goto( company_url, {
         waitUntil: 'networkidle0',
         timeout: 0
     });
+    */
 
 // wait for page to load
 await waitUntilRequestDone(page, 500);
@@ -88,6 +92,7 @@ log("custom code loaded")
 // make user there is companies folder
 let companies_dir = './data/mined/companies';
 mkdir(companies_dir)
+
 // company diretory 
 let company_dir = companies_dir + "/" + company.name
 mkdir(company_dir)
@@ -111,7 +116,7 @@ let tab_menus = {
 
 //make checklist of values
 let checklist_company_menu = new Checklist(
-    name + "_menu", // name for how chelist save
+    'chkls_menus' + company.name, // name for how chelist save
     // only make check list of what we have scraping functions for
     Object.keys(tab_menus).filter( k => tab_menus[k] )
 )

@@ -1,5 +1,6 @@
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
+import sanitize from '../../utils/sanitizer.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
 import options from '../../options.js';
@@ -39,13 +40,19 @@ export default async (page, path, log) => {
         (response, status, i, C) => { 
             console.log('query all rows callback ran' );
             // let get a list of all pdf documents
-            return response
-           // window.parse_table('tblDocumentosGenerales');
+            return window.parse_table('tblDocumentosGenerales');
         },
         page,
         log
     );
-    console.log('rows: ', rows);
+
+    // sanitize values
+    pdf_ids = pdf_ids.map( id => ({ 
+        title: sanitize(id.title),
+        id: sanitize(id.d)
+    }))
+
+    console.log('pdf_ids: ', pdf_ids);
     console.log('query rows request finished');
 
     /*

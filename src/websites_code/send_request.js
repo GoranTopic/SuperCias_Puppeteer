@@ -126,16 +126,16 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         // let't rever back the from str to binary
         let captchan_bin = str_to_binary(binary_string);
         // recognize the bytes image
-        let captchan_text = await recognizeCaptchan(captchan_bin);
+        let captchan_solution = await recognizeCaptchan(captchan_bin);
         log("captchan regonized as:", captchan_text);
         let submit_captchan_callback_str = submit_captchan
             .oncomplete
             .toString()
         debugger;
-        // now let's test wether the capthacn was correct
+        // now let's test if the capthacn was correct
         response = await page.evaluate(
-            async ({ parameters_cptch, captchan_text, 
-                callback_str, submit_captchan_callback_str, followAlong }) =>
+            async ({ captchan_solution, callback_str, submit_captchan,
+                submit_captchan_callback_str, followAlong }) =>
             await new Promise(( resolve, reject ) => {
                 setTimeout( () => reject(new Error('evaluation timed out')), 1000 * 60 * 5);
                 // set captchan
@@ -145,7 +145,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                     null;
                 // send captachn
                 PrimeFaces.ab({
-                    ...parameters_cptch,
+                    ...submit_captchan,
                     // quen the server responseds
                     oncomplete: async (response, status, i, C) => {
                         if(status !== "success"){ reject(status); return; }
@@ -154,8 +154,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                         let html = window.parse_html_str(response.responseText);
                         console.log("html: ", html);
                         let extension = JSON.parse(
-                            html
-                            .getElementsByTagName('extension')[0]
+                            html.getElementsByTagName('extension')[0]
                             .innerText
                         );
                         console.log("extension:", extension);
@@ -173,10 +172,11 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                             resolve(  { isCaptchanCorrect } );
                     },
                 })
-            }), { parameters_cptch, captchan_text, callback_str,
-                followAlong, submit_captchan_callback_str }
+            }), { captchan_solution, callback_str, submit_captchan,
+                submit_captchan_callback_str, followAlong }
         )
 
+        // save captchan if correct
         if(response.isCaptchanCorrect){ 
             log("captchan was accepted");
             //let save the captchan

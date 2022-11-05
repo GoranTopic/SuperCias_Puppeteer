@@ -1,9 +1,9 @@
 import send_request from '../../websites_code/send_request.js'
+import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
 import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
 import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
-import str_to_binary from '../../utils/strToBinary.js';
-import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
 import { write_binary_file, mkdir } from '../../utils/files.js';
+import str_to_binary from '../../utils/strToBinary.js';
 
 /**
  * handle_company_search.
@@ -96,7 +96,6 @@ const handle_company_search =  async (page, company, log=console.log) => {
         }, { captchan_solution, submit_captchan} 
     );
 
-    debugger;
     // if the captchan was accapted we was to save it 
     if(was_captchan_accepted){
         let cptn_path = './data/mined/captchans/';
