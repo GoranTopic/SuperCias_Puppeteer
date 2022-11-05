@@ -149,8 +149,6 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             await new Promise(( resolve, reject ) => {
                 setTimeout( () => reject(new Error('evaluation timed out')), 1000 * 60 * 5);
                 // set captchan
-                ($('#frmCaptcha\\:captcha').length)? // check is we have that captchan input
-                    $('#frmCaptcha\\:captcha')[0].value = captchan_text : null;
                 // if we have the captchan in the companyy search
                 (document.getElementById('frmBusquedaCompanias:captcha'))?
                     document.getElementById('frmBusquedaCompanias:captcha').value = captchan_text :
