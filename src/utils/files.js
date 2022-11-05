@@ -54,19 +54,9 @@ const fileExists = path =>{
  * ex:./data/mined/companies
  */
 const mkdir = path => 
-    fs.access(path, (error) => {
-        if (error) {
-            // If current directory does not exist then create it
-            fs.mkdir(path, { recursive: true }, error => {
-                if (error) {
-                    console.error(error);
-                } else {
-                    debugging && console.log(`${path} created`);
-                }
-            });
-        } else {
-            debugging && console.log(`${path} already exists`);
-        }
+    // If current directory does not exist then create it
+    fs.mkdir(path, { recursive: true }, error => {
+        console.error(error)
     });
 
 /**
