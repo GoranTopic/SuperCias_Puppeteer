@@ -44,7 +44,15 @@ const fileExists = path =>{
     }
 }
 
-
+/**
+ * mkdir.
+ * this is a humble function that make a directory that is passed
+ * if creates the directories recursibly
+ *
+ * @param {string} path to directory
+ * relative paths are from the current working dir
+ * ex:./data/mined/companies
+ */
 const mkdir = path => 
     fs.access(path, (error) => {
         if (error) {
@@ -61,5 +69,10 @@ const mkdir = path =>
         }
     });
 
-export { write_json, read_json, delete_json, mkdir, fileExists }
+const write_binary_file = ( bin_file, path ) => {
+    fs.writeFileSync(path, bin_file);
+}
+
+
+export { write_json, read_json,, write_binary_file, delete_json, mkdir, fileExists }
 

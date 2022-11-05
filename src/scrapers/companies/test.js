@@ -4,7 +4,7 @@ import goto_company_search_page from '../../states/supercia.gov.ec/goto_company_
 import { information_de_companies } from '../../urls.js';
 import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
-import { write_json, read_json, mkdir, fileExists } from '../../utils/files.js';
+import { write_json, read_json, mkdir,, write_json, fileExists } from '../../utils/files.js';
 import custom_ajax from '../../websites_code/custom_code/custom_ajax.js';
 import download_pdf from '../../utils/download_pdf.js';
 import scrap_informacion_general from './scrap_informacion_general.js';
@@ -139,6 +139,19 @@ let is_captchan_accepted = await page.evaluate(
         });
     }, { captchan_solution, submit_captchan} 
 );
+
+
+// if the captchan was accapted we was to save it 
+if(is_captchan_accepted){
+    let cptn_path = './data/mined/captchans/';
+    mkdir(cptn_path);
+    write_binary_file( captchan_bin, 
+        // change to matching image extencion
+        cptn_path + captchan_solution + ".jpg" 
+    );
+}
+
+
 
 
 
