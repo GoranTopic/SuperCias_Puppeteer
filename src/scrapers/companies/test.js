@@ -6,11 +6,12 @@ import check_server_offline from '../../states/supercia.gov.ec/check_server_offl
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../../utils/files.js';
 import custom_ajax from '../../websites_code/custom_code/custom_ajax.js';
-import scrap_informacion_general from './scrap_informacion_general.js';
-import scrap_documents from './scrap_documents.js';
-//import scrap_administradores_actuales from './scrap_administradores_actuales.js';
 import { Checklist, DiskList } from '../../progress.js';
 import custom_functions from '../../websites_code/custom_code/custom_functions.js'
+import scrap_informacion_general_script from './scrap_informacion_general.js';
+import scrap_documents_script from './scrap_documents.js';
+import select_company_script from './select_company_script.js';
+//import scrap_administradores_actuales from './scrap_administradores_actuales.js';
 
 // set debugging
 let debugging = options.debugging;
@@ -61,6 +62,8 @@ await page.evaluate(custom_functions);
 
 debugger;
 
+await select_company_script(page, company, log);
+
 debugger;
 /*--------- company scrap ---------*/
 // not thet captachn has been accpeted we can load company page
@@ -92,7 +95,7 @@ mkdir(company_dir)
 // this is a list of all the menu tabs,
 // with their corresponding scraper
 let tab_menus = {
-    'Información general': scrap_informacion_general,
+    'Información general': scrap_informacion_general_script,
     'Administradores actuales': null, //scrap_administradores_actuales,
     'Administradores anteriores': null,
     'Actos jurídicos': null,
@@ -100,7 +103,7 @@ let tab_menus = {
     'Kárdex de accionistas': null,
     'Información anual presentada': null,
     'Consulta de cumplimiento': null,
-    'Documentos online': scrap_documents, 
+    'Documentos online': scrap_documents_script, 
     'Valores adeudados': null,
     'Valores pagados': null,
     'Notificaciones generales': null,
