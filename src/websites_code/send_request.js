@@ -94,13 +94,15 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                         console.log("captchan_img:", captchan_img);
                         let bin_str = await window.to_binary_string( captchan_img );
                         resolve({ // on success
-                            isCaptchan: (window.isCaptchan)? true : false,
+                            isCaptchan: true,
                             bin_str
                         });
                     }else{ // run the callback passed as second parameter
-                        resolve(
-                            eval("("+callback_str+")(response, status, i)")
-                        );
+                        let return_value = eval("("+callback_str+")(response, status, i, C)");
+                        resolve({
+                            isCaptchan: false,
+                            return_value,
+                        });
                     }
                     if(followAlong){ // run the callbacks which normaly run with the query
                         eval("("+original_oncomplete_str+")(response, status, i)");
@@ -111,10 +113,12 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         }), {parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
-   log("response:",response)
-
-    // if we have response that is capthan
-    if(response.isCaptchan){
+    log("response:", response)
+    // if we did not get a capthan
+    if(response.isCaptchan === false) 
+        // return the return of the callback
+        return response.return_value;
+    else{ // if we have response that is capthan
         log("Captchan Recived");
         debugger;
         let binary_string = response.bin_str;
@@ -180,7 +184,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             mkdir(cptn_path);
             write_binary_file( captchan_bin, 
                 // change to matching image extencion
-                cptn_path + captchan_solution + ".jpg" 
+                cptn_path + captchan_solution + ".png" 
             );
             // return the retur value form the callback
             return response.return_value;

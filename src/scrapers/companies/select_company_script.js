@@ -39,6 +39,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
         // followAlong false so that we query the server for captchan only once
         //false,
     );
+    console.log('captchan_src: ', captchan_src);
 
     // now let's fetch the url captchan image
     let bin_str = await page.evaluate( 
@@ -53,16 +54,16 @@ const handle_company_search =  async (page, company, log=console.log) => {
         }, 
         captchan_src
     )
-
+    console.log('bin_str: ', bin_str);
     // let convert imgae back to binary
-    let captchan_bin = str_to_binary(binary_string);
+    let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
     let captchan_solution = await recognizeCaptchan(captchan_bin);
     log("captchan regonized as:", captchan_solution);
 
 
     // send the capthcan and hope that it is right
-    let is_captchan_accepted = await page.evaluate(
+    let was_captchan_accepted = await page.evaluate(
         async ({ captchan_solution, submit_captchan }) => {
             // we run everything inside a promise so that we can retun
             // the otucome of the cpatchan
@@ -97,12 +98,12 @@ const handle_company_search =  async (page, company, log=console.log) => {
 
     debugger;
     // if the captchan was accapted we was to save it 
-    if(is_captchan_accepted){
+    if(was_captchan_accepted){
         let cptn_path = './data/mined/captchans/';
         mkdir(cptn_path);
         write_binary_file( captchan_bin, 
             // change to matching image extencion
-            cptn_path + captchan_solution + ".jpg" 
+            cptn_path + captchan_solution + ".png" 
         );
     }
 
