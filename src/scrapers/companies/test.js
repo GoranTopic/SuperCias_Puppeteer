@@ -16,7 +16,7 @@ import custom_functions from '../../websites_code/custom_code/custom_functions.j
 import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
 import str_to_binary from '../../utils/strToBinary.js';
 import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
-import query_company_captchan from '../../websites_code/queries/query_company_captchan.js';
+import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
 
 // set debugging
 let debugging = options.debugging;
@@ -108,7 +108,7 @@ log("captchan regonized as:", captchan_solution);
 
 // send the capthcan and hope that it is right
 let is_captchan_accepted = await page.evaluate(
-    async ({ captchan_solution, query_company_captchan }) => {
+    async ({ captchan_solution, submit_captchan }) => {
         // we run everything inside a promise so that we can retun
         // the otucome of the cpatchan
         return await new Promise(( resolve, reject ) => {
@@ -116,7 +116,7 @@ let is_captchan_accepted = await page.evaluate(
             document.getElementById('frmBusquedaCompanias:captcha').value = captchan_solution;
             // send captachn
             PrimeFaces.ab({
-                ...query_company_captchan,
+                ...submit_captchan,
                 oncomplete: async (response, status, i, C) => {
                     try { 
                         // parse response
@@ -137,8 +137,10 @@ let is_captchan_accepted = await page.evaluate(
                 }
             });
         });
-    }, { captchan_solution, query_company_captchan} 
+    }, { captchan_solution, submit_captchan} 
 );
+
+
 
 debugger;
 /*--------- company scrap ---------*/
