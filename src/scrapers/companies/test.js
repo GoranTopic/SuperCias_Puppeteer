@@ -1,3 +1,5 @@
+import puppeteer from 'puppeteer';
+import options from '../../options.js';
 import goto_company_search_page from '../../states/supercia.gov.ec/goto_company_search_page.js'
 import { information_de_companies } from '../../urls.js';
 import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
@@ -9,12 +11,12 @@ import scrap_informacion_general from './scrap_informacion_general.js';
 import scrap_documents from './scrap_documents.js';
 //import scrap_administradores_actuales from './scrap_administradores_actuales.js';
 import { Checklist, DiskList } from '../../progress.js';
-import puppeteer from 'puppeteer';
-import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js'
 import custom_functions from '../../websites_code/custom_code/custom_functions.js'
 import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
-import strToBinary from '../../utils/strToBinary.js';
+import str_to_binary from '../../utils/strToBinary.js';
+import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
+import query_company_captchan from '../../websites_code/queries/query_company_captchan.js';
 
 // set debugging
 let debugging = options.debugging;
@@ -65,19 +67,80 @@ await page.evaluate(custom_functions);
 
 debugger;
 // let sent the request to select the company and get the captchan
-
-let result = await send_request(
+let captchan_src = await send_request(
     select_autocomplete_company(company), // parameters
-    (response, status, i, C) => {
-        return "company selected";
+    (response, status, i, C) => { 
+        // we knwo the server is going to awnser with a captchan
+        // let parse the response html send by the server
+        let html = window.parse_html_str(response.responseText);
+        // get captchan url
+        let captchan_src = window.get_captchan_src(html);
+        // return captchan src
+        console.log("captchan_src:", captchan_src);
+        return captchan_src
     },
     page,
-    log
+    log,
+    // followAlong false so that we query the server for captchan only once
+    //false,
 );
 
-// handle the first catchan 
+// now let's fetch the url captchan image
+let bin_str = await page.evaluate( 
+    async ( captchan_src ) => {
+        // fetch from browser
+        let captchan_img = await window.fetch(captchan_src);
+        console.log("captchan_img:", captchan_img);
+        // convert to binary image string
+        let bin_str = await window.to_binary_string( captchan_img );
+        // binary string 
+        return bin_str
+    }, 
+    captchan_src
+)
+
+// let convert imgae back to binary
+let captchan_bin = str_to_binary(binary_string);
+// recognize the bytes image
+let captchan_solution = await recognizeCaptchan(captchan_bin);
+log("captchan regonized as:", captchan_solution);
 
 
+// send the capthcan and hope that it is right
+let is_captchan_accepted = await page.evaluate(
+    async ({ captchan_solution, query_company_captchan }) => {
+        // we run everything inside a promise so that we can retun
+        // the otucome of the cpatchan
+        return await new Promise(( resolve, reject ) => {
+            // let's write the captchan in the  
+            document.getElementById('frmBusquedaCompanias:captcha').value = captchan_solution;
+            // send captachn
+            PrimeFaces.ab({
+                ...query_company_captchan,
+                oncomplete: async (response, status, i, C) => {
+                    try { 
+                        // parse response
+                        let html = window.parse_html_str(response.responseText);
+                        // get extesnion
+                        let extension = JSON.parse(html.getElementsByTagName('extension')[0].innerText);
+                        console.log("extension:", extension);
+                        //  check is captchan is corrent
+                        let isCaptchanCorrect = extension.captchaCorrecto || extension.procesamientoCorrecto
+                        console.log("isCaptchanCorrect:", isCaptchanCorrect)
+                        resolve(isCaptchanCorrect);
+                        // run load new page
+                        handleMostrarPaginaInformacionCompania(response, status, i );
+                    }catch{
+                        reject(status);
+                        return;
+                    }
+                }
+            });
+        });
+    }, { captchan_solution, query_company_captchan} 
+);
+
+debugger;
 /*--------- company scrap ---------*/
 // not thet captachn has been accpeted we can load company page
 let company_url = information_de_companies;

@@ -1,14 +1,11 @@
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
-
 import query_company_captchan from './queries/query_company_captchan.js';
 import submit_captchan from './queries/submit_captchan.js';
-
 
 // followAlong placeholder
 let error_count = 0;
 let error_max = 0;
-let followAlong = true;
 
 /**
  * send_request. 
@@ -39,7 +36,6 @@ let followAlong = true;
  * to be ablet to send the function to the browser, I had to convert them to strings.
  * Then run them with the eval. (I know eval is evil...) It cannot handle the 'await' key word, 
  * thus the passed callback cannot be an asycn fucntion.
- * 
  *
  * Only running the callback, passed in the second paramters 
  * once the soluction to the captchan has been accepted
@@ -52,7 +48,7 @@ let followAlong = true;
  * 
  * return whaever the return of the passed callback is 
  */
-let send_request = async (parameters, callback, page, log) => {
+let send_request = async (parameters, callback, page, log, followAlong=true) => {
     // let's get the parameters of the function, the call back and the, page
     let isCaptchan = false;
 
