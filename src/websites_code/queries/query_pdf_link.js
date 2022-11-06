@@ -21,12 +21,12 @@
  *  this is the pdf number which to query, 
  *  it can go from 0 to the number of pdfs in a table
  */
-const query_pdf_link = (tableName='tblDocumentosGenerales', pdfNumber=0) => ({
+const query_pdf_link = (pdf_id) => ({
     ext: undefined,
     oncomplete: function(xhr,status,args){
         handleMostrarDialogoCaptcha(xhr,status,args);
     },
-    source: `frmInformacionCompanias:tabViewDocumentacion:${tableName}:${pdfNumber}:j_idt699`,
+    source: `${pdf_id}`,
     update: "dlgPresentarDocumentoPdf panelPresentarDocumentoPdf dlgPresentarDocumentoPdfConFirmasElectronicas panelPresentarDocumentoPdfConFirmasElectronicas dlgCaptcha frmCaptcha:panelCaptcha",
 })
 
