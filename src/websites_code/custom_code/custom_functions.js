@@ -93,9 +93,10 @@ export default () => {
         // let get the title and id 
         let row = rows.iterateNext();
         while(row){
-            let id = row.children[0].children[0].id;
+            // complicated code for gettin the last cell of the pdf row, the one with the button
+            let id = row.children[row.children.length -1].children[0].children[0].id; 
             let title = '';
-            for(let cell of row.children) 
+            for( let cell of row.children ) 
                 title += ('_' + cell.innerText)
             title = title
                 .replace(/^_+/, '')
@@ -114,10 +115,12 @@ export default () => {
      *  it parses the response and return only the pointing to the pdf.
      *
      * @param {String} response
-     *  Html string of the response from th server
+     * Response obj from the server
      */
     window.parse_pdf_src = response => {
         let response_html_str = response.responseText;
+        let html = window.parse_html_str(response.responseText);
+
         let extension_tag = response_html_str.responseText
             .split('<extension ln="primefaces" type="args">')[1]
             .split('</extension>')[0];
