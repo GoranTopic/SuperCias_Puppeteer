@@ -44,7 +44,7 @@ export default () => {
 
     /**
      * window.parse_table. 
-     * this function read from the tables in the windows, 
+     * this function read from the tables in the window, 
      * returns the tables 
      *
      * @param String table_id,
@@ -79,11 +79,40 @@ export default () => {
     }
 
 
+    /**
+     * extract_number_of_pdfs
+     * from a response, looks for the tags and extracts the number of rows a pdf has 
+     * it relies on a span tag in the paginator
+     *
+     * @param {} response
+     * @param {} table
+     */
+    window.extract_number_of_pdfs = (response, table) => {
+        // let's parse the html respose
+        let html = window.parse_html_str(response.responseText);
+        // let get the update from the table's 
+        let paginator_el = html
+            .getElementById(`frmInformacionCompanias:tabViewDocumentacion:tbl${table}_paginator_bottom`);
+        // check
+        if(!paginator_el) {
+            console.error(`Could not extract number of pdfs from table: ${table}`)
+            return null;
+        }
+        // get the number of rows
+        let rows_span = paginator_el
+            .getElementsByTagName('span')[0]
+            .innerHTML
+            .split(' ')[2]
+        // parse the number
+        let rows_int = Number.parseInt(rows_span);
+        // success
+        return rows_int;
+    }
+
     window.parse_table_html = table_id => {
         // get the table
-        let table = document.getElementById(
-            `frmInformacionCompanias:tabViewDocumentacion:${table_id}`
-        );
+        let table = document.getElementById( `frmInformacionCompanias:tabViewDocumentacion:${table_id}`);
+        if(table === undefined) return false
         // get all the rows
         let rows = document.evaluate(
             './/tr[@class="ui-widget-content ui-datatable-even"] | .//tr[@class="ui-widget-content ui-datatable-odd"]', 
@@ -110,7 +139,7 @@ export default () => {
 
 
     /**
-     * windows.parse_pdf_src.
+     * window.parse_pdf_src.
      *  this function take the response from the server when query_pdf_link is send, 
      *  it parses the response and return only the pointing to the pdf.
      *
