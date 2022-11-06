@@ -2,12 +2,12 @@ import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import sanitize from '../../utils/sanitizer.js';
 import download_pdf from '../../utils/download_pdf.js';
-import { Checklist, DiskList } from '../../progress.js';
-import options from '../../options.js';
+import { Checklist } from '../../progress.js';
 import send_request from '../../websites_code/send_request.js';
 import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
 import query_all_table_rows from '../../websites_code/queries/query_all_table_rows.js'
 import query_pdf from '../../websites_code/queries/query_pdf_link.js'
+import options from '../../options.js';
 
 export default async (page, path, log=console.log, company) => {
     // let's make our dir
@@ -37,8 +37,13 @@ export default async (page, path, log=console.log, company) => {
      *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
      * */
     let tables = ['DocumentosGenerales', 'DocumentosEconomicos', 'DocumentosJudiciales' ];
-    // make checklists holder
+    // make checklists 
     let checklists = {};
+    if( tables.every( table => 
+        checklists[table] = new Checklist(
+            "pdfs_" + table + '_' + company.name
+        )
+    ))
 
     // let try to scrap every table =)
     for( let table of tables ){
@@ -72,14 +77,16 @@ export default async (page, path, log=console.log, company) => {
         log('pdfs_info[4]: ', pdfs_info[4]);
         log('query rows request finished');
 
-        // and make a checklist for the pdfs documents
-        checklists[table] = new Checklist(
-            "pdfs_" + table + company.name,
-            pdfs_info.map(pdf => pdf.id)
+        // add pdfs documents to the checklist
+        checklists[table].addList( 
+            pdfs_info.map(pdf => pdf.id),
+            false // do not overwite
         );
 
         // loop over every pdf
-        for(let pdf_id of pdfs_info.map( pdf => pdf.id)){ 
+        for(let pdf_info of pdfs_info){ 
+            let pdf_id = pdf_info.id;
+            let pdf_title = pdf_info.title;
             // if we alread have it, skip it
             if(checklists[table].isCheckedOff) continue
             debugger;
@@ -96,7 +103,11 @@ export default async (page, path, log=console.log, company) => {
             );
             debugger;
             // downloading pdf
-            let result = await download_pdf(pdf_src, page, path);
+            let result = await download_pdf(
+                pdf_src, 
+                page, 
+                path + '/' + pdf_title,
+            );
             if(result){
                 log('downloaded pdf:', pdf_src);
                 checklists[table].check(pdf_id);
