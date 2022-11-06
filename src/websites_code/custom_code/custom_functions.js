@@ -93,7 +93,7 @@ export default () => {
         // let get the title and id 
         let row = rows.iterateNext();
         while(row){
-            // complicated code for gettin the last cell of the pdf row, the one with the button
+            // complicated code for gettin the last cell of the pdf row, the one with the link
             let id = row.children[row.children.length -1].children[0].children[0].id; 
             let title = '';
             for( let cell of row.children ) 
@@ -118,10 +118,18 @@ export default () => {
      * Response obj from the server
      */
     window.parse_pdf_src = response => {
-        let response_html_str = response.responseText;
+        let pdf_url = null;
+        //let check the extension for the pdf src
         let html = window.parse_html_str(response.responseText);
-
-        let extension_tag = response_html_str.responseText
+        // get extesnion
+        let extension = JSON.parse(
+            html.getElementsByTagName('extension')[0].innerText
+        );
+        pdf_url = extension.urlDocumentoPdf
+        if(pdf_url) 
+            return pdf_url;
+        // other aproach
+        let extension_tag = response.responseText
             .split('<extension ln="primefaces" type="args">')[1]
             .split('</extension>')[0];
         let extension_obj = JSON.parse(extension_tag);
