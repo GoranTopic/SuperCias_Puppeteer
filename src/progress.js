@@ -113,13 +113,22 @@ class Checklist{
         return write_json(this.checklist, this.dir_path + this.name);
     }
 
-    addToList = value => {
-        /* add a value as not done to the list */
-        if(this._isObject(value))
-            value = JSON.stringify(value)
-        this.checklist[value] = false;
+    add = (value, overwrite = true) => {
+        /* add a value as not done to the list
+         * if overwrite is true, it writes over any truety value */
+        if(this._isObject(value)) value = JSON.stringify(value)
+        // if it is not in the list, or overwrite is true
+        if(!this.checklist[value] || overwrite)
+            this.checklist[value] = false;
         this._calcMissing();
         return write_json(this.checklist, this.dir_path + this.name);
+    }
+
+    addList = (values, overwrite=true) => {
+        /* adds a list of values as not done to the list */
+        for( let value of values)
+            this.add(value, overwrite);
+        return true;
     }
 
     isCheckedOff = value => {
