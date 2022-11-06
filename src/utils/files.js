@@ -56,7 +56,7 @@ const fileExists = path =>{
 const mkdir = path => 
     // If current directory does not exist then create it
     fs.mkdir(path, { recursive: true }, error => {
-        console.error(error)
+       if(error) console.error(error)
     });
 
 /**

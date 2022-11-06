@@ -39,13 +39,18 @@ export default async (page, path, log) => {
         query_all_table_rows(),
         (response, status, i, C) => { 
             console.log('query all rows callback ran' );
+            console.log('c: ', c);
             // let get a list of all pdf documents
-            return window.parse_table('tblDocumentosGenerales');
+            //return window.parse_table('tblDocumentosGenerales');
+            return true
         },
         page,
         log
     );
 
+    /*
+
+    debugger;
     // sanitize values
     pdf_ids = pdf_ids.map( id => ({ 
         title: sanitize(id.title),
@@ -54,17 +59,18 @@ export default async (page, path, log) => {
 
     console.log('pdf_ids: ', pdf_ids);
     console.log('query rows request finished');
+    */
 
-    /*
-    for(let pdf_id of pdf_ids){ 
+    for( let i = 0; i < 122; i++){
+    //for(let pdf_id of pdf_ids){ 
         // get the table
-        let table = pdf_id.split(':')[2];
+        //let table = pdf_id.split(':')[2];
         // get the id
-        let pdf_num = pdf_id.split(':')[3];
+        //let pdf_num = pdf_id.split(':')[3];
         // request link
         debugger;
         let pdf_src = await send_request(
-            query_pdf(table, pdf_num),
+            query_pdf('tblDocumentosGenerales', i),
             (response, status, i, C) => { 
                 // return the src of the pdf
                 return window.parse_pdf_src(response);
@@ -78,7 +84,6 @@ export default async (page, path, log) => {
         let result = await download_pdf(src, page, path) 
         if(result) console.log('Got pdf:', src)
     }
-    */
 
 
     /*

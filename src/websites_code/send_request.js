@@ -1,6 +1,7 @@
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
+import { mkdir, write_binary_file } from '../utils/files.js';
 
 // followAlong placeholder
 let error_count = 0;
@@ -113,6 +114,8 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         }), {parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
+    debugger
+    // we just got the response from the query
     log("response:", response)
     // if we did not get a capthan
     if(response.isCaptchan === false) 
@@ -121,13 +124,14 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
     else{ // if we have response that is capthan
         log("Captchan Recived");
         debugger;
+        // let's reconized that captchan
         let binary_string = response.bin_str;
         // if we have a captahcn we need to converte form to binay from a binary string
         // let't rever back the from str to binary
         let captchan_bin = str_to_binary(binary_string);
         // recognize the bytes image
         let captchan_solution = await recognizeCaptchan(captchan_bin);
-        log("captchan regonized as:", captchan_text);
+        log("captchan regonized as:", captchan_solution);
         let submit_captchan_callback_str = submit_captchan
             .oncomplete
             .toString()
@@ -139,10 +143,8 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             await new Promise(( resolve, reject ) => {
                 setTimeout( () => reject(new Error('evaluation timed out')), 1000 * 60 * 5);
                 // set captchan
-                // if we have the captchan in the companyy search
-                (document.getElementById('frmBusquedaCompanias:captcha'))?
-                    document.getElementById('frmBusquedaCompanias:captcha').value = captchan_text :
-                    null;
+                // write the captchan solution in the input
+                document.getElementById('frmCaptcha:captcha').value = captchan_solution;
                 // send captachn
                 PrimeFaces.ab({
                     ...submit_captchan,
@@ -164,7 +166,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                         // if captachan is correct, run callback
                         if(isCaptchanCorrect){
                             let return_value = eval("("+callback_str+")(response, status, i, C)");
-                            resolve( { isCaptchanCorrect, return_value } );
+                            resolve( { isCaptchanCorrect, return_value, response } );
                             if(followAlong){ // if follow with browser, run original callback
                                 eval("("+submit_captchan_callback_str+")(response, status, i, C)");
                             }

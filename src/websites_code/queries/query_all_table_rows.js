@@ -24,6 +24,10 @@ const get_all_table_rows = (tableName='tblDocumentosGenerales', documentCount = 
     ext: undefined,
     formId: undefined,
     oncomplete: function(g,e,f){
+        console.log('printing from oncomplete query_all_table');
+        console.log('g:', g);
+        console.log('e:', e);
+        console.log('f:', f);
         c.paginator.cfg.page = d.page;
         if(f&&typeof f.totalRecords!=="undefined"){
             c.paginator.updateTotalRecords(f.totalRecords)
@@ -33,7 +37,8 @@ const get_all_table_rows = (tableName='tblDocumentosGenerales', documentCount = 
     },
     onsuccess: function(g,e,f){
         PrimeFaces.ajax.Response.handle(g,e,f,{
-            widget:c,handle: function(h){
+            widget: c,
+            handle: function(h){
                 this.updateData(h);
                 if(this.checkAllToggler){
                     this.updateHeaderCheckbox()

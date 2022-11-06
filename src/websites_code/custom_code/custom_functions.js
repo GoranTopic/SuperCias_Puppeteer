@@ -78,6 +78,36 @@ export default () => {
         return table;
     }
 
+
+    window.parse_table_html = table_id => {
+        // get the table
+        let table = document.getElementById(
+            `frmInformacionCompanias:tabViewDocumentacion:${table_id}`
+        );
+        // get all the rows
+        let rows = document.evaluate(
+            './/tr[@class="ui-widget-content ui-datatable-even"] | .//tr[@class="ui-widget-content ui-datatable-odd"]', 
+            table
+        );
+        let parsed_rows = [];
+        // let get the title and id 
+        let row = rows.iterateNext();
+        while(row){
+            let id = row.children[0].children[0].id;
+            let title = '';
+            for(let cell of row.children) 
+                title += ('_' + cell.innerText)
+            title = title
+                .replace(/^_+/, '')
+                .replace(/_+$/, '')
+                .trim()
+            parsed_rows.push({ title, id });
+            row = rows.iterateNext();
+        }
+        return parsed_rows;
+    }
+
+
     /**
      * windows.parse_pdf_src.
      *  this function take the response from the server when query_pdf_link is send, 
