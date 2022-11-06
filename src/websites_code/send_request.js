@@ -75,37 +75,36 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                     let html = window.parse_html_str(response.responseText);
                     // check extension to see if there is capthacn
                     let extension = html.getElementsByTagName('extension')
-                    if(extension.length){ // if go captchan
+                    if(extension.length){ // if got captchan
                         extension = extension[0].innerText;
                         console.log('extension:', extension);
-                        // setting a global variable in the browser
-                        window.isCaptchan = JSON.parse(extension).presentarPopupCaptcha;
+                        // did we ger capthan?
+                        if(JSON.parse(extension).presentarPopupCaptcha) {
+                            console.log("got captchan");
+                            // get captchan url
+                            let captchan_src = window.get_captchan_src(html);
+                            console.log("captchan_src:", captchan_src);
+                            // fetch captchan
+                            let captchan_img = await window.fetch(captchan_src);
+                            // now that we have the captchan src, let's fetch the image
+                            //console.log("captchan_img:", captchan_img);
+                            let bin_str = await window.to_binary_string( captchan_img );
+                            resolve({ // on success
+                                isCaptchan: true,
+                                bin_str
+                            });
+                            return;
+                        }
                     }
-                    console.log('isCaptchan:', window.isCaptchan);
-                    console.log(window.isCaptchan || window.isFirstCaptchan);
-                    // if we get capthacan
-                    if(window.isCaptchan){ 
-                        console.log("got captchan");
-                        // get captchan url
-                        let captchan_src = window.get_captchan_src(html);
-                        console.log("captchan_src:", captchan_src);
-                        // fetch captchan
-                        let captchan_img = await window.fetch(captchan_src);
-                        // now that we have the captchan src, let's fetch the image
-                        console.log("captchan_img:", captchan_img);
-                        let bin_str = await window.to_binary_string( captchan_img );
-                        resolve({ // on success
-                            isCaptchan: true,
-                            bin_str
-                        });
-                    }else{ // run the callback passed as second parameter
-                        let return_value = eval("("+callback_str+")(response, status, i, C)");
-                        resolve({
-                            isCaptchan: false,
-                            return_value,
-                        });
-                    }
-                    if(followAlong){ // run the callbacks which normaly run with the query
+                    // if we did not get captchan
+                    console.log("did not captchan");
+                    let return_value = eval("("+callback_str+")(response, status, i, C)");
+                    resolve({
+                        isCaptchan: false,
+                        return_value,
+                    });
+                    // run the callbacks which normaly run with the query
+                    if(followAlong){ 
                         eval("("+original_oncomplete_str+")(response, status, i)");
                         eval("("+onsuccess_str+")(response, status, i)");
                     }
