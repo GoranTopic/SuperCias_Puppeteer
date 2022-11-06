@@ -6,7 +6,7 @@ import getText from '../../utils/getText.js';
 import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js'
 
-export default async (page, path, log) => {
+export default async (page, path, log, company) => {
     // first, lets make a diretory for our info
     let menu_name = "/information_general";
     path += menu_name;

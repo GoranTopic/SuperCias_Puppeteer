@@ -18,11 +18,8 @@ let debugging = options.debugging;
 // options of browser
 let browserOptions = options.browser;
 
-// target
-//let names = read_json('./data/mined/names/company_names.json');
-//let name = names[3005]; // random name
-
 mkdir('./data/resources/checklists/')
+
 
 let proxy = null;
 // set new proxy, while keeping args
@@ -130,7 +127,7 @@ for( let menu of Object.keys(tab_menus) ) {
             // wait for page to load
             await waitUntilRequestDone(page, 1000);
             // run the function
-            let outcome = await tab_menus[menu](page, company_dir, log);
+            let outcome = await tab_menus[menu](page, company_dir, log, company);
             // if outcome successfull, check it off
             if(outcome) checklist_company_menu.check(menu)
         }

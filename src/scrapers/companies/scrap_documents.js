@@ -9,21 +9,18 @@ import query_documentos_online from '../../websites_code/queries/query_documento
 import query_all_table_rows from '../../websites_code/queries/query_all_table_rows.js'
 import query_pdf from '../../websites_code/queries/query_pdf_link.js'
 
-export default async (page, path, log) => {
+export default async (page, path, log=console.log, company) => {
     // let's make our dir
     let menu_name = 'Documentacion';
-    path =+ '/' + menu_name;
+    path = path + '/' + menu_name;
     mkdir(path);
-
-    console.log('scrap documents ran')
 
     // wait for page to load
     await waitUntilRequestDone(page, 500);
-
     debugger;
     // query the documentos online
-    console.log('sending query documentos request')
-    let tables = await send_request(
+    log('sending query documentos request')
+    let outcome = await send_request(
         query_documentos_online, // paramter need to make the reuqe
         (response, status, i, C) => { // the callback, this is goin to run in the browser,
             return response
@@ -32,106 +29,88 @@ export default async (page, path, log) => {
         log, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
-    console.log('query documents request finished')
+    log('query documents request finished')
+    
 
-    debugger;
-    // query for all the rows in the general documents table
-    console.log('sending query rows request')
-    let pdf_info = await send_request(
-        query_all_table_rows(),
-        (response, status, i, C) => { 
-            console.log('query all rows callback ran' );
-            // let get a list of all pdf documents
-            // here the value is tabDocumentosGenerales
-            // instead of the ususal tblDocumentosGenerales
-            return window.parse_table_html('tabDocumentosGenerales');
-        },
-        page,
-        log
-    );
+    /* *
+     *  Here we will loop ove the three document tabs:
+     *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
+     * */
+    let tables = ['DocumentosGenerales', 'DocumentosEconomicos', 'DocumentosJudiciales' ];
+    // make checklists holder
+    let checklists = {};
 
-    console.log('pdf_info[4]: ', pdf_info[4]);
+    // let try to scrap every table =)
+    for( let table of tables ){
+        log(`scraping ${table} Table`);
+        // let make update the path 
+        let path = path + '/' + table;
+        log(`making path: ${path}`);
+        mkdir(path);
 
-    debugger;
-    // sanitize values
-    pdf_info = pdf_info.map( pdf => ({ 
-        title: sanitize(pdf.title),
-        id: pdf.id, // don't sanitize id
-    }))
-
-    console.log('pdf_info[4]: ', pdf_info[4]);
-    console.log('query rows request finished');
-
-    for(let pdf_id of pdf_info.map( pdf => pdf.id)){ 
         debugger;
-        // requestin pdf link
-        let pdf_src = await send_request(
-            query_pdf(pdf_id),
+        // query for all the rows in the general documents table
+        log('sending query rows request')
+        let pdfs_info = await send_request(
+            query_all_table_rows('tlb' + table, 10000),
             (response, status, i, C) => { 
-                // return the src of the pdf
-                return window.parse_pdf_src(response);
+                log('query all rows callback ran' );
+                // let get a list of all pdf documents
+                // note: here the value is tab + table
+                // instead of the ususal tbl + table
+                return window.parse_table_html('tab' + table);
             },
             page,
-            log,
-            false, // don't followAlong so we don't download the pdf twice
+            log
         );
-        console.log('pdf_src:', pdf_src);
         debugger;
-        // downloading pdf
-        let result = await download_pdf(pdf_src, page, path);
-        if(result) console.log('downloaded pdf:', pdf_src);
-    }
+        // sanitize values
+        pdfs_info = pdfs_info.map( pdf => ({ 
+            title: sanitize(pdf.title),
+            id: pdf.id, // don't sanitize id
+        }))
+        log('pdfs_info[4]: ', pdfs_info[4]);
+        log('query rows request finished');
 
+        // and make a checklist for the pdfs documents
+        checklists[table] = new Checklist(
+            "pdfs_" + table + company.name,
+            pdfs_info.map(pdf => pdf.id)
+        );
 
-    /*
-    // let get the paramter need to make the call the server
-    let parameters = query_table_parameters(menu_name);
-    console.log('parameters:', parameters)
-    // let fetch the table
-    let gotTable = await send_request(
-        parameters, // paramter need to make the reuqe
-        // the callback, this is goin to run in the browser,
-        (response, status, i, C) => {
-            //return window.parse_table();
-            return true
-        },
-        page,
-        log
-    );
-    // 
-    if(!gotTable) log('could not get table generales:');
-    */
-
-    /*
-    // this are the paramter to query all the posible rows in a tha table
-    debugger
-    parameters = await get_all_document_tables(generales_table_id, page);
-    console.log('paramter:', parameters)
-
-    let all_rows = await send_request(
-        parameters, // paramter need to make the reuqe
-        (response, status, i, C) => {
-            return window.parse_table(
-                'widget_frmInformacionCompanias_j_idt673_tblDocumentosGenerales'
+        // loop over every pdf
+        for(let pdf_id of pdfs_info.map( pdf => pdf.id)){ 
+            // if we alread have it, skip it
+            if(checklists[table].isCheckedOff) continue
+            debugger;
+            // requestin pdf link
+            let pdf_src = await send_request(
+                query_pdf(pdf_id),
+                (response, status, i, C) => { 
+                    // return the src of the pdf
+                    return window.parse_pdf_src(response);
+                },
+                page,
+                log,
+                false, // don't followAlong so we don't download the pdf twice
             );
-        },
-        page,
-        log
-    );
-    console.log(all_rows)
-    */
-
-    /* // this is pseudo code for downloading the pdfs
-    fetched_table.forEach(
-        table => table.cells.forEach(
-            cell => {
-                if(isLink( cell )) download_pdf(pdf)
+            debugger;
+            // downloading pdf
+            let result = await download_pdf(pdf_src, page, path);
+            if(result){
+                log('downloaded pdf:', pdf_src);
+                checklists[table].check(pdf_id);
             }
-        )
-    )
-    */
-
-    // retunr for debuggin porposes
-    console.log('scrap documents finished')
-    return false;
+        }
+    }
+    
+    // check how we did
+    // if everyt checklist has less than 5 missing pdfs
+    if( tables.every( table => checklists[table].missingLeft() < 4)){
+        log('scrap documents finished')
+        return true
+    }else{ // did not pass
+        log('scrap documents did not finish')
+        return false;
+    }
 }

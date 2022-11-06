@@ -122,9 +122,8 @@ class Checklist{
         return write_json(this.checklist, this.dir_path + this.name);
     }
 
-
     isCheckedOff = value => {
-        /* Checks if a value has been already been checked off */
+        /* Checks if all value has been already been checked off */
         if(this._isObject(value))
             value = JSON.stringify(value)
         return this.checklist[value]
