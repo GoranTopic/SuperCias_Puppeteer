@@ -104,8 +104,8 @@ const handle_company_search =  async (page, company, log=console.log) => {
             // change to matching image extencion
             cptn_path + captchan_solution + ".png" 
         );
-    }
-
+    } else
+        throw Error('Select Company Captchan failed');
 }
 
 export default handle_company_search;

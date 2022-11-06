@@ -93,7 +93,6 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                                 isCaptchan: true,
                                 bin_str
                             });
-                            return;
                         }
                     }
                     // if we did not get captchan

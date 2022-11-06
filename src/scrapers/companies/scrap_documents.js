@@ -7,6 +7,7 @@ import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js';
 import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
 import query_all_table_rows from '../../websites_code/queries/query_all_table_rows.js'
+import query_pdf from '../../websites_code/queries/query_pdf_link.js'
 
 export default async (page, path, log) => {
     // let's make our dir
@@ -28,61 +29,57 @@ export default async (page, path, log) => {
             return response
         },
         page, // puppetter page
-        log // logger
+        log, // logger
+        false, // followAlong to false so we don't rquest the captchan twice 
     );
     console.log('query documents request finished')
 
     debugger;
     // query for all the rows in the general documents table
     console.log('sending query rows request')
-    let pdf_ids = await send_request(
+    let pdf_info = await send_request(
         query_all_table_rows(),
         (response, status, i, C) => { 
             console.log('query all rows callback ran' );
-            console.log('c: ', c);
             // let get a list of all pdf documents
-            //return window.parse_table('tblDocumentosGenerales');
-            return true
+            // here the value is tabDocumentosGenerales
+            // instead of the ususal tblDocumentosGenerales
+            return window.parse_table_html('tabDocumentosGenerales');
         },
         page,
         log
     );
 
-    /*
+    console.log('pdf_info[4]: ', pdf_info[4]);
 
     debugger;
     // sanitize values
-    pdf_ids = pdf_ids.map( id => ({ 
-        title: sanitize(id.title),
-        id: sanitize(id.d)
+    pdf_info = pdf_info.map( pdf => ({ 
+        title: sanitize(pdf.title),
+        id: pdf.id, // don't sanitize id
     }))
 
-    console.log('pdf_ids: ', pdf_ids);
+    console.log('pdf_info[4]: ', pdf_info[4]);
     console.log('query rows request finished');
-    */
 
-    for( let i = 0; i < 122; i++){
-    //for(let pdf_id of pdf_ids){ 
-        // get the table
-        //let table = pdf_id.split(':')[2];
-        // get the id
-        //let pdf_num = pdf_id.split(':')[3];
-        // request link
+    for(let pdf_id of pdf_info.map( pdf => pdf.id)){ 
         debugger;
+        // requestin pdf link
         let pdf_src = await send_request(
-            query_pdf('tblDocumentosGenerales', i),
+            query_pdf(pdf_id),
             (response, status, i, C) => { 
                 // return the src of the pdf
                 return window.parse_pdf_src(response);
             },
             page,
-            log
+            log,
+            false, // don't followAlong so we don't download the pdf twice
         );
         console.log('pdf_src:', pdf_src);
         debugger;
-        // download pdf
-        let result = await download_pdf(src, page, path) 
-        if(result) console.log('Got pdf:', src)
+        // downloading pdf
+        let result = await download_pdf(pdf_src, page, path);
+        if(result) console.log('downloaded pdf:', pdf_src);
     }
 
 
