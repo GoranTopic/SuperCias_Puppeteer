@@ -1,6 +1,7 @@
 import send_request from '../../websites_code/send_request.js'
 import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
 import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
+import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
 import { write_binary_file, mkdir } from '../../utils/files.js';
 import str_to_binary from '../../utils/strToBinary.js';
@@ -106,6 +107,12 @@ const handle_company_search =  async (page, company, log=console.log) => {
         );
     } else
         throw Error('Select Company Captchan failed');
+    
+    // let's wait for the new page to load
+    await waitUntilRequestDone(page, 1000);
+
+    // return page
+    return page;
 }
 
 export default handle_company_search;
