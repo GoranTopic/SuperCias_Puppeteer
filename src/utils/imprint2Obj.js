@@ -15,7 +15,7 @@ function imprint2Obj(replace, value, obj){
     // make it into a string perseving the functions
     let stringy = JSONfn.stringify(obj); 
     // imprint values into the string
-    stringy = stringy.replace(replace, value);
+    stringy = stringy.replaceAll(replace, value);
     // parse back into json and return
     return JSONfn.parse(stringy);
 }
