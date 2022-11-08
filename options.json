@@ -2,6 +2,7 @@
     "browser": {
         "headless": false,
         "slowMo": 1,
+        "devtools": true ,
         "excludeSwitches": "enable-automation",
         "args": [
             "--disable-web-security",

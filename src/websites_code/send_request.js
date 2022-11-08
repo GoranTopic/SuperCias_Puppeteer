@@ -79,7 +79,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                         console.log("got captchan");
                         // get captchan url
                         let captchan_src = window.get_captchan_src(html);
-                        console.log("captchan_src:", captchan_src);
+                        //console.log("captchan_src:", captchan_src);
                         // fetch captchan
                         let captchan_img = await window.fetch(captchan_src);
                         // now that we have the captchan src, let's fetch the image
@@ -107,9 +107,9 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         }), {parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
-    debugger
+    //debugger
     // we just got the response from the query
-    log("response:", response)
+    //log("response:", response)
     // if we did not get a capthan
     if(response.isCaptchan === false) 
         // return the return of the callback

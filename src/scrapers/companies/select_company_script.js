@@ -40,8 +40,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
         // followAlong false so that we query the server for captchan only once
         //false,
     );
-    console.log('captchan_src: ', captchan_src);
-
+    //log('captchan_src: ', captchan_src);
     // now let's fetch the url captchan image
     let bin_str = await page.evaluate( 
         async ( captchan_src ) => {
@@ -55,7 +54,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
         }, 
         captchan_src
     )
-    console.log('bin_str: ', bin_str);
+    //log('bin_str: ', bin_str);
     // let convert imgae back to binary
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
@@ -80,10 +79,10 @@ const handle_company_search =  async (page, company, log=console.log) => {
                             let html = window.parse_html_str(response.responseText);
                             // get extesnion
                             let extension = JSON.parse(html.getElementsByTagName('extension')[0].innerText);
-                            console.log("extension:", extension);
+                            //console.log("extension:", extension);
                             //  check is captchan is corrent
                             let isCaptchanCorrect = extension.captchaCorrecto || extension.procesamientoCorrecto
-                            console.log("isCaptchanCorrect:", isCaptchanCorrect)
+                            //console.log("isCaptchanCorrect:", isCaptchanCorrect)
                             resolve(isCaptchanCorrect);
                             // run load new page
                             handleMostrarPaginaInformacionCompania(response, status, i );

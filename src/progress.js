@@ -74,7 +74,8 @@ class Checklist{
                     value = JSON.stringify(value)
                 this.checklist[value] = false
             }
-        }
+        }else // if we found checklist in memeory
+            this.values = Object.keys(this.checklist);
         this._calcMissing();
         // save new checklist
         write_json(this.checklist, this.filename);
@@ -98,8 +99,11 @@ class Checklist{
     getMissingValues = () =>
         this.missing_values;
 
-    missingLeft = () =>
-        this.missing_values.length
+    missingLeft = () => {
+        // what is going on??
+        debugger;
+        return this.missing_values.length
+    }
 
     nextMissing = () =>
         this.missing_values.shift();

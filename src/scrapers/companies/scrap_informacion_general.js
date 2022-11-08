@@ -67,5 +67,5 @@ export default async (page, path, log, company) => {
     // if we got to here withou errors, we did it!
     debugger
     log("General Infomation Scraped");
-    return true
+    return page
 }

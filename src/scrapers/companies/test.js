@@ -5,9 +5,10 @@ import { information_de_companies } from '../../urls.js';
 import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../../utils/files.js';
-import custom_ajax from '../../websites_code/custom_code/custom_ajax.js';
 import { Checklist, DiskList } from '../../progress.js';
+import custom_ajax from '../../websites_code/custom_code/custom_ajax.js';
 import custom_functions from '../../websites_code/custom_code/custom_functions.js'
+import custom_eventListeners from '../../websites_code/custom_code/custom_eventListeners.js'
 import scrap_informacion_general_script from './scrap_informacion_general.js';
 import scrap_documents_script from './scrap_documents.js';
 import select_company_script from './select_company_script.js';
@@ -58,12 +59,12 @@ await page.waitForTimeout(1000);
 // over write the normal ajax call for tis one
 await page.evaluate(custom_ajax);
 await page.evaluate(custom_functions);
+await page.evaluate(custom_eventListeners);
 
 debugger;
+// selecting company
+page = await select_company_script(page, company, log);
 
-await select_company_script(page, company, log);
-
-debugger;
 /*--------- company scrap ---------*/
 // not thet captachn has been accpeted we can load company page
 let company_url = information_de_companies;
@@ -79,7 +80,7 @@ if( current_page !== company_url )
     */
 
 // wait for page to load
-await waitUntilRequestDone(page, 500);
+await waitUntilRequestDone(page, 1000);
 
 // load custom client code
 await page.evaluate(custom_ajax);
@@ -129,7 +130,10 @@ for( let menu of Object.keys(tab_menus) ) {
             // run the function
             let outcome = await tab_menus[menu](page, company_dir, log, company);
             // if outcome successfull, check it off
-            if(outcome) checklist_company_menu.check(menu)
+            if(outcome){
+                page = outcome;
+                checklist_company_menu.check(menu)
+            }
         }
     }
 }

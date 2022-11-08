@@ -87,6 +87,12 @@ export default () => {
      * @param {} response
      * @param {} table
      */
+    /**
+     * window.extract_number_of_pdfs.
+     *
+     * @param {} response
+     * @param {} table
+     */
     window.extract_number_of_pdfs = (response, table) => {
         // let's parse the html respose
         let html = window.parse_html_str(response.responseText);
@@ -135,6 +141,22 @@ export default () => {
             row = rows.iterateNext();
         }
         return parsed_rows;
+    }
+
+
+    /**
+     * window.check_for_captchan.
+     *
+     * @param {} html
+     */
+    window.check_for_captchan = html => {
+        let extension = html.getElementsByTagName('extension')
+        if(extension.length){ // if got captchan
+            extension = extension[0].innerText;
+            // did we ger capthan?
+            if(JSON.parse(extension).presentarPopupCaptcha) return true
+        }
+        return false;
     }
 
 
