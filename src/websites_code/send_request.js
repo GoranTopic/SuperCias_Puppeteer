@@ -57,7 +57,6 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
     let callback_str = callback?.toString();
     //console.log('callback_str:', callback_str);
     //console.log('original_oncomplete_str:', original_oncomplete_str);
-    
     let response = await page.evaluate(
         async ({parameters, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str}) =>
@@ -68,40 +67,36 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             // lets sent he request to the server
             PrimeFaces.ab({
                 ...parameters,
-                oncomplete: async (response, status, i, C) => {
+                oncomplete: async (response, status, i, C, 
+                    extraparam1, extraparam2, extraparam3
+                ) => {
                     // is respose successfull?
                     if(status !== "success"){ reject(status); return; }
                     // let's parse the result html repsose
                     let html = window.parse_html_str(response.responseText);
                     // check extension to see if there is capthacn
-                    let extension = html.getElementsByTagName('extension')
-                    if(extension.length){ // if got captchan
-                        extension = extension[0].innerText;
-                        console.log('extension:', extension);
-                        // did we ger capthan?
-                        if(JSON.parse(extension).presentarPopupCaptcha) {
-                            console.log("got captchan");
-                            // get captchan url
-                            let captchan_src = window.get_captchan_src(html);
-                            console.log("captchan_src:", captchan_src);
-                            // fetch captchan
-                            let captchan_img = await window.fetch(captchan_src);
-                            // now that we have the captchan src, let's fetch the image
-                            //console.log("captchan_img:", captchan_img);
-                            let bin_str = await window.to_binary_string( captchan_img );
-                            resolve({ // on success
-                                isCaptchan: true,
-                                bin_str
-                            });
-                        }
+                    if(window.check_for_captchan(html)){
+                        console.log("got captchan");
+                        // get captchan url
+                        let captchan_src = window.get_captchan_src(html);
+                        console.log("captchan_src:", captchan_src);
+                        // fetch captchan
+                        let captchan_img = await window.fetch(captchan_src);
+                        // now that we have the captchan src, let's fetch the image
+                        //console.log("captchan_img:", captchan_img);
+                        let bin_str = await window.to_binary_string( captchan_img );
+                        resolve({ // on success
+                            isCaptchan: true,
+                            bin_str
+                        });
+                        return;
+                    }else{ // if we did not get captchan
+                        let return_value = eval("("+callback_str+")(response, status, i, C)");
+                        resolve({
+                            isCaptchan: false,
+                            return_value,
+                        });
                     }
-                    // if we did not get captchan
-                    console.log("did not captchan");
-                    let return_value = eval("("+callback_str+")(response, status, i, C)");
-                    resolve({
-                        isCaptchan: false,
-                        return_value,
-                    });
                     // run the callbacks which normaly run with the query
                     if(followAlong){ 
                         eval("("+original_oncomplete_str+")(response, status, i)");
@@ -177,11 +172,11 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         )
 
         // save captchan if correct
+        //let save the captchan
+        let cptn_path = './data/mined/captchans/';
+        mkdir(cptn_path);
         if(response.isCaptchanCorrect){ 
             log("captchan was accepted");
-            //let save the captchan
-            let cptn_path = './data/mined/captchans/';
-            mkdir(cptn_path);
             write_binary_file( captchan_bin, 
                 // change to matching image extencion
                 cptn_path + captchan_solution + ".png" 
@@ -190,10 +185,16 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             return response.return_value;
         }else{
             log("captchan was not accepted");
+            write_binary_file( captchan_bin, 
+                // change to matching image extencion
+                cptn_path + "error" + captchan_solution + ".png" 
+            );
             throw Error('Captchan failed');
         }
     }
 }
+
+
 
 
 export default send_request
