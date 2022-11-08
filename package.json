@@ -37,7 +37,9 @@
         "chalk": "^5.0.1",
         "json-fn": "^1.1.1",
         "prompt-sync": "^4.2.0",
-        "puppeteer": "^14.1.1",
+        "puppeteer": "^14.4.1",
+        "puppeteer-extra": "^3.3.4",
+        "puppeteer-extra-plugin-stealth": "^2.11.1",
         "tesseract.js": "^2.0.0-beta.2",
         "truncate-utf8-bytes": "^1.0.2"
     }

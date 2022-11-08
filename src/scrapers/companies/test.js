@@ -12,7 +12,9 @@ import custom_eventListeners from '../../websites_code/custom_code/custom_eventL
 import scrap_informacion_general_script from './scrap_informacion_general.js';
 import scrap_documents_script from './scrap_documents.js';
 import select_company_script from './select_company_script.js';
-//import scrap_administradores_actuales from './scrap_administradores_actuales.js';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+
+
 
 // set debugging
 let debugging = options.debugging;
@@ -37,6 +39,9 @@ let company = {
     ruc:'1792287413001',
     name: 'CORPORACION GRUPO FYBECA S.A. GPF'
 };
+
+// add stealth plugin and use defaults (all evasion techniques)
+puppeteer.use(StealthPlugin())
 
 // create new browser
 const browser = await puppeteer.launch(browserOptions)
