@@ -9,6 +9,8 @@ import query_pdf from '../websites_code/queries/query_pdf_link.js'
 import query_table_change from '../websites_code/queries/query_table_change.js'
 import options from '../options.js';
 
+let error_threshold = 4;
+
 
 const scrap_row = async(id, title, table, rows, page, path, log ) => {
     // set a time out for 3 minutes, to proces the pdf
@@ -59,10 +61,12 @@ const scrap_row = async(id, title, table, rows, page, path, log ) => {
  * @param {} log
  * @param {} company
  */
-const scrap_table = async (table, rows, checklists, page, path, log, company) => { // switch table tab let's change the tab and get the total number of rows, 
+const scrap_table = async (table, rows, checklists, page, path, log, company) => { 
+    // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
-    if(!rows[table]){
+    if(rows[table] !== 'DocumentosGenerales'){
         debugger;
+        console.log('we got new tab');
         rows[table] = await send_request(
             query_table_change, // paramter need to make the reuqe
             (response, status, i, C) =>  // the first table is general documentos
@@ -82,7 +86,8 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     log('sending query for rows all')
     let response = await page.evaluate(
         ({table, rows}) => { // paginator
-            return PrimeFaces.widgets['tbl' + table]
+            return PrimeFaces
+                .widgets['tbl' + table]
                 .paginator
                 .setRowsPerPage(rows)            
         }, {table, rows: rows[table]}
@@ -117,11 +122,11 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // loop over every pdf
     for(let { id, title } of pdfs_info){ 
         // if we alread have it, skip it
+        if(checklists[table].isCheckedOff(id)) continue;
         log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} 
  of ${table} in ${company.name}
  title: ${title}
  id: ${id}`)
-        if(checklists[table].isCheckedOff(id)) continue;
         let outcome = await scrap_row(
             id, title, table, rows, page, path, log, 
         );
@@ -137,6 +142,14 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
 
 }
 
+/**
+ * Scrap Documents
+ *
+ * @param {} page
+ * @param {} path
+ * @param {} log
+ * @param {} company
+ */
 export default async (page, path, log=console.log, company) => {
     // let's make our dir
     let menu_name = 'Documentacion';
@@ -149,7 +162,7 @@ export default async (page, path, log=console.log, company) => {
         'DocumentosEconomicos' 
     ];
     // wait for page to load
-    await waitUntilRequestDone(page, 500);
+    await waitUntilRequestDone(page, 2000);
 
     // query the documentos online
     debugger;
@@ -178,25 +191,40 @@ export default async (page, path, log=console.log, company) => {
         else
             rows[table] = null;
     });
+
+    // checklist tables
+    let tbl_checklist = new Checklist( 
+        'tables_' + company.name,
+        tables
+    );
     
     // make checklists 
-    let checklists = {};
+    let pdf_checklists = {};
     tables.forEach( table => 
-        checklists[table] = new Checklist(
+        pdf_checklists[table] = new Checklist(
             "pdfs_" + table + '_' + company.name
         )
     );
 
+
     // let try to scrap every table =)
     for( let table of tables ){
+        debugger;
         let tbl_path = path + '/' + table;
-        let outcome = await scrap_table(table, rows, checklists, page, tbl_path, log, company)
+        if(!tbl_checklist.isCheckedOff(table)){
+            let missing = await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
+            if(missing < error_threshold) 
+                tbl_checklist.check(table);
+        }
     }
     
     // check how we did
     debugger;
+    tables.forEach( table => 
+        log(`For ${table} we got ${pdf_checklists[table].missingLeft()}/${rows[table]}`)
+    );
     // if everyt checklist has less than 5 missing pdfs
-    if( tables.every( table => checklists[table].missingLeft() < 4)){
+    if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){
         log('scrap documents finished')
         return page
     }else{ // did not pass

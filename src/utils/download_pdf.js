@@ -26,7 +26,7 @@ const download_pdf = async (url, page, path) => {
 
     try{ 
         // save pdf binary string 
-        console.log('got pdfString', pdfString)
+        console.log('got pdfString')
         const pdfData = Buffer.from(pdfString, 'binary');
         let filename = path + ".pdf"
         fs.writeFileSync( filename , pdfData);

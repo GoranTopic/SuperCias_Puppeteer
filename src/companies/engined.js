@@ -1,13 +1,13 @@
-import { ProxyRotator } from '../../proxies.js'
-import PromiseEngine from '../../PromiseEngine.js';
-import { read_json } from '../../utils/files.js';
-import { Checklist, DiskList } from '../../progress.js';
-import goto_company_search_page from '../../states/supercia.gov.ec/goto_company_search_page.js'
-import input_company_name from '../../states/supercia.gov.ec/input_company_name.js'
-import close_browser from '../../states/supercia.gov.ec/close_browser.js'
-import scrap_company from '../../states/supercia.gov.ec/scrap_company.js'
-import options from '../../options.js'
-import makeLogger from '../../logger.js'
+import { ProxyRotator } from '../proxies.js'
+import PromiseEngine from '../PromiseEngine.js';
+import { read_json } from '../utils/files.js';
+import { Checklist, DiskList } from '../progress.js';
+import goto_company_search_page from '../states/supercia.gov.ec/goto_company_search_page.js'
+import input_company_name from '../states/supercia.gov.ec/input_company_name.js'
+import close_browser from '../states/supercia.gov.ec/close_browser.js'
+import scrap_company from '../states/supercia.gov.ec/scrap_company.js'
+import options from '../options.js'
+import makeLogger from '../logger.js'
 import puppeteer from 'puppeteer';
 
 // options of browser

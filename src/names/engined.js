@@ -1,7 +1,7 @@
-import { ProxyRotator } from '../../proxies.js'
-import PromiseEngine from '../../PromiseEngine.js';
-import options from '../../options.js'
-import makeLogger from '../../logger.js'
+import { ProxyRotator } from '../proxies.js'
+import PromiseEngine from '../PromiseEngine.js';
+import options from '../options.js'
+import makeLogger from '../logger.js'
 import script from './script.js';
 
 // options of browser

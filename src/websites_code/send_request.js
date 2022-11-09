@@ -63,7 +63,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         // let's make a new promise, 
         await new Promise(( resolve, reject ) => {
             // set a time out for 5 minutes, closes the browser
-            //setTimeout( () => reject(new Error('evaluation timed out')), 1000 * 60 * 5);
+            setTimeout( () => reject(new Error('evaluation timed out')), 5 * 1000 * 60);
             // lets sent he request to the server
             PrimeFaces.ab({
                 ...parameters,

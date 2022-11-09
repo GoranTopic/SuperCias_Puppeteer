@@ -99,11 +99,8 @@ class Checklist{
     getMissingValues = () =>
         this.missing_values;
 
-    missingLeft = () => {
-        // what is going on??
-        debugger;
-        return this.missing_values.length
-    }
+    missingLeft = () => 
+        this.missing_values.length
 
     nextMissing = () =>
         this.missing_values.shift();

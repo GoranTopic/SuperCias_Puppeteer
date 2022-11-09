@@ -1,11 +1,11 @@
 import puppeteer from 'puppeteer';
-import { DiskList } from '../../progress.js';
-import options from '../../options.js'
-import makeLogger from '../../logger.js'
-import goto_company_search_page from '../../states/supercia.gov.ec/goto_company_search_page.js'
-import check_server_offline from '../../states/supercia.gov.ec/check_server_offline.js'
-import close_browser from '../../states/supercia.gov.ec/close_browser.js'
-import query_suggestions from '../../states/supercia.gov.ec/query_suggestions.js'
+import { DiskList } from '../progress.js';
+import options from '../options.js'
+import makeLogger from '../logger.js'
+import goto_company_search_page from '../states/supercia.gov.ec/goto_company_search_page.js'
+import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js'
+import close_browser from '../states/supercia.gov.ec/close_browser.js'
+import query_suggestions from '../states/supercia.gov.ec/query_suggestions.js'
 
 // options of browser
 let browserOptions = options.browser;
