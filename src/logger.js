@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import moment from 'moment';
 
 const colors = [
     'green',
@@ -20,7 +21,7 @@ let index = 0
 
 const log = console.log;
 
-const make_logger = (prefix='', color=null) => {
+const make_logger = (prefix='', addTimeStamp=false, color=null) => {
     //chose color, in not specified
     if(color === null)
         if(index >= colors.length)
@@ -28,8 +29,9 @@ const make_logger = (prefix='', color=null) => {
     color = colors[index++];
     // return logger function
     return (...args) => {
+        let timeStamp = addTimeStamp? `[${moment().format('DD-MM-YY H:m:s')}]` : '';
         let string = [ ...args ].map( obj => JSON.stringify(obj) ).join('');
-        log( chalk[color](  prefix + string ) );
+        log( chalk[color]( timeStamp + prefix + string ) );
     }
 }
 
