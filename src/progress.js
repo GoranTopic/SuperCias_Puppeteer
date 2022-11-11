@@ -66,7 +66,7 @@ class Checklist{
         this.checklist = read_json( this.filename );
         this.values = values ?? [];
         this.missing_values = [];
-        // make chekilist
+        // make checklist
         if(!this.checklist){
             this.checklist = {};
             for(let value of this.values){
@@ -74,12 +74,13 @@ class Checklist{
                     value = JSON.stringify(value)
                 this.checklist[value] = false
             }
-        }else // if we found checklist in memeory
+        }else // if we found checklist in memory
             this.values = Object.keys(this.checklist);
         // calculate the missing values
         this._calcMissing();
         // save new checklist
         write_json(this.checklist, this.filename);
+        debugger;
     }
 
     _isObject = (objValue) =>

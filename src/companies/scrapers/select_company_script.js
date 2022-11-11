@@ -1,10 +1,10 @@
-import send_request from '../websites_code/send_request.js'
-import submit_captchan from '../websites_code/queries/submit_company_search_captchan.js';
-import select_autocomplete_company from '../websites_code/queries/select_autocomplete_suggestion.js'
-import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
-import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
-import { write_binary_file, mkdir } from '../utils/files.js';
-import str_to_binary from '../utils/strToBinary.js';
+import send_request from '../../websites_code/send_request.js'
+import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
+import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
+import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
+import { write_binary_file, mkdir } from '../../utils/files.js';
+import str_to_binary from '../../utils/strToBinary.js';
 
 /**
  * handle_company_search.
@@ -97,19 +97,22 @@ const handle_company_search =  async (page, company, log=console.log) => {
     );
 
 
+
     let cptn_path = './data/mined/captchans/';
     mkdir(cptn_path);
     // if the captchan was accapted we was to save it 
     if(was_captchan_accepted){
-        write_binary_file( captchan_bin, 
-            // change to matching image extencion
-            cptn_path + captchan_solution + ".png" 
-        );
+        (options.saveCaptchan) &&
+            write_binary_file( captchan_bin, 
+                // change to matching image extencion
+                cptn_path + captchan_solution + ".png" 
+            );
     }else{
-        write_binary_file( captchan_bin, 
-            // change to matching image extencion
-            cptn_path + "error" + captchan_solution + ".png" 
-        );
+        (options.saveCaptchan) &&
+            write_binary_file( captchan_bin, 
+                // change to matching image extencion
+                cptn_path + "error" + captchan_solution + ".png" 
+            );
         throw Error(`captchan ${captchan_solution} was not accepted`);
     }
     

@@ -3,6 +3,7 @@ import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
 import { mkdir, write_binary_file } from '../utils/files.js';
+import options from '../options.js';
 
 // followAlong placeholder
 let error_count = 0;
@@ -68,8 +69,8 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
             setTimeout( () => reject(new Error('evaluation timed out')), 5 * 1000 * 60);
             let parameters = window.JSONfn.parse(parameters_str)
             let paramters_b = parameters.ext? parameters.ext : undefined;
-            console.log("paramters: ", parameters);
-            console.log("paramters_b: ", paramters_b);
+            //console.log("paramters: ", parameters);
+            //console.log("paramters_b: ", paramters_b);
             // lets sent he request to the server
             PrimeFaces.ab({
                 ...parameters,
@@ -177,24 +178,25 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                 submit_captchan_callback_str, followAlong }
         )
 
-        // save captchan if correct
         //let save the captchan
         let cptn_path = './data/mined/captchans/';
         mkdir(cptn_path);
         if(response.isCaptchanCorrect){ 
             log("captchan was accepted");
-            write_binary_file( captchan_bin, 
-                // change to matching image extencion
-                cptn_path + captchan_solution + ".png" 
-            );
+            (options.saveCaptchan) &&
+                write_binary_file( captchan_bin, 
+                    // change to matching image extencion
+                    cptn_path + captchan_solution + ".png" 
+                );
             // return the retur value form the callback
             return response.return_value;
         }else{
             log("captchan was not accepted");
-            write_binary_file( captchan_bin, 
-                // change to matching image extencion
-                cptn_path + "error" + captchan_solution + ".png" 
-            );
+            (options.saveCaptchan) &&
+                write_binary_file( captchan_bin, 
+                    // change to matching image extencion
+                    cptn_path + "error" + captchan_solution + ".png" 
+                );
             throw Error('Captchan failed');
         }
     }

@@ -1,13 +1,13 @@
-import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
-import { write_json, mkdir, fileExists } from '../utils/files.js';
-import sanitize from '../utils/sanitizer.js';
-import download_pdf from '../utils/download_pdf.js';
-import { Checklist } from '../progress.js';
-import send_request from '../websites_code/send_request.js';
-import query_documentos_online from '../websites_code/queries/query_documentos_online.js';
-import query_pdf from '../websites_code/queries/query_pdf_link.js'
-import { query_table_change } from '../websites_code/queries/query_table_change.js'
-import options from '../options.js';
+import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+import { write_json, mkdir, fileExists } from '../../utils/files.js';
+import sanitize from '../../utils/sanitizer.js';
+import download_pdf from '../../utils/download_pdf.js';
+import { Checklist } from '../../progress.js';
+import send_request from '../../websites_code/send_request.js';
+import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
+import query_pdf from '../../websites_code/queries/query_pdf_link.js'
+import { query_table_change } from '../../websites_code/queries/query_table_change.js'
+import options from '../../options.js';
 
 let error_threshold = 2;
 
