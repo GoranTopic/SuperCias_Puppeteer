@@ -5,6 +5,8 @@ import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
 import { write_binary_file, mkdir } from '../../utils/files.js';
 import str_to_binary from '../../utils/strToBinary.js';
+import options from '../../options.js';
+
 
 /**
  * handle_company_search.
