@@ -131,7 +131,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         let captchan_bin = str_to_binary(binary_string);
         // recognize the bytes image
         let captchan_solution = await recognizeCaptchan(captchan_bin);
-        log("captchan regonized as:", captchan_solution);
+        log(`captchan regonized as: ${captchan_solution}`);
         let submit_captchan_callback_str = submit_captchan
             .oncomplete
             .toString()

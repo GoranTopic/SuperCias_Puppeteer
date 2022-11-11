@@ -129,14 +129,14 @@ export default class PromiseEngine {
                 ) 
                 */
 
-        // getters
-        result.getValue    = function() { return value };
-        result.isResolved  = function() { return isFulfilled || isRejected };
-        result.isFulfilled = function() { return isFulfilled };
-        result.isRejected  = function() { return isRejected };
-        if(callback) result.callback = function() { return callback( value ) };
-        return result;
-    }
+                            // getters
+                            result.getValue    = function() { return value };
+                            result.isResolved  = function() { return isFulfilled || isRejected };
+                            result.isFulfilled = function() { return isFulfilled };
+                            result.isRejected  = function() { return isRejected };
+                            if(callback) result.callback = function() { return callback( value ) };
+                            return result;
+                        }
 
     async start(){
         let result;

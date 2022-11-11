@@ -12,7 +12,7 @@
     "debugging": true,
     "proxyRotation": true,
     "saveCaptchan": true,
-    "triesWithProxies": 5,
+    "triesWithProxies": 8,
     "triesPerProxy": 5,
     "minutesToTimeout": 5,
     "nameQueryTimeout": 3,

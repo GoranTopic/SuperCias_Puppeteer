@@ -36,14 +36,19 @@ async function main(){
     // create timeout process
     const create_promise = ( id, proxy, log, retries = 0 ) =>
         new Promise( async (resolve, reject) => {
-            // run the script
-            let result = await script(id, proxy, log)
-            if(result) resolve()
-            else reject()
+            try{ // run the script
+                log(`Scraping ${id.name}`)
+                log(`Company ${checklist.values.length - checklist.missingLeft()} out of ${checklist.values.length}`);
+                await script(id, proxy, log)? resolve() : 
+                    reject(new Error(`Could not finish scraping ${id.companies}`))
+            }catch(e){
+                console.error(e);
+                reject(e);
+            }
         })
 
 // create timeout process
-const create_callback = ( name, proxy, log, retries = 0) =>
+const create_callback = ( id, proxy, log, retries = 0) =>
     result =>  {
         debugging && log("Callback Called");
         debugger;
@@ -53,16 +58,16 @@ const create_callback = ( name, proxy, log, retries = 0) =>
             proxy && proxy_r.setDead(proxy);
             // stop trying if many tries
             if( retries > retries_max ) {
-                errored.add(name);
+                errored.add(id);
                 //throw new Error('Process rejected');
             }else{ // let's try it again 
                 debugging && log("new Promised issued")
                 debugger
-                return create_promise(name, proxy_r.next(), log, retries+1);
+                return create_promise(id, proxy_r.next(), log, retries+1);
             }
         }else{ // proxy was successfull
-            checklist.check(name);
-            log(`${name} checked off`);
+            checklist.check(id);
+            log(`${id.name} checked off`);
             debugger;
         }
     }
@@ -71,7 +76,7 @@ const create_callback = ( name, proxy, log, retries = 0) =>
 		engine.setNextPromise( () => {
 				let id = JSON.parse(checklist.nextMissing());
 				let proxy = proxy_r.next();
-				let logger = makeLogger( withProxy? `[${proxy.proxy}] ` : "" );
+				let logger = makeLogger( withProxy? `[${proxy.proxy.split(':')[0]}]` : "", true);
 				let promise = create_promise( id, proxy, logger );
 				let callback = create_callback( id, proxy, logger );
 				return [ promise, callback ];
