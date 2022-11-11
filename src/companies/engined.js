@@ -38,7 +38,7 @@ async function main(){
         new Promise( async (resolve, reject) => {
             try{ // run the script
                 log(`Scraping ${id.name}`)
-                log(`Company ${checklist.values.length - checklist.missingLeft()} out of ${checklist.values.length}`);
+                log(`Company ${checklist.valuesDone()} out of ${checklist.values.length}`);
                 await script(id, proxy, log)? resolve() : 
                     reject(new Error(`Could not finish scraping ${id.companies}`))
             }catch(e){

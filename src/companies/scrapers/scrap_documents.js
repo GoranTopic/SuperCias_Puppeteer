@@ -214,7 +214,7 @@ export default async (page, path, log=console.log, company) => {
         if(!tbl_checklist.isCheckedOff(table)){
             log('  -------------  ')
             tables.forEach(row => 
-                log(`${table}: ${pdf_checklists[table].missingLeft()}/${rows[table]}`) 
+                log(`${table}: ${pdf_checklists[table].valuesDone()}/${rows[table]}`) 
             )
             log('  -------------  ')
             let missing =
@@ -227,7 +227,7 @@ export default async (page, path, log=console.log, company) => {
     // check how we did
     debugger;
     tables.forEach( table => 
-        log(`For ${table} we got ${pdf_checklists[table].missingLeft()}/${rows[table]}`)
+        log(`For ${table} we got ${pdf_checklists[table].values}/${rows[table]}`)
     );
     // if everyt checklist has less than 5 missing pdfs
     if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){

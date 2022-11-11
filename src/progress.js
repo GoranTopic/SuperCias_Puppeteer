@@ -97,6 +97,10 @@ class Checklist{
                 this.missing_values.push(value)
         })
     }
+    
+    valuesDone = () => 
+        this.values.length - this.missing_values.length;
+    
 
     getMissingValues = () =>{
         debugger;
