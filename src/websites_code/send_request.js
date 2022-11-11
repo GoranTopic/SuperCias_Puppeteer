@@ -122,7 +122,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         return response.return_value;
     else{ // if we have response that is capthan
         log("Captchan Recived");
-        debugger;
+        //debugger;
         // let's reconized that captchan
         let binary_string = response.bin_str;
         // if we have a captahcn we need to converte form to binay from a binary string
@@ -134,7 +134,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         let submit_captchan_callback_str = submit_captchan
             .oncomplete
             .toString()
-        debugger;
+        //debugger;
         // now let's test if the capthacn was correct
         response = await page.evaluate(
             async ({ captchan_solution, callback_str, submit_captchan,

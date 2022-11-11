@@ -76,6 +76,7 @@ class Checklist{
             }
         }else // if we found checklist in memeory
             this.values = Object.keys(this.checklist);
+        // calculate the missing values
         this._calcMissing();
         // save new checklist
         write_json(this.checklist, this.filename);
@@ -106,6 +107,7 @@ class Checklist{
         this.missing_values.shift();
 
     check = (value, mark = true) => {
+        debugger;
         /* checks a value on the list as done */
         if(this._isObject(value))
             value = JSON.stringify(value)
