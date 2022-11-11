@@ -7,20 +7,16 @@ import send_request from '../websites_code/send_request.js';
 import query_documentos_online from '../websites_code/queries/query_documentos_online.js';
 import query_pdf from '../websites_code/queries/query_pdf_link.js'
 import { query_table_change } from '../websites_code/queries/query_table_change.js'
-import query_rows from '../websites_code/queries/query_rows.js'
 import options from '../options.js';
 
-import JSONfn from 'json-fn';
-
-let error_threshold = 4;
+let error_threshold = 2;
 
 const scrap_row = async(id, title, table, rows, page, path, log ) => {
     // set a time out for 3 minutes, to proces the pdf
-    let timeout = setTimeout(() => { 
-        console.error('scrap_row timed out');
-        return false;
-    }, 1 * 1000 * 60);
     try{
+        let timeout = setTimeout(() => { 
+            throw Error('scrap_row timed out');
+        }, 1 * 1000 * 60);
         // requestin pdf link
         debugger;
         let src = await send_request(
@@ -68,15 +64,21 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // except if it is the general row, in which case it is 
     log(`scraping ${table} Table`);
     if(rows[table] !== 'DocumentosGenerales'){
-        debugger;
-        console.log('we got new tab');
-        rows[table] = await send_request(
-            query_table_change, // paramter need to make the reuqe
-            (response, status, i, C) => null, // the first table is general documentos
-            //window.extract_number_of_pdfs(response, table),
-            page, // puppetter page
-            log, // logger
+        debugger
+        let result = await send_request(
+            query_table_change(table),
+            (response, status, i, C) => response,
+            page,
+            log,
+        )
+        // query rows from new table
+    
+        // getting number of rows
+        rows[table] = await page.evaluate( table => 
+            PrimeFaces.widgets['tbl'+table].cfg.paginator.rowCount, 
+            table
         );
+        console.log('row: ', rows);
     }
     log(`rows[${table}]: `, rows[table]);
 
@@ -124,6 +126,7 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // loop over every pdf
     for(let { id, title } of pdfs_info){ 
         // if we alread have it, skip it
+        debugger
         if(checklists[table].isCheckedOff(id)) continue;
         log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} 
  of ${table} in ${company.name}
@@ -208,76 +211,6 @@ export default async (page, path, log=console.log, company) => {
         )
     );
 
-    debugger;
-    let params = query_table_change(tables[1]);
-    let params_str = JSONfn.stringify(params);
-    await page.evaluate(params_str => {
-        window.params_a = window.JSONfn.parse(params_str)
-        window.params_b = window.params_a.ext;
-        console.log('params_a: ', window.params_a);
-        console.log('params_b ', window.params_b);
-        //window.PrimeFaces.ab(window.params_a, window.params_b)
-    }, params_str)
-
-    // query table change 
-    let result;
-    debugger
-    result = await send_request(
-        query_table_change(tables[1]),
-        (response, status, i, C) => response,
-        page,
-        log,
-    )
-    console.log('result: ', result)
-    // query rows from new table
-    
-    // getting number of rows
-    debugger;
-    let row = await page.evaluate( table => 
-        PrimeFaces.widgets['tbl'+table].cfg.paginator.rowCount, 
-        tables[1]
-    );
-    console.log('row: ', row);
-
-    debugger;
-    // get all rows
-    log('sending query for rows all')
-    let response = await page.evaluate(
-        ({table, rows}) => { // paginator
-            return PrimeFaces
-                .widgets['tbl' + table]
-                .paginator
-                .setRowsPerPage(rows)            
-        }, {table: tables[1], row: row}
-    )
-    console.log('response: ', response);
-
-    // extract rows in table
-    debugger;
-    let pdfs_info = await page.evaluate( table =>
-        // let get a list of all pdf documents
-        // note: here the value is tab + table
-        // instead of the ususal tbl + table
-        window.parse_table_html('tab' + table),
-        tables[1]
-    );
-    console.log('pdfs_info: ', pdfs_info);
-
-    /*
-    debugger;
-    result = await send_request(
-        query_rows(tables[1]),
-        (response, status, i, C) => { 
-            return response;
-        },
-        page,
-        log,
-    );
-    console.log('result: ', result)
-    */
-
-
-    /*
     // let try to scrap every table =)
     for( let table of tables ){
         debugger;
@@ -289,7 +222,6 @@ export default async (page, path, log=console.log, company) => {
                 tbl_checklist.check(table);
         }
     }
-    */
     
     // check how we did
     debugger;
