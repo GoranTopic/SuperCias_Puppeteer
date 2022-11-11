@@ -1,3 +1,4 @@
+import JSONfn from 'json-fn';
 import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
@@ -52,24 +53,27 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
     // let's get the parameters of the function, the call back and the, page
     let isCaptchan = false;
     // make the functinos into string so that they can be passed to the browser
+    let parameters_str = JSONfn.stringify(parameters);
     let original_oncomplete_str = parameters.oncomplete?.toString();
     let onsuccess_str = parameters.onsuccess?.toString();
     let callback_str = callback?.toString();
     //console.log('callback_str:', callback_str);
     //console.log('original_oncomplete_str:', original_oncomplete_str);
     let response = await page.evaluate(
-        async ({parameters, callback_str, followAlong,
+        async ({parameters_str, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str}) =>
         // let's make a new promise, 
         await new Promise(( resolve, reject ) => {
             // set a time out for 5 minutes, closes the browser
             setTimeout( () => reject(new Error('evaluation timed out')), 5 * 1000 * 60);
+            let parameters = window.JSONfn.parse(parameters_str)
+            let paramters_b = parameters.ext? parameters.ext : undefined;
+            console.log("paramters: ", parameters);
+            console.log("paramters_b: ", paramters_b);
             // lets sent he request to the server
             PrimeFaces.ab({
                 ...parameters,
-                oncomplete: async (response, status, i, C, 
-                    extraparam1, extraparam2, extraparam3
-                ) => {
+                oncomplete: async (response, status, i, C) => {
                     // is respose successfull?
                     if(status !== "success"){ reject(status); return; }
                     // let's parse the result html repsose
@@ -103,8 +107,10 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
                         eval("("+onsuccess_str+")(response, status, i)");
                     }
                 }
-            })
-        }), {parameters, callback_str, followAlong,
+            }, 
+                paramters_b
+            )
+        }), {parameters_str, callback_str, followAlong,
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
     //debugger

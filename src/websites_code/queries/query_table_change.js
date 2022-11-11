@@ -39,5 +39,5 @@ const query_table_change = table => ({
 })
 
 
-export default query_table_change
+export { query_table_change, table_tabindex_map };
 

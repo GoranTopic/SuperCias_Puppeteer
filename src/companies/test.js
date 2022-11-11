@@ -8,12 +8,12 @@ import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../utils/files.js';
 import { Checklist, DiskList } from '../progress.js';
 import custom_ajax from '../websites_code/custom_code/custom_ajax.js';
+import jsonfn from '../websites_code/custom_code/jsonfn.js';
 import custom_functions from '../websites_code/custom_code/custom_functions.js'
 import custom_eventListeners from '../websites_code/custom_code/custom_eventListeners.js'
 import scrap_informacion_general_script from './scrap_informacion_general.js';
 import scrap_documents_script from './scrap_documents.js';
 import select_company_script from './select_company_script.js';
-
 
 
 // set debugging
@@ -62,6 +62,7 @@ await page.waitForTimeout(1000);
 //await page.evaluate(custom_components);
 //await page.evaluate(custom_createWidget);
 // over write the normal ajax call for tis one
+await page.evaluate(jsonfn);
 await page.evaluate(custom_ajax);
 await page.evaluate(custom_functions);
 await page.evaluate(custom_eventListeners);
@@ -87,7 +88,8 @@ if( current_page !== company_url )
 // wait for page to load
 await waitUntilRequestDone(page, 2000);
 
-// load custom client code
+// load custom client code for the new page
+await page.evaluate(jsonfn);
 await page.evaluate(custom_ajax);
 await page.evaluate(custom_functions);
 log("custom code loaded")

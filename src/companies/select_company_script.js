@@ -96,16 +96,22 @@ const handle_company_search =  async (page, company, log=console.log) => {
         }, { captchan_solution, submit_captchan} 
     );
 
+
+    let cptn_path = './data/mined/captchans/';
+    mkdir(cptn_path);
     // if the captchan was accapted we was to save it 
     if(was_captchan_accepted){
-        let cptn_path = './data/mined/captchans/';
-        mkdir(cptn_path);
         write_binary_file( captchan_bin, 
             // change to matching image extencion
             cptn_path + captchan_solution + ".png" 
         );
-    } else
-        throw Error('Select Company Captchan failed');
+    }else{
+        write_binary_file( captchan_bin, 
+            // change to matching image extencion
+            cptn_path + "error" + captchan_solution + ".png" 
+        );
+        throw Error(`captchan ${captchan_solution} was not accepted`);
+    }
     
     // let's wait for the new page to load
     await waitUntilRequestDone(page, 1000);

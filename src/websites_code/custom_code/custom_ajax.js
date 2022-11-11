@@ -260,8 +260,8 @@ export default () => {
                 return c
             },
             send: function(e, make_changes=true) {
-                console.log("from ajax.send(e)");
-                console.log("e:", e);
+                //console.log("from ajax.send(e)");
+                //console.log("e:", e);
                 PrimeFaces.debug("Initiating ajax request.");
                 PrimeFaces.customFocus = false;
                 var m = (e.global === true || e.global === undefined) ? true : false
@@ -465,10 +465,10 @@ export default () => {
                     }
                     PrimeFaces.debug("DOM is updated.")
                 }).always(function(z, i, A) {
-                    console.log("printing from the $.ajax(p).always funtion(z,i,A)");
-                    console.log("z:", z);
-                    console.log("i:", i);
-                    console.log("A:", A);
+                    //console.log("printing from the $.ajax(p).always funtion(z,i,A)");
+                    //console.log("z:", z);
+                    //console.log("i:", i);
+                    //console.log("A:", A);
                     PrimeFaces.debug("Response received succesfully.")
                     if (e.ext && e.ext.oncomplete) {
                         e.ext.oncomplete.call(this, A, i, A.pfArgs)
