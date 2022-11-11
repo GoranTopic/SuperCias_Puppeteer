@@ -59,7 +59,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
     let captchan_solution = await recognizeCaptchan(captchan_bin);
-    log("captchan regonized as:", captchan_solution);
+    log(`captchan regonized as: ${captchan_solution}`);
 
 
     // send the capthcan and hope that it is right

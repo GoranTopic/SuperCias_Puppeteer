@@ -1,6 +1,6 @@
 {
     "browser": {
-        "headless": true,
+        "headless": false,
         "slowMo": 1,
         "devtools": false ,
         "excludeSwitches": "enable-automation",
@@ -10,7 +10,8 @@
         ]
     },
     "debugging": true,
-    "proxyRotation": false,
+    "proxyRotation": true,
+    "saveCaptchan": true,
     "triesWithProxies": 5,
     "triesPerProxy": 5,
     "minutesToTimeout": 5,

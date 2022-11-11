@@ -13,8 +13,9 @@ let error_threshold = 2;
 
 const scrap_row = async(id, title, table, rows, page, path, log ) => {
     // set a time out for 3 minutes, to proces the pdf
+    let timeout;
     try{
-        let timeout = setTimeout(() => { 
+        timeout = setTimeout(() => { 
             throw Error('scrap_row timed out');
         }, 1 * 1000 * 60);
         // requestin pdf link
@@ -40,7 +41,6 @@ const scrap_row = async(id, title, table, rows, page, path, log ) => {
         clearTimeout(timeout);
         return pdf_str;
     }catch(e){
-        console.log('Caught Error');
         console.error(e);
         clearTimeout(timeout);
         return false;
@@ -78,9 +78,8 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
             PrimeFaces.widgets['tbl'+table].cfg.paginator.rowCount, 
             table
         );
-        console.log('row: ', rows);
     }
-    log(`rows[${table}]: `, rows[table]);
+    log(`rows[${table}]: ${rows[table]}`);
 
     // let make update the path 
     mkdir(path);
@@ -128,10 +127,7 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
         // if we alread have it, skip it
         debugger
         if(checklists[table].isCheckedOff(id)) continue;
-        log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} 
- of ${table} in ${company.name}
- title: ${title}
- id: ${id}`)
+        log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_row(
             id, title, table, rows, page, path, log, 
         );
@@ -216,6 +212,11 @@ export default async (page, path, log=console.log, company) => {
         debugger;
         let tbl_path = path + '/' + table;
         if(!tbl_checklist.isCheckedOff(table)){
+            log('  -------------  ')
+            tables.forEach(row => 
+                log(`${table}: ${pdf_checklists[table].missingLeft()}/${rows[table]}`) 
+            )
+            log('  -------------  ')
             let missing =
                 await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
             if(missing < error_threshold) 

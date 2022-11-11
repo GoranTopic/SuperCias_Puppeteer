@@ -97,8 +97,10 @@ class Checklist{
         })
     }
 
-    getMissingValues = () =>
-        this.missing_values;
+    getMissingValues = () =>{
+        debugger;
+        return this.missing_values;
+    }
 
     missingLeft = () => 
         this.missing_values.length
