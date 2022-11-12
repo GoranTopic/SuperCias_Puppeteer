@@ -80,7 +80,6 @@ class Checklist{
         this._calcMissing();
         // save new checklist
         write_json(this.checklist, this.filename);
-        debugger;
     }
 
     _isObject = (objValue) =>
@@ -114,7 +113,6 @@ class Checklist{
         this.missing_values.shift();
 
     check = (value, mark = true) => {
-        debugger;
         /* checks a value on the list as done */
         if(this._isObject(value))
             value = JSON.stringify(value)
@@ -125,18 +123,22 @@ class Checklist{
 
     add = (value, overwrite = true) => {
         /* add a value as not done to the list
-         * if overwrite is true, it writes over any truety value */
+         * if overwrite is true, it writes over any truely value */
         if(this._isObject(value)) value = JSON.stringify(value)
+        this.values.push(value);
         // if it is not in the list, or overwrite is true
-        if(!this.checklist[value] || overwrite)
+        if(!this.checklist[value] || overwrite){
             this.checklist[value] = false;
+        }
+
         this._calcMissing();
         return write_json(this.checklist, this.dir_path + this.name);
     }
 
     addList = (values, overwrite=true) => {
         /* adds a list of values as not done to the list */
-        for( let value of values)
+        debugger
+        for(let value of values)
             this.add(value, overwrite);
         return true;
     }

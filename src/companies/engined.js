@@ -36,15 +36,12 @@ async function main(){
     // create timeout process
     const create_promise = ( id, proxy, log, retries = 0 ) =>
         new Promise( async (resolve, reject) => {
-            try{ // run the script
-                log(`Scraping ${id.name}`)
+             // run the script
+                log(`Scraping ${id.name}`);
                 log(`Company ${checklist.valuesDone()} out of ${checklist.values.length}`);
-                await script(id, proxy, log)? resolve() : 
-                    reject(new Error(`Could not finish scraping ${id.companies}`))
-            }catch(e){
-                console.error(e);
-                reject(e);
-            }
+                let result = await script(id, proxy, log);
+                if(result) resolve();
+                else reject(new Error(`Could not finish scraping ${id.companies}`));
         })
 
 // create timeout process

@@ -125,8 +125,8 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // loop over every pdf
     for(let { id, title } of pdfs_info){ 
         // if we alread have it, skip it
-        debugger
         if(checklists[table].isCheckedOff(id)) continue;
+        debugger
         log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_row(
             id, title, table, rows, page, path, log, 
@@ -199,7 +199,7 @@ export default async (page, path, log=console.log, company) => {
         tables
     );
     
-    // make checklists 
+   // make checklists 
     let pdf_checklists = {};
     tables.forEach( table => 
         pdf_checklists[table] = new Checklist(
@@ -212,11 +212,6 @@ export default async (page, path, log=console.log, company) => {
         debugger;
         let tbl_path = path + '/' + table;
         if(!tbl_checklist.isCheckedOff(table)){
-            log('  -------------  ')
-            tables.forEach(row => 
-                log(`${table}: ${pdf_checklists[table].valuesDone()}/${rows[table]}`) 
-            )
-            log('  -------------  ')
             let missing =
                 await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
             if(missing < error_threshold) 
@@ -227,7 +222,7 @@ export default async (page, path, log=console.log, company) => {
     // check how we did
     debugger;
     tables.forEach( table => 
-        log(`For ${table} we got ${pdf_checklists[table].values}/${rows[table]}`)
+        log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
     // if everyt checklist has less than 5 missing pdfs
     if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){

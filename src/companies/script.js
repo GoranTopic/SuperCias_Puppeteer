@@ -23,7 +23,7 @@ import options from '../options.js';
  * @param {} proxy
  * @param {} log
  */
-const script = async (company, proxy, log=console.log) => {
+const script = async (company, proxy, log=console.log) => { 
 
     // set debugging
     let debugging = options.debugging;
@@ -44,97 +44,105 @@ const script = async (company, proxy, log=console.log) => {
     // get page
     let page = ( await browser.pages() )[0];
 
-    // go to the company search page
-    await goto_company_search_page(browser, log);
+    try{
+        // go to the company search page
+        await goto_company_search_page(browser, log);
 
-    // check if server is ofline
-    await check_server_offline(browser, log);
+        // check if server is ofline
+        await check_server_offline(browser, log);
 
-    // wait for good luck
-    await page.waitForTimeout(1000);
+        // wait for good luck
+        await page.waitForTimeout(1000);
 
-    // load custom code
-    //await page.evaluate(custom_components);
-    //await page.evaluate(custom_createWidget);
-    // over write the normal ajax call for tis one
-    await page.evaluate(jsonfn);
-    await page.evaluate(custom_ajax);
-    await page.evaluate(custom_functions);
-    await page.evaluate(custom_eventListeners);
+        // load custom code
+        //await page.evaluate(custom_components);
+        //await page.evaluate(custom_createWidget);
+        // over write the normal ajax call for tis one
+        await page.evaluate(jsonfn);
+        await page.evaluate(custom_ajax);
+        await page.evaluate(custom_functions);
+        await page.evaluate(custom_eventListeners);
 
-    debugger;
-    // selecting company
-    page = await select_company_script(page, company, log);
+        debugger;
+        // selecting company
+        page = await select_company_script(page, company, log);
 
-    /*--------- company scrap ---------*/
-    // not thet captachn has been accpeted we can load company page
-    let company_url = information_de_companies;
+        /*--------- company scrap ---------*/
+        // not thet captachn has been accpeted we can load company page
+        let company_url = information_de_companies;
 
-    // wait for page to load
-    await waitUntilRequestDone(page, 2000);
+        // wait for page to load
+        await waitUntilRequestDone(page, 2000);
 
-    // load custom client code for the new page
-    await page.evaluate(custom_ajax);
-    await page.evaluate(custom_functions);
-    // this is required fot send_query.js
-    await page.evaluate(jsonfn);
-    log("custom code loaded")
+        // load custom client code for the new page
+        await page.evaluate(custom_ajax);
+        await page.evaluate(custom_functions);
+        // this is required fot send_query.js
+        await page.evaluate(jsonfn);
+        log("custom code loaded")
 
-    // make user there is companies folder
-    let companies_dir = './data/mined/companies';
-    mkdir(companies_dir)
+        // make user there is companies folder
+        let companies_dir = './data/mined/companies';
+        mkdir(companies_dir)
 
-    // company diretory 
-    let company_dir = companies_dir + "/" + company.name
-    mkdir(company_dir)
+        // company diretory 
+        let company_dir = companies_dir + "/" + company.name
+        mkdir(company_dir)
 
-    // this is a list of all the menu tabs,
-    // with their corresponding scraper
-    let tab_menus = {
-        'Información general': scrap_informacion_general_script,
-        'Administradores actuales': null, //scrap_administradores_actuales,
-        'Administradores anteriores': null,
-        'Actos jurídicos': null,
-        'Accionistas': null,
-        'Kárdex de accionistas': null,
-        'Información anual presentada': null,
-        'Consulta de cumplimiento': null,
-        'Documentos online': scrap_documents_script, 
-        'Valores adeudados': null,
-        'Valores pagados': null,
-        'Notificaciones generales': null,
-    }
+        // this is a list of all the menu tabs,
+        // with their corresponding scraper
+        let tab_menus = {
+            'Información general': scrap_informacion_general_script,
+            'Administradores actuales': null, //scrap_administradores_actuales,
+            'Administradores anteriores': null,
+            'Actos jurídicos': null,
+            'Accionistas': null,
+            'Kárdex de accionistas': null,
+            'Información anual presentada': null,
+            'Consulta de cumplimiento': null,
+            'Documentos online': scrap_documents_script, 
+            'Valores adeudados': null,
+            'Valores pagados': null,
+            'Notificaciones generales': null,
+        }
 
-    //make checklist of values
-    let checklist_company_menu = new Checklist(
-        'chkls_menus' + company.name, // name for how chelist save
-        // only make check list of what we have scraping functions for
-        Object.keys(tab_menus).filter( k => tab_menus[k] )
-    )
+        //make checklist of values
+        let checklist_company_menu = new Checklist(
+            'chkls_menus' + company.name, // name for how chelist save
+            // only make check list of what we have scraping functions for
+            Object.keys(tab_menus).filter( k => tab_menus[k] )
+        )
 
-    // for every menu, run the associated scrapper if found
-    for( let menu of Object.keys(tab_menus) ) {
-        // if it is not already chekoff
-        if( !checklist_company_menu.isCheckedOff(menu) ){
-            // and we have function for it
-            if( tab_menus[menu] ){ // check if there is a function
-                // wait for page to load
-                await waitUntilRequestDone(page, 1000);
-                // run the function
-                let outcome = await tab_menus[menu](page, company_dir, log, company);
-                // if outcome successfull, check it off
-                if(outcome){
-                    page = outcome;
-                    checklist_company_menu.check(menu)
+        // for every menu, run the associated scrapper if found
+        for( let menu of Object.keys(tab_menus) ) {
+            // if it is not already chekoff
+            if( !checklist_company_menu.isCheckedOff(menu) ){
+                // and we have function for it
+                if( tab_menus[menu] ){ // check if there is a function
+                    // wait for page to load
+                    await waitUntilRequestDone(page, 1000);
+                    // run the function
+                    let outcome = await tab_menus[menu](page, company_dir, log, company);
+                    // if outcome successfull, check it off
+                    if(outcome){
+                        page = outcome;
+                        checklist_company_menu.check(menu)
+                    }
                 }
             }
         }
-    }
-    if(checklist_company_menu.isDone()){
-        await close_browser(page);
-        return true;
-    }else 
+
+        await close_browser(page, log);
+        if(checklist_company_menu.isDone())
+            return true;
+        else
+            return false;
+
+    }catch(e){
+        console.error(e);
+        await close_browser(page, log);
         return false;
+    }
 }
 
 export default script

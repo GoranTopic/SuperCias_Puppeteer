@@ -31,7 +31,7 @@ const make_logger = (prefix='', addTimeStamp=false, color=null) => {
     return (...args) => {
         let timeStamp = addTimeStamp? `[${moment().format('DD-MM-YY H:m:s')}]` : '';
         let string = [ ...args ].map( obj => JSON.stringify(obj) ).join('');
-        log( chalk[color]( timeStamp + prefix + string ) );
+        log( chalk[color]( timeStamp + ' ' + prefix + " " + string ) );
     }
 }
 
