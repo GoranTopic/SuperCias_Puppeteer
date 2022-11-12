@@ -177,7 +177,7 @@ export default async (page, path, log=console.log, company) => {
         log, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
-    log('numberOfGeneralPdfs: ', numberOfGeneralPdfs);
+    log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
     log('query documents request finished')
 
     /* *
@@ -227,7 +227,7 @@ export default async (page, path, log=console.log, company) => {
     // if everyt checklist has less than 5 missing pdfs
     if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){
         log('scrap documents finished')
-        return false//page
+        return page
     }else{ // did not pass
         log('scrap documents did not finish')
         return false;

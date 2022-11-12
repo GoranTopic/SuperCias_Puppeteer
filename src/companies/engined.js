@@ -40,7 +40,7 @@ async function main(){
                 log(`Scraping ${id.name}`);
                 log(`Company ${checklist.valuesDone()} out of ${checklist.values.length}`);
                 let result = await script(id, proxy, log);
-                if(result) resolve();
+                if(result) resolve('sccess');
                 else reject(new Error(`Could not finish scraping ${id.companies}`));
         })
 

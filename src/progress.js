@@ -89,6 +89,7 @@ class Checklist{
 
     _calcMissing = () => {
         this.missing_values = [];
+        this.values = Object.keys(this.checklist);
         this.values.forEach( value  => {
             if(this._isObject(value))
                 value = JSON.stringify(value)
@@ -99,6 +100,7 @@ class Checklist{
     
     valuesDone = () => 
         this.values.length - this.missing_values.length;
+    
     
 
     getMissingValues = () =>{
@@ -125,12 +127,10 @@ class Checklist{
         /* add a value as not done to the list
          * if overwrite is true, it writes over any truely value */
         if(this._isObject(value)) value = JSON.stringify(value)
-        this.values.push(value);
         // if it is not in the list, or overwrite is true
         if(!this.checklist[value] || overwrite){
             this.checklist[value] = false;
         }
-
         this._calcMissing();
         return write_json(this.checklist, this.dir_path + this.name);
     }
@@ -161,7 +161,7 @@ class Checklist{
         // remvoes the value from the list
         if(this._isObject(value)) value = JSON.stringify(value)
         delete this.values[value];
-
+        this._calcMissing();
     }
 
     delete = () =>  {
