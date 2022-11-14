@@ -1,4 +1,4 @@
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import sanitize from '../../utils/sanitizer.js';
 import download_pdf from '../../utils/download_pdf.js';
@@ -7,19 +7,16 @@ import send_request from '../../websites_code/send_request.js';
 import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
 import query_pdf from '../../websites_code/queries/query_pdf_link.js'
 import { query_table_change } from '../../websites_code/queries/query_table_change.js'
+import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import options from '../../options.js';
 
 let error_threshold = 2;
 
-const scrap_row = async(id, title, table, rows, page, path, log ) => {
-    // set a time out for 3 minutes, to proces the pdf
-    let timeout;
+const scrap_row = async (id, title, table, rows, page, path, log ) => {
+    // set a time out for 5 minutes, to proces the pdf
     try{
-        timeout = setTimeout(() => { 
-            throw Error('scrap_row timed out');
-        }, 1 * 1000 * 60);
         // requestin pdf link
-        debugger;
+        //debugger;
         let src = await send_request(
             query_pdf(id),
             (response, status, i, C) => { 
@@ -30,19 +27,17 @@ const scrap_row = async(id, title, table, rows, page, path, log ) => {
             log,
             false, // don't followAlong so we don't download the pdf twice
         );
-        log('src:', src);
+        log(`src: ${src}`);
         // downloading pdf
-        debugger;
+        //debugger;
         let pdf_str = await download_pdf(
             src, 
             page, 
             path + '/' + title,
         );
-        clearTimeout(timeout);
         return pdf_str;
     }catch(e){
         console.error(e);
-        clearTimeout(timeout);
         return false;
     }
 }
@@ -64,7 +59,7 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // except if it is the general row, in which case it is 
     log(`scraping ${table} Table`);
     if(rows[table] !== 'DocumentosGenerales'){
-        debugger
+        //debugger
         let result = await send_request(
             query_table_change(table),
             (response, status, i, C) => response,
@@ -81,20 +76,24 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     }
     log(`rows[${table}]: ${rows[table]}`);
 
+    // don't try to scrap if the are no documents
+    if(rows[table] === 0) return true
     // let make update the path 
     mkdir(path);
 
-    //debugger;
-    // get all rows
-    log('sending query for rows all')
-    let response = await page.evaluate(
-        ({table, rows}) => { // paginator
-            return PrimeFaces
-                .widgets['tbl' + table]
-                .paginator
-                .setRowsPerPage(rows)            
-        }, {table, rows: rows[table]}
-    )
+    debugger;
+    if(rows[table] > 10){
+        // get all rows
+        log('sending query for rows all')
+        let response = await page.evaluate(
+            ({table, rows}) => { // paginator
+                return PrimeFaces
+                    .widgets['tbl' + table]
+                    .paginator
+                    .setRowsPerPage(rows)            
+            }, {table, rows: rows[table]}
+        )
+    }
 
     // wait for table to load
     await waitUntilRequestDone(page, 1500);
@@ -163,7 +162,7 @@ export default async (page, path, log=console.log, company) => {
         'DocumentosEconomicos' 
     ];
     // wait for page to load
-    await waitUntilRequestDone(page, 2000);
+    await waitUntilRequestDone(page, 1000);
 
     // query the documentos online
     debugger;
@@ -224,7 +223,7 @@ export default async (page, path, log=console.log, company) => {
     tables.forEach( table => 
         log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
-    // if everyt checklist has less than 5 missing pdfs
+    // if everyt checklist has less than missing pdfs
     if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){
         log('scrap documents finished')
         return page

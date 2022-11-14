@@ -43,6 +43,8 @@ const script = async (company, proxy, log=console.log) => {
 
     // get page
     let page = ( await browser.pages() )[0];
+    //wait class
+    const navigationPromise = page.waitForNavigation({ waitUntil: ['load', 'networkidle2'] });
 
     try{
         // go to the company search page
@@ -63,22 +65,22 @@ const script = async (company, proxy, log=console.log) => {
         await page.evaluate(custom_functions);
         await page.evaluate(custom_eventListeners);
 
-        debugger;
         // selecting company
         page = await select_company_script(page, company, log);
 
         /*--------- company scrap ---------*/
-        // not thet captachn has been accpeted we can load company page
+        // now that captachn has been accpeted we can load company page
         let company_url = information_de_companies;
 
         // wait for page to load
-        await waitUntilRequestDone(page, 2000);
+        await navigationPromise;
+        await waitUntilRequestDone(page, 1000);
 
         // load custom client code for the new page
+        await page.evaluate(jsonfn);
         await page.evaluate(custom_ajax);
         await page.evaluate(custom_functions);
         // this is required fot send_query.js
-        await page.evaluate(jsonfn);
         log("custom code loaded")
 
         // make user there is companies folder
@@ -141,7 +143,7 @@ const script = async (company, proxy, log=console.log) => {
     }catch(e){
         console.error(e);
         await close_browser(page, log);
-        return false;
+       return false;
     }
 }
 

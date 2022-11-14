@@ -5,7 +5,9 @@ let debugging = options.debugging;
 
 const download_pdf = async (url, page, path) => {
     let pdfString = await page.evaluate( async url => 
-        new Promise(async (resolve, reject) => {
+        new Promise( async (resolve, reject) => {
+            let timeout = setTimeout(() => // 5 minutes
+                reject("pdf fetch timeout"), 5 * 1000 * 60);
             const reader = new FileReader();
             //console.log('created reader')
             const response = await window.fetch(url);

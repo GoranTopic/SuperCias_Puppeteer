@@ -36,36 +36,36 @@ async function main(){
     // create timeout process
     const create_promise = ( id, proxy, log, retries = 0 ) =>
         new Promise( async (resolve, reject) => {
-             // run the script
-                log(`Scraping ${id.name}`);
-                log(`Company ${checklist.valuesDone()} out of ${checklist.values.length}`);
-                let result = await script(id, proxy, log);
-                if(result) resolve('sccess');
-                else reject(new Error(`Could not finish scraping ${id.companies}`));
+            // run the script
+            log(`Scraping ${id.name}`);
+            log(`Company ${checklist.valuesDone()} out of ${checklist.values.length}`);
+            let result = await script(id, proxy, log);
+            if(result) resolve(result)
+            else reject({
+                error: new Error(`Could not finish scraping ${id.companies}`)
+            });
         })
 
 // create timeout process
 const create_callback = ( id, proxy, log, retries = 0) =>
     result =>  {
-        debugging && log("Callback Called");
-        debugger;
         // if there was an error
         if(result instanceof Error || result?.error){ 
             // set proxy dead
             proxy && proxy_r.setDead(proxy);
             // stop trying if many tries
             if( retries > retries_max ) {
+                console.error(`could not scrap: ${id}, throwing it into the trash`);
                 errored.add(id);
+                checklist.check(id);
                 //throw new Error('Process rejected');
             }else{ // let's try it again 
                 debugging && log("new Promised issued")
-                debugger
                 return create_promise(id, proxy_r.next(), log, retries+1);
             }
         }else{ // proxy was successfull
             checklist.check(id);
             log(`${id.name} checked off`);
-            debugger;
         }
     }
 
@@ -84,21 +84,7 @@ const create_callback = ( id, proxy, log, retries = 0) =>
 				if(proxy_r.getAliveList().length === 0) return true
 				else return false
 		})
-
-		// when fuffiled
-		engine.whenFulfilled( result => {
-				result && result.log(`Fuffiled: ${result.name}`) 
-				debugger;
-		})
-
-		// when rejected
-		engine.whenRejected( result => {
-				// can return object without the log function
-				result && result.log && result.log(`Rejected: ${result.name} with ${result.error}`) 
-				debugger;
-		})
 		
-		//engine.whenResolved(isResolved_callback);
 		await engine.start() // done message
 				.then(() => console.log("Engine done"))
 }
