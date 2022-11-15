@@ -35,7 +35,9 @@ const script = async (company, proxy, log=console.log) => {
     }
     // set new proxy, while keeping args
     if(proxy) browserOptions.args = [
-        `--proxy-server=${ proxy.proxy }`,
+        `--proxy-server=${ proxy.proxy }`, 
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
         ...browserOptions.args
     ];
 
@@ -151,9 +153,9 @@ const script = async (company, proxy, log=console.log) => {
     }
 }
 
-export default script
+//export default script
 
-/* testing 
+// testing 
 import { ProxyRotator } from '../proxies.js'
 import makeLogger from '../logger.js'
 
@@ -170,5 +172,4 @@ let company = {
 };
 
 script(company, proxy, logger);
-*/
 
