@@ -6,10 +6,10 @@
     "type": "module",
     "scripts": {
         "start": "node src/companies/engined.js",
-        "debug": "node inspect src/companies/engined.js",
+        "debug": "node --inspect-brk src/companies/engined.js",
         "companies": "node src/companies/script.js",
         "test": "node src/companies/test.js",
-        "debug_companies": "node --experimental-repl-await inspect src/companies/script.js",
+        "debug_companies": "node --experimental-repl-await --inspect-brk src/companies/script.js",
         "names": "node src/names/engined.js",
         "debug_names": "node --experimental-repl-await inspect src/companies/script.js",
         "count_names": "node src/utils/countCommapnyIDs.js",
