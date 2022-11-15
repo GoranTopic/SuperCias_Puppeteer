@@ -90,9 +90,9 @@ class ProxyRotator {
         // 1000ms * 60s * 30m = 30m
         this.timeout_rate = 1000 * 60 * 30;
         // get initial proxies
-        let initial_proxy_pool = [
-            ...get_premium_proxies()
-        ];
+        let initial_proxy_pool = this.shuffleArray(
+            [ ...get_premium_proxies() ]
+        );
         // add the new proxies to the queue
         this.add_new_proxies(initial_proxy_pool);
     }
@@ -131,6 +131,17 @@ class ProxyRotator {
                 proxy
             })
         )
+    }
+
+    /* Randomize array in-place using Durstenfeld shuffle algorithm */
+    shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
 
     str_param_decorator = func => 
