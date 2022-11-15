@@ -1,6 +1,9 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
-RUN npm install chalk image-js json-fn moment puppeteer puppeteer-extra puppeteer-extra-plugin-stealth tesseract.js truncate-utf8-bytes
-WORKDIR /supercias
+FROM node:latest
+WORKDIR supercias
+COPY package.json package.json
+COPY options.json options.json
 COPY src/ src/
-COPY pack/ src/
-
+RUN npm install 
+#CMD npm run companies
+CMD bash
+EXPOSE 3000
