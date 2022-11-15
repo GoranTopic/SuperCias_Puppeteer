@@ -126,14 +126,14 @@ export default () => {
             table
         );
         let parsed_rows = [];
-        // let get the title and id 
+        // let get the title and id
         let row = rows.iterateNext();
         while(row){
             // complicated code for gettin the last cell of the pdf row, the one with the link
-            let id = row.children[row.children.length -1].children[0].children[0].id; 
+            let id = row.children[row.children.length -1].children[0].children[0].id;
             let title = '';
-            for( let cell of row.children ) 
-                title += ('_' + cell.innerText)
+            for( let cell of row.children )
+                title += ('_' + cell.innerText.trim())
             title = title
                 .replace(/^_+/, '')
                 .replace(/_+$/, '')

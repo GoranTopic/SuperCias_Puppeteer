@@ -10,7 +10,7 @@ import { query_table_change } from '../../websites_code/queries/query_table_chan
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import options from '../../options.js';
 
-let error_threshold = 2;
+let error_threshold = 1;
 
 const scrap_row = async (id, title, table, rows, page, path, log ) => {
     // set a time out for 5 minutes, to proces the pdf
