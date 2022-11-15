@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer-extra';
+import { executablePath } from 'puppeteer';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import goto_company_search_page from '../states/supercia.gov.ec/goto_company_search_page.js'
 import close_browser from '../states/supercia.gov.ec/close_browser.js'
@@ -28,7 +29,10 @@ const script = async (company, proxy, log=console.log) => {
     // set debugging
     let debugging = options.debugging;
     // options of browser
-    let browserOptions = options.browser;
+    let browserOptions = { 
+        ...options.browser,
+        executablePath: executablePath(),
+    }
     // set new proxy, while keeping args
     if(proxy) browserOptions.args = [
         `--proxy-server=${ proxy.proxy }`,
