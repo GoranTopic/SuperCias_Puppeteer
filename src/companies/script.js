@@ -6,7 +6,7 @@ import close_browser from '../states/supercia.gov.ec/close_browser.js'
 import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../utils/files.js';
-import { Checklist, DiskList } from '../progress.js';
+import { Checklist, } from '../progress/checklist.
 import custom_ajax from '../websites_code/custom_code/custom_ajax.js';
 import jsonfn from '../websites_code/custom_code/jsonfn.js';
 import custom_functions from '../websites_code/custom_code/custom_functions.js'
