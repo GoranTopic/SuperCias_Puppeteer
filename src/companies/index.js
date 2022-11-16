@@ -1,19 +1,18 @@
-const puppeteer = require("puppeteer");
-(async () => {
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: [
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
-            "--disable-setuid-sandbox",
-            "--no-sandbox",
-        ]
-    });
+import puppeteer from "puppeteer";
 
-    const page = await browser.newPage();
-    await page.goto("https://example.com");
-    const ss = await page.screenshot({path: "/screenshot.png"});
+const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+    ]
+});
 
-    await page.close();
-    await browser.close();
-})()
+const page = await browser.newPage();
+await page.goto("https://example.com");
+const ss = await page.screenshot({path: "./screenshot.png"});
+
+await page.close();
+await browser.close();
