@@ -6,7 +6,9 @@
         "excludeSwitches": "enable-automation",
         "args": [
             "--disable-web-security",
-            "--allow-file-access-from-files"
+            "--allow-file-access-from-files",
+             "--no-sandbox",
+            "--disable-setuid-sandbox"
         ]
     },
     "debugging": true,
