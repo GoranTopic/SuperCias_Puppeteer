@@ -6,11 +6,11 @@ class Checklist{
     /* this function takes list of name name to check and */
     constructor(name, values, path){
         // only for script
-        this.dir_path =  path ?? './data/resources/checklists/';
+        this.dir_path = path ?? './data/resources/checklists';
         mkdir(this.dir_path);
         this.name = name + ".json";
-        this.filename = this.dir_path + this.name
-        this.checklist = read_json( this.filename );
+        this.filename = this.dir_path + '/' + this.name
+        this.checklist = read_json(this.filename);
         this.values = values ?? [];
         this.missing_values = [];
         // make checklist
@@ -47,8 +47,6 @@ class Checklist{
     
     valuesDone = () => 
         this.values.length - this.missing_values.length;
-    
-    
 
     getMissingValues = () =>{
         debugger;
@@ -67,7 +65,7 @@ class Checklist{
             value = JSON.stringify(value)
         this.checklist[value] = mark;
         this._calcMissing();
-        return write_json(this.checklist, this.dir_path + this.name);
+        return write_json(this.checklist, this.filename);
     }
 
     add = (value, overwrite = true) => {
@@ -79,7 +77,7 @@ class Checklist{
             this.checklist[value] = false;
         }
         this._calcMissing();
-        return write_json(this.checklist, this.dir_path + this.name);
+        return write_json(this.checklist, this.filename);
     }
 
     addList = (values, overwrite=true) => {
@@ -115,7 +113,7 @@ class Checklist{
         /* delete the checklist from disk*/
         this.values = []
         this.checklist = []
-        delete_json(this.dir_path + this.name)
+        delete_json(this.filename)
     }
 }
 

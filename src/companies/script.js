@@ -116,7 +116,7 @@ const script = async (company, proxy, log=console.log) => {
 
         //make checklist of values
         let checklist_company_menu = new Checklist(
-            'chkls_menus' + company.name, // name for how chelist save
+            'checklist_menus', // name for how chelist save
             // only make check list of what we have scraping functions for
             Object.keys(tab_menus).filter( k => tab_menus[k] ),
             // path where to make the checklist
