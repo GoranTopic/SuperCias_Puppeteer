@@ -1,4 +1,4 @@
-import { read_json, write_json, delete_json, mkdir } from './utils/files.js'
+import { read_json, write_json, delete_json, mkdir } from '../utils/files.js'
 
 /* this class makes a checklist for value that need to be check,
  * it takes a check function whihc goes throught the values. */

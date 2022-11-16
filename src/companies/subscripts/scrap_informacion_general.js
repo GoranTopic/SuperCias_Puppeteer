@@ -1,9 +1,5 @@
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import getText from '../../utils/getText.js';
-import download_pdf from '../../utils/download_pdf.js';
-import send_request from '../../websites_code/send_request.js'
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
-import options from '../../options.js';
 
 export default async (page, path, log, company) => {
     // first, lets make a diretory for our info

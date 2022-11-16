@@ -6,14 +6,14 @@ import close_browser from '../states/supercia.gov.ec/close_browser.js'
 import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../utils/files.js';
-import { Checklist, } from '../progress/checklist.
+import Checklist from '../progress/Checklist.js'
 import custom_ajax from '../websites_code/custom_code/custom_ajax.js';
 import jsonfn from '../websites_code/custom_code/jsonfn.js';
 import custom_functions from '../websites_code/custom_code/custom_functions.js'
 import custom_eventListeners from '../websites_code/custom_code/custom_eventListeners.js'
-import scrap_informacion_general_script from './scrapers/scrap_informacion_general.js';
-import scrap_documents_script from './scrapers/scrap_documents.js';
-import select_company_script from './scrapers/select_company_script.js';
+import scrap_informacion_general_script from './subscripts/scrap_informacion_general.js';
+import select_company_script from './subscripts/select_company_script.js';
+import scrap_documents_script from './subscripts/scrap_documents.js';
 import { information_de_companies } from '../urls.js';
 import options from '../options.js';
 
@@ -60,7 +60,7 @@ const script = async (company, proxy, log=console.log) => {
         await check_server_offline(browser, log);
 
         // wait for good luck
-        await page.waitForTimeout(1000);
+        await waitUntilRequestDone(page, 1000);
 
         // load custom code
         //await page.evaluate(custom_components);
@@ -118,7 +118,9 @@ const script = async (company, proxy, log=console.log) => {
         let checklist_company_menu = new Checklist(
             'chkls_menus' + company.name, // name for how chelist save
             // only make check list of what we have scraping functions for
-            Object.keys(tab_menus).filter( k => tab_menus[k] )
+            Object.keys(tab_menus).filter( k => tab_menus[k] ),
+            // path where to make the checklist
+            company_dir 
         )
 
         // for every menu, run the associated scrapper if found

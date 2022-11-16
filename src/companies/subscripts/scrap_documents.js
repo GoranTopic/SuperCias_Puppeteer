@@ -1,0 +1,104 @@
+
+import { write_json, mkdir, fileExists } from '../../utils/files.js';
+import Checklist from '../../progress/Checklist.js';
+import send_request from '../../websites_code/send_request.js';
+import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
+import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+import scrap_table from './scrap_documents_table.js';
+import options from '../../options.js';
+
+// the nuber of pdf is ok not have
+let error_threshold = options.pdf_missing_threshold;
+
+/**
+ * Scrap Documents
+ *
+ * @param {} page
+ * @param {} path
+ * @param {} log
+ * @param {} company
+ */
+export default async (page, path, log=console.log, company) => {
+    // let's make our dir
+    let menu_name = 'Documentacion';
+    path = path + '/' + menu_name;
+    mkdir(path);
+    // tables to scrap
+    let tables = [
+        'DocumentosGenerales', 
+        'DocumentosJuridicos',
+        'DocumentosEconomicos' 
+    ];
+    // wait for page to load
+    await waitUntilRequestDone(page, 1000);
+
+    // query the documentos online
+    debugger;
+    log('sending query documentos request')
+    let numberOfGeneralPdfs = await send_request(
+        query_documentos_online, // paramter need to make the reuqe
+        // the callback, this is goin to run in the browser,
+        (response, status, i, C) =>  // the first table is general documentos
+        window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
+        page, // puppetter page
+        log, // logger
+        false, // followAlong to false so we don't rquest the captchan twice 
+    );
+    log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
+    log('query documents request finished')
+
+    /* *
+     *  Here we will loop ove the three document tabs:
+     *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
+     * */
+    // store number of rows
+    let rows = {};
+    tables.forEach( table => {
+        if(table === 'DocumentosGenerales')
+            rows[table] = numberOfGeneralPdfs;
+        else
+            rows[table] = null;
+    });
+
+    // checklist tables
+    let tbl_checklist = new Checklist( 
+        'tables_' + company.name,
+        tables,
+        path 
+    );
+    
+    // make checklists 
+    let pdf_checklists = {};
+    tables.forEach( table => 
+        pdf_checklists[table] = new Checklist(
+            "pdfs_" + table + '_' + company.name,
+            path + '/' + table
+        )
+    );
+
+    // let try to scrap every table =)
+    for( let table of tables ){
+        debugger;
+        let tbl_path = path + '/' + table;
+        if(!tbl_checklist.isCheckedOff(table)){
+            let missing =
+                await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
+            if(missing < error_threshold) 
+                tbl_checklist.check(table);
+        }
+    }
+    
+    // check how we did
+    debugger;
+    tables.forEach( table => 
+        log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
+    );
+    // if everyt checklist has less than missing pdfs
+    if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){
+        log('scrap documents finished')
+        return page
+    }else{ // did not pass
+        log('scrap documents did not finish')
+        return false;
+    }
+}
