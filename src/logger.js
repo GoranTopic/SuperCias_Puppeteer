@@ -19,14 +19,16 @@ const colors = [
 
 let index = 0
 
+const get_next_color = () => {
+    if(index >= colors.length) index = 0;
+    return colors[index++];
+}
+
 const log = console.log;
 
 const make_logger = (prefix='', addTimeStamp=false, color=null) => {
     //chose color, in not specified
-    if(color === null)
-        if(index >= colors.length)
-            index = 0;
-    color = colors[index++];
+    if(color === null) color = get_next_color();
     // return logger function
     return (...args) => {
         let timeStamp = addTimeStamp? `[${moment().format('DD-MM-YY H:m:s')}]` : '';
@@ -35,4 +37,4 @@ const make_logger = (prefix='', addTimeStamp=false, color=null) => {
     }
 }
 
-export default make_logger;
+export { make_logger, get_next_color }

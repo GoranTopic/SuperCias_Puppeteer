@@ -5,10 +5,10 @@
         "devtools": false ,
         "excludeSwitches": "enable-automation",
         "args": [
+            "--no-sandbox",
             "--disable-web-security",
-            "--allow-file-access-from-files",
-             "--no-sandbox",
-            "--disable-setuid-sandbox"
+            "--disable-setuid-sandbox",
+            "--allow-file-access-from-files"
         ]
     },
     "debugging": true,

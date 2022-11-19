@@ -1,4 +1,3 @@
-
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import Checklist from '../../progress/Checklist.js';
 import send_request from '../../websites_code/send_request.js';

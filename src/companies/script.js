@@ -5,6 +5,7 @@ import goto_company_search_page from '../states/supercia.gov.ec/goto_company_sea
 import close_browser from '../states/supercia.gov.ec/close_browser.js'
 import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js'
 import waitUntilRequestDone from '../utils/waitForNetworkIdle.js';
+import get_company_by_id from '../utils/get_company_by_id.js';
 import { write_json, read_json, mkdir, write_binary_file, fileExists } from '../utils/files.js';
 import Checklist from '../progress/Checklist.js'
 import custom_ajax from '../websites_code/custom_code/custom_ajax.js';
@@ -15,17 +16,26 @@ import scrap_informacion_general_script from './subscripts/scrap_informacion_gen
 import select_company_script from './subscripts/select_company_script.js';
 import scrap_documents_script from './subscripts/scrap_documents.js';
 import { information_de_companies } from '../urls.js';
+import { make_logger } from '../logger.js';
 import options from '../options.js';
 
 /**
  * script.
  *
- * @param {} company
+ * @param {} company_id
  * @param {} proxy
- * @param {} log
+ * @param {} log_color
  */
-const script = async (company, proxy, log=console.log) => { 
+const script = async (company, proxy, log_color) => { 
 
+    // get company from company id
+    company = get_company_by_id(company_id);
+    // make logger
+    let log = make_logger(
+        proxy? `[${proxy.split(':')[0]}]`: "", 
+        true,
+        log_color
+    );
     // set debugging
     let debugging = options.debugging;
     // options of browser
@@ -35,7 +45,7 @@ const script = async (company, proxy, log=console.log) => {
     }
     // set new proxy, while keeping args
     if(proxy) browserOptions.args = [
-        `--proxy-server=${ proxy.proxy }`, 
+        `--proxy-server=${ proxy }`, 
         '--no-sandbox',
         '--disable-setuid-sandbox',
         ...browserOptions.args
@@ -44,6 +54,7 @@ const script = async (company, proxy, log=console.log) => {
     // add stealth plugin and use defaults (all evasion techniques)
     puppeteer.use(StealthPlugin())
 
+    log(`scrapping ${company.name} through ${proxy}`)
     // create new browser
     const browser = await puppeteer.launch(browserOptions)
 
@@ -151,27 +162,18 @@ const script = async (company, proxy, log=console.log) => {
     }catch(e){
         console.error(e);
         await close_browser(page, log);
-       return false;
+        return false;
     }
 }
 
+/*
+    // testing 
+await script('704517', '192.177.191.3:3128', 'green');
+*/
+
+// run with npm company $id $proxy $logger_color
+const params = process.argv.slice(2);
+let [ company_id, proxy, log_color ] = params;
+await script(company_id, proxy, log_color);
+
 //export default script
-
-// testing 
-import { ProxyRotator } from '../proxies.js'
-import makeLogger from '../logger.js'
-
-let proxy_r = new ProxyRotator();
-let proxy = proxy_r.next();
-// dummy log
-let logger = makeLogger(`[${proxy.proxy}] `);
-//let log = console.log
-// dummy company
-let company = { 
-    id: '64500',
-    ruc:'1792287413001',
-    name: 'CORPORACION GRUPO FYBECA S.A. GPF'
-};
-
-script(company, proxy, logger);
-
