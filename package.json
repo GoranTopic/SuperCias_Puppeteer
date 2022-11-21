@@ -5,9 +5,9 @@
     "main": "main.js",
     "type": "module",
     "scripts": {
-        "start": "node src/companies/engined.js",
+        "start": "node src/companies/containerEngined.js",
         "debug": "node --inspect-brk src/companies/engined.js",
-        "companies": "node src/companies/script.js",
+        "company": "node src/companies/script.js",
         "test": "node src/companies/test.js",
         "debug_companies": "node --experimental-repl-await --inspect-brk src/companies/script.js",
         "names": "node src/names/engined.js",
@@ -44,6 +44,7 @@
         "puppeteer": "^19.2.2",
         "puppeteer-extra": "^3.3.4",
         "puppeteer-extra-plugin-stealth": "^2.11.1",
+        "tar": "^6.1.12",
         "tesseract.js": "^3.0.3",
         "truncate-utf8-bytes": "^1.0.2"
     }

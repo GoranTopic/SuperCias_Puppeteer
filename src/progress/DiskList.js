@@ -1,4 +1,4 @@
-import { read_json, write_json, mkdir } from './utils/files.js'
+import { read_json, write_json, mkdir } from '../utils/files.js'
 
 /* this class make a list that is saved disk, and or read from */
 class DiskList{

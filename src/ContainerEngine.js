@@ -1,24 +1,16 @@
-import Docker from 'dockerode'
+import DockerAPI from './DockerAPI.js'
+
 
 // create docker instance
-var docker = new Docker({host: '0.0.0.0', port: 3000})
+let docker = new DockerAPI({host: '0.0.0.0', port: 4000});
 
-// if image is not created
-const img_list  = await docker.listImages()
-let hasSupecias_img = img_list.some( 
-    ({ RepoTags }) => RepoTags[0] === 'supercias:latest' 
-);
-console.log('hasSupecia_img:', hasSupecias_img);
+let [ id, proxy, log_color ] = ['704517', '192.177.191.3:3128', 'green']
 
-if(!hasSupecias_img){ 
-    // create image if img not found
-    docker.buildImage('supercias.tar', {t: 'supercias'},
-        function (err, stream) {
-            stream.pipe(process.stdout)
-        }
-    );
-}
+let result = await docker.remove_all_containers({ force: false });
 
+await docker.delete_image(null, { force: true });
+
+console.log('this ran')
 
 /*
 await docker.createImage({fromImage: 'ubuntu'}, function (err, stream) {
@@ -26,24 +18,104 @@ await docker.createImage({fromImage: 'ubuntu'}, function (err, stream) {
 });
 */
 
+// list all conatiners...
+//console.log(await docker.listContainers({ all: true }));
+
 
 /*
-docker.run('supercias', ['bash', '-c', 'uname -a'], process.stdout)
-    .then(function (data) {
-        let [ response, container ] = data;
-        container.attach({
-            stream: true,
-            stdout: true,
-            stdin: true,
-            stderr: true
-        }, function handler(err, stream) {
-            container.modem.demuxStream(stream, process.stdout, process.stderr);
-            //...
-        });
-    })
-    .catch( e => console.error(e) );
-
+const result = await new Promise( async (resolve, reject) => {
+    // make a docker container
+    await docker.run(
+        'supercias', 
+        ['bash', '-c', 
+            `npm run company ${id} ${proxy} ${log_color}`
+        ], process.stdout,
+        { name: `supercias_cont_${id}`, 
+            HostConfig: { 
+                AttachStdin: true, 
+                AttachStdout: true, 
+                AttachStderr: true, 
+                CapAdd:'SYS_ADMIN',
+                tty: true, 
+                AutoRemove: true,
+                Mounts: [
+                    {
+                        "Target":   "/home/pptruser/supercias/data",
+                        "Source":   "/home/telix/supercias/data",
+                        "Type":     "bind", 
+                        "ReadOnly": false
+                    }],
+            }}).then(async function (data) {
+                let [ response, container ] = data;
+                await container.attach({
+                    stream: true,
+                    stdout: true,
+                    stdin: true,
+                    stderr: true
+                }, function handler(err, stream) {
+                    container.modem.demuxStream(stream, process.stdout, process.stderr);
+                });
+                if(response.StatusCode === 1){
+                    console.error(new Error(`Could not finish scraping ${id}`))
+                    reject(false)
+                }else{
+                    console.log( `Company scrapped`);
+                    resolve(true)
+                }
+            }).catch( e => { throw e } )
+})
+console.log('result:', result);
 */
+
+
+/*
+const delete_image = async (key=null, args={}) => {
+    let img_list = await docker.listImages({all:true});
+    if(img_list.length <= 0 )
+        console.error('There are no images in the Docker Deamon');
+    let img_info = key === null? 
+        img_list[0] : 
+        img_list.find( ({ RepoTags, Id }) => {
+            if(RepoTags.some( repo => repo === key)) return true;
+            if( Id === key) return true;
+            return false;
+        });
+    if(img_info){
+        let img = docker.getImage(img_info.Id);
+        return img.remove(args);
+    }else 
+        console.error(`image '${image_tag}' not found in container`);
+}
+
+delete_image()
+*/
+
+
+/*
+const stop_container  = async (key=null, args={}) => {
+    let containers_info = await docker.listContainers({ all: true });
+    console.log(containers_info.length)
+    if(containers_info.length <= 0 )
+        console.error('There are no containers in Docker Deamon');
+    let container_info = key === null? 
+        containers_info[0] : 
+        containers_info.find( 
+            ({ Id, Names }) =>{
+                if(Names.some(name => name === key)) return true;
+                if( Id === key) return true;
+                return false;
+            }
+        );
+    if(container_info){
+        let container = docker.getContainer(container_info.Id);
+        return container.stop(args);
+    }else 
+        console.error(`container '${key}' not found in container`);
+}
+
+stop_container()
+*/
+
 
 // list all conatiners...
 //console.log(await docker.listContainers({ all: true }));

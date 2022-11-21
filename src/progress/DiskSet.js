@@ -1,4 +1,4 @@
-import { read_json, write_json, mkdir } from './utils/files.js'
+import { read_json, write_json, mkdir } from '../utils/files.js'
 
 /* this class is similar to the disklist, but it remove any repeated values */
 class DiskSet{

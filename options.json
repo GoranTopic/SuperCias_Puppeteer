@@ -13,10 +13,8 @@
     },
     "debugging": true,
     "proxyRotation": true,
-    "saveCaptchan": true,
-    "triesWithProxies": 8,
-    "triesPerProxy": 5,
-    "minutesToTimeout": 5,
-    "nameQueryTimeout": 3,
-    "concurrent_processes": 1
+    "saveCaptchan": false,
+    "max_tries": 5,
+    "minutesToTimeout": 10,
+    "concurrent_processes": 2
 }

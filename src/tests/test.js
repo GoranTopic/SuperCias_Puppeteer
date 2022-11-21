@@ -1,6 +1,11 @@
 import fs from 'fs';
 import { createScheduler, createWorker } from 'tesseract.js';
 import { Image } from 'image-js';
+/*
+ * this scirpt trtesth perfomace of the capthcans solver based on all
+ * the capthancs we have gathered in data/mined/captchan
+ *
+ */
 
 
 async function execute() {
