@@ -30,6 +30,7 @@ async function main(){
 
     // delete the image
     //await docker.delete_image('supercias:latest', { force: true });
+    await docker.remove_all_containers({ force: false });
     // so that we can build a new one
 
     // let's check that the docker has the supercia img
@@ -106,7 +107,7 @@ async function main(){
     const create_callback = (company, proxy, log_color, retries = 0) =>
         result =>  {
             // if there was an error
-            if(!result){ 
+            if(!result){
                 // set proxy dead
                 proxy && proxy_r.setDead(proxy);
                 // stop trying if many tries

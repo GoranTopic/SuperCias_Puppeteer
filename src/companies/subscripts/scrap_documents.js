@@ -65,7 +65,7 @@ export default async (page, path, log=console.log, company) => {
         tables,
         path 
     );
-    
+
     // make checklists 
     let pdf_checklists = {};
     tables.forEach( table => 
@@ -78,23 +78,21 @@ export default async (page, path, log=console.log, company) => {
 
     // let try to scrap every table =)
     for( let table of tables ){
-        debugger;
         let tbl_path = path + '/' + table;
         if(!tbl_checklist.isCheckedOff(table)){
-            let missing =
-                await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
-            if(missing < error_threshold) 
+            await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
+            if(pdf_checklists[table].missingLeft() <= error_threshold)
                 tbl_checklist.check(table);
         }
     }
-    
+
     // check how we did
     debugger;
     tables.forEach( table => 
         log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
     // if everyt checklist has less than missing pdfs
-    if( tables.every( table => pdf_checklists[table].missingLeft() <= error_threshold)){
+    if( tbl_checklist.isDone() ){
         log('scrap documents finished')
         return page
     }else{ // did not pass

@@ -91,9 +91,9 @@ class DockerAPI{
         let containers_info = await this.docker.listContainers({ all: true });
         if(containers_info.length <= 0 )
             console.error('There are no containers in Docker Deamon');
-        let container_info = key === null? 
-            containers_info[0] : 
-            containers_info.find( 
+        let container_info = key === null?
+            containers_info[0] :
+            containers_info.find(
                 ({ Id, Names }) =>{
                     if(Names.some(name => name === key)) return true;
                     if( Id === key) return true;
@@ -112,9 +112,9 @@ class DockerAPI{
         let containers_info = await this.docker.listContainers({ all: true });
         if(containers_info.length <= 0 )
             console.error('There are no containers in Docker Deamon');
-        let container_info = key === null? 
-            containers_info[0] : 
-            containers_info.find( 
+        let container_info = key === null?
+            containers_info[0] :
+            containers_info.find(
                 ({ Id, Names }) =>{
                     if(Names.some(name => name === key)) return true;
                     if( Id === key) return true;
@@ -124,7 +124,7 @@ class DockerAPI{
         if(container_info){
             let container = this.docker.getContainer(container_info.Id);
             return container.remove(args);
-        }else 
+        }else
             console.error(`container '${key}' not found in container`);
     }
 
@@ -134,32 +134,33 @@ class DockerAPI{
         await Promise.all(
             containers_info.map( async info => {
                 let container = this.docker.getContainer(info.Id);
-                if(info.Status === 'running') 
+                if(info.State === 'running')
                     // if running stop first
-                    await container.stop().then((err, container) => {
-                        container.remove(args);
-                    })
+                    await container.stop().then(
+                        stream => {
+                            let onFinished = container => container.remove(args);
+                            this.docker.modem.followProgress(stream, onFinished);
+                        })
                 else 
                     container.remove(args);
             })
         )
     }
 
-    buildImage = async (...args) => 
+    buildImage = async (...args) =>
         await new Promise( (resolve, reject) => {
             this.docker.buildImage(...args)
                 .then(stream => {
                     stream.pipe(process.stdout)
                     let onFinished = () => resolve(true);
                     this.docker.modem.followProgress(stream, onFinished);
-                }).catch( e => { 
+                }).catch( e => {
                     throw e
                     reject(e)
                 })
         })
-    
-    
-    run = async (...args) => 
+
+    run = async (...args) =>
         this.docker.run(...args);
 
 }

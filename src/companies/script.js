@@ -154,20 +154,18 @@ const script = async (company, proxy, log_color) => {
         }
 
         await close_browser(page, log);
-        if(checklist_company_menu.isDone())
-            return true;
-        else
-            return false;
-
+        // if it is not done
+        if(!checklist_company_menu.isDone())
+            throw new Error('Did not finish scrap')
     }catch(e){
         console.error(e);
         await close_browser(page, log);
-        return false;
+        throw e
     }
 }
 
 /*
-    // testing 
+    // testing
 await script('704517', '192.177.191.3:3128', 'green');
 */
 

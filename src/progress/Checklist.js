@@ -53,7 +53,7 @@ class Checklist{
         return this.missing_values;
     }
 
-    missingLeft = () => 
+    missingLeft = () =>
         this.missing_values.length
 
     nextMissing = () =>
