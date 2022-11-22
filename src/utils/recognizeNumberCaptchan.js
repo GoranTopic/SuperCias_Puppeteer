@@ -18,7 +18,7 @@ if(worker === null){
     isReady = true
 }
 
-const recognizeNumbers = async img  => {
+const recognizeCaptchan = async img  => {
     if(isReady){
         const {
             data: { text },
@@ -29,4 +29,4 @@ const recognizeNumbers = async img  => {
 
 const  terminateRecognizer = worker.terminate
 
-export { recognizeNumbers, terminateRecognizer }
+export { recognizeCaptchan , terminateRecognizer }

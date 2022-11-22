@@ -2,7 +2,7 @@ import send_request from '../../websites_code/send_request.js'
 import submit_captchan from '../../websites_code/queries/submit_company_search_captchan.js';
 import select_autocomplete_company from '../../websites_code/queries/select_autocomplete_suggestion.js'
 import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
-import recognizeCaptchan from '../../utils/recognizeNumberCaptchan.js';
+import { recognizeCaptchan } from '../../utils/recognizeNumberCaptchan.js';
 import { write_binary_file, mkdir } from '../../utils/files.js';
 import str_to_binary from '../../utils/strToBinary.js';
 import options from '../../options.js';

@@ -1,5 +1,5 @@
 import JSONfn from 'json-fn';
-import recognizeCaptchan from '../utils/recognizeNumberCaptchan.js';
+import { recognizeCaptchan } from '../utils/recognizeNumberCaptchan.js';
 import str_to_binary from '../utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
 import { mkdir, write_binary_file } from '../utils/files.js';
