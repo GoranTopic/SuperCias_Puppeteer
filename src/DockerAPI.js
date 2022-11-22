@@ -141,7 +141,7 @@ class DockerAPI{
                             let onFinished = container => container.remove(args);
                             this.docker.modem.followProgress(stream, onFinished);
                         })
-                else 
+                else
                     container.remove(args);
             })
         )

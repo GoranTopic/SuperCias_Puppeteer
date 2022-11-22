@@ -8,7 +8,7 @@ let [ id, proxy, log_color ] = ['704517', '192.177.191.3:3128', 'green']
 
 let result = await docker.remove_all_containers({ force: false });
 
-await docker.delete_image(null, { force: true });
+await docker.delete_image('supercias:latest', { force: true });
 
 console.log('this ran')
 

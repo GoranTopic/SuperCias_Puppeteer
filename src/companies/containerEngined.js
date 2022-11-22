@@ -34,13 +34,13 @@ async function main(){
     // so that we can build a new one
 
     // let's check that the docker has the supercia img
-    if(! await docker.has_image('supercias:latest')){ 
+    if(! await docker.has_image('supercias:latest')){
         // create image if img not found
         console.log('generating docker tar file...');
         await docker.make_tar_file('supercias', [
-            'Dockerfile', 
-            'options.json', 
-            'package.json', 
+            'Dockerfile',
+            'options.json',
+            'package.json',
             'src'
         ]);
         // make docker image from tar file

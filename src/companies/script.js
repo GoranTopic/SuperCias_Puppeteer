@@ -17,6 +17,7 @@ import select_company_script from './subscripts/select_company_script.js';
 import scrap_documents_script from './subscripts/scrap_documents.js';
 import { information_de_companies } from '../urls.js';
 import { make_logger } from '../logger.js';
+import { terminateRecognizer } from '../utils/recognizeNumberCaptchan.js';
 import options from '../options.js';
 
 /**
@@ -61,7 +62,7 @@ const script = async (company, proxy, log_color) => {
     // get page
     let page = ( await browser.pages() )[0];
     //wait class
-    const navigationPromise = page.waitForNavigation({ waitUntil: ['load', 'networkidle2'] });
+    //const navigationPromise = page.waitForNavigation({ waitUntil: ['load', 'networkidle2'] });
 
     try{
         // go to the company search page
@@ -90,7 +91,7 @@ const script = async (company, proxy, log_color) => {
         let company_url = information_de_companies;
 
         // wait for page to load
-        await navigationPromise;
+        //await navigationPromise;
         await waitUntilRequestDone(page, 1000);
 
         // load custom client code for the new page
@@ -131,7 +132,7 @@ const script = async (company, proxy, log_color) => {
             // only make check list of what we have scraping functions for
             Object.keys(tab_menus).filter( k => tab_menus[k] ),
             // path where to make the checklist
-            company_dir 
+            company_dir
         )
 
         // for every menu, run the associated scrapper if found
@@ -153,15 +154,17 @@ const script = async (company, proxy, log_color) => {
             }
         }
 
-        await close_browser(page, log);
         // if it is not done
         if(!checklist_company_menu.isDone())
             throw new Error('Did not finish scrap')
     }catch(e){
         console.error(e);
         await close_browser(page, log);
+        await terminateRecognizer();
         throw e
     }
+    await close_browser(browser, log);
+    await terminateRecognizer();
 }
 
 /*
