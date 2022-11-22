@@ -66,18 +66,18 @@ async function main(){
                     `npm run company ${company.id} ${proxy.proxy} ${log_color}`
                 ], process.stdout,
                 { //name: `supercias_cont_${company.id}_${retries}`, 
-                    HostConfig: { 
-                        AttachStdin: true, 
-                        AttachStdout: true, 
-                        AttachStderr: true, 
+                    HostConfig: {
+                        AttachStdin: true,
+                        AttachStdout: true,
+                        AttachStderr: true,
                         CapAdd:'SYS_ADMIN',
-                        tty: true, 
+                        tty: true,
                         AutoRemove: true,
                         Mounts: [
                             {
                                 "Target":   "/home/pptruser/supercias/data",
                                 "Source":   "/home/telix/supercias/data",
-                                "Type":     "bind", 
+                                "Type":     "bind",
                                 "ReadOnly": false
                             }],
                     }}).then(async function (data) {
@@ -87,8 +87,6 @@ async function main(){
                             stdout: true,
                             stdin: true,
                             stderr: true
-                        }, function handler(err, stream) {
-                            container.modem.demuxStream(stream, process.stdout, process.stderr);
                         });
                         if(response.StatusCode === 1){
                             console.error(new Error(`Could not finish scraping ${company.name}`))
@@ -118,7 +116,7 @@ async function main(){
                     //throw new Error('Process rejected');
                 }else{ // let's try it again 
                     debugging && console.log("new Promised issued")
-                    return create_promise(company, proxy_r.next().proxy, log_color, retries+1);
+                    return create_promise(company, proxy_r.next(), log_color, retries+1);
                 }
             }else{ // proxy was successfull
                 checklist.check(company);
@@ -144,7 +142,6 @@ async function main(){
 
     await engine.start() // done message
         .then(() => console.log("Engine done"))
-        
 }
 
 main();
