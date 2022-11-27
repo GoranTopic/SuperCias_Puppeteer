@@ -63,12 +63,12 @@ export default async (page, path, log=console.log, company) => {
     let tbl_checklist = new Checklist( 
         'checklist_tables',
         tables,
-        path 
+        path
     );
 
-    // make checklists 
+    // make checklists
     let pdf_checklists = {};
-    tables.forEach( table => 
+    tables.forEach( table =>
         pdf_checklists[table] = new Checklist(
             "checklist_pdf",
             null, // add file later
@@ -88,7 +88,7 @@ export default async (page, path, log=console.log, company) => {
 
     // check how we did
     debugger;
-    tables.forEach( table => 
+    tables.forEach( table =>
         log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
     // if everyt checklist has less than missing pdfs

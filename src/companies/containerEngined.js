@@ -18,14 +18,15 @@ let withProxy = options.proxyRotation;
 let concurrent = options.concurrent_processes;
 // minutes until timeout , can be null
 let minutesToTimeout = options.minutesToTimeout
+// numbe rof retries per company
+let retries_max = options.max_tries;
 
 async function main(){
     let engine = new PromiseEngine(concurrent);
     let proxy_r = new ProxyRotator();
     let ids = read_json('./data/mined/ids/company_ids.json')
-    let checklist = new Checklist('companies', ids);
+    let checklist = new Checklist('companies', ids, null, {  recalc_on_check: false });
     let errored = new DiskList('errored_companies');
-    let retries_max = options.max_tries;
     let docker = new DockerAPI({host: 'localhost', port: 4000});
 
     // delete the image
@@ -56,9 +57,8 @@ async function main(){
     // use this.
 
     // create timeout process
-    const create_promise = ( company, proxy, log_color, retries=0) => {
-        debugger;
-        return new Promise( async (resolve, reject) => 
+    const create_promise = (company, proxy, log_color, retries=0) =>
+        new Promise( async (resolve, reject) =>
             // make a docker container
             await docker.run(
                 'supercias', 
@@ -99,7 +99,6 @@ async function main(){
                         }
                     }).catch( e => { throw e } )
         )
-    }
 
     // create timeout process
     const create_callback = (company, proxy, log_color, retries = 0) =>

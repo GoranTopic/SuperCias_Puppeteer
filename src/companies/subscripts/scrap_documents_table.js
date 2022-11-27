@@ -30,7 +30,6 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
             log,
         )
         // query rows from new table
-    
         // getting number of rows
         rows[table] = await page.evaluate( table => 
             PrimeFaces.widgets['tbl'+table].cfg.paginator.rowCount, 
@@ -53,7 +52,7 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
                 return PrimeFaces
                     .widgets['tbl' + table]
                     .paginator
-                    .setRowsPerPage(rows)            
+                    .setRowsPerPage(rows)
             }, {table, rows: rows[table]}
         )
     }
@@ -73,25 +72,25 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
 
     // sanitize values
     //debugger;
-    pdfs_info = pdfs_info.map( pdf => ({ 
+    pdfs_info = pdfs_info.map( pdf => ({
         title: sanitize(pdf.title),
         id: pdf.id, // don't sanitize id
     }))
 
     // add pdfs documents to the checklist
-    checklists[table].addList( 
+    checklists[table].addList(
         pdfs_info.map(pdf => pdf.id),
         false // do not overwite
     );
 
     // loop over every pdf
-    for(let { id, title } of pdfs_info){ 
+    for(let { id, title } of pdfs_info){
         // if we alread have it, skip it
         if(checklists[table].isCheckedOff(id)) continue;
         debugger
         log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_pdf_row(
-            id, title, table, rows, page, path, log, 
+            id, title, table, rows, page, path, log,
         );
         if(outcome) {
             checklists[table].check(id);
