@@ -159,7 +159,7 @@ const script = async (company, proxy, log_color) => {
             throw new Error('Did not finish scrap')
     }catch(e){
         console.error(e);
-        await close_browser(page, log);
+        await close_browser(browser, log);
         await terminateRecognizer();
         throw e
     }
