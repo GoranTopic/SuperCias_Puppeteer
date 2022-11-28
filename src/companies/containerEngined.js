@@ -25,7 +25,7 @@ async function main(){
     let engine = new PromiseEngine(concurrent);
     let proxy_r = new ProxyRotator();
     let ids = read_json('./data/mined/ids/company_ids.json')
-    let checklist = new Checklist('companies', ids, null, {  recalc_on_check: false });
+    let checklist = new Checklist('companies', ids, null, { recalc_on_check: false });
     let errored = new DiskList('errored_companies');
     let docker = new DockerAPI({host: 'localhost', port: 4000});
 
@@ -61,8 +61,8 @@ async function main(){
         new Promise( async (resolve, reject) =>
             // make a docker container
             await docker.run(
-                'supercias', 
-                ['bash', '-c', 
+                'supercias',
+                ['bash', '-c',
                     `npm run company ${company.id} ${proxy.proxy} ${log_color}`
                 ], process.stdout,
                 { //name: `supercias_cont_${company.id}_${retries}`, 
@@ -128,9 +128,14 @@ async function main(){
         let company = JSON.parse(checklist.nextMissing());
         let proxy = proxy_r.next();
         let log_color = get_next_color()
-        let promise = create_promise( company, proxy, log_color );
-        let callback = create_callback( company, proxy, log_color );
-        return [ promise, callback ];
+        try{
+            let promise = create_promise( company, proxy, log_color );
+            let callback = create_callback( company, proxy, log_color );
+            return [ promise, callback ];
+        }catch(e){
+            console.error(e);
+            return null;
+        }
     });
 
     //set stop function

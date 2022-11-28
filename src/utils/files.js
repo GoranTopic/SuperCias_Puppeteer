@@ -11,7 +11,6 @@ const write_json = (obj, path) => {
         return true
     }catch(e) {
         debugging && console.error('could not write file');
-        console.error(e)
         return false
     }
 }

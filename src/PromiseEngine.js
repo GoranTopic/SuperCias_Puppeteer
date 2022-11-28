@@ -118,25 +118,14 @@ export default class PromiseEngine {
         ).catch(
             function(e) { isRejected = true; value = e; return e; }
         )
-
-        /*
-                e => { 
-                        if( e.message === 'timed out' ){ 
-                            // if timout error, quitely end 
-                                console.error(e);
-                        }else // else throw error
-                                return e;}
-                ) 
-                */
-
-                            // getters
-                            result.getValue    = function() { return value };
-                            result.isResolved  = function() { return isFulfilled || isRejected };
-                            result.isFulfilled = function() { return isFulfilled };
-                            result.isRejected  = function() { return isRejected };
-                            if(callback) result.callback = function() { return callback( value ) };
-                            return result;
-                        }
+        // getters
+        result.getValue    = function() { return value };
+        result.isResolved  = function() { return isFulfilled || isRejected };
+        result.isFulfilled = function() { return isFulfilled };
+        result.isRejected  = function() { return isRejected };
+        if(callback) result.callback = function() { return callback( value ) };
+        return result;
+    }
 
     async start(){
         let result;

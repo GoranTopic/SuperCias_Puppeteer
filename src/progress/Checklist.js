@@ -4,10 +4,12 @@ import { read_json, write_json, delete_json, mkdir } from '../utils/files.js'
  * it takes a check function whihc goes throught the values. */
 class Checklist{
     /* this function takes list of name name to check and */
-    constructor(name, values, path){
+    constructor(name, values, path, options={ recalc_on_check: true }){
         // only for script
         this.dir_path = path ?? './data/resources/checklists';
         mkdir(this.dir_path);
+        // if you want to mantain the original missing list of value after checks
+        this.recalc_on_check = options.recalc_on_check;
         this.name = name + ".json";
         this.filename = this.dir_path + '/' + this.name
         this.checklist = read_json(this.filename);
@@ -44,7 +46,7 @@ class Checklist{
                 this.missing_values.push(value)
         })
     }
-    
+
     valuesDone = () => 
         this.values.length - this.missing_values.length;
 
@@ -64,7 +66,8 @@ class Checklist{
         if(this._isObject(value))
             value = JSON.stringify(value)
         this.checklist[value] = mark;
-        this._calcMissing();
+        if(this.recalc_on_check) 
+            this._calcMissing();
         return write_json(this.checklist, this.filename);
     }
 
