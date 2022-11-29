@@ -112,12 +112,12 @@ async function main(){
         withProxy && proxy_r.setDead(params.proxy);
         // stop trying if many tries
         if( params.retries > retries_max ) {
-            console.error(`Adding: ${company} to error list`);
+            console.error(`Adding: ${params.company} to error list`);
             checklist.check(params.company);
             errored.add(params.company);
             //throw new Error('Process rejected');
         }else{ // let's try it again 
-            debugging && console.log(`retrying ${company}`)
+            debugging && console.log(`retrying ${params.company}`)
             params.retries += 1;
             container = await create_container(params);
             container.params = params;
