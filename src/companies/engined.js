@@ -86,6 +86,7 @@ async function main(){
     // if the container succeded, create a new container and
     // add it to the container manager
     manager.whenSuccess( async container => {
+        let { company } = container.params
         console.log(
             `Company ${checklist.valuesDone()} out of ${checklist.values.length}`
         );
