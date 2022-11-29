@@ -23,6 +23,7 @@ async function main(){
     let docker = new DockerAPI({host: 'localhost', port: 4000});
     // pass docker to container engine
     let manager = new ContainerManager(docker);
+    let errored = new DiskList('errored_companies');
     let proxy_r = new ProxyRotator();
     let ids = read_json('./data/mined/ids/company_ids.json')
     let checklist = new Checklist('companies', ids,
@@ -85,7 +86,10 @@ async function main(){
     // if the container succeded, create a new container and
     // add it to the container manager
     manager.whenSuccess( async container => {
-        console.log('container succeded');
+        console.log(
+            `Company ${checklist.valuesDone()} out of ${checklist.values.length}`
+        );
+        checklist.check(company);
         let params = { 
             company: JSON.parse(checklist.nextMissing()),
             proxy: proxy_r.next(),

@@ -17,5 +17,5 @@
     "max_tries": 5,
     "pdf_missing_threshold": 0,
     "minutesToTimeout": 10,
-    "concurrent_processes": 20
+    "concurrent_processes": 10
 }
