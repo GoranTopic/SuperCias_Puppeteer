@@ -3,7 +3,7 @@ import { read_json, write_json, mkdir } from '../utils/files.js'
 /* this class is similar to the disklist, but it remove any repeated values */
 class DiskSet{
     constructor(name, values = null, path){
-        this.dir_path = path?? '../data/resources/list';
+        this.dir_path = path?? './data/resources/list';
         mkdir(this.dir_path);
         this.name = name + ".json";
         this.set = new Set();
