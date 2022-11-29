@@ -26,8 +26,7 @@ async function main(){
     let errored = new DiskList('errored_companies');
     let proxy_r = new ProxyRotator();
     let ids = read_json('./data/mined/ids/company_ids.json')
-    let checklist = new Checklist('companies', ids,
-        './data/mined/checklist',
+    let checklist = new Checklist('companies', ids, null,
         { recalc_on_check: false });
 
     // delete the image
