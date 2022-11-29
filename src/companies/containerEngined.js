@@ -73,13 +73,12 @@ async function main(){
                         CapAdd:'SYS_ADMIN',
                         tty: true,
                         AutoRemove: true,
-                        Mounts: [
-                            {
-                                "Target":   "/home/pptruser/supercias/data",
-                                "Source":   "/home/telix/supercias/data",
-                                "Type":     "bind",
-                                "ReadOnly": false
-                            }],
+                        Mounts: [{
+                            "Target":   "/home/pptruser/supercias/data",
+                            "Source":   "/home/telix/supercias/data",
+                            "Type":     "bind",
+                            "ReadOnly": false
+                        }],
                     }}).then(async function (data) {
                         let [ response, container ] = data;
                         await container.attach({

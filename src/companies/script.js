@@ -27,13 +27,13 @@ import options from '../options.js';
  * @param {} proxy
  * @param {} log_color
  */
-const script = async (company, proxy, log_color) => { 
+const script = async (company_id, proxy, log_color) => { 
 
     // get company from company id
     company = get_company_by_id(company_id);
     // make logger
     let log = make_logger(
-        proxy? `[${proxy.split(':')[0]}]`: "", 
+        `[${company.name}] ` + proxy? `[${proxy.split(':')[0]}]`: "", 
         true,
         log_color
     );
