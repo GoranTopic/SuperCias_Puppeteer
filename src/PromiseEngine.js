@@ -1,93 +1,24 @@
-export default class PromiseEngine {
+export default class ContainerEngine {
     /* the engine */
-    constructor(concorrent_promises){
-        this.concorrent_promises = concorrent_promises;
+    constructor(docker){
+        this.docker = docker;
         this.stopFunction = this.stopFunction;
         this.halt = false;
         this._stop = () => this.halt = true;
-        this.promises = Array(concorrent_promises).fill(null);
-        this.nextPromise = null;
-        this.promiseArray = null;
-        this.promiseGen = null;
-        this.stopFunction = null;
-        this.timeout = null;
-        this.fulfillmentCB = null;
-        this.rejectionCB = null;
-        this.resolvedCB = null;
+        this.containers = Array()
+        this.successCallback = null;
+        this.errorCallback = null;
+        this.finishedCallback = null;
     }
 
     // setters
     setStopFunction = stopFunction => this.stopFunction = stopFunction 
-    setNextPromise =  nextPromise  => this.nextPromise = nextPromise;
-    setPromiseList =  promiseArray  => this.promiseArray = promiseArray;
-    setPromiseGen =  promiseGen  => this.promiseGen = promiseGen;
+    addContainer = container => this.containers.push(container);
     setTimeout =  timeout  => this.timeout = timeout;
-    whenFulfilled = fulfillmentCB => this.fulfillmentCB = fulfillmentCB;
-    whenTimedOut = timeoutCB => this.timeoutCB = timeoutCB;
-    whenRejected = rejectionCB => this.rejectionCB = rejectionCB;
-    whenResolved = resolvedCB => this.resolvedCB = resolvedCB;
-
-    /* returns a new from the promise soruces specified */
-    _getNewPromise(){
-        let newPromise = null;
-        // if it is coming from an array
-        if(this.promiseArray){
-            // if array is empty
-            if(this.promiseArray.length === 0){
-                this.halt = true;
-                throw new Error('list has no more values')
-            }else{ 
-                // get new value
-                let result = this.promiseArray.shift();
-                // if it has callback
-                if( result instanceof Array ){
-                    let callback = null;
-                    [ newPromise, callback ]  = result;
-                    newPromise.callback = callback;
-                    // if it doesnot have a callback
-                }else newPromise = result;
-            }
-        }else if(this.nextPromise){
-            // if it is coming from an function
-            let next = this.nextPromise();
-            if(!next){
-                this.halt = true;
-                throw new Error('next promise function gave null value')
-            }else{
-                // got callback
-                if( next instanceof Array ){
-                    let callback = null;
-                    [ newPromise, callback ] = next;
-                    newPromise.callback = callback;
-                }else // no callback
-                    newPromise = next
-            }
-        }else if(this.promiseGen){
-            // if it is coming from an generator
-            let next = this.promiseGen.next();
-            if(next.done){
-                this.halt = true;
-                throw new Error('promise generator reached it end')
-            }else{ // got callback
-                if( next.value instanceof Array ){
-                    let callback = null;
-                    [ newPromise, callback ]  = next.value;
-                    newPromise.callback = callback;
-                }else // no callback
-                    newPromise = next.value
-            }
-        }else throw new Error('most set a promise source')
-        if(newPromise === null) throw new Error('could not get new promise')
-        else return newPromise
-    }
-
-    // checks if object is a promise
-    _isPromise = p => {
-        if (typeof p === 'object' && typeof p?.then === 'function') {
-            return true;
-        }
-        return false;
-    }
+    whenSuccess = callback => this.successCallback = callback;
+    whenError = callback => this.errorCallback = callback;
+    whenTimedOut = callback => this.timeoutCallback = callback;
+    whenFinished = callback => this.finishedCallback = callback;
 
     // this is a timeout 
     _timeoutAfter = timeout => new Promise(
@@ -96,48 +27,17 @@ export default class PromiseEngine {
         }
     )
 
-    /* promise wrapper for promise, a promise condom, if you will... */
-    // Don't create a wrapper for promises that can already be queried.
-    _promiseMonitor(promise) {
-        if (promise.isResolved) return promise;
-        var callback = promise.callback ?? null;
-        var isResolved = false
-        var isFulfilled = false;
-        var isRejected = false;
-        var value = null;
-        var result;
-        // if it has timedout
-        if(this.timeout){
-            var promises = [ promise, this._timeoutAfter(this.timeout) ]
-            result = Promise.race(promises)
-        }else
-            result = promise
-        // Observe the promise, saving the fulfillment in a closure scope.
-        result.then(
-            function(v) { isFulfilled = true; value = v; return v; }
-        ).catch(
-            function(e) { isRejected = true; value = e; return e; }
-        )
-        // getters
-        result.getValue    = function() { return value };
-        result.isResolved  = function() { return isFulfilled || isRejected };
-        result.isFulfilled = function() { return isFulfilled };
-        result.isRejected  = function() { return isRejected };
-        if(callback) result.callback = function() { return callback( value ) };
-        return result;
-    }
-
     async start(){
         let result;
-        // promises container
-        this.promises = Array(this.concorrent_promises).fill(null);
         //if no stop function as been set run forever
         if(this.stopFunction === null) this.stopFunction = () => false;
         else this.halt = this.stopFunction();
         // create promises
-        for( let i = 0; i < this.promises.length; i++ )
-            this.promises[i] = this._promiseMonitor( this._getNewPromise() )
-        // start the loop
+        for( let i = 0; i < this.containers.length; i++ )
+             console.log(this.containers[i]);
+
+        /*
+            // start the loop
         while( !this.halt ){
             // check all processes
             await Promise.allSettled( this.promises )
@@ -193,6 +93,8 @@ export default class PromiseEngine {
                     }
                 })
         }
+        */
+        
     }
 }
 

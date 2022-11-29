@@ -55,7 +55,7 @@ const script = async (company_id, proxy, log_color) => {
     try{
         let isError = await new Promise( resolve => {
             setTimeout( // Returns a random integer from 0 to 10 is less than 5:
-                () => resolve((Math.floor(Math.random() * 11) < 2 )), 
+                () => resolve((Math.floor(Math.random() * 11) < 5 )), 
                 100 * (Math.floor(Math.random() * 11) * 30) 
             );
         });

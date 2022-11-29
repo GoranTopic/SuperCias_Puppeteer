@@ -129,14 +129,8 @@ async function main(){
         let company = JSON.parse(checklist.nextMissing());
         let proxy = proxy_r.next();
         let log_color = get_next_color()
-        try{
-            let promise = create_promise( company, proxy, log_color );
-            let callback = create_callback( company, proxy, log_color );
-            return [ promise, callback ];
-        }catch(e){
-            console.error(e);
-            return null;
-        }
+        let promise = create_promise( company, proxy, log_color );
+        return promise;
     });
 
     //set stop function

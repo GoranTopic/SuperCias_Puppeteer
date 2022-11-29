@@ -160,8 +160,15 @@ class DockerAPI{
                 })
         })
 
-    run = async (...args) =>
+    run = (...args) =>
         this.docker.run(...args);
+
+
+    createContainer = (...args) =>
+        this.docker.createContainer(...args);
+
+    getContainer = (...args) =>
+        this.docker.getContainer(...args);
 
 }
 

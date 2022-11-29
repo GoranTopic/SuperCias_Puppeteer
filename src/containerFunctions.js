@@ -1,6 +1,5 @@
 import DockerAPI from './DockerAPI.js'
 
-
 // create docker instance
 let docker = new DockerAPI({host: '0.0.0.0', port: 4000});
 
@@ -8,9 +7,56 @@ let [ id, proxy, log_color ] = ['704517', '192.177.191.3:3128', 'green']
 
 let result = await docker.remove_all_containers({ force: false });
 
-await docker.delete_image('supercias:latest', { force: true });
+//await docker.delete_image('supercias:latest', { force: true });
 
-console.log('this ran')
+//console.log('this ran')
+
+// create container, and attach stdout
+/*
+let auxContainer;
+await docker.createContainer({
+    Image: 'supercias',
+    //name: 'supercias_container',
+    CapAdd: 'SYS_ADMIN',
+    AutoRemove: false,
+    Cmd: ['/bin/bash', '-c', 'ls -la'],
+    Mounts: [{
+        "Target":   "/home/pptruser/supercias/data",
+        "Source":   "/home/telix/supercias/data",
+        "Type":     "bind",
+        "ReadOnly": false
+    }]
+}).then( container => {
+    container.attach(
+        {stream: true, stdout: true, stderr: true}, 
+        function (err, stream) {
+            //dockerode may demultiplex attach streams for you :)
+            container.modem.demuxStream(
+                stream, process.stdout, process.stderr
+            );
+        });
+    auxContainer = container;
+    return container
+}).catch( e => { throw e } )
+
+result = await auxContainer.inspect()
+console.log(result.State);
+
+await auxContainer.start()
+
+result = await auxContainer.inspect()
+console.log(result.State);
+
+let loop = true
+while(loop){
+    let result = await auxContainer.inspect()
+    let { Running } = result.State
+    if(Running === false){
+        loop = false;
+        console.log(result.State);
+    }
+}
+*/
 
 /*
 await docker.createImage({fromImage: 'ubuntu'}, function (err, stream) {
@@ -158,29 +204,6 @@ let result = await docker.run('supercias',
 */
 
 
-
-/*
-// create container
-let auxContainer;
-await docker.createContainer({
-    Image: 'supercias',
-    name: 'supercias_container',
-    AttachStdin: true,
-    AttachStdout: true,
-    AttachStderr: true,
-    Tty: true,
-    Cmd: ['/bin/bash', '-c', 'tail -f /var/log/dmesg'],
-    OpenStdin: false,
-    StdinOnce: false
-}).then((container, err) => {
-    console.log(container)
-    console.log(err)
-    auxContainer = container;
-    console.log(auxContainer);
-}).catch(err =>{
-    console.error(err);
-})
-*/
 
 
 
