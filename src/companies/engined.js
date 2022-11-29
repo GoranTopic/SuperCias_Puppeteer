@@ -114,8 +114,8 @@ async function main(){
         // stop trying if many tries
         if( params.retries > retries_max ) {
             console.error(`Adding: ${company} to error list`);
-            checklist.check(company);
-            errored.add(company);
+            checklist.check(params.company);
+            errored.add(params.company);
             //throw new Error('Process rejected');
         }else{ // let's try it again 
             debugging && console.log(`retrying ${company}`)
