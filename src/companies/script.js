@@ -27,15 +27,15 @@ import options from '../options.js';
  * @param {} proxy
  * @param {} log_color
  */
-const script = async (company_id, proxy, log_color) => { 
+const script = async (company_id, proxy=false, log_color) => { 
 
     // get company from company id
-    company = get_company_by_id(company_id);
+    let company = get_company_by_id(company_id);
     // make logger
+    let prefix = `[${company.name}] `;
+    if(proxy) prefix += `[${proxy.split(':')[0]}]`;
     let log = make_logger(
-        `[${company.name}] ` + proxy? `[${proxy.split(':')[0]}]`: "", 
-        true,
-        log_color
+        prefix, true, log_color
     );
     // set debugging
     let debugging = options.debugging;
