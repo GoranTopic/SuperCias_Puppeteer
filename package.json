@@ -5,8 +5,8 @@
     "main": "main.js",
     "type": "module",
     "scripts": {
-        "start": "node src/companies/containerEngined.js",
-        "debug": "node --inspect-brk src/companies/containerEngined.js",
+        "start": "node src/companies/engined.js",
+        "debug": "node --inspect-brk src/companies/engined.js",
         "company": "node src/companies/script.js",
         "test": "node src/companies/test.js",
         "debug_company": "node --experimental-repl-await --inspect src/companies/script.js",
