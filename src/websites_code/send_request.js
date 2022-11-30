@@ -193,11 +193,11 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         }else{
             log("captchan was not accepted");
             (options.saveCaptchan) &&
-                write_binary_file( captchan_bin, 
+                write_binary_file( captchan_bin,
                     // change to matching image extencion
                     cptn_path + "error" + captchan_solution + ".png" 
                 );
-            throw Error('Captchan failed');
+            //throw Error('Captchan failed');
         }
     }
 }

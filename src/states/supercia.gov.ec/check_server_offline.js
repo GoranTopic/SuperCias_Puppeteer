@@ -23,8 +23,10 @@ const check_if_server_is_offline = async (browser, log) => {
         // get error message
         let error_msg = await getText(has_error_msg);
         // thow error
-        throw new Error('Service Unavailable:' + error_msg );
+        //throw new Error('Service Unavailable:' + error_msg );
+        return true; // it is offline
     }
+    return false; // it is not offline
 }
 
 // make state

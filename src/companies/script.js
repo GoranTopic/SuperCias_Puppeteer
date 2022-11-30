@@ -69,7 +69,8 @@ const script = async (company_id, proxy=false, log_color) => {
         await goto_company_search_page(browser, log);
 
         // check if server is ofline
-        await check_server_offline(browser, log);
+        let isOffline = await check_server_offline(browser, log);
+        if(isOffline) process.exit(1);
 
         // wait for good luck
         await waitUntilRequestDone(page, 1000);

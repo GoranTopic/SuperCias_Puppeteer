@@ -1,6 +1,6 @@
 {
     "browser": {
-        "headless": false,
+        "headless": true,
         "slowMo": 1,
         "devtools": false ,
         "excludeSwitches": "enable-automation",
@@ -14,8 +14,8 @@
     "debugging": false,
     "proxyRotation": true,
     "saveCaptchan": false,
-    "max_tries": 5,
+    "max_tries": 15,
     "pdf_missing_threshold": 0,
     "minutesToTimeout": 10,
-    "concurrent_processes": 5
+    "concurrent_processes": 1
 }

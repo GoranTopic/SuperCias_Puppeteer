@@ -50,6 +50,7 @@ async function main(){
 
     mkdir('./data/resources/checklists/')
 
+
     const create_container = async ({ company, proxy, log_color }) => {
         // make a docker container
         let result_container;
@@ -82,23 +83,38 @@ async function main(){
         return result_container;
     }
 
-    // if the container succeded, create a new container and
-    // add it to the container manager
-    manager.whenSuccess( async container => {
-        let { company } = container.params
-        console.log(
-            `Company ${checklist.valuesDone()} out of ${checklist.values.length}`
-        );
-        checklist.check(company);
-        let params = { 
+    // get next container
+    const getNextContainer = async params => {
+        params = params ?? {
             company: JSON.parse(checklist.nextMissing()),
             proxy: proxy_r.next(),
             log_color: get_next_color(),
             retries: 0,
         }
-        container = await create_container( params )
+        let container =  await create_container( params )
         container.params = params
-        // add it to the engine   
+        return container;
+    }
+
+
+    // set number of 
+    manager.setConcurrent(concurrent)
+
+    // set new promise creator
+    manager.setNextContainer(getNextContainer)
+
+
+    // if the container succeded, create a new container and
+    // add it to the container manager
+    manager.whenSuccess( async container => {
+        let { company } = container.params
+        console.log(`${company.name} succeded`);
+        console.log(
+            `Company  ${checklist.valuesDone()} out of ${checklist.values.length}`
+        );
+        checklist.check(company);
+        container = await getNextContainer();
+        // add it to the engine
         manager.addContainer(container);
     })
 
@@ -106,21 +122,30 @@ async function main(){
     // add company to error pile, if to many tries
     // retry if errors are low
     manager.whenError( async container => {
-        console.log('container errored');
         let { params } = container;
+        console.log(`container ${params.company.name} errored`);
         // set the proxy as dead
         withProxy && proxy_r.setDead(params.proxy);
         // stop trying if many tries
         if( params.retries > retries_max ) {
-            console.error(`Adding: ${params.company} to error list`);
+            console.error(`Adding: ${params.company.name} to error list`);
+            // check it off the list
             checklist.check(params.company);
+            // added to the errored pile
             errored.add(params.company);
-            //throw new Error('Process rejected');
+            // make a new container
+            container = await getNextContainer();
+            // add it to the engine
+            manager.addContainer(container);
         }else{ // let's try it again 
             debugging && console.log(`retrying ${params.company}`)
+            // add a strike to the error count
             params.retries += 1;
-            container = await create_container(params);
-            container.params = params;
+            // get new proxy
+            params.proxy = proxy_r.next();
+            // create a container with the same params
+            container = await getNextContainer(params);
+            // add it to the 
             manager.addContainer(container);
         }
     })
@@ -133,14 +158,7 @@ async function main(){
 
     for(var i = 0; i < concurrent; i++) {
         // create new container
-        let params = { 
-            company: JSON.parse(checklist.nextMissing()),
-            proxy: proxy_r.next(),
-            log_color: get_next_color(),
-            retries: 0,
-        }
-        let container = await create_container( params )
-        container.params = params
+        let container = await getNextContainer()
         // add it to the engine   
         manager.addContainer(container);
     }

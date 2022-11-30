@@ -6,14 +6,17 @@ export default class ContainerManager {
         this.halt = false;
         this._stop = () => this.halt = true;
         this.containers = Array()
+        this.concurrent = 0;
         this.successCallback = null;
         this.errorCallback = null;
         this.finishedCallback = null;
     }
 
     // setters
-    setStopFunction = stopFunction => this.stopFunction = stopFunction 
+    setStopFunction = stopFunction => this.stopFunction = stopFunction;
+    setConcurrent = concurrent => this.concurrent = concurrent;
     addContainer = container => this.containers.push(container);
+    setNextContainer = nextContainer => this.nextContainer;
     setTimeout =  timeout  => this.timeout = timeout;
     whenSuccess = callback => this.successCallback = callback;
     whenError = callback => this.errorCallback = callback;
@@ -33,15 +36,22 @@ export default class ContainerManager {
         if(this.stopFunction === null) this.stopFunction = () => false;
         else this.halt = this.stopFunction();
         // create promises
+        var prev_cont_count = this.containers.length;
+        var i = 0 ;
         while( !this.halt ){
-            for(var i = 0; i < this.containers.length; i++) {
+            //add more container if this.concurrent is set
+            if( i === this.containers.length < this.containers)
+                for(let e=0; e < this.concurrent - prev_cont_count; e++)
+                    this.addContainer(await this.nextContainer())
+            //main loop
+            for(i = 0; i < this.containers.length; i++) {
                 let container = this.containers[i];
                 //console.log('containers: ', this.containers.length);
                 let { State, Id } = await container.inspect()
                 let { Status, ExitCode, Error } = State;
                 if(Status === 'created'){
                     await container.start()
-                //}else if(Status === 'running'){
+                    //}else if(Status === 'running'){
                 }else if(Status === 'exited'){
                     if(ExitCode === 1){ // there was a error
                         await this.errorCallback(container)
