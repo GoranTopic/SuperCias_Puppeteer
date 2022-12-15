@@ -174,7 +174,7 @@ await script('704517', '192.177.191.3:3128', 'green');
 */
 
 // run with npm run company $id $proxy $logger_color
-// npm run company 704517 192.177.191.3:3128 green
+// npm run company 704517 23.27.240.236:3128 green
 const params = process.argv.slice(2);
 let [ company_id, proxy, log_color ] = params;
 await script(company_id, proxy, log_color);
