@@ -1,9 +1,13 @@
 import { read_json, write_json, mkdir } from '../utils/files.js'
+import options from '../options.js'
+
+// get data directory
+let data_directory =  options.data_dir;
 
 /* this class make a list that is saved disk, and or read from */
 class DiskList{
     constructor(name, values = null, path = null){
-        this.dir_path = path? path : './data/resources/list';
+        this.dir_path = path? path : data_directory + '/resources/list';
         mkdir(this.dir_path);
         this.name = name + ".json";
         this.filename = this.dir_path + '/' + this.name

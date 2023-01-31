@@ -38,7 +38,7 @@ const scrap_row = async (id, title, table, rows, page, path, log ) =>
             clearTimeout(time_out);
             reject(false);
     }
-    */ 
+    */
     });
 
 export default scrap_row;

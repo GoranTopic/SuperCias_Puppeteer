@@ -17,8 +17,8 @@ class DockerAPI{
      */
     has_image = async key => {
         let img_list = await this.docker.listImages()
-        let hasSupecias_img = img_list.some( 
-            ({ RepoTags, Id }) => { 
+        let hasSupecias_img = img_list.some(
+            ({ RepoTags, Id }) => {
                 if(RepoTags.some( repo => repo === key)) return true;
                 if( Id === key) return true;
                 return false;
@@ -46,13 +46,16 @@ class DockerAPI{
         return has_container;
     }
 
+
+
+
     /**
      * make_tar_file.
      * make a tar file, of the given files,
      *
      * @param String filename
      *  tar file name, excluding the .tar extension
-     * @param [] files 
+     * @param [] files
      *  aray of file to tar
      */
     make_tar_file = async (filename, files) => {
@@ -163,6 +166,11 @@ class DockerAPI{
     run = (...args) =>
         this.docker.run(...args);
 
+    listImages = (...args) =>
+        this.docker.listImages(...args);
+
+    listContainers = (...args) =>
+        this.docker.listContainers(...args);
 
     createContainer = (...args) =>
         this.docker.createContainer(...args);

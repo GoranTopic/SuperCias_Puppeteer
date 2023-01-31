@@ -51,6 +51,8 @@ const script = async (company_id, proxy=false, log_color) => {
         '--disable-setuid-sandbox',
         ...browserOptions.args
     ];
+    // get the data path
+    let data_directory = options.data_dir;
 
     // add stealth plugin and use defaults (all evasion techniques)
     puppeteer.use(StealthPlugin())
@@ -103,7 +105,7 @@ const script = async (company_id, proxy=false, log_color) => {
         log("custom code loaded")
 
         // make user there is companies folder
-        let companies_dir = './data/mined/companies';
+        let companies_dir =  data_directory + '/mined/companies';
         mkdir(companies_dir)
 
         // company diretory 

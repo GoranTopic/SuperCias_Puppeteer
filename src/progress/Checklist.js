@@ -1,4 +1,8 @@
 import { read_json, write_json, delete_json, mkdir } from '../utils/files.js'
+import options from '../options.js';
+
+// get data directory
+let data_directory =  options.data_dir;
 
 /* this class makes a checklist for value that need to be check,
  * it takes a check function whihc goes throught the values. */
@@ -6,7 +10,7 @@ class Checklist{
     /* this function takes list of name name to check and */
     constructor(name, values, path, options={ recalc_on_check: true }){
         // only for script
-        this.dir_path = path ?? './data/resources/checklists';
+        this.dir_path = path ?? data_directory + '/resources/checklists';
         mkdir(this.dir_path);
         // if you want to mantain the original missing list of value after checks
         this.recalc_on_check = options.recalc_on_check;

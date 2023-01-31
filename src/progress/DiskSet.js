@@ -1,9 +1,13 @@
 import { read_json, write_json, mkdir } from '../utils/files.js'
+import options from '../options.js';
+
+// get data directory
+let data_directory =  options.data_dir;
 
 /* this class is similar to the disklist, but it remove any repeated values */
 class DiskSet{
     constructor(name, values = null, path){
-        this.dir_path = path?? './data/resources/list';
+        this.dir_path = path??  data_directory + '/resources/list';
         mkdir(this.dir_path);
         this.name = name + ".json";
         this.set = new Set();

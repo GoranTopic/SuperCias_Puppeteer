@@ -17,6 +17,8 @@ let concurrent = options.concurrent_processes;
 let minutesToTimeout = options.minutesToTimeout
 // numbe rof retries per company
 let retries_max = options.max_tries;
+// get the data directory
+let data_directory = options.data_dir;
 
 async function main(){
     // connect with docker daemon
@@ -25,7 +27,7 @@ async function main(){
     let manager = new ContainerManager(docker);
     let errored = new DiskList('errored_companies');
     let proxy_r = new ProxyRotator();
-    let ids = read_json('./data/mined/ids/company_ids.json')
+    let ids = read_json( data_directory + '/mined/ids/company_ids.json')
     let checklist = new Checklist('companies', ids, null,
         { recalc_on_check: false });
 
@@ -48,7 +50,7 @@ async function main(){
         let result = await docker.buildImage('supercias.tar', {t: 'supercias'})
     }
 
-    mkdir('./data/resources/checklists/')
+    mkdir( data_directory +'/resources/checklists/')
 
 
     const create_container = async ({ company, proxy, log_color }) => {
@@ -64,7 +66,7 @@ async function main(){
             ],
             Mounts: [{
                 "Target":   "/home/pptruser/supercias/data",
-                "Source":   "/home/telix/supercias/data",
+                "Source":   data_directory,
                 "Type":     "bind",
                 "ReadOnly": false
             }]

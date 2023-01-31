@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default class ContainerManager {
     /* the engine */
     constructor(docker){
@@ -47,19 +49,30 @@ export default class ContainerManager {
             for(i = 0; i < this.containers.length; i++) {
                 let container = this.containers[i];
                 //console.log('containers: ', this.containers.length);
-                let { State, Id } = await container.inspect()
+                let { State, Id, Created } = await container.inspect();
                 let { Status, ExitCode, Error } = State;
                 if(Status === 'created'){
+                    // if the container was just created
                     await container.start()
-                    //}else if(Status === 'running'){
-                }else if(Status === 'exited'){
-                    if(ExitCode === 1){ // there was a error
-                        await this.errorCallback(container)
-                    }else{ // Success
-                        await this.successCallback(container)
+                }else if(Status === 'running'){
+                    // if the container is running
+                    var now = moment(new Date())
+                    var date = moment(Created);
+                    var duration = now.diff(date, 'minutes');
+                    let timeout = 25;
+                    if(duration > timeout){
+                        console.log(`Cotainer took more than ${timeout} minutes, stopping container`);
+                        await this.docker.stop_container(Id);
                     }
-                    await this.docker.delete_container(Id)
-                    this.containers.splice(i, 1)
+                }else if(Status === 'exited'){
+                    // if the container was finished
+                    if(ExitCode === 1){ // there was a error
+                        await this.errorCallback(container);
+                    }else{ // Success
+                        await this.successCallback(container);
+                    }
+                    await this.docker.delete_container(Id);
+                    this.containers.splice(i, 1);
                     i--;
                 }
             }
