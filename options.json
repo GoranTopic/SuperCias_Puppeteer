@@ -11,12 +11,13 @@
             "--allow-file-access-from-files"
         ]
     },
-    "data_dir": "/media/telix/data_stach/supercias/data",
+    "inside_container_data_dir": "/home/pptruser/supercias/data",
+    "host_data_dir": "/home/telix/supercias/data",
     "debugging": false,
     "proxyRotation": true,
     "saveCaptchan": false,
     "max_tries": 15,
     "pdf_missing_threshold": 0,
     "minutesToTimeout": 10,
-    "concurrent_processes": 10
+    "concurrent_processes": 20
 }

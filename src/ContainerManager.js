@@ -17,7 +17,7 @@ export default class ContainerManager {
     // setters
     setStopFunction = stopFunction => this.stopFunction = stopFunction;
     setConcurrent = concurrent => this.concurrent = concurrent;
-    addContainer = container => this.containers.push(container);
+    addContainer = container => { if(container) this.containers.push(container) };
     setNextContainer = nextContainer => this.nextContainer;
     setTimeout =  timeout  => this.timeout = timeout;
     whenSuccess = callback => this.successCallback = callback;

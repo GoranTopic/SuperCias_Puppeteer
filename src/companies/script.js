@@ -52,7 +52,7 @@ const script = async (company_id, proxy=false, log_color) => {
         ...browserOptions.args
     ];
     // get the data path
-    let data_directory = options.data_dir;
+    let data_directory = options.inside_container_data_dir;
 
     // add stealth plugin and use defaults (all evasion techniques)
     puppeteer.use(StealthPlugin())
@@ -75,12 +75,14 @@ const script = async (company_id, proxy=false, log_color) => {
         if(isOffline) process.exit(1);
 
         // wait for good luck
-        await waitUntilRequestDone(page, 1000);
+        await waitUntilRequestDone(page, 1500);
 
         // load custom code
         //await page.evaluate(custom_components);
         //await page.evaluate(custom_createWidget);
         // over write the normal ajax call for tis one
+	
+	await page.waitForFunction(`typeof PrimeFaces !== 'undefined'`)
         await page.evaluate(jsonfn);
         await page.evaluate(custom_ajax);
         await page.evaluate(custom_functions);
@@ -91,12 +93,12 @@ const script = async (company_id, proxy=false, log_color) => {
 
         /*--------- company scrap ---------*/
         // now that captachn has been accpeted we can load company page
-        let company_url = information_de_companies;
+	let company_url = information_de_companies;
 
         // wait for page to load
         //await navigationPromise;
-        await waitUntilRequestDone(page, 1000);
-
+        await waitUntilRequestDone(page, 1500);
+	await page.waitForFunction(`typeof PrimeFaces !== 'undefined'`)
         // load custom client code for the new page
         await page.evaluate(jsonfn);
         await page.evaluate(custom_ajax);
@@ -137,6 +139,8 @@ const script = async (company_id, proxy=false, log_color) => {
             // path where to make the checklist
             company_dir
         )
+
+	    debugger;
 
         // for every menu, run the associated scrapper if found
         for( let menu of Object.keys(tab_menus) ) {

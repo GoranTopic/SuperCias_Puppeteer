@@ -4,7 +4,7 @@ import options from './options.js';
 import fs from 'fs';
 
 // get data directory
-let data_directory =  options.data_dir;
+let data_directory =  options.host_data_dir;
 
 const free_proxy_list_net = async page => {
     /* this functions parse the proxies form https://free-proxy-list.net/*/

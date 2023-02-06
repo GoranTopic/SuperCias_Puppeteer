@@ -2,7 +2,7 @@ import { read_json, write_json, delete_json, mkdir } from '../utils/files.js'
 import options from '../options.js';
 
 // get data directory
-let data_directory =  options.data_dir;
+let data_directory =  options.host_data_dir;
 
 /* this class makes a checklist for value that need to be check,
  * it takes a check function whihc goes throught the values. */
@@ -75,6 +75,16 @@ class Checklist{
         return write_json(this.checklist, this.filename);
     }
 
+    uncheck = value => {
+        /* unchecks a value on on the list which might have been done */
+        if(this._isObject(value))
+            value = JSON.stringify(value)
+        this.checklist[value] = false;
+        if(this.recalc_on_check) 
+            this._calcMissing();
+        return write_json(this.checklist, this.filename);
+    }
+
     add = (value, overwrite = true) => {
         /* add a value as not done to the list
          * if overwrite is true, it writes over any truely value */
@@ -104,6 +114,10 @@ class Checklist{
 
     // returns all key values
     getAllValues = () => Object.keys(this.values)
+
+
+    // returns length of all the values
+    valuesCount = () => Object.keys(this.values).length
 
     isDone = () =>
         /* checks if all the value on the checklist are done */

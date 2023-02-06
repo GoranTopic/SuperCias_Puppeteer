@@ -43,7 +43,6 @@ const scrap_table = async (table, rows, checklists, page, path, log, company) =>
     // let make update the path 
     mkdir(path);
 
-    debugger;
     if(rows[table] > 10){
         // get all rows
         log('sending query for rows all')

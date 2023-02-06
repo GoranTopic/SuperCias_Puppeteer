@@ -2,7 +2,7 @@ import { read_json, write_json, mkdir } from '../utils/files.js'
 import options from '../options.js';
 
 // get data directory
-let data_directory =  options.data_dir;
+let data_directory =  options.host_data_dir;
 
 /* this class is similar to the disklist, but it remove any repeated values */
 class DiskSet{

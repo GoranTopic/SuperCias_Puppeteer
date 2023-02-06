@@ -32,7 +32,6 @@ export default async (page, path, log=console.log, company) => {
     await waitUntilRequestDone(page, 1000);
 
     // query the documentos online
-    debugger;
     log('sending query documentos request')
     let numberOfGeneralPdfs = await send_request(
         query_documentos_online, // paramter need to make the reuqe
@@ -87,7 +86,6 @@ export default async (page, path, log=console.log, company) => {
     }
 
     // check how we did
-    debugger;
     tables.forEach( table =>
         log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
