@@ -7,8 +7,6 @@ export default async (page, path, log, company) => {
     path += menu_name;
     mkdir(path);
 
-    log('got up to here')
-
 	debugger
     // let's parse the general information
     // information container
@@ -27,8 +25,6 @@ export default async (page, path, log, company) => {
     labels.forEach( (l, i) => information_general[l] = values[i].trim() )
     // write_file
     write_json(information_general, path + `/${menu_name}.json`)
-	
-    log('got up to here 2')
 
     /*
      * the following code is to download the pdf of the general informatoin
