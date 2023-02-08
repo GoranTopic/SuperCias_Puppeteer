@@ -40,6 +40,9 @@ class DiskList{
 	// values 
 	getValues = () => this.values
 
+	// check if a passed value in on the list
+	checkValue = value => this.values.some(v => value === v)
+
 	// values count
 	valuesCount = () => this.values.length
 
