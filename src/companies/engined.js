@@ -33,9 +33,6 @@ async function main(){
     let checklist = new Checklist('companies', ids, null,
         { recalc_on_check: false });
 
-    console.log('data_directoy:', data_directory)
-    console.log('constainer_data_dir:', container_data_dir)
-
     // delete the image
     //await docker.delete_image('supercias:latest', { force: true });
     await docker.remove_all_containers({ force: false });
