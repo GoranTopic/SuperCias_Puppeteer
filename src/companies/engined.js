@@ -29,10 +29,9 @@ async function main(){
     let manager = new ContainerManager(docker);
     let errored = new DiskList('errored_companies');
     let proxy_r = new ProxyRotator();
-    //let ids = read_json( data_directory + '/mined/ids/company_ids.json')
-    //let checklist = new Checklist('companies', ids, null,
-        //{ recalc_on_check: false });
-
+    let ids = read_json( data_directory + '/mined/ids/company_ids.json')
+    let checklist = new Checklist('companies', ids, null,
+        { recalc_on_check: false });
 
     // delete the image
     //await docker.delete_image('supercias:latest', { force: true });

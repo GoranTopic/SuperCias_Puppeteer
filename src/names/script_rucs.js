@@ -2,23 +2,24 @@ import puppeteer from 'puppeteer';
 import DiskList from '../progress/DiskList.js';
 import options from '../options.js'
 import { make_logger } from '../logger.js'
+import read_csv from '../utils/read_csv.js'
 import goto_company_search_page from '../states/supercia.gov.ec/goto_company_search_page.js'
 import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js'
 import close_browser from '../states/supercia.gov.ec/close_browser.js'
-import query_suggestions from '../states/supercia.gov.ec/query_suggestions.js'
+import query_company_by_ruc from '../states/supercia.gov.ec/query_company_by_ruc.js'
 
 // options of browser
 let browserOptions = options.browser;
 // is debugging
 let debugging = options.debugging;
+// get rucs
+let rucs = (await read_csv('./data/mined/rucs/rucs.csv')).map(r=>r['NUMERO_RUC']);
 
 async function script( proxy, log ){
     // list where to store the names
-    let names = new DiskList('companies_names');
-    // tries?
     let retries_max = options.triesWithProxies;
     // set new proxy, while keeping args
-    console.log(proxy);
+    console.log('proxy:', proxy);
     if(proxy) browserOptions.args = [
         `--proxy-server=${ proxy.proxy }`, 
         ...browserOptions.args 
@@ -37,7 +38,7 @@ async function script( proxy, log ){
         await check_server_offline(browser, log);
         // make brower query for suggestions
         debugger;
-        await query_suggestions(browser, names, log);
+        await query_company_by_ruc(browser, rucs, log);
         debugger;
     }catch(e){
         // close browser if something went wrond
@@ -50,8 +51,7 @@ async function script( proxy, log ){
     // if we succeded
     return true;
 }
-
 // if testing script alone
-//script();
+script();
 
 export default script

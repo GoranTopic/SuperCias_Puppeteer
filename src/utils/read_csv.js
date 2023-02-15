@@ -13,3 +13,5 @@ const read_csv = async csv_file =>
                 res(results);
             });
     });
+
+export default read_csv;

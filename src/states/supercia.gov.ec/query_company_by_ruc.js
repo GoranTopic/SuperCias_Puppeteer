@@ -1,19 +1,15 @@
 import make_state from '../makeState.js';
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
-import { write_json, read_json } from '../../utils/files.js';
 import { busqueda_de_companias } from '../../urls.js';
 import options from '../../options.js';
-//import alphabet from '../../../data/resources/spanish_alphabet.js';
-let alphabet = ['a', 'b', 'c' ]
-import DiskSet from '../../progress/DiskList.js';
 import Checklist from '../../progress/Checklist.js';
+import DiskSet from '../../progress/DiskSet.js';
 import promptSync from 'prompt-sync';
 const prompt = promptSync();
 // this state queries the companies with given names
 
 // set debugging
 let debugging = options.debugging;
-let timeout = options.nameQueryTimeout;
+let timeout = options.minutesToTimeout;
 
 // condition for entering input name state
 const query_names_condition = async browser =>
@@ -22,21 +18,21 @@ const query_names_condition = async browser =>
         (( await browser.pages() )[0].url() === busqueda_de_companias )
     )
 
-/* use the console on the chrome browser to ask fo the suggestion of every name */
-const query_names_script = async (browser, names, log) => {
-    log(`Starting to query for names...`)
+/* use the console on the chrome browser to ask fo the suggestion of every ruc value */
+const query_names_script = async (browser, rucs, log) => {
+    log(`Starting to query for rucs...`)
     // for page to load
     let [ page ] = await browser.pages();
 
     // get the radion
-    let [ radio_el ] = await page.$x('//*[text()="Nombre"]/..');
+    let [ radio_el ] = await page.$x('//*[text()="R.U.C."]/..');
 
     // click on the name radio
     if(radio_el) await radio_el.click();
-    else throw new Error('Could not get name radion selector element');
+    else throw new Error('Could not get ruc radio selector element');
 
     // send name suggestion query  function
-    const query_name = async ({name, timeout}) => {
+    const query_ruc = async ({ruc, timeout}) => {
         /* This is a parameter example for the function PrimeFace.ajax.Request.handle(  ) */
         return await new Promise( (resolve, reject) => {
             let suggestions = null;
@@ -71,7 +67,7 @@ const query_names_script = async (browser, names, log) => {
                                     }
                                 } )
                             // if the name is the same as the ruc, there is no ruc
-                            suggestions.forEach( s => { if(s.ruc === s.name) delete s.ruc } )
+                            //suggestions.forEach( s => { if(s.ruc === s.name) delete s.ruc } )
                             resolve(suggestions)
                         }else{ // if we got soemthing else
                             if( g.getElementById('javax.faces.ViewRoot') ){
@@ -96,7 +92,7 @@ const query_names_script = async (browser, names, log) => {
                 params: [
                     {
                         name: "frmBusquedaCompanias:parametroBusqueda_query",
-                        value: name,
+                        value: ruc,
                     }
                 ],
                 process: "frmBusquedaCompanias:parametroBusqueda",
@@ -107,62 +103,29 @@ const query_names_script = async (browser, names, log) => {
     }
 
     // make a permenant set to tsave the scrapped names
-    let names_set = new DiskSet('new_company_names', null, 'data/mined/names/');
+    let ruc_set = new DiskSet('company_rucs', null, 'data/mined/rucs/');
 
-    // make a check lis tot keep track of all t he stings we have alrady checked
-    let str_checklist = new Checklist('checked_str_for_name_suggestions')
+    // make a checklis to keep track of all the rucs we have alrady checked
+    let rucs_checklist = new Checklist('rucs', rucs)
 
-    // depth first search function definiton
-    const dfs_name_suggestions = async (str='') => {
-        // if the string has not already been check
-        if(! str_checklist.isCheckedOff(str)){
-            for(let letter of alphabet){
-                // if the str with the new letter has not been checked yet
-                //console.log('checking if it is checked off...');
-                if(! str_checklist.isCheckedOff(str + letter)){
-                    log(`waiting for ${str+letter} query...`);
-                    // query the back end for the string and letter
-                    let suggestions = await page.evaluate(query_name, {name: str+letter, timeout});
-                    // if we got a error, Abort mission!
-                    if( suggestions instanceof Error ) throw suggestions
-                    if(suggestions.length > 0) console.log('suggestions:', suggestions)
-                    // we can assume something whent wrong if we don't get any suggestion 
-                    // with a short query string
-                    if(suggestions.length === 0 && (str+letter).length < 3 ){
-                        console.log(suggestions);
-                        const user_input = prompt(`Got not queries of ${str+letter}. skip it? y/n `);
-                        if(user_input === "y") continue;
-                        else throw Error("No Suggestion");
-                    }
-                    // if we got some suggestions
-                    // if there are 15 suggestion we can assume it it not worth exploing
-                    if(suggestions.length > 14){
-                        // add every suggestion to the set
-                        suggestions.forEach(s => names_set.add(s));
-                        // continue recursion
-                        await dfs_name_suggestions(str + letter);
-                    }else{
-                        log(str+letter, 'checked off');
-                        // let check it in the checklist
-                        str_checklist.check(str + letter, true);
-                        // let clean the checklist from previous entries
-                        str_checklist
-                            .getAllValues()
-                            .forEach( v => {
-                                if(v.startsWith(str + letter)) str_checklist.remove(v)
-                            })
-                    }
-                }
-            }
-            // check it comes out of the recursion, it must have checke the letter
-            log('checking off: ', str);
-            str_checklist.check(str, true);
+    // for every ruc value
+    for(let ruc of rucs){
+        console.log('quering ruc: ', ruc);
+        // if we have not already checked that ruc
+        if(rucs_checklist.isCheckedOff(ruc)) continue;
+        // query for the ruc
+        let suggestion = await page.evaluate(query_ruc, {ruc, timeout});
+        console.log('got: ', suggestion)
+        /*
+        if(suggestions){
+            // add it to the set
+            ruc_set.add(company);
+            // cross if off out checklist
+            rucs_checklist.check(ruc);
         }
+        */
     }
 
-    // starting recursion
-    await dfs_name_suggestions();
-    log('Reached End of Recursion')
 }
 
 // make state

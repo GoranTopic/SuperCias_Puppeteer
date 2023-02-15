@@ -27,12 +27,12 @@ import options from '../options.js';
  * @param {} proxy
  * @param {} log_color
  */
-const script = async (company_id, proxy=false, log_color) => { 
+const script = async (company_ruc, proxy=false, log_color) => { 
 
     // get company from company id
-    let company = get_company_by_id(company_id);
+    //let company = get_company_by_id(company_id);
     // make logger
-    let prefix = `[${company.name}] `;
+    let prefix = `[${company_ruc}] `;
     if(proxy) prefix += `[${proxy.split(':')[0]}]`;
     let log = make_logger(
         prefix, true, log_color
@@ -57,7 +57,7 @@ const script = async (company_id, proxy=false, log_color) => {
     // add stealth plugin and use defaults (all evasion techniques)
     puppeteer.use(StealthPlugin())
 
-    log(`scrapping ${company.name} through ${proxy}`)
+    log(`scrapping ${company_ruc} through ${proxy}`)
     // create new browser
     const browser = await puppeteer.launch(browserOptions)
 
