@@ -18,37 +18,44 @@ let compDirs = getDirectories( companies_directory );
 
 // get the genral infomation 
 for(let compDir of compDirs){
-    // read json file
-    let generalInfoPath = 
-        companies_directory + '/' + compDir + '/information_general/information_general.json';
-    // read the general info json
-    let informacino_general = 
-        read_json(generalInfoPath);
-    // thro error if we coudl not read it
-    if(! informacino_general )
-        throw new Error(`informacion general for ${generalInfoPath} gave a nullish value`);
-    //lets add the to the general info
-    informacino_general['Nombre'] = compDir;
-    // save the name to general infomation
-    write_json( informacino_general, generalInfoPath)
-    // get eh ruc
-    let ruc = informacino_general['R.U.C.:'];
-    if(! ruc ){
-        console.error(`could not get ruc for ${generalInfoPath}, leaving with existing directory`);
-        continue;
-    }
-    // check if there are any colalitions
-    if(existsSync(companies_directory + '/' + ruc)){
-        console.error(`there is already a dir in ${companies_directory + '/' + ruc}`);
-        continue;
-    }else{ // rename the folder to ruc
-        console.log(`${companies_directory + '/' + compDir}, -> 
-            ${companies_directory + '/' + ruc}`);
-        // renaming dir to ruc
-        renameSync( 
-            companies_directory + '/' + compDir, // old path
-            companies_directory + '/' + ruc
-        );
-    }
+	// read json file
+	let generalInfoPath = 
+		companies_directory + '/' + compDir + '/information_general/information_general.json';
+	// read the general info json
+	let informacino_general = 
+		read_json(generalInfoPath);
+	// thro error if we coudl not read it
+	if(! informacino_general ){
+		console.error(`informacion general for ${generalInfoPath} gave a nullish value`);
+		continue;
+	}
+	// get eh ruc
+	let ruc = informacino_general['R.U.C.:'];
+	if(! ruc ){
+		// if we could not find a ruc numberj
+		console.error(`could not get ruc for ${generalInfoPath}, leaving with existing directory`);
+		continue;
+	}else if( ruc === compDir){
+		// if it has been alreasdy formatrd
+		console.log(`${generalInfoPath} already formated`);
+		continue;
+	}
+	//lets add the name to the general info
+	informacino_general['Nombre'] = compDir;
+	// save the name to general infomation
+	write_json( informacino_general, generalInfoPath)
+	// check if there are any colalitions
+	if(existsSync(companies_directory + '/' + ruc)){
+		console.error(`there is already a dir in ${companies_directory + '/' + ruc}`);
+		continue;
+	}else{ // rename the folder to ruc
+		console.log(`${companies_directory + '/' + compDir}, -> 
+	    ${companies_directory + '/' + ruc}`);
+		// renaming dir to ruc
+		renameSync( 
+			companies_directory + '/' + compDir, // old path
+			companies_directory + '/' + ruc
+		);
+	}
 }
 
