@@ -38,6 +38,7 @@
     "dependencies": {
         "chalk": "^5.1.2",
         "csv-parse": "^5.3.5",
+        "csv-parser": "^3.0.0",
         "dockerode": "^3.3.4",
         "image-js": "^0.35.2",
         "json-fn": "^1.1.1",
