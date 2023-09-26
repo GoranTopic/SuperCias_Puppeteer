@@ -1,5 +1,6 @@
 import { read_json, mkdir, fileExists, write_json } from '../utils/files.js';
 import options from '../options.js'
+
 import { readdirSync, renameSync, existsSync } from 'fs'
 
 const getDirectories = source =>
@@ -29,7 +30,7 @@ for(let compDir of compDirs){
 		console.error(`informacion general for ${generalInfoPath} gave a nullish value`);
 		continue;
 	}
-	// get eh ruc
+	// get the ruc
 	let ruc = informacino_general['R.U.C.:'];
 	if(! ruc ){
 		// if we could not find a ruc numberj
