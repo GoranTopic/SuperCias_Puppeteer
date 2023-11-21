@@ -1,56 +1,17 @@
 {
-    "name": "supercia",
-    "version": "1.0.0",
-    "description": "\" scrapper for the super intencecia de companias de Ecuador\" ",
-    "main": "main.js",
-    "type": "module",
-    "scripts": {
-        "start": "node src/companies/engined.js",
-        "debug": "node --inspect-brk src/companies/engined.js",
-        "company": "node src/companies/script.js",
-        "test": "node src/companies/test.js",
-        "debug_company": "node --experimental-repl-await --inspect src/companies/script.js",
-        "names": "node src/names/engined.js",
-        "debug_names": "node --experimental-repl-await inspect src/companies/script.js",
-        "count_names": "node src/utils/countCommapnyIDs.js",
-        "test_proxies": "node tests/proxies.js",
-        "test_timeout": "node tests/setTimeout.js",
-        "test_proxy_rotator": "node tests/proxy_rotator.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/GoranTopic/supercia_scrapper.git"
-    },
-    "keywords": [
-        "SuperCia",
-        "puppeteer",
-        "js",
-        "javascript",
-        "datamining",
-        "scraping"
-    ],
-    "author": "Goran Topic",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/GoranTopic/supercia_scrapper/issues"
-    },
-    "homepage": "https://github.com/GoranTopic/supercia_scrapper#readme",
-    "dependencies": {
-        "chalk": "^5.1.2",
-        "csv-parse": "^5.3.5",
-        "csv-parser": "^3.0.0",
-        "dockerode": "^3.3.4",
-        "image-js": "^0.35.2",
-        "json-fn": "^1.1.1",
-        "moment": "^2.29.4",
-        "prompt-sync": "^4.0.0",
-        "prompt-sync-history": "^1.0.1",
-        "puppeteer": "^19.2.2",
-        "puppeteer-extra": "^3.3.4",
-        "puppeteer-extra-plugin-stealth": "^2.11.1",
-        "spider_jar": "^1.0.0",
-        "tar": "^6.1.12",
-        "tesseract.js": "^3.0.3",
-        "truncate-utf8-bytes": "^1.0.2"
-    }
+  "name": "supercias_mining",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "super",
+    "cias",
+    "data",
+    "mining"
+  ],
+  "author": "Goran Topic",
+  "license": "ISC"
 }

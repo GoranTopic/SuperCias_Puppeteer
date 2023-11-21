@@ -7,7 +7,6 @@ import { write_binary_file, mkdir } from '../../utils/files.js';
 import str_to_binary from '../../utils/strToBinary.js';
 import options from '../../options.js';
 
-
 /**
  * handle_company_search.
  * this script handles the inteatcion between the browser and the server 
@@ -28,6 +27,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
     let captchan_src = await send_request(
         select_autocomplete_company(company), // parameters
         (response, status, i, C) => { 
+            console.log("response:", response);
             // we knwo the server is going to awnser with a captchan
             // let parse the response html send by the server
             let html = window.parse_html_str(response.responseText);
