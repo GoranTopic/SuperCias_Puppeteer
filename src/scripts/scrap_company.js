@@ -1,17 +1,17 @@
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import check_server_offline from '../states/supercia.gov.ec/check_server_offline.js';
-import goto_company_search_page from '../states/supercia.gov.ec/goto_company_search_page.js';
-import close_browser from '../states/supercia.gov.ec/close_browser.js';
+import check_server_offline from './check_server_offline.js';
+import goto_company_search_page from './goto_company_search_page.js';
+import close_browser from './close_browser.js';
 
-import scrap_informacion_general_script from './subscripts/scrap_informacion_general.js';
-import select_company_script from './subscripts/select_company_script.js';
-import scrap_documents_script from './subscripts/scrap_documents.js';
+import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
+import select_company_script from './menus_items/select_company_script.js';
+import scrap_documents_script from './menus_items/scrap_documents.js';
 
 import { information_de_companies } from '../urls.js';
-import { terminateRecognizer } from '../captcha.
-import options from '../options.js';
+import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
+import options from '../options.json' assert { type: 'json' }
 
 const scrap_company = async ({ company, proxy = false }) => {
     // options of browser
