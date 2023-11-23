@@ -1,0 +1,23 @@
+{
+    "browser": {
+        "headless": false,
+        "slowMo": 1,
+        "devtools": false ,
+        "excludeSwitches": "enable-automation",
+        "args": [
+            "--no-sandbox",
+            "--disable-web-security",
+            "--disable-setuid-sandbox",
+            "--allow-file-access-from-files"
+        ]
+    },
+    "inside_container_data_dir": "/home/pptruser/supercias/data",
+    "host_data_dir": "/home/telix/supercias/data",
+    "debugging": false,
+    "proxyRotation": false,
+    "saveCaptchan": false,
+    "max_tries": 15,
+    "pdf_missing_threshold": 0,
+    "minutesToTimeout": 10,
+    "concurrent_processes": 20
+}

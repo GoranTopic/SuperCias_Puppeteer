@@ -1,4 +1,3 @@
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
 import { write_json, mkdir, fileExists } from '../../utils/files.js';
 import download_pdf from '../../utils/download_pdf.js';
 import { Checklist, DiskList } from '../../progress.js';
@@ -6,11 +5,9 @@ import options from '../../options.js';
 import send_request from '../../websites_code/send_request.js';
 import { query_table_parameters } from '../../websites_code/queries/ABParameters.js';
 
-export default async (page, path, log) => {
+export default async page => {
     // let's make our dir
-    let menu_name = 'AdministradoresActuales'
-    path =+ '/' + menu_name;
-    mkdir(path);
+    let menu_name = 'Administradores Actuales'
     // let get the paramter need to make the call the server
     let parameters = query_table_parameters(menu_name);
     console.log('parameters:', parameters)

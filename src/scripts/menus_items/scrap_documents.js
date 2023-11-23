@@ -13,21 +13,16 @@ let error_threshold = options.pdf_missing_threshold;
  * Scrap Documents
  *
  * @param {} page
- * @param {} path
- * @param {} log
  * @param {} company
  */
-export default async (page, path, log=console.log, company) => {
-    // let's make our dir
-    let menu_name = 'Documentacion';
-    path = path + '/' + menu_name;
-    mkdir(path);
+export default async (page, company) => {
     // tables to scrap
     let tables = [
         'DocumentosGenerales', 
         'DocumentosJuridicos',
         'DocumentosEconomicos' 
     ];
+
     // wait for page to load
     await waitUntilRequestDone(page, 1000);
 
@@ -87,14 +82,14 @@ export default async (page, path, log=console.log, company) => {
 
     // check how we did
     tables.forEach( table =>
-        log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
+        console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
     // if everyt checklist has less than missing pdfs
     if( tbl_checklist.isDone() ){
-        log('scrap documents finished')
+        console.log('scrap documents finished')
         return page
     }else{ // did not pass
-        log('scrap documents did not finish')
+        console.log('scrap documents did not finish')
         return false;
     }
 }
