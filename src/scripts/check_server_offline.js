@@ -1,4 +1,4 @@
-import getText from '../../utils/getText.js';
+import getText from '../utils/getText.js';
 
 /* check if the string is offline */
 const check_if_server_is_offline = async browser => {
