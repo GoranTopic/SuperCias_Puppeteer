@@ -2,7 +2,7 @@ import JSONfn from 'json-fn';
 import { recognizeCaptchan } from '../src/captcha/recognizeNumberCaptchan.js';
 import str_to_binary from '../src/utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
-import { mkdir, write_binary_file } from '../src/utils/files.js';
+import { mkdir, write_binary } from 'files-js';
 import options from '../src/options.json' assert { type: 'json' };
 
 // followAlong placeholder
@@ -179,12 +179,12 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         )
 
         //let save the captchan
-        let cptn_path = './data/mined/captchans/';
+        let cptn_path = './storage/captchans/';
         mkdir(cptn_path);
         if(response.isCaptchanCorrect){ 
             log("captchan was accepted");
             (options.saveCaptchan) &&
-                write_binary_file( captchan_bin, 
+                write_binary( captchan_bin, 
                     // change to matching image extencion
                     cptn_path + captchan_solution + ".png" 
                 );
@@ -193,7 +193,7 @@ let send_request = async (parameters, callback, page, log, followAlong=true) => 
         }else{
             log("captchan was not accepted");
             (options.saveCaptchan) &&
-                write_binary_file( captchan_bin,
+                write_binary( captchan_bin,
                     // change to matching image extencion
                     cptn_path + "error" + captchan_solution + ".png" 
                 );

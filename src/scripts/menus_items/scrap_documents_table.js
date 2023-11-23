@@ -1,4 +1,4 @@
-import { mkdir } from '../../utils/files.js';
+import { mkdir } from 'files-js';
 import sanitize from '../../utils/sanitizer.js';
 import send_request from '../../../reverse_engineer/send_request.js';
 import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';

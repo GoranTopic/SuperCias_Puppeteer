@@ -2,7 +2,7 @@ import send_request from '../../../reverse_engineer/send_request.js';
 import submit_captchan from '../../../reverse_engineer/queries/submit_company_search_captchan.js';
 import select_autocomplete_company from '../../../reverse_engineer/queries/select_autocomplete_suggestion.js'
 import { recognizeCaptchan } from '../../captcha/recognizeNumberCaptchan.js';
-import { write_binary_file, mkdir } from '../../utils/files.js';
+import { write_binary, mkdir } from 'files-js';
 import str_to_binary from '../../utils/strToBinary.js';
 import options from '../../options.json' assert { type: 'json' };
 
@@ -99,18 +99,18 @@ const handle_company_search =  async (page, company, log=console.log) => {
 
 
 
-    let cptn_path = './data/mined/captchans/';
+    let cptn_path = './storage/captchans/';
     mkdir(cptn_path);
     // if the captchan was accapted we was to save it 
     if(was_captchan_accepted){
         (options.saveCaptchan) &&
-            write_binary_file( captchan_bin, 
+            write_binary( captchan_bin, 
                 // change to matching image extencion
                 cptn_path + captchan_solution + ".png" 
             );
     }else{
         (options.saveCaptchan) &&
-            write_binary_file( captchan_bin, 
+            write_binary( captchan_bin, 
                 // change to matching image extencion
                 cptn_path + "error" + captchan_solution + ".png" 
             );
