@@ -1,10 +1,8 @@
-import { write_json, mkdir, fileExists } from '../../utils/files.js';
-import Checklist from '../../progress/Checklist.js';
-import send_request from '../../websites_code/send_request.js';
-import query_documentos_online from '../../websites_code/queries/query_documentos_online.js';
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+import Checklist from 'checklist-js';
+import send_request from '../../../reverse_engineer/send_request.js';
+import query_documentos_online from '../../../reverse_engineer/queries/query_documentos_online.js';
 import scrap_table from './scrap_documents_table.js';
-import options from '../../options.js';
+import options from '../../options.json' assert { type: 'json' };
 
 // the nuber of pdf is ok not have
 let error_threshold = options.pdf_missing_threshold;
@@ -22,9 +20,6 @@ export default async (page, company) => {
         'DocumentosJuridicos',
         'DocumentosEconomicos' 
     ];
-
-    // wait for page to load
-    await waitUntilRequestDone(page, 1000);
 
     // query the documentos online
     log('sending query documentos request')

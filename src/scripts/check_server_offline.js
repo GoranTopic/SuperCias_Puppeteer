@@ -17,3 +17,5 @@ const check_if_server_is_offline = async browser => {
     }
     return false; // it is not offline
 }
+
+export default check_if_server_is_offline;

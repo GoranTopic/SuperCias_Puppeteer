@@ -1,4 +1,4 @@
-import { busqueda_de_companias_url } from '../../url.js'
+import { busqueda_de_companias_url } from '../urls.js';
 
 // script to handle the home page
 const goto_page_script = async browser => {

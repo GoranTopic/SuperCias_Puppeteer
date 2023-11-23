@@ -1,9 +1,9 @@
 import JSONfn from 'json-fn';
-import { recognizeCaptchan } from '../utils/recognizeNumberCaptchan.js';
-import str_to_binary from '../utils/strToBinary.js';
+import { recognizeCaptchan } from '../src/captcha/recognizeNumberCaptchan.js';
+import str_to_binary from '../src/utils/strToBinary.js';
 import submit_captchan from './queries/submit_captchan.js';
-import { mkdir, write_binary_file } from '../utils/files.js';
-import options from '../options.js';
+import { mkdir, write_binary_file } from '../src/utils/files.js';
+import options from '../src/options.json' assert { type: 'json' };
 
 // followAlong placeholder
 let error_count = 0;

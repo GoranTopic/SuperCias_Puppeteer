@@ -9,9 +9,7 @@ import scrap_informacion_general_script from './menus_items/scrap_informacion_ge
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
 
-import { information_de_companies } from '../urls.js';
 import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
-import options from '../options.json' assert { type: 'json' }
 
 const scrap_company = async ({ company, proxy = false }) => {
     // options of browser
@@ -54,7 +52,6 @@ const scrap_company = async ({ company, proxy = false }) => {
 
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
-    //let company_url = information_de_companies;
 
     // wait for page to load
     await waitUntilRequestDone(page, 1500);

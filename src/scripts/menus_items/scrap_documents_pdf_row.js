@@ -1,6 +1,6 @@
 import download_pdf from '../../utils/download_pdf.js';
-import send_request from '../../websites_code/send_request.js';
-import query_pdf from '../../websites_code/queries/query_pdf_link.js'
+import send_request from '../../../reverse_engineer/send_request.js';
+import query_pdf from '../../../reverse_engineer/queries/submit_company_search_captchan.js';
 
 const scrap_row = async (id, title, table, rows, page, path, log ) =>
     // set a time out for 4 minutes, to proces the pdf

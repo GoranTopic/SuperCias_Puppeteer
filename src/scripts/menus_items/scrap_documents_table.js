@@ -1,9 +1,10 @@
-import { write_json, mkdir } from '../../utils/files.js';
+import { mkdir } from '../../utils/files.js';
 import sanitize from '../../utils/sanitizer.js';
-import send_request from '../../websites_code/send_request.js';
-import { query_table_change } from '../../websites_code/queries/query_table_change.js'
-import waitUntilRequestDone from '../../utils/waitForNetworkIdle.js';
+import send_request from '../../../reverse_engineer/send_request.js';
+import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
+
+
 
 /**
  * scrap_table.
