@@ -1,9 +1,11 @@
 import puppeteer from 'puppeteer';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import Checklist from 'checklist-js';
 
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
 import close_browser from './close_browser.js';
+import insert_custom_components from '../../reverse_engineer/insert_custom_components.js';
 
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import select_company_script from './menus_items/select_company_script.js';
@@ -26,7 +28,6 @@ const scrap_company = async ({ company, proxy = false }) => {
         ]
     }
 
-
     // create new browser
     const browser = await puppeteer.launch(browserOptions)
 
@@ -39,9 +40,6 @@ const scrap_company = async ({ company, proxy = false }) => {
     // check if server is ofline
     if( await check_server_offline(browser) ) throw new Error('server is offline');
 
-    // wait for good luck
-    await waitUntilRequestDone(page, 1500);
-
     // insert custom ajax, functions, jsonfn and eventListeners
     page = await insert_custom_components(page);
 
@@ -51,8 +49,6 @@ const scrap_company = async ({ company, proxy = false }) => {
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
 
-    // wait for page to load
-    await waitUntilRequestDone(page, 1500);
     // insert custom ajax, functions, jsonfn and eventListeners
     page = await insert_custom_components(page);
 
@@ -76,14 +72,15 @@ const scrap_company = async ({ company, proxy = false }) => {
     //make checklist of values
     let checklist_company_menu = new Checklist(
         Object.keys(tab_menus).filter(k => tab_menus[k]), {
-        name: `checklist for ${company.name}`
+        name: `checklist for ${company.name}`,
+        path: './storage/checklists',
     }
     )
 
     // for every menu, run the associated scrapper if found
     for (let menu of Object.keys(tab_menus)) {
         // if it is not already chekoff
-        if (!checklist_company_menu.isCheckedOff(menu) &&
+        if (!checklist_company_menu.isChecked(menu) &&
             tab_menus[menu]) { // check if there is a function
             // wait for page to load
             await waitUntilRequestDone(page, 1000);

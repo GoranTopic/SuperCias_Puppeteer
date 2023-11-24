@@ -13,5 +13,4 @@ let checklist = new Checklist(company_ids, {
 
 let company = checklist.next();
 
-console.log(company);
-await scrap_company(company);
+await scrap_company( { company });

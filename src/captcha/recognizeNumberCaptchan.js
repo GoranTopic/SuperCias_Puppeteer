@@ -4,7 +4,7 @@ let worker = null;
 let isReady = null;
 
 if (worker === null) {
-    worker = createWorker( 'eng', {
+    worker = await createWorker( 'eng', {
         tessedit_char_whitelist: '0123456789',
         preserve_interword_spaces: 0,
         tessedit_pageseg_mode: 5,
@@ -18,6 +18,8 @@ const recognizeCaptchan = async img => {
             data: { text },
         } = await worker.recognize(img)
         return text.trim()
+    } else {
+        throw new Error('Tesseract.js is not ready')
     }
 }
 

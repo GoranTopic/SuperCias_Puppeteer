@@ -10,8 +10,6 @@ const goto_page_script = async browser => {
     await page.goto(busqueda_de_companias_url, {
         waitUntil: 'networkidle0',
     });
-    // wait for page to load
-    await waitUntilRequestDone(page, 500)
 }
 
 export default goto_page_script;
