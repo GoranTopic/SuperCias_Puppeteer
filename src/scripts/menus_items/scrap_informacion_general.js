@@ -16,8 +16,6 @@ export default async (page) => {
     )
     // match labels and values
     labels.forEach( (l, i) => information_general[l] = values[i].trim() )
-    // write_file
-
-    console.log('information_general', information_general)
+    // return information
     return information_general;
 }

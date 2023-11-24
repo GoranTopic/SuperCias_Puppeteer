@@ -17,7 +17,7 @@
  * place the solution of the captchan direcly in the textInput and 
  * pass this obj to the ABfunction
  **/
-const query_ccompany_captchan = {
+const query_company_captchan = {
     ext: undefined,
     source: "frmBusquedaCompanias:btnConsultarCompania", 
     process: "frmBusquedaCompanias",
@@ -30,4 +30,4 @@ const query_ccompany_captchan = {
     }
 }
 
-export default query_ccompany_captchan;
+export default query_company_captchan;

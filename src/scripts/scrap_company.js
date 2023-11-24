@@ -6,8 +6,9 @@ import insert_custom_components from '../../reverse_engineer/insert_custom_compo
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
 import close_browser from './close_browser.js';
-import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import select_company_script from './menus_items/select_company_script.js';
+import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
+import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
 // recognize captcha
 import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
@@ -64,7 +65,7 @@ const scrap_company = async ({ company, proxy = false }) => {
         'Kárdex de accionistas': null,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,
-        'Documentos online': null, //scrap_documents_script,
+        'Documentos online': scrap_documents_script,
         'Valores adeudados': null,
         'Valores pagados': null,
         'Notificaciones generales': null,
@@ -91,6 +92,8 @@ const scrap_company = async ({ company, proxy = false }) => {
             //checklist_company_menu.check(menu)
         }
     }
+
+    console.log(data);
 
     await close_browser(browser);
     await terminateRecognizer();

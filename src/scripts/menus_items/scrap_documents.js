@@ -22,18 +22,18 @@ export default async (page, company) => {
     ];
 
     // query the documentos online
-    log('sending query documentos request')
+    console.log('sending query documentos request')
     let numberOfGeneralPdfs = await send_request(
         query_documentos_online, // paramter need to make the reuqe
         // the callback, this is goin to run in the browser,
         (response, status, i, C) =>  // the first table is general documentos
         window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
         page, // puppetter page
-        log, // logger
+        null, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
-    log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
-    log('query documents request finished')
+    console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
+    console.log('query documents request finished')
 
     /* *
      *  Here we will loop ove the three document tabs:
@@ -49,27 +49,24 @@ export default async (page, company) => {
     });
 
     // checklist tables
-    let tbl_checklist = new Checklist( 
-        'checklist_tables',
-        tables,
-        path
-    );
+    let tbl_checklist = new Checklist(tables, {
+        name: `document tables for ${company.name}`,
+        path: './storage/checklists'
+    });
 
     // make checklists
     let pdf_checklists = {};
-    tables.forEach( table =>
-        pdf_checklists[table] = new Checklist(
-            "checklist_pdf",
-            null, // add file later
-            path + '/' + table
-        )
+    tables.forEach(table =>
+        pdf_checklists[table] = new Checklist(null, {
+                name: table + ' pdfs for ' + company.name,
+                path: './storage/checklists',
+            })
     );
 
     // let try to scrap every table =)
     for( let table of tables ){
-        let tbl_path = path + '/' + table;
-        if(!tbl_checklist.isCheckedOff(table)){
-            await scrap_table(table, rows, pdf_checklists, page, tbl_path, log, company)
+        if(!tbl_checklist.isChecked(table)){
+            await scrap_table(table, rows, pdf_checklists, page, company)
             if(pdf_checklists[table].missingLeft() <= error_threshold)
                 tbl_checklist.check(table);
         }
