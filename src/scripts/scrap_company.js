@@ -14,24 +14,11 @@ import scrap_documents_script from './menus_items/scrap_documents.js';
 import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
 // wait page idle
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
+import options from '../options.json' assert { type: 'json' };
 
 const scrap_company = async ({ company, proxy = false }) => {
-    // options of browser
-    let browserOptions = {
-        "headless": false,
-        "slowMo": 1,
-        "devtools": false,
-        "excludeSwitches": "enable-automation",
-        "args": [
-            "--no-sandbox",
-            "--disable-web-security",
-            "--disable-setuid-sandbox",
-            "--allow-file-access-from-files"
-        ]
-    }
-
     // create new browser
-    const browser = await puppeteer.launch(browserOptions)
+    const browser = await puppeteer.launch(options.browser);
 
     // get page
     let page = (await browser.pages())[0];
@@ -89,14 +76,14 @@ const scrap_company = async ({ company, proxy = false }) => {
             // run the function
             data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error
-            //checklist_company_menu.check(menu)
+            checklist_company_menu.check(menu)
         }
     }
 
-    console.log(data);
-
     await close_browser(browser);
     await terminateRecognizer();
+
+    return data;
 }
 
 export default scrap_company;

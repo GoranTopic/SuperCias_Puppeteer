@@ -24,6 +24,7 @@
     "puppeteer": "^21.5.2",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "storing-me": "^1.0.2",
     "tesseract.js": "^5.0.3",
     "truncate-utf8-bytes": "^1.0.2"
   }

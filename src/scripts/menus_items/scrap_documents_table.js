@@ -3,6 +3,7 @@ import send_request from '../../../reverse_engineer/send_request.js';
 import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
 import waitForNetworkIdle from '../../utils/waitForNetworkIdle.js';
+import options from '../../options.json' assert { type: 'json' };
 
 /**
  * scrap_table.
@@ -54,10 +55,9 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     }
 
     // wait for table to load
-        await waitForNetworkIdle(page, 1000);
+    await waitForNetworkIdle(page, 1000);
 
     // extract rows in table
-    ///debugger;
     let pdfs_info = await page.evaluate( table =>
         // let get a list of all pdf documents
         // note: here the value is tab + table
@@ -77,22 +77,29 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     checklists[table].add(
         pdfs_info.map(pdf => pdf.id),
     );
-
+    
+    let downloaded = [];
     // loop over every pdf
-    for(let { id, title } of pdfs_info){
+    for (let { id, title } of pdfs_info) {
         // if we alread have it, skip it
-        if(checklists[table].isChecked(id)) continue;
+        let pdf_filename = options.files_path + company.ruc + '_' + table + '_' + title + '.pdf';
+        if (checklists[table].isChecked(id)) downloaded.push(pdf_filename);
         console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
-        let outcome = await scrap_pdf_row( id, title, page,);
-        if(outcome) {
+        let outcome = await scrap_pdf_row(
+            id,
+            page,
+            pdf_filename
+        );
+        if (outcome) {
             checklists[table].check(id);
+            downloaded.push(pdf_filename);
             console.log('Downloaded');
-        }else{
+        } else 
             console.log('not downloaded');
-        }
-        // wait for goot luck
+        // wait for good luck
         await waitForNetworkIdle(page, 1000);
     }
+    return downloaded;
 }
 
 export default scrap_table;

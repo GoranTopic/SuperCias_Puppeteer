@@ -1,7 +1,7 @@
 {
     "browser": {
         "headless": false,
-        "slowMo": 1,
+        "slowMo": 0,
         "devtools": false ,
         "excludeSwitches": "enable-automation",
         "args": [
@@ -11,8 +11,8 @@
             "--allow-file-access-from-files"
         ]
     },
-    "inside_container_data_dir": "/home/pptruser/supercias/data",
-    "host_data_dir": "/home/telix/supercias/data",
+    "storage": "./storage/",
+    "files_path": "./storage/files/",
     "debugging": false,
     "proxyRotation": false,
     "saveCaptchan": false,

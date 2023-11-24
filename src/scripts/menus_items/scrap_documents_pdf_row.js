@@ -1,8 +1,10 @@
+import { mkdir } from 'files-js';
 import download_pdf from '../../utils/download_pdf.js';
 import send_request from '../../../reverse_engineer/send_request.js';
-import query_pdf from '../../../reverse_engineer/queries/submit_company_search_captchan.js';
+import query_pdf from '../../../reverse_engineer/queries/query_pdf_link.js';
+import options from '../../options.json' assert { type: 'json' };
 
-const scrap_row = async (id, title, page,) =>
+const scrap_row = async (id, page, path) =>
     // set a time out for 4 minutes, to proces the pdf
     await new Promise(async (resolve, reject) => {
         let time_out = setTimeout(() => {
@@ -19,12 +21,12 @@ const scrap_row = async (id, title, page,) =>
             page,
             false, // don't followAlong so we don't download the pdf twice
         );
-        log(`src: ${src}`);
+        console.log(`src: ${src}`);
         // downloading pdf
         let pdf_str = await download_pdf(
-            src,
-            page,
-            title,
+            src, // where to download
+            page,// the page to download with 
+            path // where to save
         );
         clearTimeout(time_out);
         resolve(pdf_str);
