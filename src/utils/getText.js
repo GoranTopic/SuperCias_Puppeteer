@@ -4,7 +4,7 @@ async function getText(elementHandler){
     // handle elementHandler
     const handleElement = async element => {
         //console.log('name:', element.constructor.name)
-        if( element.constructor.name === 'ElementHandle' ){
+        if( element.constructor.name === 'ElementHandle' || element.constructor.name === 'CdpElementHandle' ){
             const textContent  = await element.getProperty('textContent');
             return await textContent.jsonValue();
         }else{
