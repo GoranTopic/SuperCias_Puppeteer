@@ -1,17 +1,18 @@
 import puppeteer from 'puppeteer';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import Checklist from 'checklist-js';
-
+import insert_custom_components from '../../reverse_engineer/insert_custom_components.js';
+// import scripts
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
 import close_browser from './close_browser.js';
-import insert_custom_components from '../../reverse_engineer/insert_custom_components.js';
-
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
-
+// recognize captcha
 import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
+// wait page idle
+import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async ({ company, proxy = false }) => {
     // options of browser
@@ -55,7 +56,7 @@ const scrap_company = async ({ company, proxy = false }) => {
     // this is a list of all the menu tabs,
     // with their corresponding scraper
     let tab_menus = {
-        'Información general': null, //scrap_informacion_general_script,
+        'Información general': scrap_informacion_general_script,
         'Administradores actuales': null, //scrap_administradores_actuales,
         'Administradores anteriores': null,
         'Actos jurídicos': null,
@@ -74,22 +75,23 @@ const scrap_company = async ({ company, proxy = false }) => {
         Object.keys(tab_menus).filter(k => tab_menus[k]), {
         name: `checklist for ${company.name}`,
         path: './storage/checklists',
-    }
-    )
+    })
 
+    let data = { name : company.name, id : company.id, ruc: company.ruc, };
     // for every menu, run the associated scrapper if found
     for (let menu of Object.keys(tab_menus)) {
         // if it is not already chekoff
         if (!checklist_company_menu.isChecked(menu) &&
             tab_menus[menu]) { // check if there is a function
-            // wait for page to load
-            await waitUntilRequestDone(page, 1000);
+            // wait for page to load with timeout of 0
+            await waitForNetworkIdle(page, 1000)
             // run the function
-            await tab_menus[menu](page, company);
+            data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error
-            checklist_company_menu.check(menu)
+            //checklist_company_menu.check(menu)
         }
     }
+
     await close_browser(browser);
     await terminateRecognizer();
 }

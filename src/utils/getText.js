@@ -8,8 +8,7 @@ async function getText(elementHandler){
             const textContent  = await element.getProperty('textContent');
             return await textContent.jsonValue();
         }else{
-            console.error(`getText: got instance of ${element.constructor.name}
-                                instead of ElementHandle`)
+            console.error(`getText: got instance of ${element.constructor.name} instead of ElementHandle`)
             return null
         }
     }
