@@ -21,8 +21,6 @@
     "files-js": "^1.0.2",
     "json-fn": "^1.1.1",
     "punycode": "^2.3.1",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "tesseract.js": "^5.0.3",
     "truncate-utf8-bytes": "^1.0.2"
   }

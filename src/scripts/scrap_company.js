@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-extra';
+import puppeteer from 'puppeteer';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import check_server_offline from './check_server_offline.js';
@@ -26,8 +26,6 @@ const scrap_company = async ({ company, proxy = false }) => {
         ]
     }
 
-    // add stealth plugin and use defaults (all evasion techniques)
-    puppeteer.use(StealthPlugin())
 
     // create new browser
     const browser = await puppeteer.launch(browserOptions)

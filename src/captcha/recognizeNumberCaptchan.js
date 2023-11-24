@@ -8,8 +8,7 @@ if (worker === null) {
         tessedit_char_whitelist: '0123456789',
         preserve_interword_spaces: 0,
         tessedit_pageseg_mode: 5,
-    }
-    )
+    })
     isReady = true
 }
 
