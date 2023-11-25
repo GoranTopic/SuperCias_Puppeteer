@@ -1,6 +1,7 @@
 import { read_json, mkdir } from 'files-js';
 import Checklist from 'checklist-js';
 import Storage from 'storing-me'
+import ProxyRotator from 'proxy-rotator-js'
 import options from './options.json' assert { type: 'json' };
 import Slavery from 'slavery-js';
 
@@ -17,6 +18,8 @@ Slavery({
     let store = await storage.open('supercias')
     // make sure the files path exists
     mkdir(options.files_path);
+    // proxies
+    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt')
     // Read the file
     let company_ids = read_json('./storage/ids/company_ids.json')
     // make checklist
@@ -27,18 +30,25 @@ Slavery({
     });
     // get next company
     let company = checklist.next();
-    //while (company) {
+    while (company) {
         // get idle slave
         let slave = await master.getIdle()
-        // send company to slave
-        slave.run({ company })
-            .then(async data => {
-                await store.push(data.ruc, data);
-                console.log(data);
-                checklist.check({ id: data.id, name: data.name, ruc: data.ruc });
-                console.log('checked');
-            }).catch(error => {
-                console.log(error);
-            });
-    //}
+        // check if browser is step up is done
+        let isReady = await slave.is_done('setup');
+        if (!isReady)
+            slave.run(proxies.next(), 'setup');
+        else // if it has done the initial setup, run the default function
+            slave.run(company, 'scrap')
+                .then(async ({ company, data }) => {
+                    await store.push(company.ruc, data);
+                    console.log(data);
+                    checklist.check(company);
+                    console.log('checked');
+                }).catch(error => {
+                    console.log(error);
+                    slave.run(null, 'cleanup');
+                });
+        // get next company
+        company = checklist.next();
+    }
 });
