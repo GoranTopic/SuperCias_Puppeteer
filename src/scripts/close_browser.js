@@ -2,14 +2,11 @@
 import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
 
 const close_browser_script = async browser => {
-	try {
-		// close browser
-		await browser.close();
-		// terminate recognizer
-		await terminateRecognizer();
-	} catch (error) {
-		console.log(error);
-	}
+	if (!browser) return;
+	// closee browser
+	await browser.close();
+	// terminate recognizer
+	await terminateRecognizer();
 }
 
 export default close_browser_script;

@@ -33,21 +33,15 @@ Slavery({
     while (company) {
         // get idle slave
         let slave = await master.getIdle()
-        // check if browser is step up is done
-        let isReady = await slave.is_done('setup');
-        if (!isReady)
-            slave.run(proxies.next(), 'setup');
-        else // if it has done the initial setup, run the default function
-            slave.run(company, 'scrap')
-                .then(async ({ company, data }) => {
-                    await store.push(company.ruc, data);
-                    console.log(data);
-                    checklist.check(company);
-                    console.log('checked');
-                }).catch(error => {
-                    console.log(error);
-                    slave.run(null, 'cleanup');
-                });
+        slave.run({ company, proxy: proxies.next() })
+            .then(async ({ company, data }) => {
+                await store.push(company.ruc, data);
+                console.log(data);
+                checklist.check(company);
+                console.log('checked');
+            }).catch(error => {
+                console.log(error);
+            });
         // get next company
         company = checklist.next();
     }
