@@ -7,7 +7,6 @@ import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
-// wait page idle
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async (browser, company) => {
@@ -28,6 +27,9 @@ const scrap_company = async (browser, company) => {
     // selecting company
     page = await select_company_script(page, company);
 
+    // wait for table to load
+    await waitForNetworkIdle(page, 1000);
+    
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
 
