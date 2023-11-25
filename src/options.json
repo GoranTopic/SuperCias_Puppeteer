@@ -30,18 +30,15 @@
         },
         "DocumentosJuridicos": {
             "filters": {
+                "nombre de acto juuridico": "",
                 "documento": "",
-                "fecha": "2022",
-                "nombre": "",
-                "cargo": ""
+                "fecha": "2022"
             }
         },
         "DocumentosEconomicos": {
             "filters": {
                 "documento": "",
-                "fecha": "2022",
-                "nombre": "",
-                "cargo": ""
+                "fecha": "2022"
             }
         }
     }
