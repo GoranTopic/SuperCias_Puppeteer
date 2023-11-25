@@ -1,24 +1,17 @@
-import puppeteer from 'puppeteer';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import Checklist from 'checklist-js';
 import insert_custom_components from '../../reverse_engineer/insert_custom_components.js';
 // import scripts
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
-import close_browser from './close_browser.js';
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
-// recognize captcha
-import { terminateRecognizer } from '../captcha/recognizeNumberCaptchan.js';
 // wait page idle
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
-import options from '../options.json' assert { type: 'json' };
 
-const scrap_company = async ({ company, proxy = false }) => {
-    // create new browser
-    const browser = await puppeteer.launch(options.browser);
+const scrap_company = async (browser, company) => {
+    console.log('scraping company: ', company);
 
     // get page
     let page = (await browser.pages())[0];
@@ -79,9 +72,6 @@ const scrap_company = async ({ company, proxy = false }) => {
             checklist_company_menu.check(menu)
         }
     }
-
-    await close_browser(browser);
-    await terminateRecognizer();
 
     return data;
 }

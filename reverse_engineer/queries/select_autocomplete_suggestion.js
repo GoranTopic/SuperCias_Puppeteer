@@ -21,19 +21,19 @@
  *  return the query to selecte the company
  */
 const select_autocomplete_suggestion = company => ({
-    event: "itemSelect",
-    ext: {},
-    params: [{
-        name: "frmBusquedaCompanias:parametroBusqueda_itemSelect",
-        value: `${company.id} - ${company.ruc} - ${company.name}`,
-    }],
-    oncomplete: function(xhr,status,args){
-        PF('dlgProcesando').hide();
-        document.getElementById('frmBusquedaCompanias:captcha').focus();
-    },
-    process: "frmBusquedaCompanias:parametroBusqueda",
-    source: "frmBusquedaCompanias:parametroBusqueda",
-    update: "frmBusquedaCompanias:parametroBusqueda frmBusquedaCompanias:panelCompaniaSeleccionada frmBusquedaCompanias:panelCaptcha frmBusquedaCompanias:btnConsultarCompania",
-})
+        event: "itemSelect",
+        ext: {},
+        params: [{
+            name: "frmBusquedaCompanias:parametroBusqueda_itemSelect",
+            value: `${company.id} - ${company.ruc} - ${company.name}`,
+        }],
+        oncomplete: function (xhr, status, args) {
+            PF('dlgProcesando').hide();
+            document.getElementById('frmBusquedaCompanias:captcha').focus();
+        },
+        process: "frmBusquedaCompanias:parametroBusqueda",
+        source: "frmBusquedaCompanias:parametroBusqueda",
+        update: "frmBusquedaCompanias:parametroBusqueda frmBusquedaCompanias:panelCompaniaSeleccionada frmBusquedaCompanias:panelCaptcha frmBusquedaCompanias:btnConsultarCompania",
+    })
 
 export default select_autocomplete_suggestion;

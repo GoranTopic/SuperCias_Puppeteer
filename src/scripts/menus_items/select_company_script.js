@@ -41,7 +41,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
         // followAlong false so that we query the server for captchan only once
         //false,
     );
-    //log('captchan_src: ', captchan_src);
+    //console.log('captchan_src: ', captchan_src);
     // now let's fetch the url captchan image
     let bin_str = await page.evaluate( 
         async ( captchan_src ) => {
@@ -55,13 +55,12 @@ const handle_company_search =  async (page, company, log=console.log) => {
         }, 
         captchan_src
     )
-    //log('bin_str: ', bin_str);
+    //console.log('bin_str: ', bin_str);
     // let convert imgae back to binary
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
     let captchan_solution = await recognizeCaptchan(captchan_bin);
     log(`captchan regonized as: ${captchan_solution}`);
-
 
     // send the capthcan and hope that it is right
     let was_captchan_accepted = await page.evaluate(
