@@ -1,5 +1,6 @@
 import imprint2Obj from '../../utils/imprint2Obj.js';
 
+
 /**
  * this are the parameters extracted when the table of document asks for all 
  * the couments in the genral documenets 
@@ -23,11 +24,11 @@ import imprint2Obj from '../../utils/imprint2Obj.js';
  *  if undefined, it send a really big number
  */
 
-const get_all_table_rows = (table='tblDocumentosGenerales', documentCount = 10000) => 
+const get_all_table_rows = (table = 'tblDocumentosGenerales', documentCount = 10000, filters) =>
     imprint2Obj('${table}', table, {
         ext: undefined,
         formId: undefined,
-        oncomplete: function(g,e,f){
+        oncomplete: function (g, e, f) {
             // I added the defintion of becasue,
             // it seems to be glabal variable defined on th eviroment this function is run on
             let c = window.PrimeFaces.widgets[`${table}`]
@@ -41,38 +42,39 @@ const get_all_table_rows = (table='tblDocumentosGenerales', documentCount = 1000
             console.log('window:', window);
             c.paginator.cfg.page = d.page;
             console.log('d:', d);
-            if(f&&typeof f.totalRecords!=="undefined"){
+            if (f && typeof f.totalRecords !== "undefined") {
                 c.paginator.updateTotalRecords(f.totalRecords)
-            }else{
+            } else {
                 c.paginator.updateUI()
             }
         },
-        onsuccess: function(g,e,f){
-            PrimeFaces.ajax.Response.handle(g,e,f,{
+        onsuccess: function (g, e, f) {
+            PrimeFaces.ajax.Response.handle(g, e, f, {
                 // original -> widget: c
                 widget: PrimeFaces.widgets[`${table}`],
-                handle: function(h){
+                handle: function (h) {
                     this.updateData(h);
-                    if(this.checkAllToggler){
+                    if (this.checkAllToggler) {
                         this.updateHeaderCheckbox()
                     }
-                    if(this.cfg.scrollable){
+                    if (this.cfg.scrollable) {
                         this.alignScrollBody()
                     }
-                    if(this.cfg.clientCache){
-                        this.cacheMap[d.first]=h
+                    if (this.cfg.clientCache) {
+                        this.cacheMap[d.first] = h
                     }
                 }
             });
             return true
         },
         params: [
-            {name: `frmInformacionCompanias:tabViewDocumentacion:${table}_pagination`, value: true},
-            {name: `frmInformacionCompanias:tabViewDocumentacion:${table}_first`, value: 0},
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_pagination`, value: true },
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_first`, value: 0 },
             // this parameter specifies the number of rows
-            {name: `frmInformacionCompanias:tabViewDocumentacion:${table}_rows`, value: documentCount},
-            {name: `frmInformacionCompanias:tabViewDocumentacion:${table}_skipChildren`, value: true},
-            {name: `frmInformacionCompanias:tabViewDocumentacion:${table}_encodeFeature`, value: true},
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_rows`, value: documentCount },
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_skipChildren`, value: true },
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_encodeFeature`, value: true },
+            { name: `frmInformacionCompanias:tabViewDocumentacion:${table}_encodeFeature`, value: true },
         ],
         process: `frmInformacionCompanias:tabViewDocumentacion:${table}`,
         source: `frmInformacionCompanias:tabViewDocumentacion:${table}`,

@@ -2,7 +2,7 @@
     "browser": {
         "headless": false,
         "slowMo": 0,
-        "devtools": false ,
+        "devtools": false,
         "excludeSwitches": "enable-automation",
         "args": [
             "--no-sandbox",
@@ -19,5 +19,30 @@
     "max_tries": 15,
     "pdf_missing_threshold": 0,
     "minutesToTimeout": 10,
-    "concurrent_processes": 20
+    "documents": {
+        "DocumentosGenerales": {
+            "filters": {
+                "documento": "",
+                "fecha": "2022",
+                "nombre": "",
+                "cargo": ""
+            }
+        },
+        "DocumentosJuridicos": {
+            "filters": {
+                "documento": "",
+                "fecha": "2022",
+                "nombre": "",
+                "cargo": ""
+            }
+        },
+        "DocumentosEconomicos": {
+            "filters": {
+                "documento": "",
+                "fecha": "2022",
+                "nombre": "",
+                "cargo": ""
+            }
+        }
+    }
 }

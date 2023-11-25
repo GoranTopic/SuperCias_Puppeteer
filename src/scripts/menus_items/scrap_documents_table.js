@@ -19,6 +19,7 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
+    
     if (rows[table] !== 'DocumentosGenerales') {
         //debugger
         let result = await send_request(
@@ -37,20 +38,33 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     }
     console.log(`rows[${table}]: ${rows[table]}`);
 
+    // add filters to the table
+    console.log('adding filters table')
+    await page.evaluate(({ table, filters }) => {
+        // get filters values
+        Object.values(filters).forEach((value, i) => {
+            if (PrimeFaces.widgets['tbl' + table].sortableColumns[i])
+                PrimeFaces.widgets['tbl' + table].sortableColumns[i].childNodes[3].value = value
+        });
+        PrimeFaces.widgets['tbl' + table].filter();
+    }, { table, filters: options.documents[table].filters })
+
+    // wait for table to load
+    await waitForNetworkIdle(page, 1000);
+
     // don't try to scrap if the are no documents
     if(rows[table] === 0) return true
     // let make update the path 
 
-    if(rows[table] > 10){
+    if (rows[table] > 10) {
         // get all rows
         console.log('sending query for rows all')
-        let response = await page.evaluate(
-            ({table, rows}) => { // paginator
+        await page.evaluate( ({ table, rows }) => { // paginator
                 return PrimeFaces
                     .widgets['tbl' + table]
                     .paginator
                     .setRowsPerPage(rows)
-            }, {table, rows: rows[table]}
+            }, { table, rows: rows[table] }
         )
     }
 
