@@ -6,7 +6,7 @@ import Slaver from 'slavery-js';
 Slaver({
     host: 'localhost',
     port: 3000,
-    numberOfSlaves: 1,
+    numberOfSlaves: 3,
 }).slave(async ({ company, proxy }) => {
     // set up browser
     let browser = await setup_browser(proxy);
