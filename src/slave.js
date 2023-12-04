@@ -6,12 +6,21 @@ import Slaver from 'slavery-js';
 Slaver({
     host: 'localhost',
     port: 3000,
-    numberOfSlaves: 3,
+    numberOfSlaves: 1,
 }).slave(async ({ company, proxy }) => {
-    // set up browser
-    let browser = await setup_browser(proxy);
-    // scrap company
-    let data = await scrap_company(browser, company);
+    let browser = null;
+    let data = null;
+    try {
+        // set up browser
+        browser = await setup_browser(proxy);
+        // scrap company
+        data = await scrap_company(browser, company);
+    } catch (error) {
+        // close browser if something goes wrong
+        await close_browser(browser);
+        // throw error
+        throw error;
+    }
     // close browser
     await close_browser(browser);
     // return data
