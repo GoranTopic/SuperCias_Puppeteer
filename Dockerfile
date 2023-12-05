@@ -12,4 +12,5 @@ COPY src/ src/
 RUN npm install 
 
 # works with this command
-#docker run -it --init --cap-add=SYS_ADMIN -v /home/telix/supercias/data/:/home/pptruser/supercias/data supercias_image npm run slave
+sudo docker run -d -it -v /home/terac/data-minning/supercias/storage/:/home/pptruser/supercias/storage --network="host" --restart=always supercias npm run slave
+
