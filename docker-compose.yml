@@ -1,0 +1,13 @@
+version: '3'
+services:
+  supercias-slave-service:
+    image: supercias
+    command: npm run slave
+    volumes:
+      - /home/terac/data-minning/supercias/storage/:/home/pptruser/supercias/storage
+    network_mode: host
+    restart: always
+
+
+# run docker compose
+# sudo docker-compose up --scale supercias-slave-service=1

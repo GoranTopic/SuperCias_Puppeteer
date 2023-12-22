@@ -74,6 +74,8 @@ const scrap_company = async (browser, company) => {
             checklist_company_menu.check(menu)
         }
     }
+	// delete checklist
+	checklist_company_menu.delete();
     // return data
     return data;
 }

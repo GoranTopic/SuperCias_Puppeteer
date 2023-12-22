@@ -1,6 +1,7 @@
 import getText from '../../utils/getText.js';
 
 export default async (page) => {
+	console.log('scrapping infomacion general');
     // first, lets make a diretory for our info
     // information container
     let information_general = {};

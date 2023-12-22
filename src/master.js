@@ -34,7 +34,7 @@ Slavery({
         // get idle slave
         let slave = await master.getIdle()
         slave
-            .timeout(1000 * 60 * 10) // 10 minutes
+            //.timeout(1000 * 60 * 10) // 10 minutes
             .run({ company, proxy: proxies.next() })
             .then(async ({ company, data }) => {
                 await store.push(company.ruc, data);
