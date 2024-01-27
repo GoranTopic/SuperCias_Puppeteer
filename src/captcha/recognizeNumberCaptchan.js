@@ -28,7 +28,6 @@ const recognizeCaptchan = async img => {
 
 const  terminateRecognizer = async () => {
     if (worker){
-        console.log('terminating worker')
         await worker.terminate();
     }
 }
