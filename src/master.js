@@ -36,11 +36,11 @@ Slavery({
         slave
             //.timeout(1000 * 60 * 10) // 10 minutes
             .run({ company, proxy: proxies.next() })
-            .then(async ({ company, data }) => {
-                await store.push(company.ruc, data);
-                console.log(data);
+            .then(async ({ company, proxy, data }) => {
+                await store.push(company.ruc, { data, timestamp: Date.now() });
+                //console.log(data);
                 checklist.check(company);
-                console.log('checked');
+                console.log(`[${company.ruc}][${proxy}]${checklist.missingLeft()}/${checklist.total} ${company.name} checked!`);
             }).catch(error => {
                 console.log(error);
             });

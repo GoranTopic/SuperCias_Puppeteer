@@ -6,6 +6,10 @@ import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'storing-me'
 import options from './options.json' assert { type: 'json' };
+import make_logger from './utils/logger.js';
+
+let console = make_logger({ ruc: company.ruc, proxy });
+
 
 let storage = new Storage({
         type: 'json',

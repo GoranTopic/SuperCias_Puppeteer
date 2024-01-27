@@ -50,9 +50,8 @@ let error_max = 0;
  * 
  * return whaever the return of the passed callback is 
  */
-let send_request = async (parameters, callback, page, log=null, followAlong=true) => {
+let send_request = async (parameters, callback, page, console, followAlong=true) => {
     // let's get the parameters of the function, the call back and the, page
-    log = log || console.log;
     let isCaptchan = false;
     // make the functinos into string so that they can be passed to the browser
     let parameters_str = JSONfn.stringify(parameters);
@@ -123,7 +122,7 @@ let send_request = async (parameters, callback, page, log=null, followAlong=true
         // return the return of the callback
         return response.return_value;
     else{ // if we have response that is capthan
-        log("Captchan Recived");
+        console.log("Captchan Recived");
         //debugger;
         // let's reconized that captchan
         let binary_string = response.bin_str;
@@ -132,7 +131,7 @@ let send_request = async (parameters, callback, page, log=null, followAlong=true
         let captchan_bin = str_to_binary(binary_string);
         // recognize the bytes image
         let captchan_solution = await recognizeCaptchan(captchan_bin);
-        log(`captchan regonized as: ${captchan_solution}`);
+        console.log(`captchan regonized as: ${captchan_solution}`);
         let submit_captchan_callback_str = submit_captchan
             .oncomplete
             .toString()
@@ -183,7 +182,7 @@ let send_request = async (parameters, callback, page, log=null, followAlong=true
         let cptn_path = './storage/captchans/';
         mkdir(cptn_path);
         if(response.isCaptchanCorrect){ 
-            log("captchan was accepted");
+            console.log("captchan was accepted");
             (options.saveCaptchan) &&
                 write_binary( captchan_bin, 
                     // change to matching image extencion
@@ -192,7 +191,7 @@ let send_request = async (parameters, callback, page, log=null, followAlong=true
             // return the retur value form the callback
             return response.return_value;
         }else{
-            log("captchan was not accepted");
+            console.log("captchan was not accepted");
             (options.saveCaptchan) &&
                 write_binary( captchan_bin,
                     // change to matching image extencion

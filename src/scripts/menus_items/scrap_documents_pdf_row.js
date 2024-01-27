@@ -4,7 +4,8 @@ import send_request from '../../../reverse_engineer/send_request.js';
 import query_pdf from '../../../reverse_engineer/queries/query_pdf_link.js';
 import options from '../../options.json' assert { type: 'json' };
 
-const scrap_row = async (id, page, path) =>
+
+const scrap_row = async (id, page, path, console) =>
     // set a time out for 4 minutes, to proces the pdf
     await new Promise(async (resolve, reject) => {
         let time_out = setTimeout(() => {
@@ -19,6 +20,7 @@ const scrap_row = async (id, page, path) =>
                 return window.parse_pdf_src(response);
             },
             page,
+            console,
             false, // don't followAlong so we don't download the pdf twice
         );
         console.log(`src: ${src}`);

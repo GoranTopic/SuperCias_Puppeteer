@@ -9,9 +9,7 @@ import scrap_administradores_actuales from './menus_items/scrap_administradores_
 import scrap_documents_script from './menus_items/scrap_documents.js';
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
-const scrap_company = async (browser, company) => {
-    console.log('scraping company: ', company);
-
+const scrap_company = async (browser, company, console) => {
     // get page
     let page = (await browser.pages())[0];
 
@@ -25,7 +23,7 @@ const scrap_company = async (browser, company) => {
     page = await insert_custom_components(page);
 
     // selecting company
-    page = await select_company_script(page, company);
+    page = await select_company_script(page, company, console);
 
     // wait for table to load
     await waitForNetworkIdle(page, 1000);
@@ -69,7 +67,7 @@ const scrap_company = async (browser, company) => {
             // wait for page to load with timeout of 0
             await waitForNetworkIdle(page, 1000)
             // run the function
-            data[menu] = await tab_menus[menu](page, company);
+            data[menu] = await tab_menus[menu](page, company, console);
             // if we have not thrown and error
             checklist_company_menu.check(menu)
         }

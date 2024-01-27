@@ -21,7 +21,7 @@ import options from '../../options.json' assert { type: 'json' };
  * @param {} log
  *  this is the logger which has to be used
  */
-const handle_company_search =  async (page, company, log=console.log) => {
+const handle_company_search =  async (page, company, console) => {
     // let sent the request to select the company and get the captchan
     let captchan_src = await send_request(
         select_autocomplete_company(company), // parameters
@@ -37,7 +37,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
             return captchan_src
         },
         page,
-        log,
+        console,
         // followAlong false so that we query the server for captchan only once
         //false,
     );
@@ -60,7 +60,7 @@ const handle_company_search =  async (page, company, log=console.log) => {
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
     let captchan_solution = await recognizeCaptchan(captchan_bin);
-    log(`captchan regonized as: ${captchan_solution}`);
+    console.log(`captchan regonized as: ${captchan_solution}`);
 
     // send the capthcan and hope that it is right
     let was_captchan_accepted = await page.evaluate(

@@ -4,6 +4,7 @@ import query_documentos_online from '../../../reverse_engineer/queries/query_doc
 import scrap_table from './scrap_documents_table.js';
 import options from '../../options.json' assert { type: 'json' };
 
+
 // the nuber of pdf is ok not have
 let error_threshold = options.pdf_missing_threshold;
 
@@ -13,7 +14,7 @@ let error_threshold = options.pdf_missing_threshold;
  * @param {} page
  * @param {} company
  */
-export default async (page, company) => {
+export default async (page, company, console) => {
     // tables to scrap
     let tables = [
         'DocumentosGenerales', 
@@ -29,7 +30,7 @@ export default async (page, company) => {
         (response, status, i, C) =>  // the first table is general documentos
         window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
         page, // puppetter page
-        null, // logger
+        console, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
@@ -67,7 +68,7 @@ export default async (page, company) => {
     // let try to scrap every table =)
     for( let table of tables ){
         if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company)
+            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company, console);
             if(pdf_checklists[table].missingLeft() <= error_threshold){
                 // if there are less pdfs left than the threshold, 
                 // mark as done

@@ -4,7 +4,6 @@ import options from '../options.json' assert { type: 'json' };
 import {  createRecognizer } from '../captcha/recognizeNumberCaptchan.js';
 
 const setup_browser = async proxy => {
-	console.log('using proxy: ', proxy );
 	 // set new proxy, while keeping args
 	 if(proxy) options.browser.args = [
         `--proxy-server=http://${ proxy }`,

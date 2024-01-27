@@ -5,6 +5,7 @@ import scrap_pdf_row from './scrap_documents_pdf_row.js';
 import waitForNetworkIdle from '../../utils/waitForNetworkIdle.js';
 import options from '../../options.json' assert { type: 'json' };
 
+
 /**
  * scrap_table.
  * this is the piece of the strip that script that handle scraping a table o rows
@@ -15,7 +16,7 @@ import options from '../../options.json' assert { type: 'json' };
  * @param {} page
  * @param {} company
  */
-const scrap_table = async (table, rows, checklists, page, company) => {
+const scrap_table = async (table, rows, checklists, page, company, console) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
@@ -27,7 +28,8 @@ const scrap_table = async (table, rows, checklists, page, company) => {
             // the callback, this is going to run in the browser,
             (response, status, i, C) => response, 
             // the page
-            page
+            page,
+            console
         )
         // query rows from new table
         // getting number of rows
@@ -102,7 +104,8 @@ const scrap_table = async (table, rows, checklists, page, company) => {
         let outcome = await scrap_pdf_row(
             id,
             page,
-            pdf_filename
+            pdf_filename,
+            console
         );
         if (outcome) {
             checklists[table].check(id);
