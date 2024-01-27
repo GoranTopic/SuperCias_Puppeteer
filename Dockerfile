@@ -12,5 +12,5 @@ COPY src/ src/
 RUN npm install 
 
 # works with this command
-sudo docker run -d -it -v /home/terac/data-mining/supercias/storage/:/home/pptruser/supercias/storage --network="host" --restart=always supercias npm run slave
+#sudo docker run -d -it -v /home/terac/data-mining/supercias/storage/:/home/pptruser/supercias/storage --network="host" --restart=always supercias npm run slave
 
