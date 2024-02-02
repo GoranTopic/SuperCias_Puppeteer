@@ -51,7 +51,7 @@ export default async (page, company, console) => {
 
     // checklist tables
     let tbl_checklist = new Checklist(tables, {
-        name: `document tables for ${company.name}`,
+        name: `document tables for ${company.ruc}`,
         path: './storage/checklists'
     });
 
@@ -59,7 +59,7 @@ export default async (page, company, console) => {
     let pdf_checklists = {};
     tables.forEach(table =>
         pdf_checklists[table] = new Checklist(null, {
-                name: table + ' pdfs for ' + company.name,
+                name: table + ' pdfs for ' + company.ruc,
                 path: './storage/checklists',
             })
     );

@@ -54,7 +54,7 @@ const scrap_company = async (browser, company, console) => {
     //make checklist of values
     let checklist_company_menu = new Checklist(
         Object.keys(tab_menus).filter(k => tab_menus[k]), {
-        name: `checklist for ${company.name}`,
+        name: `checklist for ${company.ruc}`,
         path: './storage/checklists',
     })
 

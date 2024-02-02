@@ -26,7 +26,7 @@ Slavery({
     let checklist = new Checklist(company_ids, {
         name: 'company_ids',
         path: './storage/checklists',
-        recalc_on_check: false,
+        //recalc_on_check: false,
     });
     // get next company
     let company = checklist.next();
@@ -40,7 +40,7 @@ Slavery({
                 await store.push(company.ruc, { data, timestamp: Date.now() });
                 //console.log(data);
                 checklist.check(company);
-                console.log(`[${company.ruc}][${proxy}]${checklist.missingLeft()}/${checklist.total} ${company.name} checked!`);
+                console.log(`[${company.ruc}][${proxy}] ${company.name} checked! ${company_ids.length}/${checklist.missingLeft()}`);
             }).catch(error => {
                 console.log(error);
             });
