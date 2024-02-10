@@ -1,50 +1,52 @@
-import { read_json, mkdir } from 'files-js';
+import read_rucs from './utils/filter_companies_rucs.js';
+import ProxyRotator from 'proxy-rotator-js';
 import Checklist from 'checklist-js';
-import Storage from 'storing-me'
-import ProxyRotator from 'proxy-rotator-js'
-import options from './options.json' assert { type: 'json' };
-import Slavery from 'slavery-js';
+import Storage from 'storing-me';
+import slavery from 'slavery-js';
 
-Slavery({
-    host: 'localhost',
-    port: 3000,
-}).master(async master => {
-    // master is a slave object
+slavery({
+    port: 3003, 
+    host: 'localhost', 
+}).master( async master => { 
+    // make storage
     let storage = new Storage({
-        type: 'json',
-        keyValue: true,
-        path: options.data_path, // default: ./storage/
+        type: 'mongodb',
+        url: 'mongodb://0.0.0.0:27017/',
+        database: 'supercias',
     });
-    let store = await storage.open('supercias')
-    // make sure the files path exists
-    mkdir(options.files_path);
-    // proxies
-    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt')
-    // Read the file
-    let company_ids = read_json('./storage/ids/company_ids.json')
-    // make checklist
-    let checklist = new Checklist(company_ids, {
-        name: 'company_ids',
+    let store = await storage.open('companies_ids');
+    // make rucs checklist
+    let rucs = await read_rucs('./storage/rucs/rucs.csv')
+    let checklist = new Checklist( rucs, {
         path: './storage/checklists',
-        //recalc_on_check: false,
+        recalc_on_check: false,
+        save_every_check: 1000, // otherwise it will take too long to check every one of them 
     });
-    // get next company
-    let company = checklist.next();
-    while (company) {
+    // make proxies
+    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
+    // get ruc and proxy
+    let proxy = proxies.next();
+    let ruc = checklist.next();
+    // start loop
+    while( ruc ) {
         // get idle slave
-        let slave = await master.getIdle()
-        slave
-            //.timeout(1000 * 60 * 10) // 10 minutes
-            .run({ company, proxy: proxies.next() })
-            .then(async ({ company, proxy, data }) => {
-                await store.push(company.ruc, { data, timestamp: Date.now() });
-                //console.log(data);
-                checklist.check(company);
-                console.log(`[${company.ruc}][${proxy}] ${company.name} checked! ${company_ids.length}/${checklist.missingLeft()}`);
-            }).catch(error => {
-                console.log(error);
-            });
-        // get next company
-        company = checklist.next();
+        let slave = await master.getIdle(); 
+        //  check if the salve has done the setup
+        if ( await slave.is_done('setup browser') === false ) 
+            // setup browser
+            slave.run( proxies.next(), 'setup browser' )
+        else // scrape the ruc
+            slave.run( ruc )
+                .then( ({ ruc, company_ids }) => {
+                    console.log(`[master][${ruc}]`, company_ids);
+                    // just in case we have more than one
+                    company_ids.forEach( async company => 
+                        await store.push(company)
+                    );
+                    // check
+                    checklist.check(ruc);
+                })
+        // get next ruc
+        ruc = checklist.next();
     }
-});
+})

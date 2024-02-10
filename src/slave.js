@@ -1,33 +1,44 @@
 import setup_browser from './scripts/setup_browser.js';
-import scrap_company from './scripts/scrap_company.js';
+import goto_company_search from './scripts/goto_company_search_page.js';
+import query_company_by_ruc from './scripts/query_company_by_ruc.js';
+import click_ruc_radio from './scripts/click_ruc_radio.js';
 import close_browser from './scripts/close_browser.js';
-import Slaver from 'slavery-js';
-import make_logger from './utils/logger.js';
+import slavery from 'slavery-js';
 
-Slaver({
-    host: 'localhost',
-    port: 3000,
-    numberOfSlaves: 1,
-}).slave(async ({ company, proxy }) => {
-    let console = make_logger({ ruc: company.ruc, proxy });
-    let browser = null;
-    let data = null;
-    try {
+slavery({
+    numberOfSlaves: 10,
+    port: 3003, 
+    host: 'localhost', 
+}).slave( {
+    'setup browser': async (proxy, slave) => {
+        // setup browser
+        let browser = await setup_browser(proxy);
         // set up browser
-        console.log('setting up browser');
-        browser = await setup_browser(proxy);
-        // scrap company
-        console.log('scraping company');
-        data = await scrap_company(browser, company, console);
-    } catch (error) {
-        // close browser if something goes wrong
-        await close_browser(browser);
-        // throw error
-        throw error;
+        browser = await setup_browser();//proxy);
+        // go to company search
+        await goto_company_search( browser );
+        // click on ruc radio
+        await click_ruc_radio( browser );
+        // save the browser in the slave
+        slave.set('browser', browser);
+        // set the proxy in the slave
+        slave.set('proxy', proxy);
+    },
+    'default': async (ruc, slave) => {
+        // get setup from slave
+        let browser = slave.get('browser');
+        let proxy = slave.get('proxy');
+        console.log(`[${proxy}][${ruc}] scraping...`);
+        // query company by ruc
+        let company_ids = await query_company_by_ruc( browser, ruc );
+        console.log(`[${proxy}][${ruc}] company_ids: ${company_ids}`);
+        // return the result
+        return ({ ruc, company_ids });
+    }, 
+    'clean up': async slave => {
+        let browser = slave.get('browser');
+        // close browser
+        await close_browser( browser );
+        slave.set('setup', null);
     }
-    // close browser
-    await close_browser(browser);
-    // return data
-    return ({ company, proxy, data });
-});
-
+})

@@ -8,14 +8,19 @@ async function readAllRucs(filePath) {
         // Split the string into an array of lines
         let lines = data.split(/\r?\n/);
 
-	    // split lines
-	    // Split the string into an array of lines
-	    lines = lines
-		    .map( l => l.split(',')[1] )
-		    .map( l => l?.trim() )
-
+        // split lines
+        // Split the string into an array of lines
+        lines = lines
+            .map( l => l.split(',')[1] )
+            .map( l => l?.trim() )
+        // remove empty lines
+        lines = lines.filter( l => l !== '' );
+        // remove undefined lines
+        lines = lines.filter( l => l !== undefined );
+        // delete first line
+        lines.shift();
         // Process each line (example: log to console)
-	return lines;
+        return lines;
     } catch (error) {
         console.error('Error reading file:', error);
     }
