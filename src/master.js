@@ -45,7 +45,9 @@ slavery({
                     );
                     // check
                     checklist.check(ruc);
-                })
+                }).catch( e => {
+                    console.log(`[master][${ruc}]`, e);
+                });
         // get next ruc
         ruc = checklist.next();
     }
