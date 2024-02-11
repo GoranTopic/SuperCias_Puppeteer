@@ -5,14 +5,11 @@ import query_company_by_ruc from './scripts/query_company_by_ruc.js';
 import click_ruc_radio from './scripts/click_ruc_radio.js';
 import close_browser from './scripts/close_browser.js';
 //import ProxyRotator from 'proxy-rotator-js'
-import Checklist from 'checklist-js';
+//import Checklist from 'checklist-js';
 import Storage from 'storing-me'
-import options from './options.json' assert { type: 'json' };
+//import options from './options.json' assert { type: 'json' };
 import make_logger from './utils/logger.js';
-
-
-// get rucs
-let rucs = await read_rucs('./storage/rucs/rucs.csv')
+import Suggestion_finder from './utils/suggestion_finder.js';
 
 // make storage
 let storage = new Storage({
@@ -22,6 +19,19 @@ let storage = new Storage({
     });
 let store = await storage.open('companies_ids');
 
+// make a path finder object
+let digits = ['0','1','2','3','4','5','6','7','8','9'];
+let finder = new Suggestion_finder({
+    options: digits,
+});
+
+let ruc = finder.next();
+
+/* 
+    // this is the code for trying out all of the rucs to see which one give me a match
+    // spoiler alert: none of them do
+    // get rucs
+let rucs = await read_rucs('./storage/rucs/rucs.csv')
 // Read the file
 let checklist = new Checklist( rucs, {
     path: './storage/checklists',
@@ -30,6 +40,7 @@ let checklist = new Checklist( rucs, {
 });
 // get one ruc
 let ruc = checklist.next();
+*/
 
 // proxies
 //let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
@@ -51,18 +62,17 @@ while( ruc ) {
     console = make_logger({ ruc }); //proxy });
     console.log('scraping:', ruc);
     // query company by ruc
-    let companies_id = await query_company_by_ruc( browser, ruc );
-    console.log('companies_id:', companies_id);
+    let company_ids = await query_company_by_ruc( browser, ruc );
+    console.log('company_ids:', company_ids);
     // just in case we have more than one
-    companies_id.forEach( async company => 
+    company_ids.forEach( async company => 
         await store.push(company)
     );
     // check
-    console.log('checking:', ruc);
-    checklist.check(ruc);
+    finder.check(ruc, company_ids.length > 0);
     console.log('checked:', ruc);
     // get next ruc
-    ruc = checklist.next();
+    ruc = finder.next();
 }
 
 // close browser
