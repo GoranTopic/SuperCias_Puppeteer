@@ -1,5 +1,5 @@
 import fs from 'fs';
-import options from '../options.js';
+import options from '../../src/options.json' assert { type: 'json' };
 
 let debugging = options.debugging;
 
@@ -29,13 +29,14 @@ const download_pdf = async (url, page, path) => {
     try{ 
         // save pdf binary string 
         const pdfData = Buffer.from(pdfString, 'binary');
-        let filename = path + ".pdf"
-        fs.writeFileSync( filename , pdfData);
+        //let filename = path + ".pdf"
+        
+        fs.writeFileSync( path , pdfData);
         //if(debugging) console.log(`downloaded pdf: ${filename}`);
         return true;
     }catch(e){
         // did it downloaded
-        console.error(`could not downloaded pdf: ${filename}`, e);
+        console.error(`could not downloaded pdf: ${path}`, e);
         return false
     }
 }
