@@ -1,6 +1,6 @@
 {
     "browser": {
-        "headless": true,
+        "headless": false,
         "slowMo": 0,
         "devtools": false,
         "timeout": 1000000000,
@@ -40,6 +40,28 @@
             "filters": {
                 "documento": "",
                 "fecha": "2022"
+            }
+        },
+        "ValoresPagados": {
+            "filters": {
+                "rubro": "",
+                "fecha de emision": "2022",
+                "fecha de vencimiento": "",
+                "referencia": "",
+                "total": ""
+            }
+        },
+        "AdministradoresActuales": {
+            "filters": {
+                "identificación": "",
+                "nombre": "2022",
+                "nacionalidad": "",
+                "cargo": "",
+                "fecha nombramiento": "",
+                "periodo": "",
+                "número registro mercantil": "",
+                "fecha registro mercantil": "",
+                "RL o ADM": ""
             }
         }
     }

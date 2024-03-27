@@ -4,6 +4,7 @@ import query_valores_pagados from '../../../reverse_engineer/queries/query_valor
 import scrap_table from './scrap_doc_tables_opction.js';
 import options from '../../options.json' assert { type: 'json' };
 
+
 // the nuber of pdf is ok not have
 let error_threshold = options.pdf_missing_threshold;
 
@@ -13,12 +14,10 @@ let error_threshold = options.pdf_missing_threshold;
  * @param {} page
  * @param {} company
  */
-
-
 export default async (page, company, console) => {
-   // tables to scrap
-   let tables = [
-    'AdministradoresActuales'
+    // tables to scrap
+    let tables = [
+        'ValoresPagados'
     ];
 
     // query the documentos online
@@ -27,28 +26,28 @@ export default async (page, company, console) => {
         query_valores_pagados, // paramter need to make the reuqe
         // the callback, this is goin to run in the browser,
         (response, status, i, C) =>  // the first table is general documentos
-        window.extract_number_of_pdfs(response, 'AdministradoresActuales',true),
+        window.extract_number_of_pdfs(response, 'ValoresPagados',true),
         page, // puppetter page
         console, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
     console.log('query documents request finished' + page);
-
+    
 
     /* *
-    *  Here we will loop ove the three document tabs:
-    *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
-    * */
+     *  Here we will loop ove the three document tabs:
+     *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
+     * */
     // store number of rows
     let rows = {};
     tables.forEach( table => {
-        if(table === 'AdministradoresActuales')
+        if(table === 'ValoresPagados')
             rows[table] = numberOfGeneralPdfs;
         else
             rows[table] = null;
     });
-    console.log(company);
+
     // checklist tables
     let tbl_checklist = new Checklist(tables, {
         name: `document tables for ${company.ruc}`,

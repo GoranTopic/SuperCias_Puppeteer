@@ -94,12 +94,13 @@ export default () => {
      * @param {} response
      * @param {} table
      */
-    window.extract_number_of_pdfs = (response, table) => {
+    window.extract_number_of_pdfs = (response, table, validar = false) => {
+        let nameTabla = !validar ? ':tabViewDocumentacion' : '';
         // let's parse the html respose
         let html = window.parse_html_str(response.responseText);
         // let get the update from the table's 
         let paginator_el = html
-            .getElementById(`frmInformacionCompanias:tabViewDocumentacion:tbl${table}_paginator_bottom`);
+            .getElementById(`frmInformacionCompanias${nameTabla}:tbl${table}_paginator_bottom`);
         // check
         if(!paginator_el) {
             console.error(`Could not extract number of pdfs from table: ${table}`)
@@ -118,7 +119,7 @@ export default () => {
 
     window.parse_table_html = table_id => {
         // get the table
-        let table = document.getElementById( `frmInformacionCompanias:tabViewDocumentacion:${table_id}`);
+        let table = document.getElementById( `frmInformacionCompanias:${table_id}`);
         if(table === undefined) return false
         // get all the rows
         let rows = document.evaluate(
@@ -132,18 +133,26 @@ export default () => {
             // complicated code for gettin the last cell of the pdf row, the one with the link
             let id = row.children[row.children.length -1].children[0].children[0].id;
             let title = '';
+            let date = '';
             for( let cell of row.children )
-                title += ('_' + cell.innerText.trim())
+            {
+                let strCell = cell.innerText.trim();
+                let dateRecord = strCell.length > 5 ? new Date(strCell) : '';
+                if (dateRecord instanceof Date && !isNaN(dateRecord) && date == '') {
+                    date = strCell;
+                } 
+                title += ('_' + strCell)
+            }
+                
             title = title
                 .replace(/^_+/, '')
                 .replace(/_+$/, '')
                 .trim()
-            parsed_rows.push({ title, id });
+            parsed_rows.push({ title, id, date});
             row = rows.iterateNext();
         }
         return parsed_rows;
     }
-
 
     /**
      * window.check_for_captchan.
