@@ -43,9 +43,8 @@ let data = await scrap_company( browser, company,console );
 await close_browser( browser );
 
 console.log(data);
-console.log(JSON.stringify(data, null, 2));
 if (data) {
-    await store.push(company.ruc, data);
+    await store.push(data);
     checklist.check(company);
     console.log('checked');
 }

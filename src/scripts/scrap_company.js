@@ -6,8 +6,11 @@ import goto_company_search_page from './goto_company_search_page.js';
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
+import scrap_administradores_anteriores from './menus_items/scrap_administradores_anteriores.js';
+import scrap_accionistas from './menus_items/scrap_Accionistas.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
 import scrap_valores_pagados_script from './menus_items/scrap_valores_pagados.js';
+import scrap_menu_script from './menus_items/scrap_menu_script.js';
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async (browser, company, console) => {
@@ -39,10 +42,10 @@ const scrap_company = async (browser, company, console) => {
     // with their corresponding scraper
     let tab_menus = {
         'Información general': null,
-        'Administradores actuales': scrap_administradores_actuales, //scrap_administradores_actuales,
+        'Administradores actuales': null, //scrap_administradores_actuales,
         'Administradores anteriores': null,
         'Actos jurídicos': null,
-        'Accionistas': null,
+        'Accionistas': scrap_accionistas,
         'Kárdex de accionistas': null,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,

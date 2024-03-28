@@ -153,6 +153,43 @@ export default () => {
         }
         return parsed_rows;
     }
+    /**
+     * window.data_extract_table_html.
+     *
+     * @param {} table_id
+     * @param {} dataTable
+     */
+    window.data_extract_table_html = (table_id , dataTable) => {
+        // get the table
+        let table = document.getElementById( `frmInformacionCompanias:${table_id}`);
+        let arrayDataTable = Object.keys(dataTable);
+        if(table === undefined) return false
+        // get all the rows
+        let rows = document.evaluate(
+            './/tr[@class="ui-widget-content ui-datatable-even"] | .//tr[@class="ui-widget-content ui-datatable-odd"]', 
+            table
+        );
+        let parsed_rows = [];
+        // let get the title and id
+        let row = rows.iterateNext();
+        while(row){
+            // complicated code for gettin the last cell of the pdf row, the one with the link
+            let id = row.children[row.children.length -1].children[0].children[0].id;
+            let objData ={};
+            let cont = 0;
+            for( let cell of row.children )
+            {
+                let propertyName = arrayDataTable[cont];
+                let cellValue = cell.innerText.trim();
+                objData[propertyName] = cellValue;
+                cont++;
+            }
+                
+            parsed_rows.push(objData);
+            row = rows.iterateNext();
+        }
+        return parsed_rows;
+    }
 
     /**
      * window.check_for_captchan.

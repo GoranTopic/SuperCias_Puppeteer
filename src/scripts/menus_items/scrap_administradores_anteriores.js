@@ -1,6 +1,6 @@
 import Checklist from 'checklist-js';
 import send_request from '../../../reverse_engineer/send_request.js';
-import query_administradores_actuales from '../../../reverse_engineer/queries/query_administradores_actuales.js';
+import query_administradores_anteriores from '../../../reverse_engineer/queries/query_administradores_anteriores.js';
 import scrap_table from './scrap_doc_tables_opction.js';
 import options from '../../options.json' assert { type: 'json' };
 
@@ -18,13 +18,13 @@ let error_threshold = options.pdf_missing_threshold;
 export default async (page, company, console) => {
    // tables to scrap
    let tables = [
-    'AdministradoresActuales'
+    'AdministradoresAnteriores'
     ];
 
     // query the documentos online
     console.log('sending query documentos request')
     let numberOfGeneralPdfs = await send_request(
-        query_administradores_actuales, // paramter need to make the reuqe
+        query_administradores_anteriores, // paramter need to make the reuqe
         // the callback, this is goin to run in the browser,
         (response, status, i, C) =>  // the first table is general documentos
         window.extract_number_of_pdfs(response, 'AdministradoresActuales',true),
@@ -43,7 +43,7 @@ export default async (page, company, console) => {
     // store number of rows
     let rows = {};
     tables.forEach( table => {
-        if(table === 'AdministradoresActuales')
+        if(table === 'AdministradoresAnteriores')
             rows[table] = numberOfGeneralPdfs;
         else
             rows[table] = null;

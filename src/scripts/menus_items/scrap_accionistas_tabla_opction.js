@@ -63,64 +63,19 @@ const scrap_table = async (table, rows, checklists, page, company, console) => {
 
     // wait for table to load
     await waitForNetworkIdle(page, 1000);
-
+    let dataTable = options.documents[table].filters;
     // extract rows in table
-    let pdfs_info = await page.evaluate( table =>
+    let pdfs_info = [];
+    pdfs_info = await page.evaluate( (table,dataTable) =>
         // let get a list of all pdf documents
         // note: here the value is tab + table
         // instead of the ususal tbl + table
-        window.parse_table_html('tbl' + table),
-        table
+        window.data_extract_table_html('tbl' + table, dataTable),
+        table,
+        dataTable
     );
 
-    // sanitize values
-    //debugger;
-    pdfs_info = pdfs_info.map( pdf => ({
-        title: sanitize(pdf.title),
-        id: pdf.id, // don't sanitize id
-        fecha: pdf.date,
-    }))
-
-    // add pdfs documents to the checklist
-    checklists[table].add(
-        pdfs_info.map(pdf => pdf.id),
-    );
-    
-    let downloaded = [];
-    // loop over every pdf
-    for (let { id, title, fecha } of pdfs_info) {
-        // if we alread have it, skip it
-        let arrayDatosDownloaded = [];
-        let pdf_filename = options.files_path + company.ruc + '_' + table + '_' + title + '.pdf';
-        if (checklists[table].isChecked(id))
-        {
-            arrayDatosDownloaded = {
-                "NameDocumen" : pdf_filename,
-                "fechaWeb" : fecha
-            }
-            downloaded.push(arrayDatosDownloaded); 
-        } 
-        console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
-        let outcome = await scrap_pdf_row(
-            id,
-            page,
-            pdf_filename,
-            console
-        );
-        if (outcome) {
-            checklists[table].check(id);
-            arrayDatosDownloaded = {
-                "NameDocumen" : pdf_filename,
-                "fechaWeb" : fecha
-            }
-            downloaded.push(arrayDatosDownloaded);
-            console.log('Downloaded');
-        } else 
-            console.log('not downloaded');
-        // wait for good luck
-        await waitForNetworkIdle(page, 1000);
-    }
-    return downloaded;
+    return pdfs_info;
 }
 
 export default scrap_table;

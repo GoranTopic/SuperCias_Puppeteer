@@ -63,6 +63,29 @@
                 "fecha registro mercantil": "",
                 "RL o ADM": ""
             }
+        },
+        "AdministradoresAnteriores": {
+            "filters": {
+                "identificación": "",
+                "nombre": "2022",
+                "nacionalidad": "",
+                "cargo": "",
+                "fecha nombramiento": "",
+                "periodo": "",
+                "número registro mercantil": "",
+                "fecha registro mercantil": "",
+                "RL o ADM": ""
+            }
+        },
+        "Accionistas": {
+            "filters": {
+                "identificacion": "",
+                "nombre": "",
+                "nacionalidad": "",
+                "tipo inversion": "",
+                "capital": "",
+                "restriccion": ""
+            }
         }
     }
 }
