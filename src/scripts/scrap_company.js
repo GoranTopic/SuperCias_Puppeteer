@@ -7,7 +7,6 @@ import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
 import scrap_documents_script from './menus_items/scrap_documents.js';
-import scrap_valores_pagados_script from './menus_items/scrap_valores_pagados.js';
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async (browser, company, console) => {
@@ -38,7 +37,7 @@ const scrap_company = async (browser, company, console) => {
     // this is a list of all the menu tabs,
     // with their corresponding scraper
     let tab_menus = {
-        'Información general': null,
+        'Información general': scrap_informacion_general_script,
         'Administradores actuales': scrap_administradores_actuales, //scrap_administradores_actuales,
         'Administradores anteriores': null,
         'Actos jurídicos': null,
@@ -46,9 +45,9 @@ const scrap_company = async (browser, company, console) => {
         'Kárdex de accionistas': null,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,
-        'Documentos online': null,//null -- scrap_documents_script
+        'Documentos online': scrap_documents_script,
         'Valores adeudados': null,
-        'Valores pagados': null,//scrap_valores_pagados_script -- null
+        'Valores pagados': null,
         'Notificaciones generales': null,
     }
 
@@ -58,9 +57,8 @@ const scrap_company = async (browser, company, console) => {
         name: `checklist for ${company.ruc}`,
         path: './storage/checklists',
     })
-    let fechaHoraActual = new Date().toLocaleString("es-EC", { timeZone: "America/Guayaquil" });
 
-    let data = { name : company.name, id : company.id, ruc: company.ruc, creFecha:fechaHoraActual };
+    let data = { name : company.name, id : company.id, ruc: company.ruc };
     // for every menu, run the associated scrapper if found
     for (let menu of Object.keys(tab_menus)) {
         // if it is not already chekoff

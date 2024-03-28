@@ -94,13 +94,12 @@ export default () => {
      * @param {} response
      * @param {} table
      */
-    window.extract_number_of_pdfs = (response, table, validar = false) => {
-        let nameTabla = !validar ? ':tabViewDocumentacion' : '';
+    window.extract_number_of_pdfs = (response, table) => {
         // let's parse the html respose
         let html = window.parse_html_str(response.responseText);
         // let get the update from the table's 
         let paginator_el = html
-            .getElementById(`frmInformacionCompanias${nameTabla}:tbl${table}_paginator_bottom`);
+            .getElementById(`frmInformacionCompanias:tabViewDocumentacion:tbl${table}_paginator_bottom`);
         // check
         if(!paginator_el) {
             console.error(`Could not extract number of pdfs from table: ${table}`)
@@ -119,7 +118,7 @@ export default () => {
 
     window.parse_table_html = table_id => {
         // get the table
-        let table = document.getElementById( `frmInformacionCompanias:${table_id}`);
+        let table = document.getElementById( `frmInformacionCompanias:tabViewDocumentacion:${table_id}`);
         if(table === undefined) return false
         // get all the rows
         let rows = document.evaluate(
@@ -135,20 +134,13 @@ export default () => {
             let title = '';
             let date = '';
             for( let cell of row.children )
-            {
-                let strCell = cell.innerText.trim();
-                let dateRecord = strCell.length > 5 ? new Date(strCell) : '';
-                if (dateRecord instanceof Date && !isNaN(dateRecord) && date == '') {
-                    date = strCell;
-                } 
-                title += ('_' + strCell)
-            }
+                title += ('_' + cell.innerText.trim())
                 
             title = title
                 .replace(/^_+/, '')
                 .replace(/_+$/, '')
                 .trim()
-            parsed_rows.push({ title, id, date});
+                parsed_rows.push({ title, id});
             row = rows.iterateNext();
         }
         return parsed_rows;

@@ -8,12 +8,13 @@ import Storage from 'storing-me'
 import options from './options.json' assert { type: 'json' };
 import make_logger from './utils/logger.js';
 
+let console = make_logger({ ruc: company.ruc, proxy });
 
 
 let storage = new Storage({
-        type: 'mongodb',
-        url: 'mongodb://0.0.0.0:27017',
-        database: 'supercias'
+        type: 'json',
+        keyValue: true,
+        path: options.data_path, // default: ./storage/
     });
 
 let store = await storage.open('supercias')
@@ -32,18 +33,17 @@ let checklist = new Checklist(
 let company = checklist.next();
 
 // proxies
-
-let console = make_logger({ ruc: company.ruc });
+let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
+let proxy = proxies.next();
 
 // set up browser
-let browser = await setup_browser();
+let browser = await setup_browser(proxy);
 // scrap company
-let data = await scrap_company( browser, company,console );
+let data = await scrap_company( browser, company);
 // clean up
 await close_browser( browser );
 
 console.log(data);
-console.log(JSON.stringify(data, null, 2));
 if (data) {
     await store.push(company.ruc, data);
     checklist.check(company);

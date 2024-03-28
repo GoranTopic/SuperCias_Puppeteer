@@ -21,7 +21,7 @@ const scrap_table = async (table, rows, checklists, page, company, console) => {
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
     
-    if (rows[table] == 'DocumentosGenerales') {
+    if (rows[table] !== 'DocumentosGenerales') {
         //debugger
         let result = await send_request(
             query_table_change(table), // paramter need to make the request
@@ -33,18 +33,15 @@ const scrap_table = async (table, rows, checklists, page, company, console) => {
         )
         // query rows from new table
         // getting number of rows
-        console.log(result);
         rows[table] = await page.evaluate(table =>
             PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
             table
         );
-        console.log(rows[table])
     }
     console.log(`rows[${table}]: ${rows[table]}`);
 
     // add filters to the table
     console.log('adding filters table')
-    console.log(options)
     await page.evaluate(({ table, filters }) => {
         // get filters values
         Object.values(filters).forEach((value, i) => {

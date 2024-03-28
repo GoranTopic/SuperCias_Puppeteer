@@ -7,7 +7,7 @@ import make_logger from './utils/logger.js';
 Slaver({
     host: 'localhost',
     port: 3000,
-    numberOfSlaves: 2,
+    numberOfSlaves: 1,
 }).slave(async ({ company, proxy }) => {
     let console = make_logger({ ruc: company.ruc, proxy });
     let browser = null;
