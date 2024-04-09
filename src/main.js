@@ -1,51 +1,33 @@
-import { read_json, mkdir } from 'files-js';
+import init from './init.js';
 import setup_browser from './scripts/setup_browser.js';
-import scrap_company from './scripts/scrap_company.js';
+import goto_page from './scripts/goto_page.js';
+import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
-import ProxyRotator from 'proxy-rotator-js'
-import Checklist from 'checklist-js';
-import Storage from 'storing-me'
-import options from './options.json' assert { type: 'json' };
-import make_logger from './utils/logger.js';
 
-let console = make_logger({ ruc: company.ruc, proxy });
+let url = 'https://appscvs1.supercias.gob.ec/consultaPersona/consulta_cia_param.zul'
 
+let cedula_prefix = '01'
+let { store, checklist, proxies } = await init(cedula_prefix);
 
-let storage = new Storage({
-        type: 'json',
-        keyValue: true,
-        path: options.data_path, // default: ./storage/
-    });
-
-let store = await storage.open('supercias')
-
-mkdir(options.files_path);
-
-// Read the file
-let checklist = new Checklist(
-    read_json('./storage/ids/company_ids.json'),
-    {
-        name: 'company_ids',
-        path: './storage/checklists',
-        shuffle: true,
-        recalc_on_check: false,
-    });
-let company = checklist.next();
-
-// proxies
-let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
-let proxy = proxies.next();
+//let proxy = proxies.next();
+let cedula = checklist.next();
 
 // set up browser
-let browser = await setup_browser(proxy);
-// scrap company
-let data = await scrap_company( browser, company);
-// clean up
-await close_browser( browser );
+let browser = await setup_browser() //proxy);
+// go to url
+await goto_page( browser, url );
 
-console.log(data);
+console.log('scraping cedula:', cedula);
+// scrap company
+let data = await scrap_cedula( browser, cedula );
+console.log('data:', data);
+// save data and check
 if (data) {
-    await store.push(company.ruc, data);
-    checklist.check(company);
+    await store.push(data);
+    checklist.check(cedula);
     console.log('checked');
 }
+
+// clean up
+await close_browser( browser );
+await store.close();

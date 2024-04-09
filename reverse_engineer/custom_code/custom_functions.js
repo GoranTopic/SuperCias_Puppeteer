@@ -132,19 +132,18 @@ export default () => {
             // complicated code for gettin the last cell of the pdf row, the one with the link
             let id = row.children[row.children.length -1].children[0].children[0].id;
             let title = '';
-            let date = '';
             for( let cell of row.children )
                 title += ('_' + cell.innerText.trim())
-                
             title = title
                 .replace(/^_+/, '')
                 .replace(/_+$/, '')
                 .trim()
-                parsed_rows.push({ title, id});
+            parsed_rows.push({ title, id });
             row = rows.iterateNext();
         }
         return parsed_rows;
     }
+
 
     /**
      * window.check_for_captchan.
