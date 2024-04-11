@@ -25,10 +25,9 @@ const init = async (cedula_prefix) => {
     mkdir('./storage/checklists');
     // Read the file
     let checklist = new Checklist(
-        cedulas_to_scrap,
-        {
+        cedulas_to_scrap, {
             name: `cedulas_${cedula_prefix}`,
-            path: './storage/checklists',
+            path: './storage/checklists_suggestions',
             recalc_on_check: false,
         });
     // create a proxy rotator
@@ -39,8 +38,7 @@ const init = async (cedula_prefix) => {
         url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
-    let store = await storage.open('consultas_personal')
-
+    let store = await storage.open('consultas_personal_suggestion')
     // return values
     return {
         checklist,

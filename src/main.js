@@ -1,7 +1,7 @@
 import init from './init.js';
 import setup_browser from './scripts/setup_browser.js';
 import goto_page from './scripts/goto_page.js';
-import scrap_cedula from './scripts/scrap_cedula.js';
+import scrap_cedula_suggestion from './scripts/scrap_cedula_suggestion.js'
 import close_browser from './scripts/close_browser.js';
 
 let url = 'https://appscvs1.supercias.gob.ec/consultaPersona/consulta_cia_param.zul'
@@ -20,7 +20,7 @@ await goto_page( browser, url );
 
 while( cedula ) {
     // scrap cedula
-    let data = await scrap_cedula( browser, cedula );
+    let data = await scrap_cedula_suggestion( browser, cedula );
     console.log('data:', data);
     // save data and check
     if (data) {
