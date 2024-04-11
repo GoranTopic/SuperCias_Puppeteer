@@ -16,13 +16,16 @@ const init = async (cedula_prefix) => {
     // get all the cedulas that start with prefix
     let cedulas_to_scrap = await cedulas_store
         .get({ cedula: { $regex: `^${cedula_prefix}` } })
+    // get only the cedula value
+    cedulas_to_scrap = cedulas_to_scrap
+        .map(cedula => { return cedula.cedula  })
     console.log(`cedulas with prefix ${cedula_prefix}: ${cedulas_to_scrap.length}`)
     await cedulas_store.close()
     // make checklist dir
     mkdir('./storage/checklists');
     // Read the file
     let checklist = new Checklist(
-        cedulas_to_scrap.map(cedula => { return { cedula: cedula.cedula, } }),
+        cedulas_to_scrap,
         {
             name: `cedulas_${cedula_prefix}`,
             path: './storage/checklists',

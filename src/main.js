@@ -14,19 +14,24 @@ let cedula = checklist.next();
 
 // set up browser
 let browser = await setup_browser() //proxy);
+
 // go to url
 await goto_page( browser, url );
 
-console.log('scraping cedula:', cedula);
-// scrap company
-let data = await scrap_cedula( browser, cedula );
-console.log('data:', data);
-// save data and check
-if (data) {
-    await store.push(data);
-    checklist.check(cedula);
-    console.log('checked');
+while( cedula ) {
+    // scrap cedula
+    let data = await scrap_cedula( browser, cedula );
+    console.log('data:', data);
+    // save data and check
+    if (data) {
+        await store.push(data);
+        checklist.check(cedula);
+        console.log('checked');
+    }
+    // get next cedula
+    cedula = checklist.next();
 }
+
 
 // clean up
 await close_browser( browser );
