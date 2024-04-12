@@ -3,7 +3,7 @@ import setup_browser from './scripts/setup_browser.js';
 import goto_page from './scripts/goto_page.js';
 import scrap_cedula_suggestion from './scripts/scrap_cedula_suggestion.js'
 import close_browser from './scripts/close_browser.js';
-import { search_page } from './urls.js';
+import { search_page as url } from './urls.js';
 
 
 slavery({
@@ -23,6 +23,8 @@ slavery({
     },
     // scrap the cedula
     'default': async (cedula, salve) => {
+        // get the browser
+        let browser = salve.get('browser');
         // go to url
         await goto_page( browser, url );
         // scrap cedula

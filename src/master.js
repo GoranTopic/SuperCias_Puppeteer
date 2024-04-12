@@ -23,17 +23,14 @@ slavery({
             slave['count'] = 0
         }else{
             // scrap cedula
-            console.log('running slave with ', cedula, ' times', slave['count'])
+            console.log( 'running slave with ', cedula, ' times', slave['count'])
             slave['count']++;
             slave.run(cedula)
-                .then( async ({ cedula, data }) => {
-                    console.log('got data from slave')
-                    console.log('cedula:', cedula)
+                .then( async data => {
                     console.log('data:', data)
                     if(data){
                         await store.push(data);
-                        checklist.check(cedula);
-                        console.log('checked')
+                        checklist.check(data.cedula);
                     }
                 }
                 ).catch(e => console.error(e))

@@ -9,10 +9,10 @@ const scrap_cedula = async (browser, cedula) => {
             //console.log('cedula response');
             let request = response.request();
             // if it is a post request
-            if (request.method() === 'POST') {
+            if (request.method() === 'POST' && request.postData() !== null) {
                 // change this post data to json
                 let postData = request.postData();
-                postData = postData.split('&').map( x => x.split('=') ).reduce( (acc, [key, value]) => {
+                postData = postData?.split('&').map( x => x.split('=') ).reduce( (acc, [key, value]) => {
                     acc[key] = decodeURIComponent(value);
                     return acc;
                 }, {});

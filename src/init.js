@@ -22,7 +22,7 @@ const init = async (cedula_prefix) => {
     console.log(`cedulas with prefix ${cedula_prefix}: ${cedulas_to_scrap.length}`)
     await cedulas_store.close()
     // make checklist dir
-    mkdir('./storage/checklists');
+    mkdir('./storage/checklists_suggestions')
     // Read the file
     let checklist = new Checklist(
         cedulas_to_scrap, {
