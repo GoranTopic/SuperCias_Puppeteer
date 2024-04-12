@@ -13,7 +13,7 @@ let { store, checklist, proxies } = await init(cedula_prefix);
 let cedula = checklist.next();
 
 // set up browser
-let browser = await setup_browser() //proxy);
+let browser = await setup_browser(proxy);
 
 // go to url
 await goto_page( browser, url );
