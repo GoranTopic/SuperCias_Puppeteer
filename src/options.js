@@ -1,4 +1,4 @@
-{
+const browser_options = {
     "browser": {
         "headless": true,
         "slowMo": 0,
@@ -13,3 +13,5 @@
         ]
     }
 }
+
+export { browser_options }

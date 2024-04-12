@@ -1,5 +1,5 @@
 import init from './init.js';
-import slavery from 'slavery.js';
+import slavery from 'slavery-js';
 
 slavery({
     port: 3003,

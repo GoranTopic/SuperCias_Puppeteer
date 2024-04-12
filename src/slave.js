@@ -1,4 +1,4 @@
-import slavery from 'slavery.js';
+import slavery from 'slavery-js';
 import setup_browser from './scripts/setup_browser.js';
 import goto_page from './scripts/goto_page.js';
 import scrap_cedula_suggestion from './scripts/scrap_cedula_suggestion.js'
@@ -20,7 +20,7 @@ slavery({
         browser = await setup_browser(proxy);
         // save the browser in the slave
         slave.set('browser', browser);
-    }
+    },
     // scrap the cedula
     'default': async (cedula, salve) => {
         // go to url
