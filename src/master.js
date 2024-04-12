@@ -14,10 +14,11 @@ slavery({
         let slave = await master.getIdle(); 
         //  check if the slave has done the setup
         let isReady = await slave.is_done('setup');
-        let count = slave['count'];
+        let count = slave['count'] ?? 0;
         // if it has not done the initial setup, or has run more than 30 times
         // run the setup function
-        if( !isReady || count >= 30 ){
+        console.log('isReady:', isReady, 'count:', count)
+        if( !isReady || count >= 10 ){
             console.log('setting up broweser')
             slave.run( proxies.next(), 'setup')
             slave['count'] = 0

@@ -9,7 +9,7 @@ let url = 'https://appscvs1.supercias.gob.ec/consultaPersona/consulta_cia_param.
 let cedula_prefix = '01'
 let { store, checklist, proxies } = await init(cedula_prefix);
 
-//let proxy = proxies.next();
+let proxy = proxies.next();
 let cedula = checklist.next();
 
 // set up browser

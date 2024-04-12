@@ -11,6 +11,7 @@ slavery({
     port: 3003, 
 }).slave( {
     'setup': async (proxy, slave) => {
+        console.log('Setting up slave');
         let browser = slave.get('browser');
         if( browser ) { // if browser we have a browser
             // close
@@ -18,6 +19,8 @@ slavery({
         }
         // setup new browser
         browser = await setup_browser(proxy);
+        // go to the url
+        await goto_page( browser, url );
         // save the browser in the slave
         slave.set('browser', browser);
     },
@@ -25,8 +28,6 @@ slavery({
     'default': async (cedula, salve) => {
         // get the browser
         let browser = salve.get('browser');
-        // go to url
-        await goto_page( browser, url );
         // scrap cedula
         let data = await scrap_cedula_suggestion( browser, cedula );
         // return results
