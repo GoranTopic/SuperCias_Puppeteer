@@ -4,12 +4,19 @@ const scrap_cedula = async (browser, cedula) => {
     // get page
     let page = (await browser.pages())[0];
     let cedula_suggestion = await new Promise( async (resolve, reject) => {
+        // set a timeout
+        let timeout = setTimeout(() => {
+            // remove listeners
+            page.removeAllListeners('response');
+            // reject the promise
+            reject(false);
+        } , 5000); // 5 seconds
         // add listerner
         page.on('response', async response => {
             //console.log('cedula response');
             let request = response.request();
             // if it is a post request
-            if (request.method() === 'POST' && request.postData() !== null) {
+            if (request.method() === 'POST' && request.postData()) {
                 // change this post data to json
                 let postData = request.postData();
                 postData = postData?.split('&').map( x => x.split('=') ).reduce( (acc, [key, value]) => {
@@ -61,12 +68,14 @@ const scrap_cedula = async (browser, cedula) => {
             w.fire( // send request to server
                 "onChanging", 
                 { value: cedula, start: cedula.length }, 
-                { ignorable :1, rtags: { onChanging: 1 }}, 
+                { ignorable: 1, rtags: { onChanging: 1 }}, 
                 5 
             ); 
         }, cedula);
     });
     // return the suggestion
+    if( cedula_suggestion === false )
+        return new Error('cedula suggestion request timeout');
     return cedula_suggestion;
 }
 

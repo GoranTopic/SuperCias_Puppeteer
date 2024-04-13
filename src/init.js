@@ -4,7 +4,6 @@ import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
 
-
 const init = async (cedula_prefix) => {
     // get a lsit of cedulas from mongodb
     let storage_cedulas = new Storage({
@@ -29,6 +28,7 @@ const init = async (cedula_prefix) => {
             name: `cedulas_${cedula_prefix}`,
             path: './storage/checklists_suggestions',
             recalc_on_check: false,
+            save_every_check: 1000,
         });
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');

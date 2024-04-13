@@ -16,25 +16,23 @@ slavery({
         let isReady = await slave.is_done('setup');
         let count = slave['count'] ?? 0;
         // if it has not done the initial setup, or has run more than 30 times
-        // run the setup function
-        console.log('isReady:', isReady, 'count:', count)
-        if( !isReady || count >= 10 ){
+        // random number between 30 and 50
+        let random = Math.floor(Math.random() * (50 - 30 + 1) + 30);
+        if( !isReady || count >= random ){
             console.log('setting up broweser')
-            slave.run( proxies.next(), 'setup')
+            slave.run( proxies.next(), 'setup').catch(e => console.error(e))
             slave['count'] = 0
         }else{
             // scrap cedula
             console.log( 'running slave with ', cedula, ' times', slave['count'])
             slave['count']++;
             slave.run(cedula)
-                .then( async data => {
-                    console.log('data:', data)
-                    if(data){
-                        await store.push(data);
+                .then( data => {
+                    store.push(data).then( () => {
                         checklist.check(data.cedula);
-                    }
-                }
-                ).catch(e => console.error(e))
+                        console.log('data:', data)
+                    })
+                }).catch(e => console.error(e))
             // get next cedula
             cedula = checklist.next();
         }
