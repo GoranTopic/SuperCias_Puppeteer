@@ -33,6 +33,7 @@ slavery({
     },
     // scrap the cedula
     'default': async (cedula, salve) => {
+        console.log(`Scraping cedula: ${cedula}`);
         // get the browser
         let browser = salve.get('browser');
         // scrap cedula
