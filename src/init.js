@@ -32,7 +32,7 @@ const init = async (cedula_prefix) => {
             recalc_on_check: false,
         });
     // create a proxy rotator
-    let proxies = null //new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
+    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
     // make data store
     let storage = new Storage({
         type: 'mongodb',
