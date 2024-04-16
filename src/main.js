@@ -21,19 +21,21 @@ let browser = await setup_browser( proxy );
 // go to url
 await goto_page( browser, search_page );
 
+console.log('scraping cedula:', cedula);
 // scrap cedula
-await select_cedula( browser, cedula );
+await select_cedula( browser, cedula.cedula );
 
 // set up custom functions
 await set_functions( browser );
 
 // scrap cedula
 let data = await scrap_cedula( browser );
+// add cedula y nombre
 
 console.log('data:', data);
 // save data and check
 if (data) {
-    await store.push(data);
+    await store.push({ ...data, cedula: cedula.cedula, nombre: cedula.nombre })
     checklist.check(cedula);
     console.log('checked');
 }

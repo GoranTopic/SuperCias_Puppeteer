@@ -2,8 +2,7 @@ import { consulta_personal } from '../urls.js';
 
 /* this script will take a cedula and return the suggestion of names that match this cedula */
 const select_cedula = async (browser, cedula) => {
-    //cedula = '0916576796'; // andjelko
-    cedula = '0905396180'; // tomislav
+    console.log('select_cedula', cedula);
     // get page
     let page = (await browser.pages())[0];
     // get input by classes 'z-combobox-inp z-combobox-right-edge'

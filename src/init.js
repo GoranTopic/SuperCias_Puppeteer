@@ -15,9 +15,7 @@ const init = async () => {
     let suggestions_store = await storage_cedulas.open('suggestions_01');
     // get suggestions
     let cedulas_to_scrap = await suggestions_store.get({});
-    // get only the cedulas string
-    cedulas_to_scrap = cedulas_to_scrap.map(c => c.cedula);
-    console.log(`suggestions to scrap: ${cedulas_to_scrap.length}`);
+    // close the store
     await suggestions_store.close();
     // make checklist dir
     mkdir('./storage/checklists');
