@@ -1,10 +1,11 @@
 import init from './init.js';
 import setup_browser from './scripts/setup_browser.js';
 import goto_page from './scripts/goto_page.js';
+import select_cedula from './scripts/select_cedula.js';
+import set_functions from './scripts/set_functions.js';
 import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
-
-let url = 'https://appscvs1.supercias.gob.ec/consultaPersona/consulta_cia_param.zul'
+import { search_page } from './urls.js';
 
 let cedula_prefix = '01'
 let { store, checklist, proxies } = await init(cedula_prefix);
@@ -16,23 +17,29 @@ let cedula = checklist.next();
 let browser = await setup_browser() //proxy);
 
 // go to url
-await goto_page( browser, url );
+await goto_page( browser, search_page );
 
-while( cedula ) {
-    // scrap cedula
-    let data = await scrap_cedula( browser, cedula );
-    console.log('data:', data);
-    // save data and check
-    if (data) {
-        await store.push(data);
-        checklist.check(cedula);
-        console.log('checked');
-    }
-    // get next cedula
-    cedula = checklist.next();
+// scrap cedula
+await select_cedula( browser, cedula );
+
+// set up custom functions
+await set_functions( browser );
+
+// scrap cedula
+let data = await scrap_cedula( browser );
+
+console.log('data:', data);
+// save data and check
+if (data) {
+    await store.push(data);
+    checklist.check(cedula);
+    console.log('checked');
 }
-
+// get next cedula
+//cedula = checklist.next();
+//}
 
 // clean up
 await close_browser( browser );
 await store.close();
+

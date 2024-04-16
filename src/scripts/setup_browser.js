@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import options from '../options.json' assert { type: 'json' };
+import options from '../options.json' assert { type: "json" };
 
 const setup_browser = async proxy => {
 	 // set new proxy, while keeping args
