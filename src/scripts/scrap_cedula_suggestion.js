@@ -10,7 +10,7 @@ const scrap_cedula = async (browser, cedula) => {
             page.removeAllListeners('response');
             // reject the promise
             reject(false);
-        } , 5000); // 5 seconds
+        } , 10000); // 10 seconds
         // add listerner
         page.on('response', async response => {
             //console.log('cedula response');

@@ -6,7 +6,7 @@ import close_browser from './scripts/close_browser.js';
 import { search_page as url } from './urls.js';
 
 slavery({
-    numberOfSlaves: 30,
+    numberOfSlaves: 1,
     port: 3003, 
 }).slave( {
     'setup': async (proxy, slave) => {
