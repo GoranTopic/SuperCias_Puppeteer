@@ -5,31 +5,30 @@ import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
 
 
-const init = async (cedula_prefix) => {
+const init = async () => {
     // get a lsit of cedulas from mongodb
     let storage_cedulas = new Storage({
         type: 'mongodb',
         url: 'mongodb://0.0.0.0:27017',
-        database: 'Registro-Civil',
+        database: 'supercias',
     });
-    let cedulas_store = await storage_cedulas.open('cedulas')
-    // get all the cedulas that start with prefix
-    let cedulas_to_scrap = await cedulas_store
-        .get({ cedula: { $regex: `^${cedula_prefix}` } })
-    // get only the cedula value
-    cedulas_to_scrap = cedulas_to_scrap
-        .map(cedula => { return cedula.cedula  })
-    console.log(`cedulas with prefix ${cedula_prefix}: ${cedulas_to_scrap.length}`)
-    await cedulas_store.close()
+    let suggestions_store = await storage_cedulas.open('suggestions_01');
+    // get suggestions
+    let cedulas_to_scrap = await suggestions_store.get({});
+    // get only the cedulas string
+    cedulas_to_scrap = cedulas_to_scrap.map(c => c.cedula);
+    console.log(`suggestions to scrap: ${cedulas_to_scrap.length}`);
+    await suggestions_store.close();
     // make checklist dir
     mkdir('./storage/checklists');
     // Read the file
     let checklist = new Checklist(
         cedulas_to_scrap,
         {
-            name: `cedulas_${cedula_prefix}`,
+            name: 'cedulas_suggestions_01',
             path: './storage/checklists',
             recalc_on_check: false,
+            save_every_check: 10,           
         });
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
@@ -40,7 +39,6 @@ const init = async (cedula_prefix) => {
         database: 'supercias',
     });
     let store = await storage.open('consultas_personal')
-
     // return values
     return {
         checklist,

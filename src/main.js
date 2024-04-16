@@ -7,14 +7,16 @@ import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
 import { search_page } from './urls.js';
 
-let cedula_prefix = '01'
-let { store, checklist, proxies } = await init(cedula_prefix);
+let { store, checklist, proxies } = await init();
 
-//let proxy = proxies.next();
+// get proxy
+let proxy = proxies.next();
+
+// get cedula
 let cedula = checklist.next();
 
 // set up browser
-let browser = await setup_browser() //proxy);
+let browser = await setup_browser( proxy );
 
 // go to url
 await goto_page( browser, search_page );
