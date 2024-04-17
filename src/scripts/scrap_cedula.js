@@ -32,9 +32,8 @@ const scrap_cedula = async browser => {
         administradores_anteriores,
         accionista_anteriores,
         accionista_extrajeras } = data;
+    //console.log('data', data)
 
-    console.log('administrador_actual', administrador_actual)
-    console.log('data', data)
     // administrador_actual 
     administrador_actual = administrador_actual
         .map(t => parseToJSON(t, 12))

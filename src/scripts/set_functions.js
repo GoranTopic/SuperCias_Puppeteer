@@ -6,7 +6,7 @@ const set_fuctions = async (browser) => {
     // set the function to get the paginator
     await page.evaluate(() => {
         // add function to get the paginator on the window
-        window['getPaginator'] = (selector, t_index) => {
+        window.getPaginator = (selector, t_index) => {
             // get current table element
             let table_el = $(selector).eq(t_index);
             // find if it has pagination
@@ -20,7 +20,7 @@ const set_fuctions = async (browser) => {
 
     // set the function to wait for the table to change
     await page.evaluate(() => {
-        window['forChange'] = async (current_innertext, selector, t_index) => {
+        window.forChange = async (current_innertext, selector, t_index) => {
             return new Promise((resolve, reject) => {
                 let interval = null;
                 let timeout = null;
@@ -47,7 +47,7 @@ const set_fuctions = async (browser) => {
     // set function to scrap the tables
     await page.evaluate(() => {
         // set function to scrap the tables
-        window['scrap_tables'] = async (selector, t_index) => {
+        window.scrap_table = async (selector, t_index) => {
             // tables go here
             let data = [];
             // get current table element
@@ -90,6 +90,7 @@ const set_fuctions = async (browser) => {
                     getting_tables = false
                 }
             }
+            return data;
         }
     });
 

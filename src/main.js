@@ -25,6 +25,7 @@ while(persona) {
     if( count > 10 ) {
         // get new proxy
         proxy = proxies.next();
+        await close_browser( browser );
         // set up browser
         browser = await setup_browser( proxy );
         count = 0;
