@@ -5,11 +5,11 @@ slavery({
     port: 3003,
 }).master( async master => {
     // initilize tools
-    let cedula_prefix = '01'
-    let { store, checklist, proxies } = await init(cedula_prefix);
+    let { store, suggestions, proxies } = await init();
     // get next values
-    let cedula = checklist.next();
-    while( cedula ) {
+    let sugg = suggestions.next();
+    // while there are suggestions
+    while( sugg ) {
         // get an idle slave
         let slave = await master.getIdle(); 
         //  check if the slave has done the setup
@@ -24,19 +24,22 @@ slavery({
             slave['count'] = 0
         }else{
             // scrap cedula
-            console.log( 'running slave with ', cedula, ' times', slave['count'])
+            console.log( 'running slave with ', sugg, ' times', slave['count'])
             slave['count']++;
-            slave.run(cedula)
+            slave.run(sugg)
                 .then( data => {
-                    store.push(data).then( () => {
-                        checklist.check(data.cedula);
-                        console.log('data:', data)
-                    })
+                    data.suggestion.forEach( 
+                        async s => await store.push({ cedula: s[0], nombre: s[1] })
+                    );
+                    console.log('data: ', data);
+                    suggestions.check(data.cedula, data.suggestion.length > 5);
+                    console.log('checked');
                 }).catch(e => console.error(e))
             // get next cedula
-            cedula = checklist.next();
+            sugg = suggestions.next();
         }
     }
     // close the store when done =)
+    await close_browser( browser );
     await store.close();
 });

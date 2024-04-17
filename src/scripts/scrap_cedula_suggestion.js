@@ -1,6 +1,6 @@
 /* this script will take a cedula and return the suggestion of names that match this cedula */
 
-const scrap_cedula = async (browser, cedula) => {
+const scrap_suggestions = async (browser, cedula) => {
     // get page
     let page = (await browser.pages())[0];
     let cedula_suggestion = await new Promise( async (resolve, reject) => {
@@ -36,6 +36,8 @@ const scrap_cedula = async (browser, cedula) => {
                     let data = JSON.parse(text);
                     // get response
                     data = data.rs;
+                    // filter by the frist element of the list of the list
+                    data = data.filter( x => x[0] === 'addChd');
                     // if there is no data
                     if( data.length === 0 ) {
                         resolve({ cedula: cedula, suggestion: [] });
@@ -57,6 +59,8 @@ const scrap_cedula = async (browser, cedula) => {
                 }
             }
         });
+        console.log('scrapping cedula:', cedula);
+        debugger;
         // run this in browser
         await page.evaluate(async cedula => {
             // get combobox html element
@@ -80,4 +84,4 @@ const scrap_cedula = async (browser, cedula) => {
 }
 
 
-export default scrap_cedula;
+export default scrap_suggestions;

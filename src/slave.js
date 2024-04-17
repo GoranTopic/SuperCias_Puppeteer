@@ -3,10 +3,10 @@ import setup_browser from './scripts/setup_browser.js';
 import goto_page from './scripts/goto_page.js';
 import scrap_cedula_suggestion from './scripts/scrap_cedula_suggestion.js'
 import close_browser from './scripts/close_browser.js';
-import { search_page as url } from './urls.js';
+import { search_page } from './urls.js';
 
 slavery({
-    numberOfSlaves: 1,
+    numberOfSlaves: 10,
     port: 3003, 
 }).slave( {
     'setup': async (proxy, slave) => {
@@ -20,7 +20,7 @@ slavery({
         browser = await setup_browser(proxy)
         // go to the url
         try {
-            await goto_page( browser, url );
+            await goto_page( browser, search_page );
             // save the browser in the slave
             slave.set('browser', browser);
         }catch(e){
@@ -31,11 +31,11 @@ slavery({
         }
     },
     // scrap the cedula
-    'default': async (cedula, salve) => {
+    'default': async (suggestion, salve) => {
         // get the browser
         let browser = salve.get('browser');
         // scrap cedula
-        let data = await scrap_cedula_suggestion( browser, cedula );
+        let data = await scrap_cedula_suggestion( browser, suggestion );
         // return results
         return data;
     }, 

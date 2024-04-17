@@ -6,11 +6,14 @@ import close_browser from './scripts/close_browser.js';
 
 let url = 'https://appscvs1.supercias.gob.ec/consultaPersona/consulta_cia_param.zul'
 
-let cedula_prefix = '01'
-let { store, checklist, proxies } = await init(cedula_prefix);
+let { store, suggestions, proxies } = await init();
 
+// get next values
+let sugg = suggestions.next();
 let proxy = proxies.next();
-let cedula = checklist.next();
+
+console.log('sugg:', sugg);
+console.log('proxy:', proxy);
 
 // set up browser
 let browser = await setup_browser(proxy);
@@ -18,18 +21,21 @@ let browser = await setup_browser(proxy);
 // go to url
 await goto_page( browser, url );
 
-while( cedula ) {
-    // scrap cedula
-    let data = await scrap_cedula_suggestion( browser, cedula );
-    console.log('data:', data);
+while( sugg ) {
+    // scrap suggestion
+    let data = await scrap_cedula_suggestion( browser, sugg );
+    console.log('data:', data.suggestion);
+    console.log('length:', data.suggestion.length);
     // save data and check
-    if (data) {
-        await store.push(data);
-        checklist.check(cedula);
+    if( data.suggestion.length ){
+        data.suggestion.forEach( 
+            async s => await store.push({ cedula: s[0], nombre: s[1] })
+        );
+        suggestions.check(data.cedula, data.suggestion.length > 5);
         console.log('checked');
     }
     // get next cedula
-    cedula = checklist.next();
+    sugg = suggestions.next();
 }
 
 
