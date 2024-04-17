@@ -16,14 +16,17 @@ slavery({
         console.log( 'running slave with ', persona );
         slave.run({ persona, proxy: proxies.next() })
             .then( data => {
+                let persona = data.persona;
+                delete data.persona;
                 store.push(data).then( () => {
-                    checklist.check(data.cedula);
-                    console.log('data:', data)
+                    let res = checklist.check(persona);
+                    console.log('data:', data, ' checked');
+                    console.log('checked, missing: ', checklist.missingLeft());
                 })
             }).catch(e => console.error(e))
         // get next cedula
         persona = checklist.next();
     }
-// close the store when done =)
-await store.close();
+    // close the store when done =)
+    await store.close();
 });

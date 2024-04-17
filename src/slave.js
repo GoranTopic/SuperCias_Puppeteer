@@ -10,32 +10,33 @@ import { search_page } from './urls.js';
 
 slavery({
     numberOfSlaves: 1,
-    port: 3003, 
+    port: 3003,
 }).slave( async ({ persona, proxy }, slave) => {
-
-    console.log('scraping :', persona, 'with proxy:', proxy);
-    // set up browser
-    let browser = await setup_browser( proxy );
-
-    // go to url
-    await goto_page( browser, search_page );
-
-    // scrap cedula
-    await select_cedula( browser, persona.cedula );
-
-    // set up custom functions
-    await set_functions( browser );
-
-    // scrap cedula
-    let data = await scrap_cedula( browser );
-
-    // add cedula y nombre
-    data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
-
-    // close browser      
-    await close_browser( browser );
-
-    // return data
-    return data;
-
+    let browser;
+    try{
+        // set up browser
+        browser = await setup_browser( proxy );
+        // go to url
+        await goto_page( browser, search_page );
+        // scrap cedula
+        await select_cedula( browser, persona.cedula );
+        // set up custom functions
+        await set_functions( browser );
+        // scrap cedula
+        let data = await scrap_cedula( browser );
+        // add cedula y nombre
+        data = { ...data, 
+            cedula: persona.cedula, 
+            nombre: persona.nombre, 
+            persona 
+        };
+        // close browser
+        await close_browser( browser );
+        // return data
+        return data;
+    }catch(e){
+        await close_browser( browser );
+        console.log('error:', e);
+        throw e;
+    }
 });

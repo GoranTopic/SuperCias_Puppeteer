@@ -60,9 +60,10 @@ while(persona) {
         count++;
     } catch (e) {
         console.log('error:', e);
-            await close_browser( browser );
-            // set up browser
-            browser = await setup_browser( proxies.next() );
+        await close_browser( browser );
+        // set up browser
+        browser = await setup_browser( proxies.next() );
+        count = 0;
         console.log('retrying');
     }
 }
