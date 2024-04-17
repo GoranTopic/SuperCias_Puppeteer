@@ -11,37 +11,49 @@ let { store, checklist, proxies } = await init();
 
 // get proxy
 let proxy = proxies.next();
+console.log('using proxy:', proxy);
 
 // get cedula
-let cedula = checklist.next();
+let persona = checklist.next();
 
 // set up browser
 let browser = await setup_browser( proxy );
+// count the num of requests with this proxy
+let count = 0;
 
-// go to url
-await goto_page( browser, search_page );
+while(persona) {
+    if( count > 10 ) {
+        // get new proxy
+        proxy = proxies.next();
+        // set up browser
+        browser = await setup_browser( proxy );
+        count = 0;
+    }
+    // go to url
+    await goto_page( browser, search_page );
 
-console.log('scraping cedula:', cedula);
-// scrap cedula
-await select_cedula( browser, cedula.cedula );
+    console.log('scraping :', persona, 'with proxy:', proxy, 'count:', count);
+    // scrap cedula
+    await select_cedula( browser, persona.cedula );
 
-// set up custom functions
-await set_functions( browser );
+    // set up custom functions
+    await set_functions( browser );
 
-// scrap cedula
-let data = await scrap_cedula( browser );
-// add cedula y nombre
+    // scrap cedula
+    let data = await scrap_cedula( browser );
+    // add cedula y nombre
 
-console.log('data:', data);
-// save data and check
-if (data) {
-    await store.push({ ...data, cedula: cedula.cedula, nombre: cedula.nombre })
-    checklist.check(cedula);
-    console.log('checked');
+    console.log('data:', data);
+    // save data and check
+    if (data) {
+        await store.push({ ...data, cedula: persona.cedula, nombre: persona.nombre })
+        checklist.check(persona);
+        console.log('checked, missing: ', checklist.missingLeft());
+    }
+    // get next cedula
+    persona = checklist.next();
+    count++;
 }
-// get next cedula
-//cedula = checklist.next();
-//}
 
 // clean up
 await close_browser( browser );

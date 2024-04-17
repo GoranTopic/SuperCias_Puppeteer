@@ -21,15 +21,16 @@ const init = async () => {
     mkdir('./storage/checklists');
     // Read the file
     let checklist = new Checklist(
-        cedulas_to_scrap,
-        {
+        cedulas_to_scrap, { 
             name: 'cedulas_suggestions_01',
             path: './storage/checklists',
             recalc_on_check: false,
-            save_every_check: 10,           
+            save_every_check: 1,           
         });
     // create a proxy rotator
-    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt');
+    let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {
+        shuffle: true,
+    });
     // make data store
     let storage = new Storage({
         type: 'mongodb',

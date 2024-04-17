@@ -5,7 +5,8 @@ const set_fuctions = async (browser) => {
 
     // set the function to get the paginator
     await page.evaluate(() => {
-        function getPaginator(selector, t_index) {
+        // add function to get the paginator on the window
+        window['getPaginator'] = (selector, t_index) => {
             // get current table element
             let table_el = $(selector).eq(t_index);
             // find if it has pagination
@@ -19,7 +20,7 @@ const set_fuctions = async (browser) => {
 
     // set the function to wait for the table to change
     await page.evaluate(() => {
-        function forChange(current_innertext, selector, t_index) {
+        window['forChange'] = async (current_innertext, selector, t_index) => {
             return new Promise((resolve, reject) => {
                 let interval = null;
                 let timeout = null;
@@ -46,7 +47,7 @@ const set_fuctions = async (browser) => {
     // set function to scrap the tables
     await page.evaluate(() => {
         // set function to scrap the tables
-        let scrap_table  = async (selector, t_index) => {
+        window['scrap_tables'] = async (selector, t_index) => {
             // tables go here
             let data = [];
             // get current table element
@@ -75,10 +76,10 @@ const set_fuctions = async (browser) => {
                     //console.log('this table needs to change: ', current_table)
                     //console.log('firing for page', current_page)
                     //wait for a second
-                    pagination = getPaginator(selector, t_index);
+                    pagination = window.getPaginator(selector, t_index);
                     pagination.fire('onPaging', current_page);
                     // await until the page has changed
-                    let res = await forChange(current_table, selector, t_index)
+                    let res = await window.forChange(current_table, selector, t_index)
                     // console.log('result table:', res);
                     if (res) {
                         data.push(res)
@@ -89,8 +90,6 @@ const set_fuctions = async (browser) => {
                     getting_tables = false
                 }
             }
-
-            
         }
     });
 
