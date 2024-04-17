@@ -22,40 +22,49 @@ let browser = await setup_browser( proxy );
 let count = 0;
 
 while(persona) {
-    if( count > 10 ) {
-        // get new proxy
-        proxy = proxies.next();
-        await close_browser( browser );
-        // set up browser
-        browser = await setup_browser( proxy );
-        count = 0;
+    try {
+        // check if we need to change proxy
+        if( count > 10 ) {
+            // get new proxy
+            proxy = proxies.next();
+            await close_browser( browser );
+            // set up browser
+            browser = await setup_browser( proxy );
+            count = 0;
+        }
+        // go to url
+        await goto_page( browser, search_page );
+
+        console.log('scraping :', persona, 'with proxy:', proxy, 'count:', count);
+        // scrap cedula
+        await select_cedula( browser, persona.cedula );
+
+        // set up custom functions
+        await set_functions( browser );
+
+        // scrap cedula
+        let data = await scrap_cedula( browser );
+
+        // add cedula y nombre
+        data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
+
+        console.log('data:', data);
+        // save data and check
+        if (data) {
+            await store.push(data);
+            checklist.check(persona);
+            console.log('checked, missing: ', checklist.missingLeft());
+        }
+        // get next cedula
+        persona = checklist.next();
+        count++;
+    } catch (e) {
+        console.log('error:', e);
+            await close_browser( browser );
+            // set up browser
+            browser = await setup_browser( proxies.next() );
+        console.log('retrying');
     }
-    // go to url
-    await goto_page( browser, search_page );
-
-    console.log('scraping :', persona, 'with proxy:', proxy, 'count:', count);
-    // scrap cedula
-    await select_cedula( browser, persona.cedula );
-
-    // set up custom functions
-    await set_functions( browser );
-
-    // scrap cedula
-    let data = await scrap_cedula( browser );
-
-    // add cedula y nombre
-    data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
-
-    console.log('data:', data);
-    // save data and check
-    if (data) {
-        await store.push(data);
-        checklist.check(persona);
-        console.log('checked, missing: ', checklist.missingLeft());
-    }
-    // get next cedula
-    persona = checklist.next();
-    count++;
 }
 
 // clean up

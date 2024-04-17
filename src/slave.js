@@ -11,46 +11,31 @@ import { search_page } from './urls.js';
 slavery({
     numberOfSlaves: 1,
     port: 3003, 
-}).slave( {
+}).slave( async ({ persona, proxy }, slave) => {
 
-    'setup': async (proxy, slave) => {
-        console.log('Setting up slave with proxy:', proxy);
-        let browser = slave.get('browser');
-        if( browser ) { // if browser we have a browser
-            // close
-            await close_browser( browser );
-        }
-        // setup new browser
-        browser = await setup_browser(proxy)
-        // go to the url
-        try {
-            await goto_page( browser, search_page );
-            // save the browser in the slave
-            slave.set('browser', browser);
-        }catch(e){
-            // close the browser
-            await close_browser( browser );
-            // return error
-            throw e;
-        }
-    },
+    console.log('scraping :', persona, 'with proxy:', proxy);
+    // set up browser
+    let browser = await setup_browser( proxy );
 
-    // scrap the cedula
-    'default': async (persona, salve) => {
-        console.log('scraping :', persona)
-        // get the browser
-        let browser = salve.get('browser');
-        // scrap cedula
-        await select_cedula( browser, persona.cedula );
-        // set up custom functions
-        await set_functions( browser );
-        // scrap cedula
-        let data = await scrap_cedula( browser );
-        // add cedula y nombre
-        data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
-        // return results
-        return data;
-    }, 
+    // go to url
+    await goto_page( browser, search_page );
 
+    // scrap cedula
+    await select_cedula( browser, persona.cedula );
+
+    // set up custom functions
+    await set_functions( browser );
+
+    // scrap cedula
+    let data = await scrap_cedula( browser );
+
+    // add cedula y nombre
+    data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
+
+    // close browser      
+    await close_browser( browser );
+
+    // return data
+    return data;
 
 });
