@@ -10,7 +10,7 @@ const select_cedula = async (browser, cedula) => {
     // type the cedula
     await input.type(cedula);
     // wait for suggestion element with class 'z-comboitem-text' to show up
-    await page.waitForSelector('.z-comboitem-text', { timeout: 5000 });
+    await page.waitForSelector('.z-comboitem-text', { timeout: 50000 });
     // press enter
     await input.press('Enter');
     // wait for page to redirect

@@ -7,9 +7,8 @@ import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
 import { search_page } from './urls.js';
 
-
 slavery({
-    numberOfSlaves: 1,
+    numberOfSlaves: 20,
     port: 3003,
 }).slave( async ({ persona, proxy }, slave) => {
     let browser;
