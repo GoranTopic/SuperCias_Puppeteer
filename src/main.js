@@ -42,12 +42,14 @@ while(persona) {
 
     // scrap cedula
     let data = await scrap_cedula( browser );
+
     // add cedula y nombre
+    data = { ...data, cedula: persona.cedula, nombre: persona.nombre };
 
     console.log('data:', data);
     // save data and check
     if (data) {
-        await store.push({ ...data, cedula: persona.cedula, nombre: persona.nombre })
+        await store.push(data);
         checklist.check(persona);
         console.log('checked, missing: ', checklist.missingLeft());
     }
