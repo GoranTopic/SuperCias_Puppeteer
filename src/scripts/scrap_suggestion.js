@@ -1,9 +1,9 @@
 /* this script will take a cedula and return the suggestion of names that match this cedula */
 
-const scrap_suggestions = async (browser, cedula) => {
+const scrap_suggestions = async (browser, str) => {
     // get page
     let page = (await browser.pages())[0];
-    let cedula_suggestion = await new Promise( async (resolve, reject) => {
+    let suggestions = await new Promise( async (resolve, reject) => {
         // set a timeout
         let timeout = setTimeout(() => {
             // remove listeners
@@ -40,11 +40,12 @@ const scrap_suggestions = async (browser, cedula) => {
                     data = data.filter( x => x[0] === 'addChd');
                     // if there is no data
                     if( data.length === 0 ) {
-                        resolve({ cedula: cedula, suggestion: [] });
+                        resolve({ str: str, suggestions: [] });
                         return;
                     }
                     // get inner array
                     data = data[0][1];
+                    console.log('data:', data);
                     // remove first element
                     data.shift();
                     // map every label
@@ -54,15 +55,15 @@ const scrap_suggestions = async (browser, cedula) => {
                     // remove listeners
                     page.removeAllListeners('response');
                     // resolve the promise
-                    resolve({ cedula: cedula, suggestion: data });
+                    resolve({ str: str, suggestions: data });
                     return;
                 }
             }
         });
-        console.log('scrapping cedula:', cedula);
+        console.log('scrapping str', str);
         debugger;
         // run this in browser
-        await page.evaluate(async cedula => {
+        await page.evaluate(async str => {
             // get combobox html element
             let [ combobox ] = zk.Widget.getElementsById('comboNombres')
             // get the id
@@ -71,16 +72,16 @@ const scrap_suggestions = async (browser, cedula) => {
             let w = zk.Widget.$(jq(`#${id}`));
             w.fire( // send request to server
                 "onChanging", 
-                { value: cedula, start: cedula.length }, 
+                { value: str, start: str.length }, 
                 { ignorable: 1, rtags: { onChanging: 1 }}, 
                 5 
             ); 
-        }, cedula);
+        }, str);
     });
     // return the suggestion
-    if( cedula_suggestion === false )
+    if( suggestions === false )
         return new Error('cedula suggestion request timeout');
-    return cedula_suggestion;
+    return suggestions;
 }
 
 
