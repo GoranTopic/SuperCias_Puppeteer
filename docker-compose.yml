@@ -1,7 +1,7 @@
 version: '3'
 services:
   supercias-slave-service:
-    image: supercias
+    image: supercias_consulta_personal_suggestions
     command: npm run slave
     volumes:
       - /home/terac/data-mining/supercias/storage/:/home/pptruser/supercias/storage

@@ -1,5 +1,6 @@
 import init from './init.js';
 import slavery from 'slavery-js';
+import close_browser from './scripts/close_browser.js';
 
 slavery({
     port: 3003,
