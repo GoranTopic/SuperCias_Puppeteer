@@ -18,10 +18,7 @@ const scrap_suggestions = async (browser, str) => {
     // filter by the frist element of the list of the list
     data = data['rs'].filter( x => x[0] === 'addChd');
     // if there is no data
-    if( data.length === 0 ) {
-        resolve({ str: str, suggestions: [] });
-        return;
-    }
+    if( data.length === 0 ) return [];
     // get inner array
     data = data[0][1];
     //console.log('data:', data);
