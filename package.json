@@ -16,6 +16,7 @@
     "checklist-js": "^1.2.3",
     "dstore-js": "^1.0.9",
     "files-js": "^1.0.2",
+    "jsonrepair": "^3.6.1",
     "proxy-rotator-js": "^1.0.8",
     "puppeteer": "^22.6.3",
     "puppeteer-extra-plugin-stealth": "^2.11.2",

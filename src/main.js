@@ -28,14 +28,12 @@ await click_nombre_radio( browser );
 while( sugg ) {
     // scrap suggestion
     let data = await scrap_suggestions( browser, sugg );
-    console.log('data:', data.suggestion);
-    console.log('length:', data.suggestion.length);
+    console.log('data:', data);
+    console.log('length:', data.length);
     // save data and check
-    if( data.suggestion.length ){
-        data.suggestion.forEach( 
-            async s => await store.push({ cedula: s[0], nombre: s[1] })
-        );
-        suggestions.check(data.str, data.suggestion.length > 5);
+    if( data.length ){
+        data.forEach( async s => await store.push(s) );
+        suggestions.check(sugg, data.length > 5);
         console.log('checked');
     }
     // get next cedula
