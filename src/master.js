@@ -1,6 +1,5 @@
 import init from './init.js';
 import slavery from 'slavery-js';
-import close_browser from './scripts/close_browser.js';
 
 slavery({
     port: 3003,
@@ -17,23 +16,22 @@ slavery({
         let isReady = await slave.is_done('setup');
         let count = slave['count'] ?? 0;
         // if it has not done the initial setup, or has run more than 30 times
-        // random number between 30 and 50
+        // random number between 100 and 200
         let random = Math.floor(Math.random() * (50 - 30 + 1) + 30);
         if( !isReady || count >= random ){
             console.log('setting up broweser')
             slave.run( proxies.next(), 'setup').catch(e => console.error(e))
             slave['count'] = 0
         }else{
+            if( !slave['count'] ) slave['count'] = 0;
             // scrap cedula
             console.log( 'running slave with ', sugg, ' times', slave['count'])
             slave['count']++;
             slave.run(sugg)
-                .then( data => {
-                    data.suggestion.forEach( 
-                        async s => await store.push({ cedula: s[0], nombre: s[1] })
-                    );
+                .then( ({ data, sugg }) => {
+                    data.forEach( async s => await store.push(s) );
                     console.log('data: ', data);
-                    suggestions.check(data.cedula, data.suggestion.length > 5);
+                    suggestions.check(sugg, data.length > 5);
                     console.log('checked');
                 }).catch(e => console.error(e))
             // get next cedula
@@ -41,6 +39,5 @@ slavery({
         }
     }
     // close the store when done =)
-    await close_browser( browser );
     await store.close();
 });
