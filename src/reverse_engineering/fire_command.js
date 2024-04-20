@@ -54,7 +54,7 @@ const fire_command = async (browser, {
             if( zk_id ) {
                 // get the widget element
                 html_el = zk.Widget
-                    .getElementsById('comboNombres')[0]
+                    .getElementsById(zk_id)[0]
                 // get the widget element
                 widget_el = zk.Widget.$(html_el);
                 uuid = widget_el.uuid;
@@ -121,7 +121,7 @@ const fire_command = async (browser, {
                 if( zk_id ) {
                     // get the widget element
                     html_el = zk.Widget
-                        .getElementsById('comboNombres')[0]
+                        .getElementsById(zk_id)[0]
                     // get the widget element
                     widget_el = zk.Widget.$(html_el);
                 } else if(selector) {
