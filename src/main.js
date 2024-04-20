@@ -21,6 +21,14 @@ let browser = await setup_browser( proxy );
 // count the num of requests with this proxy
 let count = 0;
 
+// go to url
+await goto_page( browser, search_page );
+
+console.log('scraping :', persona, 'with proxy:', proxy, 'count:', count);
+// scrap cedula
+await select_cedula( browser, persona);
+
+/*
 while(persona) {
     try {
         // check if we need to change proxy
@@ -37,7 +45,7 @@ while(persona) {
 
         console.log('scraping :', persona, 'with proxy:', proxy, 'count:', count);
         // scrap cedula
-        await select_cedula( browser, persona.cedula );
+        await select_cedula( browser, persona);
 
         // set up custom functions
         await set_functions( browser );
@@ -70,5 +78,7 @@ while(persona) {
 
 // clean up
 await close_browser( browser );
+*/
+
 await store.close();
 
