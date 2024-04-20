@@ -10,15 +10,15 @@ const setup_browser = async proxy => {
     if(proxy) options.browser.args = [
         //`--proxy-server=${proxyEndpoint}`,
         //`--proxy-auth=${username}:${password}`,
-        `--proxy-server=http://${ proxy }`,
+        //`--proxy-server=http://${ proxy }`,
         ...options.browser.args
     ];
 
     // create new browser
     const browser = await puppeteer.launch({ ...options.browser });
     // Set the proxy credentials
-    //let page = (await browser.pages())[0];
-    //await page.authenticate({ username, password });
+    //let page = await (await browser.pages())[0]
+        //.authenticate({ username, password });
     // return browser
     return browser;
 }

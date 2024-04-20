@@ -6,7 +6,7 @@ import { consulta_personal } from '../urls.js';
 const select_cedula = async (browser, persona) => {
     // if the cedula is not defined, we will use the nombre
     let value = persona.cedula? persona.cedula : persona.nombre;
-    console.log('select_cedula', value);
+    console.log('select_cedula:', value);
 
     // make the request to the server
     let res = await fire_command(browser, {
