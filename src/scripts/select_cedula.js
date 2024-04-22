@@ -51,7 +51,7 @@ const select_cedula = async (browser, persona) => {
         )
     }, {uuid, label});
     // wait for the page to load
-    await page.waitForNavigation();
+    await page.waitForNavigation({waitUntil: 'networkidle0'});
     // return result
     return page;
 }

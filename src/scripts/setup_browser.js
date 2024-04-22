@@ -10,7 +10,7 @@ const setup_browser = async proxy => {
     if(proxy) options.browser.args = [
         //`--proxy-server=${proxyEndpoint}`,
         //`--proxy-auth=${username}:${password}`,
-        //`--proxy-server=http://${ proxy }`,
+        `--proxy-server=http://${ proxy }`,
         ...options.browser.args
     ];
 

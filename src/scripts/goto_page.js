@@ -7,7 +7,7 @@ const goto_page = async (browser, url) => {
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
     // go to page with timeout
     await page.goto(url, {
-        waitUntil: 'load',
+        waitUntil: 'networkidle2',
         timeout: 0,
     });
     
