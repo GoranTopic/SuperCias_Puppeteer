@@ -12,7 +12,7 @@ const init = async () => {
         url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
-    let suggestions_store = await storage_cedulas.open('suggestions_01');
+    let suggestions_store = await storage_cedulas.open('consulta_personal_suggestion_01');
     // get suggestions
     let cedulas_to_scrap = await suggestions_store.get({});
     // close the store
