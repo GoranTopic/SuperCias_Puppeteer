@@ -59,7 +59,7 @@ const scrap_cedula = async browser => {
         administrador_actual,
         accionista_actual,
         administradores_anteriores,
-        accionista_actual,
+        accionista_anteriores,
         accionista_extrajeras 
     }
 }
