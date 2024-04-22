@@ -15,6 +15,7 @@ const init = async () => {
     let suggestions_store = await storage_cedulas.open('consulta_personal_suggestion_01');
     // get suggestions
     let cedulas_to_scrap = await suggestions_store.get({});
+    console.log('cedulas to scrap', cedulas_to_scrap);
     // close the store
     await suggestions_store.close();
     // make checklist dir

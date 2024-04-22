@@ -7,14 +7,21 @@ import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
 import { search_page } from './urls.js';
 
-slavery({
-    numberOfSlaves: 20,
-    port: 3003,
-}).slave( async ({ persona, proxy }, slave) => {
-    let browser;
+const setup = async (proxy, slave) => {
+    // setup browser
+    let browser = slave.get('browser');
+    // close browser if exists
+    if(browser) await close_browser( browser );
+    // set up browser
+    browser = await setup_browser( proxy );
+    // save browser
+    slave.set('browser', browser);
+}
+
+const scrap_persona = async (persona, slave) => {
+    // get broswer
+    let browser = slave.get('browser');
     try{
-        // set up browser
-        browser = await setup_browser( proxy );
         // go to url
         await goto_page( browser, search_page );
         // scrap cedula
@@ -25,16 +32,23 @@ slavery({
         let data = await scrap_cedula( browser );
         // add cedula y nombre
         data = { ...data, 
-            identificacion: persona.cedula, 
+            cedula: persona.cedula, 
             nombre: persona.nombre, 
         };
-        // close browser
-        await close_browser( browser );
         // return data
-        return data;
+        return { data, persona };
     }catch(e){
         await close_browser( browser );
         console.log('error:', e);
         throw e;
     }
+}
+
+
+slavery({
+    numberOfSlaves: 1,
+    port: 3003,
+}).slave({
+    'setup': setup,
+    'default': scrap_persona,
 });
