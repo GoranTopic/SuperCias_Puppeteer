@@ -18,16 +18,15 @@ slavery({
         // go to url
         await goto_page( browser, search_page );
         // scrap cedula
-        await select_cedula( browser, persona.cedula );
+        await select_cedula( browser, persona );
         // set up custom functions
         await set_functions( browser );
         // scrap cedula
         let data = await scrap_cedula( browser );
         // add cedula y nombre
         data = { ...data, 
-            cedula: persona.cedula, 
+            identificacion: persona.cedula, 
             nombre: persona.nombre, 
-            persona 
         };
         // close browser
         await close_browser( browser );
