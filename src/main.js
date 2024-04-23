@@ -6,6 +6,7 @@ import set_functions from './scripts/set_functions.js';
 import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
 import { search_page } from './urls.js';
+import blockContent from './utils/blockContent.js';
 
 let { store, checklist, proxies } = await init();
 
@@ -18,10 +19,12 @@ let persona = checklist.next();
 
 // set up browser
 let browser = await setup_browser( proxy );
+// add block content
+await blockContent(browser);
 // count the num of requests with this proxy
 let count = 0;
 
-// 
+
 while(persona) {
     try {
         // check if we need to change proxy
@@ -64,6 +67,8 @@ while(persona) {
         await close_browser( browser );
         // set up browser
         browser = await setup_browser( proxies.next() );
+        // add block content
+        await blockContent(browser);
         count = 0;
         console.log('retrying');
     }
@@ -71,4 +76,4 @@ while(persona) {
 
 // clean up
 await store.close();
-
+await close_browser( browser );

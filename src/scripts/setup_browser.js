@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import puppeteer from 'puppeteer';
+
+
 import options from '../options.js';
 // get eviroment variables
 const { username, password, proxyEndpoint } = process.env;
