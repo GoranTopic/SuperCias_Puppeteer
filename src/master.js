@@ -31,7 +31,7 @@ slavery({
                 .then( ({ data, sugg }) => {
                     data.forEach( async s => await store.push(s) );
                     console.log('data: ', data);
-                    suggestions.check(sugg, data.length > 5);
+                    suggestions.check(sugg, data.length > 10);
                     console.log('checked');
                 }).catch(e => console.error(e))
             // get next cedula

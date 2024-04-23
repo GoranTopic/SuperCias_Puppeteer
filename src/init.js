@@ -18,6 +18,8 @@ const init = async () => {
     // make a path finder object
     const spanish_alpha_numeric = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' '];
     let digits = ['0','1','2','3','4','5','6','7','8','9'];
+    // add numeric and digits
+    spanish_alpha_numeric.push(...digits);
     let suggestions = new Suggestion_finder({
         options: spanish_alpha_numeric,
     });

@@ -23,7 +23,7 @@ slavery({
             // go to the url
             await goto_page( browser, search_page );
             // click the radio
-            await click_nombre_radio( browser );
+            // await click_nombre_radio( browser );
             // save the browser in the slave
             slave.set('browser', browser);
         }catch(e){
