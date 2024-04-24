@@ -12,7 +12,7 @@ const init = async () => {
         url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
-    let suggestions_store = await storage_cedulas.open('consulta_personal_suggestion_01');
+    let suggestions_store = await storage_cedulas.open('consultas_personal_suggestion');
     // get suggestions
     let cedulas_to_scrap = await suggestions_store.get({});
     console.log('cedulas to scrap', cedulas_to_scrap.length);
@@ -23,7 +23,7 @@ const init = async () => {
     // Read the file
     let checklist = new Checklist(
         cedulas_to_scrap, { 
-            name: 'cedulas_suggestions_01',
+            name: 'consulta_personal',
             path: './storage/checklists',
             recalc_on_check: false,
             save_every_check: 1,           
