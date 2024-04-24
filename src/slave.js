@@ -44,10 +44,11 @@ const scrap_persona = async (persona, slave) => {
     }
 }
 
-
 slavery({
     numberOfSlaves: 1,
     port: 3003,
+    // 8 minutes
+    timeout: 480000, 
 }).slave({
     'setup': setup,
     'default': scrap_persona,
