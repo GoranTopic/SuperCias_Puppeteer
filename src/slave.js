@@ -6,14 +6,18 @@ import set_functions from './scripts/set_functions.js';
 import scrap_cedula from './scripts/scrap_cedula.js';
 import close_browser from './scripts/close_browser.js';
 import { search_page } from './urls.js';
+import blockContent from './utils/blockContent.js';
 
 const setup = async (proxy, slave) => {
+    console.log('setting up browser...');
     // setup browser
     let browser = slave.get('browser');
     // close browser if exists
     if(browser) await close_browser( browser );
     // set up browser
     browser = await setup_browser( proxy );
+    // add block content
+    await blockContent(browser);
     // save browser
     slave.set('browser', browser);
 }
@@ -47,9 +51,10 @@ const scrap_persona = async (persona, slave) => {
 slavery({
     numberOfSlaves: 1,
     port: 3003,
-    // 8 minutes
-    timeout: 480000, 
+    passErrorToMaster: true,
+    crashOnError: true,
+    timeout: 1000 * 60 * 5, // 5 minutes
 }).slave({
     'setup': setup,
-    'default': scrap_persona,
+    'default': scrap_persona
 });

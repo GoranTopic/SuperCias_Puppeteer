@@ -20,21 +20,29 @@ slavery({
         let random = Math.floor(Math.random() * 30) + 30;
         if( !isReady || count >= random ) {
             console.log('setting up browser');
-            slave.run(proxies.next(), 'setup').catch(e => console.error(e));
+            slave // set up browser
+                .run(proxies.next(), 'setup')
+                .catch(e => console.error(e));
             slave['count'] = 0;
         }else{
             // run slave scrap
             if( !slave['count'] ) slave['count'] = 0;
             // scrap cedula
-            console.log( 'scraptting ', persona );
+            console.log('scraptting ', persona.cedula, persona.nombre);
             slave['count']++;
-            slave.run(persona)
+            slave // run slave
+                .run(persona)
                 .then( async ({ data, persona }) => {
+                    console.log('data:', data, ' checked');
                     await store.push(data)
                     checklist.check(persona);
-                    console.log('data:', data, ' checked');
                     console.log('checked, missing: ', checklist.missingLeft());
                 })
+                .catch( async e => {
+                    slave // set up browser
+                        .run(proxies.next(), 'setup')
+                        .catch(e => console.error(e));
+                });
             // get next cedula
             persona = checklist.next();
         }

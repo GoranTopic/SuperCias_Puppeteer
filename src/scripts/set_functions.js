@@ -2,7 +2,6 @@
 const set_fuctions = async (browser) => {
     // get page
     let page = (await browser.pages())[0];
-
     // set the function to get the paginator
     await page.evaluate(() => {
         // add function to get the paginator on the window

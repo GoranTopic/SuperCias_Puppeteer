@@ -30,7 +30,7 @@ const fire_command = async (browser, {
     input_2,
     input_3,
     updateDOM=false,
-    timeout=10000 // 10 seconds
+    timeout=20000 // 20 seconds
 }) => {
 
     // get page
