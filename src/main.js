@@ -4,12 +4,11 @@ import scrap_company from './scripts/scrap_company.js';
 import close_browser from './scripts/close_browser.js';
 import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
-import Storage from 'storing-me'
+import Storage from 'dstore-js';
 import options from './options.json' assert { type: 'json' };
 import make_logger from './utils/logger.js';
 
-let console = make_logger({ ruc: company.ruc, proxy });
-
+//let console = make_logger({ ruc: company.ruc, proxy });
 
 let storage = new Storage({
         type: 'json',
@@ -17,7 +16,7 @@ let storage = new Storage({
         path: options.data_path, // default: ./storage/
     });
 
-let store = await storage.open('supercias')
+let store = await storage.open('supercias');
 
 mkdir(options.files_path);
 

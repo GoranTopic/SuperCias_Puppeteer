@@ -1,5 +1,5 @@
 import Checklist from 'checklist-js';
-import insert_custom_components from '../../reverse_engineer/insert_custom_components.js';
+import insert_custom_components from '../reverse_engineer/insert_custom_components.js';
 // import scripts
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';

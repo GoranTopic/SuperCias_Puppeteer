@@ -1,6 +1,6 @@
-import send_request from '../../../reverse_engineer/send_request.js';
-import submit_captchan from '../../../reverse_engineer/queries/submit_company_search_captchan.js';
-import select_autocomplete_company from '../../../reverse_engineer/queries/select_autocomplete_suggestion.js'
+import send_request from '../../reverse_engineer/send_request.js';
+import submit_captchan from '../../reverse_engineer/queries/submit_company_search_captchan.js';
+import select_autocomplete_company from '../../reverse_engineer/queries/select_autocomplete_suggestion.js'
 import { recognizeCaptchan } from '../../captcha/recognizeNumberCaptchan.js';
 import { write_binary, mkdir } from 'files-js';
 import str_to_binary from '../../utils/strToBinary.js';

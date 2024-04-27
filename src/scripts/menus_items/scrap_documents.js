@@ -1,6 +1,6 @@
 import Checklist from 'checklist-js';
-import send_request from '../../../reverse_engineer/send_request.js';
-import query_documentos_online from '../../../reverse_engineer/queries/query_documentos_online.js';
+import send_request from '../../reverse_engineer/send_request.js';
+import query_documentos_online from '../../reverse_engineer/queries/query_documentos_online.js';
 import scrap_table from './scrap_documents_table.js';
 import options from '../../options.json' assert { type: 'json' };
 

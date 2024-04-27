@@ -1,7 +1,7 @@
 import { mkdir } from 'files-js';
 import download_pdf from '../../utils/download_pdf.js';
-import send_request from '../../../reverse_engineer/send_request.js';
-import query_pdf from '../../../reverse_engineer/queries/query_pdf_link.js';
+import send_request from '../../reverse_engineer/send_request.js';
+import query_pdf from '../../reverse_engineer/queries/query_pdf_link.js';
 import options from '../../options.json' assert { type: 'json' };
 
 

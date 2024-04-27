@@ -1,6 +1,6 @@
 import sanitize from '../../utils/sanitizer.js';
-import send_request from '../../../reverse_engineer/send_request.js';
-import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
+import send_request from '../../reverse_engineer/send_request.js';
+import { query_table_change } from '../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
 import waitForNetworkIdle from '../../utils/waitForNetworkIdle.js';
 import options from '../../options.json' assert { type: 'json' };
