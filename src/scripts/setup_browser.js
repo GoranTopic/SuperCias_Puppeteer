@@ -9,9 +9,9 @@ const { username, password, proxyEndpoint } = process.env;
 const setup_browser = async proxy => {
     // set new proxy, while keeping args
     if(proxy) options.browser.args = [
-        `--proxy-server=${proxyEndpoint}`,
+        `--proxy-server=http://${proxyEndpoint}`,
         `--proxy-auth=${username}:${password}`,
-        //`--proxy-server=http://${ proxy }`,
+        //`--proxy-server=http://${proxy}`,
         ...options.browser.args
     ];
 
@@ -21,8 +21,7 @@ const setup_browser = async proxy => {
     console.log('Authenticating browser...');
     let pages = await browser.pages();
     await pages[0].authenticate({ username, password });
-    //await (await browser.pages())[0].authenticate({ username, password });
-    // return browser
+    console.log('Authenticated!');
     return browser;
 }
 

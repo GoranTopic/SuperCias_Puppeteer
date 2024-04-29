@@ -8,6 +8,7 @@ slavery({
     let { store, checklist, proxies } = await init();
     // get next values
     let persona = checklist.next();
+    console.log('persona:', persona);
     // while loop
     while( persona ) {
         // get an idle slave
