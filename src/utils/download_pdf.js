@@ -1,5 +1,5 @@
 import fs from 'fs';
-import options from '../../src/options.json' assert { type: 'json' };
+import options from '../../src/options.js';
 
 let debugging = options.debugging;
 

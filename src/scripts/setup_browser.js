@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import options from '../options.json' assert { type: 'json' };
+import options from '../options.js';
 import {  createRecognizer } from '../captcha/recognizeNumberCaptchan.js';
 
 const setup_browser = async proxy => {

@@ -5,10 +5,11 @@ import close_browser from './scripts/close_browser.js';
 import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
-import options from './options.json' assert { type: 'json' };
+import options from './options.js';
 import make_logger from './utils/logger.js';
 
 //let console = make_logger({ ruc: company.ruc, proxy });
+
 
 let storage = new Storage({
         type: 'json',

@@ -4,7 +4,7 @@ import select_autocomplete_company from '../../reverse_engineer/queries/select_a
 import { recognizeCaptchan } from '../../captcha/recognizeNumberCaptchan.js';
 import { write_binary, mkdir } from 'files-js';
 import str_to_binary from '../../utils/strToBinary.js';
-import options from '../../options.json' assert { type: 'json' };
+import options from '../../options.js';
 
 /**
  * handle_company_search.
