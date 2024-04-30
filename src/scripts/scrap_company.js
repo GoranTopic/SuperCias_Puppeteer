@@ -9,7 +9,7 @@ import scrap_administradores_actuales from './menus_items/scrap_administradores_
 import scrap_documents_script from './menus_items/scrap_documents.js';
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
-const scrap_company = async (browser, company, console) => {
+const scrap_company = async (browser, company) => {
     // get page
     let page = (await browser.pages())[0];
 

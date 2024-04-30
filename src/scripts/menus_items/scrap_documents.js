@@ -14,7 +14,7 @@ let error_threshold = options.pdf_missing_threshold;
  * @param {} page
  * @param {} company
  */
-export default async (page, company, console) => {
+export default async (page, company) => {
     // tables to scrap
     let tables = [
         'DocumentosGenerales', 

@@ -16,7 +16,7 @@ import options from '../../options.js';
  * @param {} page
  * @param {} company
  */
-const scrap_table = async (table, rows, checklists, page, company, console) => {
+const scrap_table = async (table, rows, checklists, page, company) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);

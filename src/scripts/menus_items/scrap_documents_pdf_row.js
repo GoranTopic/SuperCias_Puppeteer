@@ -5,7 +5,7 @@ import query_pdf from '../../reverse_engineer/queries/query_pdf_link.js';
 import options from '../../options.js';
 
 
-const scrap_row = async (id, page, path, console) =>
+const scrap_row = async (id, page, path) =>
     // set a time out for 4 minutes, to proces the pdf
     await new Promise(async (resolve, reject) => {
         let time_out = setTimeout(() => {

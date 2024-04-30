@@ -24,22 +24,22 @@ export default {
         "DocumentosGenerales": {
             "filters": {
                 "documento": "",
-                "fecha": "2022",
+                "fecha": "",
                 "nombre": "",
-                "cargo": ""
+                "cargo": "" // "Presidente"
             }
         },
         "DocumentosJuridicos": {
             "filters": {
                 "nombre de acto juuridico": "",
                 "documento": "",
-                "fecha": "2022"
+                "fecha": "" // "2021"
             }
         },
         "DocumentosEconomicos": {
             "filters": {
                 "documento": "",
-                "fecha": "2022"
+                "fecha": ""
             }
         }
     }
