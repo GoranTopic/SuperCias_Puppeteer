@@ -2,20 +2,15 @@ import { read_json, mkdir } from 'files-js';
 import setup_browser from './scripts/setup_browser.js';
 import scrap_company from './scripts/scrap_company.js';
 import close_browser from './scripts/close_browser.js';
-import ProxyRotator from 'proxy-rotator-js'
-import Checklist from 'checklist-js';
-import Storage from 'dstore-js';
 import options from './options.js';
 import make_logger from './utils/logger.js';
+import init from './init.js';
+
+
+const { proxies, store, checklist } = await init();
 
 //let console = make_logger({ ruc: company.ruc, proxy });
 
-
-let storage = new Storage({
-        type: 'json',
-        keyValue: true,
-        path: options.data_path, // default: ./storage/
-    });
 
 let store = await storage.open('supercias');
 
@@ -49,3 +44,4 @@ if (data) {
     checklist.check(company);
     console.log('checked');
 }
+*/
