@@ -10,6 +10,7 @@ const { proxies, store, checklist } = await init();
 
 let proxy = await proxies.next();
 let company = await checklist.next();
+console.log('company', company);
 
 // set up browser
 let browser = await setup_browser(proxy);

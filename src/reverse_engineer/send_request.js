@@ -50,8 +50,11 @@ let error_max = 0;
  * 
  * return whaever the return of the passed callback is 
  */
-let send_request = async (parameters, callback, page, console, followAlong=true) => {
+let send_request = async (parameters, callback, page, followAlong=true) => {
     // let's get the parameters of the function, the call back and the, page
+    console.log("parameters:", parameters);
+    console.log("callback:", callback);
+    console.log("page:", page);
     let isCaptchan = false;
     // make the functinos into string so that they can be passed to the browser
     let parameters_str = JSONfn.stringify(parameters);

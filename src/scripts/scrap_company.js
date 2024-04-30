@@ -23,7 +23,7 @@ const scrap_company = async (browser, company) => {
     page = await insert_custom_components(page);
 
     // selecting company
-    page = await select_company_script(page, company, console);
+    page = await select_company_script(page, company);
 
     // wait for table to load
     await waitForNetworkIdle(page, 1000);
@@ -66,8 +66,9 @@ const scrap_company = async (browser, company) => {
             tab_menus[menu]) { // check if there is a function
             // wait for page to load with timeout of 0
             await waitForNetworkIdle(page, 1000)
+            console.log('scrap_company.js: page', page)
             // run the function
-            data[menu] = await tab_menus[menu](page, company, console);
+            data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error
             checklist_company_menu.check(menu)
         }
