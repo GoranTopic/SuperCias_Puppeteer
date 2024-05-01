@@ -30,8 +30,7 @@ export default async (page, company) => {
         (response, status, i, C) =>  // the first table is general documentos
         window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
         page, // puppetter page
-        console, // logger
-        false, // followAlong to false so we don't rquest the captchan twice 
+        true, // followAlong to false so we don't rquest the captchan twice 
     );
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
     console.log('query documents request finished')

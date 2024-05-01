@@ -31,7 +31,7 @@ export default {
         },
         "DocumentosJuridicos": {
             "filters": {
-                "nombre de acto juuridico": "",
+                "nombre de acto juridico": "",
                 "documento": "",
                 "fecha": "" // "2021"
             }

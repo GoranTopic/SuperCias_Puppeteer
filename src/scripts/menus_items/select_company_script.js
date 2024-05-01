@@ -21,7 +21,7 @@ import options from '../../options.js';
  * @param {} log
  *  this is the logger which has to be used
  */
-const handle_company_search =  async (page, company, console) => {
+const handle_company_search =  async (page, company) => {
     // let sent the request to select the company and get the captchan
     let captchan_src = await send_request(
         select_autocomplete_company(company), // parameters

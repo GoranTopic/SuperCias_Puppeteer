@@ -66,7 +66,7 @@ export default async (page, company) => {
     // let try to scrap every table =)
     for( let table of tables ){
         if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company, console);
+            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company);
             if(pdf_checklists[table].missingLeft() <= error_threshold){
                 // if there are less pdfs left than the threshold, 
                 // mark as done

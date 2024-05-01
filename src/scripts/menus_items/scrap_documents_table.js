@@ -1,10 +1,9 @@
 import sanitize from '../../utils/sanitizer.js';
-import send_request from '../../../reverse_engineer/send_request.js';
-import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
+import send_request from '../../reverse_engineer/send_request.js';
+import { query_table_change } from '../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
 import waitForNetworkIdle from '../../utils/waitForNetworkIdle.js';
-import options from '../../options.json' assert { type: 'json' };
-
+import options from '../../options.js';
 
 /**
  * scrap_table.
@@ -16,7 +15,7 @@ import options from '../../options.json' assert { type: 'json' };
  * @param {} page
  * @param {} company
  */
-const scrap_table = async (table, rows, checklists, page, company, console) => {
+const scrap_table = async (table, rows, checklists, page, company) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
@@ -43,8 +42,6 @@ const scrap_table = async (table, rows, checklists, page, company, console) => {
     console.log(`rows[${table}]: ${rows[table]}`);
 
     // add filters to the table
-    console.log('adding filters table')
-    console.log(options)
     await page.evaluate(({ table, filters }) => {
         // get filters values
         Object.values(filters).forEach((value, i) => {
@@ -53,7 +50,6 @@ const scrap_table = async (table, rows, checklists, page, company, console) => {
         });
         PrimeFaces.widgets['tbl' + table].filter();
     }, { table, filters: options.documents[table].filters })
-
     // wait for table to load
     await waitForNetworkIdle(page, 1000);
 

@@ -38,7 +38,7 @@ const scrap_company = async (browser, company) => {
     // with their corresponding scraper
     let tab_menus = {
         'Información general': scrap_informacion_general_script,
-        'Administradores actuales': scrap_administradores_actuales, //scrap_administradores_actuales,
+        'Administradores actuales': null, //scrap_administradores_actuales, 
         'Administradores anteriores': null,
         'Actos jurídicos': null,
         'Accionistas': null,
