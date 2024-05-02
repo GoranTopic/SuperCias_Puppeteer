@@ -20,6 +20,12 @@ const select_cedula = async (browser, persona) => {
     // clean the response
     res = jsonrepair(res);
     res= JSON.parse(res);
+    // if there are not suggestions, return null
+    if(res['rs']){
+        console.error('No suggestions found');
+        return null;
+    }
+    // else get the suggestion
     res = res['rs'].filter( x => x[0] === 'addChd')[0][1];
     res = res[1][0];
     // get the uuid and label of the suggestion

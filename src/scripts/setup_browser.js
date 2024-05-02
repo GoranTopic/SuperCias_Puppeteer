@@ -9,19 +9,19 @@ const { username, password, proxyEndpoint } = process.env;
 const setup_browser = async proxy => {
     // set new proxy, while keeping args
     if(proxy) options.browser.args = [
-        `--proxy-server=http://${proxyEndpoint}`,
-        `--proxy-auth=${username}:${password}`,
-        //`--proxy-server=http://${proxy}`,
+        //`--proxy-server=http://${proxyEndpoint}`,
+        //`--proxy-auth=${username}:${password}`,
+        `--proxy-server=http://${proxy}`,
         ...options.browser.args
     ];
 
     // create new browser
     const browser = await puppeteer.launch({ ...options.browser });
     // authenticate browser
-    console.log('Authenticating browser...');
-    let pages = await browser.pages();
-    await pages[0].authenticate({ username, password });
-    console.log('Authenticated!');
+    //console.log('Authenticating browser...');
+    //let pages = await browser.pages();
+    //await pages[0].authenticate({ username, password });
+    //console.log('Authenticated!');
     return browser;
 }
 

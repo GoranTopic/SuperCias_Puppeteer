@@ -25,6 +25,7 @@ const setup = async (proxy, slave) => {
 const scrap_persona = async (persona, slave) => {
     // get broswer
     let browser = slave.get('browser');
+    console.log('scraping persona:', persona.nombre, persona.cedula);
     try{
         // go to url
         await goto_page( browser, search_page );

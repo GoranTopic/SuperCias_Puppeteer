@@ -3,7 +3,8 @@ const options = {
         "headless": false,
         "slowMo": 0,
         "devtools": false,
-        "timeout": 100000,
+        "timeout": 10000000, 
+        "protocolTimeout": 1000000, 
         "excludeSwitches": "enable-automation",
         "args": [
             "--no-sandbox",
