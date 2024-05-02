@@ -5,8 +5,8 @@ import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
-import scrap_administradores_actuales from './menus_items/scrap_administradores_actuales.js';
-import scrap_documents_script from './menus_items/scrap_documents.js';
+//import scrap_administradores_actuales from './menus_items/administradores_actuales/scrap_administradores_actuales.js';
+import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
 import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async (browser, company) => {
@@ -39,7 +39,7 @@ const scrap_company = async (browser, company) => {
     // with their corresponding scraper
     let tab_menus = {
         'Información general': scrap_informacion_general_script,
-        'Administradores actuales': null, //scrap_administradores_actuales, 
+        'Administradores actuales': null, // scrap_administradores_actuales, 
         'Administradores anteriores': null,
         'Actos jurídicos': null,
         'Accionistas': null,
@@ -69,7 +69,6 @@ const scrap_company = async (browser, company) => {
             await waitForNetworkIdle(page, 1000)
             // run the function
             data[menu] = await tab_menus[menu](page, company);
-            console.log(`data for ${menu} is:`, data[menu])
             // if we have not thrown and error
             checklist_company_menu.check(menu)
 

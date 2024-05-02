@@ -1,10 +1,9 @@
-import sanitize from '../../utils/sanitizer.js';
-import send_request from '../../reverse_engineer/send_request.js';
-import { query_table_change } from '../../reverse_engineer/queries/query_tables_change_general.js';
+import sanitize from '../../../utils/sanitizer.js';
+import waitForNetworkIdle from '../../../utils/waitForNetworkIdle.js';
+import send_request from '../../../reverse_engineer/send_request.js';
+import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
-import waitForNetworkIdle from '../../utils/waitForNetworkIdle.js';
-import options from '../../options.js';
-
+import options from '../../../options.js';
 
 /**
  * scrap_table.
@@ -21,27 +20,36 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
     
+    if (rows[table] == 'DocumentosGenerales') {
+        //debugger
+        let result = await send_request(
+            query_table_change(table), // paramter need to make the request
+            // the callback, this is going to run in the browser,
+            (response, status, i, C) => response, 
+            // the page
+            page,
+            console
+        )
+        // query rows from new table
+        // getting number of rows
+        console.log(result);
+        rows[table] = await page.evaluate(table =>
+            PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
+            table
+        );
+        console.log(rows[table])
+    }
     console.log(`rows[${table}]: ${rows[table]}`);
 
     // add filters to the table
-    console.log('adding filters table')
     await page.evaluate(({ table, filters }) => {
         // get filters values
-        console.log(filters);
-    
-        const widget = PrimeFaces.widgets['tbl' + table];
-        if (widget && widget.sortableColumns) {
-            Object.values(filters).forEach((value, i) => {
-                if (widget.sortableColumns[i]) {
-                    widget.sortableColumns[i].childNodes[3].value = value;
-                }
-            });
-            widget.filter();
-        } else {
-            console.log('El widget o las columnas ordenables no están definidos correctamente.');
-        }
-    }, { table, filters: options.documents[table].filters });
-
+        Object.values(filters).forEach((value, i) => {
+            if (PrimeFaces.widgets['tbl' + table].sortableColumns[i])
+                PrimeFaces.widgets['tbl' + table].sortableColumns[i].childNodes[3].value = value
+        });
+        PrimeFaces.widgets['tbl' + table].filter();
+    }, { table, filters: options.documents[table].filters })
     // wait for table to load
     await waitForNetworkIdle(page, 1000);
 
@@ -69,7 +77,7 @@ const scrap_table = async (table, rows, checklists, page, company) => {
         // let get a list of all pdf documents
         // note: here the value is tab + table
         // instead of the ususal tbl + table
-        window.parse_table_html('tbl' + table),
+        window.parse_table_html('tab' + table),
         table
     );
 
@@ -78,7 +86,6 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     pdfs_info = pdfs_info.map( pdf => ({
         title: sanitize(pdf.title),
         id: pdf.id, // don't sanitize id
-        fecha: pdf.date,
     }))
 
     // add pdfs documents to the checklist
@@ -88,18 +95,10 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     
     let downloaded = [];
     // loop over every pdf
-    for (let { id, title, fecha } of pdfs_info) {
+    for (let { id, title } of pdfs_info) {
         // if we alread have it, skip it
-        let arrayDatosDownloaded = [];
-        let pdf_filename = options.files_path + company.ruc + '_' + table + '_' + title + '.pdf';
-        if (checklists[table].isChecked(id))
-        {
-            arrayDatosDownloaded = {
-                "NameDocumen" : pdf_filename,
-                "fechaWeb" : fecha
-            }
-            downloaded.push(arrayDatosDownloaded); 
-        } 
+        let pdf_filename = company.ruc + '_' + table + '_' + title + '.pdf';
+        if (checklists[table].isChecked(id)) downloaded.push(pdf_filename);
         console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_pdf_row(
             id,
@@ -109,11 +108,7 @@ const scrap_table = async (table, rows, checklists, page, company) => {
         );
         if (outcome) {
             checklists[table].check(id);
-            arrayDatosDownloaded = {
-                "NameDocumen" : pdf_filename,
-                "fechaWeb" : fecha
-            }
-            downloaded.push(arrayDatosDownloaded);
+            downloaded.push(pdf_filename);
             console.log('Downloaded');
         } else 
             console.log('not downloaded');

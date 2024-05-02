@@ -1,8 +1,8 @@
 import Checklist from 'checklist-js';
-import send_request from '../../reverse_engineer/send_request.js';
-import query_administradores_actuales from '../../reverse_engineer/queries/query_administradores_actuales.js';
+import send_request from '../../../reverse_engineer/send_request.js';
+import query_administradores_actuales from '../../../reverse_engineer/queries/query_administradores_actuales.js';
 import scrap_table from './scrap_doc_tables_opction.js';
-import options from '../../options.js';
+import options from '../../../options.js';
 
 // the nuber of pdf is ok not have
 let error_threshold = options.pdf_missing_threshold;
@@ -25,9 +25,8 @@ export default async (page, company) => {
         query_administradores_actuales, // paramter need to make the reuqe
         // the callback, this is goin to run in the browser,
         (response, status, i, C) =>  // the first table is general documentos
-        window.extract_number_of_pdfs(response, 'AdministradoresActuales',true),
+        window.extract_number_of_pdfs(response, 'AdministradoresActuales', true),
         page, // puppetter page
-        console, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);

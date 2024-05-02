@@ -10,13 +10,13 @@ let company = await checklist.next();
 console.log('gottten company', company);
 
 // set up browser
-let browser = await setup_browser(proxy);
+let browser = await setup_browser();//proxy);
 // save fileStore in to the page
 (await browser.pages())[0]['fileStore'] = fileStore;
 // scrap company
 let data = await scrap_company(browser, company);
 // clean up
-//await close_browser( browser );
+await close_browser( browser );
 
 console.log(data);
 if (data) {
