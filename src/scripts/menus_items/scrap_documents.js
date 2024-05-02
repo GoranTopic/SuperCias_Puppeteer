@@ -4,7 +4,6 @@ import query_documentos_online from '../../reverse_engineer/queries/query_docume
 import scrap_table from './scrap_documents_table.js';
 import options from '../../options.js';
 
-
 // the nuber of pdf is ok not have
 let error_threshold = options.pdf_missing_threshold;
 
@@ -22,6 +21,7 @@ export default async (page, company) => {
         'DocumentosEconomicos' 
     ];
 
+    console.log('querying documentos online', query_documentos_online)
     // query the documentos online
     console.log('sending query documentos request')
     let numberOfGeneralPdfs = await send_request(
@@ -35,6 +35,7 @@ export default async (page, company) => {
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
     console.log('query documents request finished')
 
+    //await waitForNetworkIdle(page, 1000)
     /* *
      *  Here we will loop ove the three document tabs:
      *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
@@ -67,7 +68,7 @@ export default async (page, company) => {
     // let try to scrap every table =)
     for( let table of tables ){
         if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company, console);
+            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company);
             if(pdf_checklists[table].missingLeft() <= error_threshold){
                 // if there are less pdfs left than the threshold, 
                 // mark as done

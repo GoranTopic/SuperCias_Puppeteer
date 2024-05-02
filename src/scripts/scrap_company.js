@@ -17,7 +17,8 @@ const scrap_company = async (browser, company) => {
     await goto_company_search_page(browser);
 
     // check if server is ofline
-    if( await check_server_offline(browser) ) throw new Error('server is offline');
+    if( await check_server_offline(browser) )
+        throw new Error('server is offline');
 
     // insert custom ajax, functions, jsonfn and eventListeners
     page = await insert_custom_components(page);
@@ -66,11 +67,12 @@ const scrap_company = async (browser, company) => {
             tab_menus[menu]) { // check if there is a function
             // wait for page to load with timeout of 0
             await waitForNetworkIdle(page, 1000)
-            console.log('scrap_company.js: page', page)
             // run the function
             data[menu] = await tab_menus[menu](page, company);
+            console.log(`data for ${menu} is:`, data[menu])
             // if we have not thrown and error
             checklist_company_menu.check(menu)
+
         }
     }
 	// delete checklist

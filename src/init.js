@@ -11,6 +11,12 @@ const init = async () => {
         url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
+    //    
+    let fileStorage = new Storage({
+        type: 'mongoFiles',
+        url: 'mongodb://0.0.0.0:27017',
+        database: 'supercias',
+    });
     // open the store
     let suggestions_store = await storage.open('companies_suggestions');
     // get suggestions
@@ -18,6 +24,10 @@ const init = async () => {
     console.log('cedulas to scrap', cedulas_to_scrap.length);
     // close the store
     await suggestions_store.close();
+    // Create a file
+    let fileStore = await fileStorage.open('companies');
+    // open the store
+    let store = await storage.open('companies');
     // make checklist dir
     mkdir('./storage/checklists');
     // Read the file
@@ -26,16 +36,16 @@ const init = async () => {
             name: 'companies_suggestions',
             path: './storage/checklists',
             recalc_on_check: false,
-            save_every_check: 100,
+            save_every_check: 1,
         });
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {
         shuffle: true,
     });
-    let store = await storage.open('companies');
     // return values
     return {
         checklist,
+        fileStore,
         store,
         proxies,
     }
