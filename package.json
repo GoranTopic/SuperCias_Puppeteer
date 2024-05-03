@@ -21,12 +21,9 @@
   "dependencies": {
     "checklist-js": "^1.2.3",
     "dstore-js": "^1.0.9",
-    "files-js": "^1.0.2",
     "json-fn": "^1.1.1",
     "proxy-rotator-js": "^1.0.6",
-    "punycode": "^2.3.1",
-    "puppeteer": "^21.5.2",
-    "puppeteer-extra": "^3.3.6",
+    "puppeteer": "^21.11.0",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "slavery-js": "^1.4.1",
     "tesseract.js": "^5.0.3",

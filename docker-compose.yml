@@ -1,10 +1,10 @@
 version: '3'
 services:
   supercias-slave-service:
-    image: supercias
+    image: supercias_companies
     command: npm run slave
     volumes:
-      - /home/terac/data-mining/supercias/storage/:/home/pptruser/supercias/storage
+      - /home/telix/data-minning/supercias/storage/:/home/pptruser/supercias/storage
     network_mode: host
     restart: always
 

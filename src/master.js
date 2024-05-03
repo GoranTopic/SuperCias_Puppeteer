@@ -19,7 +19,7 @@ Slavery({
                 await store.push(data);
                 //console.log(data);
                 checklist.check(company);
-                console.log(`[${company.ruc}][${proxy}] ${company.name} checked! ${company_ids.length}/${checklist.missingLeft()}`);
+                console.log(`[${company.ruc}][${proxy}] ${company.name} checked!`);
             }).catch(error => {
                 console.log(error);
             });
