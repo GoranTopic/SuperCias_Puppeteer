@@ -1,13 +1,40 @@
 import fire_command from '../reverse_engineering/fire_command.js';
+import click_nombre_radio from './click_nombre_radio.js';
 import { jsonrepair } from 'jsonrepair'
 import { consulta_personal } from '../urls.js';
+
 
 /* this script will take a cedula and return the suggestion of names that match this cedula */
 const select_cedula = async (browser, persona) => {
     // get the page
     let page = (await browser.pages())[0];
-    // if the cedula is not defined, we will use the nombre
-    let value = persona.cedula? persona.cedula : persona.nombre;
+    // if have a cedula try it first
+    let value, res;
+    if(persona.cedula){
+        value = persona.cedula;
+        // make a request with the cedula
+        let res = await fire_command(browser, {
+            zk_id: 'comboNombres',
+            command: 'onChanging',
+            input_1: { value, start: value.length }, 
+            input_2: { ignorable: 1, rtags: { onChanging: 1 }}, 
+            input_3: 5,
+        });
+        // clean the response
+        res = jsonrepair(res);
+        res= JSON.parse(res);
+    }
+    // if there are not suggestions, return null
+    if(res['rs']){// if we got 0 suggestions with the cedula
+        console.error('No suggestions found');
+        value = persona.nombre;
+    }
+    
+
+
+        let value = persona.nombre;
+        await click_nombre_radio(browser, persona);
+    }
 
     // make the suggestion for the request
     let res = await fire_command(browser, {
@@ -21,7 +48,7 @@ const select_cedula = async (browser, persona) => {
     res = jsonrepair(res);
     res= JSON.parse(res);
     // if there are not suggestions, return null
-    if(res['rs']){
+    if(res['rs']){// if we got 0 suggestions with the name
         console.error('No suggestions found');
         return null;
     }
