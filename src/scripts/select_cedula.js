@@ -4,38 +4,7 @@ import { jsonrepair } from 'jsonrepair'
 import { consulta_personal } from '../urls.js';
 
 
-/* this script will take a cedula and return the suggestion of names that match this cedula */
-const select_cedula = async (browser, persona) => {
-    // get the page
-    let page = (await browser.pages())[0];
-    // if have a cedula try it first
-    let value, res;
-    if(persona.cedula){
-        value = persona.cedula;
-        // make a request with the cedula
-        let res = await fire_command(browser, {
-            zk_id: 'comboNombres',
-            command: 'onChanging',
-            input_1: { value, start: value.length }, 
-            input_2: { ignorable: 1, rtags: { onChanging: 1 }}, 
-            input_3: 5,
-        });
-        // clean the response
-        res = jsonrepair(res);
-        res= JSON.parse(res);
-    }
-    // if there are not suggestions, return null
-    if(res['rs']){// if we got 0 suggestions with the cedula
-        console.error('No suggestions found');
-        value = persona.nombre;
-    }
-    
-
-
-        let value = persona.nombre;
-        await click_nombre_radio(browser, persona);
-    }
-
+const make_suggestion_request = async (browser, value) => {
     // make the suggestion for the request
     let res = await fire_command(browser, {
         zk_id: 'comboNombres',
@@ -47,18 +16,52 @@ const select_cedula = async (browser, persona) => {
     // clean the response
     res = jsonrepair(res);
     res= JSON.parse(res);
-    // if there are not suggestions, return null
-    if(res['rs']){// if we got 0 suggestions with the name
-        console.error('No suggestions found');
-        return null;
+    return res;
+}
+
+const query_suggestion = async (browser, persona) => {
+    /* this function will query the suggestion of names that match the cedula */
+    let value, res;
+    // if persona does not have a cedula use the name to make a suggestion
+    if(persona.cedula == ''){
+        console.error('cedula is null, using name to make suggestion');
+        value = persona.nombre;
+        await click_nombre_radio(browser, persona);
+        res = await make_suggestion_request(browser, value);
+    }else{
+        // if have a cedula try it first
+        console.error(`Using cedula to make suggestion: ${persona.cedula}`);
+        value = persona.cedula;
+        res = await make_suggestion_request(browser, value);
+        // if there are not suggestions, try with the name
+        if(res['rs'].length === 0){// if we got 0 suggestions with the cedula
+            console.error(`No suggestions found with cedula, querying with name: ${persona.nombre}`);
+            value = persona.nombre;
+            await click_nombre_radio(browser, persona);
+            res =  await make_suggestion_request(browser, value);
+        }
     }
-    // else get the suggestion
+    // if we got 0 suggestions with the name
+    if(res['rs'].length === 0){
+        throw new Error('No suggestions found');
+        return null;
+    }else // else get the suggestion
+        return res;
+}
+
+
+/* this script will take a cedula and return the suggestion of names that match this cedula */
+const select_cedula = async (browser, persona) => {
+    // get the suggestion
+    let res = await query_suggestion(browser, persona);
+    // filter the suggestion
     res = res['rs'].filter( x => x[0] === 'addChd')[0][1];
     res = res[1][0];
     // get the uuid and label of the suggestion
     let uuid =  res[1];
     let label = res[2].label;
-
+    // get the page
+    let page = (await browser.pages())[0];
     // select the cedula, this will change the page
     await page.evaluate(({uuid, label}) => {
         let html_el = zk.Widget
