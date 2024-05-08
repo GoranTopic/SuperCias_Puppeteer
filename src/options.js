@@ -1,6 +1,6 @@
 const options = {
     "browser": {
-        "headless": false,
+        "headless": true,
         "slowMo": 0,
         "devtools": false,
         "timeout": 10000000, 

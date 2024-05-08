@@ -65,4 +65,3 @@ const scrap_cedula = async browser => {
 }
 
 export default scrap_cedula;
-

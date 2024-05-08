@@ -3,7 +3,6 @@ import click_nombre_radio from './click_nombre_radio.js';
 import { jsonrepair } from 'jsonrepair'
 import { consulta_personal } from '../urls.js';
 
-
 const make_suggestion_request = async (browser, value) => {
     // make the suggestion for the request
     let res = await fire_command(browser, {
@@ -23,7 +22,7 @@ const query_suggestion = async (browser, persona) => {
     /* this function will query the suggestion of names that match the cedula */
     let value, res;
     // if persona does not have a cedula use the name to make a suggestion
-    if(persona.cedula == ''){
+    if(persona.cedula == '' || persona.cedula == null){
         console.error('cedula is null, using name to make suggestion');
         value = persona.nombre;
         await click_nombre_radio(browser, persona);
