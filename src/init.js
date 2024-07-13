@@ -3,7 +3,6 @@ import {  mkdir } from 'files-js';
 import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
-
 const init = async () => {
     // get a lsit of cedulas from mongodb
     let storage = new Storage({
