@@ -25,7 +25,7 @@ const init = async () => {
             name: 'consulta_personal',
             path: './storage/checklists',
             recalc_on_check: false,
-            save_every_check: 300,
+            save_every_check: 1,
         });
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {

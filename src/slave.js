@@ -17,7 +17,7 @@ const setup = async (proxy, slave) => {
     // set up browser
     browser = await setup_browser( proxy );
     // add block content
-    await blockContent(browser);
+    //await blockContent(browser);
     // save browser
     slave.set('browser', browser);
 }

@@ -59,6 +59,7 @@ const select_cedula = async (browser, persona) => {
     // get the uuid and label of the suggestion
     let uuid =  res[1];
     let label = res[2].label;
+    console.log(`Selected cedula: ${persona.cedula}, uuid: ${uuid}, label: ${label}`);
     // get the page
     let page = (await browser.pages())[0];
     // select the cedula, this will change the page
