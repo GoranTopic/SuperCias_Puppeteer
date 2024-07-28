@@ -38,7 +38,7 @@ jobs:
       # Build the book
       - name: Build the book
         run: |
-          jupyter-book build 'Analysis of supercias data'
+          jupyter-book build supercias_analysis
 
       # Upload the book's HTML as an artifact
       - name: Upload artifact
