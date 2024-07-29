@@ -7,7 +7,7 @@ import options from '../../../options.js';
 
 /**
  * scrap_table.
- * this is the piece of the strip that script that handle scraping a table o rows
+ * this script will scrap a table of pdfs
  *
  * @param {} table
  * @param {} rows
@@ -32,7 +32,7 @@ const scrap_table = async (table, rows, checklists, page, company) => {
         )
         // query rows from new table
         // getting number of rows
-        console.log(result);
+        console.log(`number of rows for ${table}: ${result}`)
         rows[table] = await page.evaluate(table =>
             PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
             table

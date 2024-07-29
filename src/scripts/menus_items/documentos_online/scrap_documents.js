@@ -35,11 +35,14 @@ export default async (page, company) => {
     console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
     console.log('query documents request finished')
 
+    debugger;
+
     //await waitForNetworkIdle(page, 1000)
     /* *
      *  Here we will loop ove the three document tabs:
      *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
      * */
+
     // store number of rows
     let rows = {};
     tables.forEach( table => {
