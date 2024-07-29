@@ -82,12 +82,15 @@ export default async (page, company) => {
     tables.forEach( table =>
         console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
     );
+
+    let data = { downloaded };
     // if everyt checklist has less than missing pdfs
     if( tbl_checklist.isDone() ){
+        data['isDone'] = tbl_checklist.isDone();
         tbl_checklist.delete();
-        console.log('scrap documents finished')
+        console.log('scrap documents finished all documents tables')
     }else // did not pass
-        console.log('scrap documents did not finish')
-    // return list of downloaded pdfs
-    return downloaded;
+        console.log('scrap documents did not finish all documents tables')
+    // return list of downloaded pdfs, and if we are done
+    return data;
 }

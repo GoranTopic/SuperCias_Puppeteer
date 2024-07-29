@@ -13,7 +13,7 @@ Slaver({
     let browser = null;
     let data = null;
     // set up browser
-    console.log('setting up browser');
+    console.log(`setting up browser with proxy: ${proxy}`);
     browser = await setup_browser(proxy);
     // save fileStore in to the page
     (await browser.pages())[0]['fileStore'] = await fileStore();

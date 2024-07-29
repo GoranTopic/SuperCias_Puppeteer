@@ -59,7 +59,7 @@ const scrap_company = async (browser, company) => {
         path: './storage/checklists',
     })
 
-    let data = { name : company.name, id : company.id, ruc: company.ruc };
+    let data = { name: company.name, id: company.id, ruc: company.ruc };
     // for every menu, run the associated scrapper if found
     for (let menu of Object.keys(tab_menus)) {
         // if it is not already chekoff
@@ -70,12 +70,20 @@ const scrap_company = async (browser, company) => {
             // run the function
             data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error
-            checklist_company_menu.check(menu)
-
+            if(data[menu].isDone)
+                checklist_company_menu.check(menu)
         }
     }
-	// delete checklist
-	checklist_company_menu.delete();
+    // if we are done scrapping all the menus,
+    // make as is done and
+    // delete the checklist
+    if (checklist_company_menu.isDone()) {
+        console.log( `company ${company.name} is done` );
+        // if the checklist is done, mark it as done
+        data['isDone'] = checklist_company_menu.isDone();
+        // delete checklist
+        checklist_company_menu.delete();
+    }
     // return data
     return data;
 }

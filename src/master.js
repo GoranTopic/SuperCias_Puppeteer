@@ -13,13 +13,16 @@ Slavery({
         // get idle slave
         let slave = await master.getIdle()
         slave
-        //.timeout(1000 * 60 * 10) // 10 minutes
+            //.timeout(1000 * 60 * 10) // 10 minutes
             .run({ company, proxy: proxies.next() })
             .then(async ({ company, proxy, data }) => {
-                await store.push(data);
-                //console.log(data);
-                checklist.check(company);
-                console.log(`[${company.ruc}][${proxy}] ${company.name} checked!`);
+                if (data) {
+                    // if we get databacl, we push it to the store
+                    await store.push(data);
+                    //console.log(data);
+                    checklist.check(company);
+                    console.log(`[${company.ruc}][${proxy}] ${company.name} checked!`);
+                }
             }).catch(error => {
                 console.log(error);
             });
