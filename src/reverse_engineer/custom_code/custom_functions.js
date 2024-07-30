@@ -145,6 +145,35 @@ export default () => {
         }
         return parsed_rows;
     }
+    
+
+    /*** 
+        this function will the parse table html function but check every second 
+        if the chages have take effect
+        it will timeout at 30 seconds 
+    */
+    window.query_all_pdfs = async ({ table, rows }) => {
+        return await new Promise((resolve, reject) => {
+            let timeout, interval;
+            timeout = setTimeout(() => {
+                clearTimeout(timeout);
+                clearInterval(interval);
+                reject('timeout')
+            }, 30000) // 30 seconds
+            interval = setInterval(() => {
+                let html_rows = window.parse_table_html('tab' + table);
+                if (html_rows.length === rows) {
+                    clearTimeout(timeout);
+                    clearInterval(interval);
+                    resolve(html_rows);
+                }
+            }, 100)
+            PrimeFaces
+                .widgets['tbl' + table]
+                .paginator
+                .setRowsPerPage(rows)
+        })
+    }
 
     /**
      * window.check_for_captchan.

@@ -10,36 +10,38 @@ import options from '../../../options.js';
  * this script will scrap a table of pdfs
  *
  * @param {} table
- * @param {} rows
  * @param {} checklists
  * @param {} page
  * @param {} company
  */
-const scrap_table = async (table, rows, checklists, page, company) => {
+const scrap_table = async (table, checklists, page, company) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
-    
-    if (rows[table] == 'DocumentosGenerales') {
+
+
+    if (table !== 'DocumentosGenerales') {
+        // If it is not the general table, we need to change the table
+        // and get the total number of rows
         //debugger
         let result = await send_request(
             query_table_change(table), // paramter need to make the request
             // the callback, this is going to run in the browser,
-            (response, status, i, C) => response, 
+            (response, status, i, C) => response,
             // the page
             page,
             console
         )
-        // query rows from new table
-        // getting number of rows
+        // number of results
         console.log(`number of rows for ${table}: ${result}`)
-        rows[table] = await page.evaluate(table =>
-            PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
-            table
-        );
-        console.log(rows[table])
     }
-    console.log(`rows[${table}]: ${rows[table]}`);
+    // query rows from new table
+    // getting number of rows
+    let rows = await page.evaluate(table =>
+        PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
+        table
+    );
+    console.log(`rows: ${rows}`);
 
     // add filters to the table
     await page.evaluate(({ table, filters }) => {
@@ -54,52 +56,49 @@ const scrap_table = async (table, rows, checklists, page, company) => {
     await waitForNetworkIdle(page, 1000);
 
     // don't try to scrap if the are no documents
-    if(rows[table] === 0) return true
+    if(rows === 0) return true
     // let make update the path 
 
-    if (rows[table] > 10) {
-        // get all rows
-        console.log('sending query for rows all')
-        await page.evaluate( ({ table, rows }) => { // paginator
-                return PrimeFaces
-                    .widgets['tbl' + table]
-                    .paginator
-                    .setRowsPerPage(rows)
-            }, { table, rows: rows[table] }
+
+    let pdfs_rows_info = [];
+    // if there are more than 10 pdfs, we need to query for all of them
+    if (rows > 10) { 
+        // extract all of the rows in table
+        pdfs_rows_info = await page.evaluate(async ({ table, rows }) =>
+            // wait until the rows are loaded and the row we got in the html 
+            // are the same as the rows in the paginator
+            await window.query_all_pdfs({ table, rows }),
+            { table, rows }
+        );
+    } else { 
+        // if there are less then 10 pdfs, we can just extract the rows
+        pdfs_rows_info = await page.evaluate( ({ table }) =>
+            window.parse_table_html('tab' + table),
+            { table }
         )
     }
 
-    // wait for table to load
-    await waitForNetworkIdle(page, 1000);
+    // the number of rows
+    console.log('pdfs_info:', pdfs_rows_info.length);
 
-    // extract rows in table
-    let pdfs_info = await page.evaluate( table =>
-        // let get a list of all pdf documents
-        // note: here the value is tab + table
-        // instead of the ususal tbl + table
-        window.parse_table_html('tab' + table),
-        table
-    );
-
-    // sanitize values
-    //debugger;
-    pdfs_info = pdfs_info.map( pdf => ({
+    // sanitize the rows title and ids of the pdfs
+    pdfs_rows_info = pdfs_rows_info.map( pdf => ({
         title: sanitize(pdf.title),
         id: pdf.id, // don't sanitize id
     }))
 
     // add pdfs documents to the checklist
     checklists[table].add(
-        pdfs_info.map(pdf => pdf.id),
+        pdfs_rows_info.map(pdf => pdf.id),
     );
     
     let downloaded = [];
     // loop over every pdf
-    for (let { id, title } of pdfs_info) {
+    for (let { id, title } of pdfs_rows_info) {
         // if we alread have it, skip it
         let pdf_filename = company.ruc + '_' + table + '_' + title + '.pdf';
         if (checklists[table].isChecked(id)) downloaded.push(pdf_filename);
-        console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows[table]} of ${table} in ${company.name} title: ${title}`)
+        console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_pdf_row(
             id,
             page,

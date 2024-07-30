@@ -21,44 +21,32 @@ export default async (page, company) => {
         'DocumentosEconomicos' 
     ];
 
+
+    // if we are scrapping the general table, we need to change into the documents tab
     console.log('querying documentos online', query_documentos_online)
-    // query the documentos online
+    // query to change into the documentos tab
     console.log('sending query documentos request')
-    let numberOfGeneralPdfs = await send_request(
+    await send_request(
         query_documentos_online, // paramter need to make the reuqe
         // the callback, this is goin to run in the browser,
         (response, status, i, C) =>  // the first table is general documentos
-        window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
+            window.extract_number_of_pdfs(response, 'DocumentosGenerales'),
         page, // puppetter page
         true, // followAlong to false so we don't rquest the captchan twice 
     );
-    console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
-    console.log('query documents request finished')
-
-    debugger;
-
-    //await waitForNetworkIdle(page, 1000)
+    
     /* *
      *  Here we will loop ove the three document tabs:
      *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
      * */
 
-    // store number of rows
-    let rows = {};
-    tables.forEach( table => {
-        if(table === 'DocumentosGenerales')
-            rows[table] = numberOfGeneralPdfs;
-        else
-            rows[table] = null;
-    });
-
-    // checklist tables
+    // checklistfor every table, documentos generales, economicos, judiciales
     let tbl_checklist = new Checklist(tables, {
         name: `document tables for ${company.ruc}`,
         path: './storage/checklists'
     });
 
-    // make checklists
+    // for every table we will have a checklist of pdfs
     let pdf_checklists = {};
     tables.forEach(table =>
         pdf_checklists[table] = new Checklist(null, {
@@ -71,7 +59,7 @@ export default async (page, company) => {
     // let try to scrap every table =)
     for( let table of tables ){
         if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company);
+            downloaded[table] = await scrap_table(table, pdf_checklists, page, company);
             if(pdf_checklists[table].missingLeft() <= error_threshold){
                 // if there are less pdfs left than the threshold, 
                 // mark as done
