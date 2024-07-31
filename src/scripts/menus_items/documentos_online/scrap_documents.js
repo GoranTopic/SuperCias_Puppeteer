@@ -48,12 +48,6 @@ export default async (page, company) => {
 
     // for every table we will have a checklist of pdfs
     let pdf_checklists = {};
-    tables.forEach(table =>
-        pdf_checklists[table] = new Checklist(null, {
-                name: table + ' pdfs for ' + company.ruc,
-                path: './storage/checklists',
-            })
-    );
 
     let downloaded = {};
     // let try to scrap every table =)

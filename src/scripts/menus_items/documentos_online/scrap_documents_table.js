@@ -1,3 +1,4 @@
+import Checklist from 'checklist-js';
 import sanitize from '../../../utils/sanitizer.js';
 import waitForNetworkIdle from '../../../utils/waitForNetworkIdle.js';
 import send_request from '../../../reverse_engineer/send_request.js';
@@ -78,6 +79,13 @@ const scrap_table = async (table, checklists, page, company) => {
         )
     }
 
+    // make the checklist for the pdfs rows
+    // for every table we will have a checklist of pdfs
+    checklists[table] = new Checklist( pdfs_rows_info, {
+        name: table + ' pdfs for ' + company.ruc,
+        path: './storage/checklists',
+    })
+    
     // the number of rows
     console.log('pdfs_info:', pdfs_rows_info.length);
 
@@ -86,15 +94,12 @@ const scrap_table = async (table, checklists, page, company) => {
         title: sanitize(pdf.title),
         id: pdf.id, // don't sanitize id
     }))
-
-    // add pdfs documents to the checklist
-    checklists[table].add(
-        pdfs_rows_info.map(pdf => pdf.id),
-    );
     
     let downloaded = [];
     // loop over every pdf
-    for (let { id, title } of pdfs_rows_info) {
+    for (let pdf_row of pdfs_rows_info) {
+        let id = pdf_row.id;
+        let title = pdf_row.title;
         // if we alread have it, skip it
         let pdf_filename = company.ruc + '_' + table + '_' + title + '.pdf';
         if (checklists[table].isChecked(id)) downloaded.push(pdf_filename);
@@ -106,7 +111,7 @@ const scrap_table = async (table, checklists, page, company) => {
             console
         );
         if (outcome) {
-            checklists[table].check(id);
+            checklists[table].check(pdf_row);
             downloaded.push(pdf_filename);
             console.log('Downloaded');
         } else 
