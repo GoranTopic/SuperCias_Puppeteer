@@ -8,7 +8,7 @@ WORKDIR supercias
 COPY package.json package.json
 COPY src/ src/
 # install files 
-RUN npm install 
+RUN npm install
 
 # works with this command
 #sudo docker run -d -it -v /home/terac/data-mining/supercias/storage/:/home/pptruser/supercias/storage --network="host" --restart=always supercias npm run slave

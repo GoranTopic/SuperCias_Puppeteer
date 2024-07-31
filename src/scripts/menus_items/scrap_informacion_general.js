@@ -6,11 +6,11 @@ export default async (page, company) => {
     // information container
     let information_general = {};
     // get table
-    let [ table_list ] = await page.$x('//div[@role="tablist"]')
+    let [ table_list ] = await page.$$('::-p-xpath(//div[@role="tablist"])')
     // get all labels
-    let labels = await getText( await table_list.$x('.//label') )
+    let labels = await getText( await table_list.$$('::-p-xpath(.//label)') )
     // get all input elements
-    let input_el = await table_list.$x('.//input | .//textarea')
+    let input_el = await table_list.$$('::-p-xpath(.//input | .//textarea)')
     // get text values from inputs
     let values = await Promise.all( 
         input_el.map( async el => await page.evaluate( el => el.value, el ) )

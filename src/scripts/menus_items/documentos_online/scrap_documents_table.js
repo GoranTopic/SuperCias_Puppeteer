@@ -1,6 +1,5 @@
 import Checklist from 'checklist-js';
 import sanitize from '../../../utils/sanitizer.js';
-import waitForNetworkIdle from '../../../utils/waitForNetworkIdle.js';
 import send_request from '../../../reverse_engineer/send_request.js';
 import { query_table_change } from '../../../reverse_engineer/queries/query_table_change.js';
 import scrap_pdf_row from './scrap_documents_pdf_row.js';
@@ -49,8 +48,9 @@ const scrap_table = async (table, page, company) => {
         });
         PrimeFaces.widgets['tbl' + table].filter();
     }, { table, filters: options.documents[table].filters })
+
     // wait for table to load
-    await waitForNetworkIdle(page, 1000);
+    await page.waitForNetworkIdle();
 
     // don't try to scrap if the are no documents
     if(rows === 0) return true
@@ -118,7 +118,7 @@ const scrap_table = async (table, page, company) => {
         } else 
             console.log('not downloaded');
         // wait for good luck
-        await waitForNetworkIdle(page, 1000);
+        await page.waitForNetworkIdle();
     }
     return { pdf_downloaded: downloaded, checklist };
 }

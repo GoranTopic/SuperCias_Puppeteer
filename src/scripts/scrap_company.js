@@ -7,7 +7,6 @@ import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 //import scrap_administradores_actuales from './menus_items/administradores_actuales/scrap_administradores_actuales.js';
 import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
-import waitForNetworkIdle from '../utils/waitForNetworkIdle.js';
 
 const scrap_company = async (browser, company) => {
     // get page
@@ -27,7 +26,7 @@ const scrap_company = async (browser, company) => {
     page = await select_company_script(page, company);
 
     // wait for table to load
-    await waitForNetworkIdle(page, 1000);
+    await page.waitForNetworkIdle();
     
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
@@ -66,7 +65,7 @@ const scrap_company = async (browser, company) => {
         if (!checklist_company_menu.isChecked(menu) &&
             tab_menus[menu]) { // check if there is a function
             // wait for page to load with timeout of 0
-            await waitForNetworkIdle(page, 1000)
+            await page.waitForNetworkIdle();
             // run the function
             data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error

@@ -6,8 +6,8 @@ const check_if_server_is_offline = async browser => {
     let [ page ] = await browser.pages();
     // check if you it has error message
     let [ has_error_msg ] = 
-        await page.$x('//td[text()="Servicio no disponible por el momento"]') ||
-        await page.$x('//td[text()="Estamos solucionando el problema, por favor intente más tarde."]')
+        await page.$$('::-p-xpath(//td[text()="Servicio no disponible por el momento"])') ||
+        await page.$$('::-p-xpath(//td[text()="Estamos solucionando el problema, por favor intente más tarde."])')
     // if there is an error
     if(has_error_msg){
         // get error message
