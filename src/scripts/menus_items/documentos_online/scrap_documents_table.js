@@ -117,8 +117,6 @@ const scrap_table = async (table, page, company) => {
             console.log('Downloaded');
         } else 
             console.log('not downloaded');
-        // wait for good luck
-        await page.waitForNetworkIdle();
     }
     return { pdf_downloaded: downloaded, checklist };
 }
