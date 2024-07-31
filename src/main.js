@@ -16,13 +16,14 @@ console.log(`setting up browser with proxy: ${proxy}`);
 (await browser.pages())[0]['fileStore'] = fileStore;
 // scrap company
 let data = await scrap_company(browser, company);
+console.log('scraped company', data);
 // clean up
 //await close_browser( browser );
 
 if(data) {
     await store.push(data);
     checklist.check(company);
-    console.log('checked');
+    console.log(`[${company.ruc}][${proxy}] ${company.name} checked!`);
 } else {
-    console.log('not checked');
+    console.log(`[${company.ruc}][${proxy}] ${company.name} not checked!`);
 }

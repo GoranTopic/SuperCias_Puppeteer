@@ -51,27 +51,27 @@ export default async (page, company) => {
 
     let downloaded = {};
     // let try to scrap every table =)
-    for( let table of tables ){
-        if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, pdf_checklists, page, company);
-            if(pdf_checklists[table].missingLeft() <= error_threshold){
-                // if there are less pdfs left than the threshold, 
-                // mark as done
-                tbl_checklist.check(table);
-                //pdf_checklists[table].delete();
-            }
+    for (let table of tables) {
+        let { pdf_downloaded, checklist } = await scrap_table(table, page, company);
+        pdf_checklists[table] = checklist;
+        downloaded[table] = pdf_downloaded
+        if (pdf_checklists[table].missingLeft() <= error_threshold) {
+            // if there are less pdfs left than the threshold, 
+            // mark as done
+            tbl_checklist.check(table);
+            //pdf_checklists[table].delete();
         }
     }
 
     // check how we did
-    tables.forEach( table =>
+    tables.forEach(table => {
         console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${pdf_checklists[table].valuesCount()} pdfs`)
+    }
     );
 
     let data = { downloaded };
     // if everyt checklist has less than missing pdfs
     if( tbl_checklist.isDone() ){
-        data['isDone'] = tbl_checklist.isDone();
         //tbl_checklist.delete();
         console.log('scrap documents finished all documents tables')
     }else // did not pass

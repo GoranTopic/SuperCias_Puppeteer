@@ -11,11 +11,10 @@ import options from '../../../options.js';
  * this script will scrap a table of pdfs
  *
  * @param {} table
- * @param {} checklists
  * @param {} page
  * @param {} company
  */
-const scrap_table = async (table, checklists, page, company) => {
+const scrap_table = async (table, page, company) => {
     // switch table tab let's change the tab and get the total number of rows, 
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
@@ -23,9 +22,8 @@ const scrap_table = async (table, checklists, page, company) => {
 
     if (table !== 'DocumentosGenerales') {
         // If it is not the general table, we need to change the table
-        // and get the total number of rows
         //debugger
-        let result = await send_request(
+        await send_request(
             query_table_change(table), // paramter need to make the request
             // the callback, this is going to run in the browser,
             (response, status, i, C) => response,
@@ -33,8 +31,6 @@ const scrap_table = async (table, checklists, page, company) => {
             page,
             console
         )
-        // number of results
-        console.log(`number of rows for ${table}: ${result}`)
     }
     // query rows from new table
     // getting number of rows
@@ -42,7 +38,7 @@ const scrap_table = async (table, checklists, page, company) => {
         PrimeFaces.widgets['tbl' + table].cfg.paginator.rowCount,
         table
     );
-    console.log(`rows: ${rows}`);
+    console.log(`number of rows in ${table}: ${rows}`);
 
     // add filters to the table
     await page.evaluate(({ table, filters }) => {
@@ -81,7 +77,7 @@ const scrap_table = async (table, checklists, page, company) => {
 
     
     // the number of rows
-    console.log('pdfs_info:', pdfs_rows_info.length);
+    console.log(`rows extracted in ${table}: ${pdfs_rows_info.length }`);
 
     // sanitize the rows title and ids of the pdfs
     pdfs_rows_info = pdfs_rows_info.map( pdf => ({
@@ -91,7 +87,7 @@ const scrap_table = async (table, checklists, page, company) => {
 
     // make the checklist for the pdfs rows
     // for every table we will have a checklist of pdfs
-    checklists[table] = new Checklist(pdfs_rows_info
+    let checklist = new Checklist(pdfs_rows_info
             .map(r => r.title), {
         name: table + ' pdfs for ' + company.ruc,
         path: './storage/checklists',
@@ -104,11 +100,11 @@ const scrap_table = async (table, checklists, page, company) => {
         let title = pdf_row.title;
         // if we alread have it, skip it
         let pdf_filename = company.ruc + '_' + table + '_' + title + '.pdf';
-        if (checklists[table].isChecked(title)) {
+        if (checklist.isChecked(title)) {
             downloaded.push(pdf_filename);
             continue;
         } 
-        console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows} of ${table} in ${company.name} title: ${title}`)
+        console.log(`Downloading pdf ${checklist.missingLeft()}/${rows} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_pdf_row(
             id,
             page,
@@ -116,7 +112,7 @@ const scrap_table = async (table, checklists, page, company) => {
             console
         );
         if (outcome) {
-            checklists[table].check(title);
+            checklist.check(title);
             downloaded.push(pdf_filename);
             console.log('Downloaded');
         } else 
@@ -124,7 +120,7 @@ const scrap_table = async (table, checklists, page, company) => {
         // wait for good luck
         await waitForNetworkIdle(page, 1000);
     }
-    return downloaded;
+    return { pdf_downloaded: downloaded, checklist };
 }
 
 export default scrap_table;
