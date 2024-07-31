@@ -70,7 +70,7 @@ const scrap_company = async (browser, company) => {
             // run the function
             data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error
-            if(data[menu].isDone)
+            if (data[menu].isDone)
                 checklist_company_menu.check(menu)
         }
     }
@@ -78,14 +78,14 @@ const scrap_company = async (browser, company) => {
     // make as is done and
     // delete the checklist
     if (checklist_company_menu.isDone()) {
-        console.log( `company ${company.name} is done` );
-        // if the checklist is done, mark it as done
-        data['isDone'] = checklist_company_menu.isDone();
+        console.log(`company ${company.name} is done`);
         // delete checklist
-        checklist_company_menu.delete();
+        // checklist_company_menu.delete();
+        // return data
+        return data;
     }
-    // return data
-    return data;
+
+    return null;
 }
 
 export default scrap_company;

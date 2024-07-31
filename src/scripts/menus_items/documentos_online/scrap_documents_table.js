@@ -79,12 +79,6 @@ const scrap_table = async (table, checklists, page, company) => {
         )
     }
 
-    // make the checklist for the pdfs rows
-    // for every table we will have a checklist of pdfs
-    checklists[table] = new Checklist( pdfs_rows_info, {
-        name: table + ' pdfs for ' + company.ruc,
-        path: './storage/checklists',
-    })
     
     // the number of rows
     console.log('pdfs_info:', pdfs_rows_info.length);
@@ -94,7 +88,15 @@ const scrap_table = async (table, checklists, page, company) => {
         title: sanitize(pdf.title),
         id: pdf.id, // don't sanitize id
     }))
-    
+
+    // make the checklist for the pdfs rows
+    // for every table we will have a checklist of pdfs
+    checklists[table] = new Checklist(pdfs_rows_info
+            .map(r => r.title), {
+        name: table + ' pdfs for ' + company.ruc,
+        path: './storage/checklists',
+    })
+
     let downloaded = [];
     // loop over every pdf
     for (let pdf_row of pdfs_rows_info) {
@@ -102,7 +104,10 @@ const scrap_table = async (table, checklists, page, company) => {
         let title = pdf_row.title;
         // if we alread have it, skip it
         let pdf_filename = company.ruc + '_' + table + '_' + title + '.pdf';
-        if (checklists[table].isChecked(id)) downloaded.push(pdf_filename);
+        if (checklists[table].isChecked(title)) {
+            downloaded.push(pdf_filename);
+            continue;
+        } 
         console.log(`Downloading pdf ${checklists[table].missingLeft()}/${rows} of ${table} in ${company.name} title: ${title}`)
         let outcome = await scrap_pdf_row(
             id,
@@ -111,7 +116,7 @@ const scrap_table = async (table, checklists, page, company) => {
             console
         );
         if (outcome) {
-            checklists[table].check(pdf_row);
+            checklists[table].check(title);
             downloaded.push(pdf_filename);
             console.log('Downloaded');
         } else 
