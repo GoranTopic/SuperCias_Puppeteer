@@ -65,7 +65,7 @@ const scrap_company = async (browser, company) => {
         if (!checklist_company_menu.isChecked(menu) &&
             tab_menus[menu]) { // check if there is a function
             // wait for page to load with timeout of 0
-            await page.waitForNetworkIdle();
+            await page.waitForNetworkIdle({ timeout: 0 });
             // run the function
             data[menu] = await tab_menus[menu](page, company);
             // if we have not thrown and error

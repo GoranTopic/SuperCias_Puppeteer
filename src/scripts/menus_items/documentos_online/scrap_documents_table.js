@@ -50,7 +50,7 @@ const scrap_table = async (table, page, company) => {
     }, { table, filters: options.documents[table].filters })
 
     // wait for table to load
-    await page.waitForNetworkIdle();
+    await page.waitForNetworkIdle({ timeout: 100000 });
 
     // don't try to scrap if the are no documents
     if(rows === 0) return true
@@ -117,6 +117,7 @@ const scrap_table = async (table, page, company) => {
             console.log('Downloaded');
         } else 
             console.log('not downloaded');
+        // wait for good luck
     }
     return { pdf_downloaded: downloaded, checklist };
 }

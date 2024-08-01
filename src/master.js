@@ -22,6 +22,7 @@ Slavery({
                     //console.log(data);
                     checklist.check(company);
                     console.log(`[${company.ruc}][${proxy}] ${company.name} checked!`);
+                    console.log(`Companies checked so far ${checklist.valuesDone()}/${checklist.valuesCount()} `)
                 }
             }).catch(error => {
                 console.log(error);
