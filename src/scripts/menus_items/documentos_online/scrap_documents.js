@@ -23,7 +23,6 @@ export default async (page, company) => {
 
 
     // if we are scrapping the general table, we need to change into the documents tab
-    console.log('querying documentos online', query_documentos_online)
     // query to change into the documentos tab
     console.log('sending query documentos request')
     await send_request(

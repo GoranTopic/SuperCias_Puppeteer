@@ -73,7 +73,7 @@ export default async (page, company, selectMenu) => {
         }
     }
     console.log('downloaded')
-    console.log(downloaded)
+
     // check how we did
     tables.forEach( table =>
         console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)

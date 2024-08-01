@@ -76,7 +76,6 @@ const scrap_company = async (browser, company) => {
     // if we are done scrapping all the menus,
     // make as is done and
     // delete the checklist
-    console.log('checklist_company_menu.isDone()', checklist_company_menu.toString());
     if (checklist_company_menu.isDone()) {
         console.log(`company ${company.name} is done`);
         // delete checklist
