@@ -63,5 +63,5 @@ const init = async () => {
     }
 }
 
-export default init;
+export { init, makeFileStorage };
 

@@ -1,5 +1,5 @@
 import Slavery from 'slavery-js';
-import init from './init.js';
+import { init } from './init.js';
 
 Slavery({
     host: 'localhost',

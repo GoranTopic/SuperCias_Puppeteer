@@ -1,7 +1,7 @@
 import setup_browser from './scripts/setup_browser.js';
 import scrap_company from './scripts/scrap_company.js';
 import close_browser from './scripts/close_browser.js';
-import init from './init.js';
+import { init } from './init.js';
 
 const { proxies, store, fileStore, checklist } = await init();
 

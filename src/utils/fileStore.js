@@ -1,4 +1,5 @@
 /* this script initlizes the necesary value to start scrapping */
+import { makeFileStorage } from '../inti.js';
 import Storage from 'dstore-js';
 
 const make_fileStore = async () => {
@@ -13,6 +14,8 @@ const make_fileStore = async () => {
     // return filestore
     return fileStore;
 }
+
+//make_fileStore = makeFileStorage
 
 export default make_fileStore;
 
