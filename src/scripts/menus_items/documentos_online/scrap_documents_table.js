@@ -49,9 +49,6 @@ const scrap_table = async (table, page, company) => {
         PrimeFaces.widgets['tbl' + table].filter();
     }, { table, filters: options.documents[table].filters })
 
-    // wait for table to load
-    await page.waitForNetworkIdle({ timeout: 100000 });
-
     // don't try to scrap if the are no documents
     if(rows === 0) return true
     // let make update the path 

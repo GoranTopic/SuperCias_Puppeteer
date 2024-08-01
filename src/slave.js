@@ -18,7 +18,7 @@ Slaver({
     // save fileStore in to the page
     (await browser.pages())[0]['fileStore'] = await fileStore();
     // scrap company
-    console.log('scraping company');
+    console.log(`scraping company: ${company.name} with proxy: ${proxy}`);
     data = await scrap_company(browser, company);
     // close browser
     await close_browser(browser);
