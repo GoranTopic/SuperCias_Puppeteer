@@ -3,16 +3,26 @@ import {  mkdir } from 'files-js';
 import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
+
+
+
+const makeFileStorage = async () => {
+    // Create a storage
+    let fileStorage = new Storage({
+        type: 'mongoFiles',
+        url: 'mongodb://0.0.0.0:27017',
+        database: 'supercias_ranking',
+    });
+    // Create a file
+    let fileStore = await fileStorage.open('companies');
+    return fileStore;
+}
+
+
 const init = async () => {
     // get a lsit of cedulas from mongodb
     let storage = new Storage({
         type: 'mongodb',
-        url: 'mongodb://0.0.0.0:27017',
-        database: 'supercias_ranking',
-    });
-    //    
-    let fileStorage = new Storage({
-        type: 'mongoFiles',
         url: 'mongodb://0.0.0.0:27017',
         database: 'supercias_ranking',
     });
@@ -26,8 +36,6 @@ const init = async () => {
     //console.log('cedulas to scrap:', rucs_to_scrap.length);
     // close the store
     await suggestions_store.close();
-    // Create a file
-    let fileStore = await fileStorage.open('companies');
     // open the store
     let store = await storage.open('companies');
     // make checklist dir
@@ -44,6 +52,8 @@ const init = async () => {
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {
         shuffle: true,
     });
+    // make fileStore 
+    let fileStore = await makeFileStorage();
     // return values
     return {
         checklist,
