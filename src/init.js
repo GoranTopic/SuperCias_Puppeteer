@@ -1,17 +1,15 @@
 /* this script initlizes the necesary value to start scrapping */
-import {  mkdir } from 'files-js';
+import { mkdir } from 'files-js';
 import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
-
-
 
 const makeFileStorage = async () => {
     // Create a storage
     let fileStorage = new Storage({
         type: 'mongoFiles',
         url: 'mongodb://0.0.0.0:27017',
-        database: 'supercias_ranking',
+        database: 'supercias',
     });
     // Create a file
     let fileStore = await fileStorage.open('companies');
@@ -24,7 +22,7 @@ const init = async () => {
     let storage = new Storage({
         type: 'mongodb',
         url: 'mongodb://0.0.0.0:27017',
-        database: 'supercias_ranking',
+        database: 'supercias',
     });
     // open the store
     let suggestions_store = await storage.open('rankings');

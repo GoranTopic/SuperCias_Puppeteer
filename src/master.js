@@ -2,13 +2,16 @@ import Slavery from 'slavery-js';
 import { init } from './init.js';
 
 Slavery({
-    host: 'localhost',
+    host: '10.0.10.101',
     port: 3000,
 }).master(async master => {
     // master is a slave object
     const { proxies, store, checklist } = await init();
+    console.log(`Companies to check: ${checklist.valuesCount()}`);
     // get next company
     let company = checklist.next();
+    console.log(`[${company.ruc}] ${company.name} checked!`);
+    
     while (company) {
         // get idle slave
         let slave = await master.getIdle()
@@ -29,5 +32,6 @@ Slavery({
             });
         // get next company
         company = checklist.next();
+        console.log(`[${company.ruc}] ${company.name} checked!`);
     }
 });

@@ -25,8 +25,12 @@ const scrap_company = async (browser, company) => {
     // selecting company
     page = await select_company_script(page, company);
 
+    console.log('waiting for table to load');
     // wait for table to load
-    await page.waitForNetworkIdle();
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    console.log('wating is over');
+
+    debugger;
     
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
