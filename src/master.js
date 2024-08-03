@@ -32,6 +32,5 @@ Slavery({
             });
         // get next company
         company = checklist.next();
-        console.log(`[${company.ruc}] ${company.name} checked!`);
     }
 });
