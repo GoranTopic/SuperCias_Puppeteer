@@ -7,6 +7,10 @@ WORKDIR supercias
 # pass our own package.json
 COPY package.json package.json
 COPY src/ src/
+
+# modify src/options.js to set headless to true
+RUN sed -i 's/"headless": false/"headless": true/' src/options.js
+
 # install files 
 RUN npm install
 
