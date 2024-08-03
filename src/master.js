@@ -10,7 +10,6 @@ Slavery({
     console.log(`Companies to check: ${checklist.valuesCount()}`);
     // get next company
     let company = checklist.next();
-    console.log(`[${company.ruc}] ${company.name} checked!`);
     
     while (company) {
         // get idle slave
