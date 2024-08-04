@@ -8,7 +8,7 @@ const makeFileStorage = async () => {
     // Create a storage
     let fileStorage = new Storage({
         type: 'mongoFiles',
-        url: 'mongodb://0.0.0.0:27017',
+        url: 'mongodb://10.0.10.101:27017',
         database: 'supercias',
     });
     // Create a file
@@ -21,7 +21,7 @@ const init = async () => {
     // get a lsit of cedulas from mongodb
     let storage = new Storage({
         type: 'mongodb',
-        url: 'mongodb://0.0.0.0:27017',
+        url: 'mongodb://10.0.10.101:27017',
         database: 'supercias',
     });
     // open the store
