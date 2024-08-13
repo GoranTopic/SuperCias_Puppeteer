@@ -8,7 +8,7 @@ const makeFileStorage = async () => {
     // Create a storage
     let fileStorage = new Storage({
         type: 'mongoFiles',
-        url: 'mongodb://10.0.10.101:27017',
+        url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
     // Create a file
@@ -21,12 +21,12 @@ const init = async () => {
     // get a lsit of cedulas from mongodb
     let storage = new Storage({
         type: 'mongodb',
-        url: 'mongodb://10.0.10.101:27017',
+        url: 'mongodb://0.0.0.0:27017',
         database: 'supercias',
     });
     // open the store
     let suggestions_store = await storage.open('rankings');
-    // get suggestions
+    // get the companies thathave activos greater then 500k
     let rucs_to_scrap = await suggestions_store.get({
         "activos": { $gt: 500000 }
     })  
