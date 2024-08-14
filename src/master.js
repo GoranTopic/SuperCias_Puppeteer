@@ -2,7 +2,7 @@ import Slavery from 'slavery-js';
 import { init } from './init.js';
 
 Slavery({
-    host: '10.0.10.101',
+    host: 'localhost',
     port: 3000,
 }).master(async master => {
     // master is a slave object

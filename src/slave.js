@@ -5,7 +5,7 @@ import Slaver from 'slavery-js';
 import fileStore from './utils/fileStore.js';
 
 Slaver({
-    host: '10.0.10.101',
+    host: 'localhost',
     port: 3000,
     crashOnError: true,
     numberOfSlaves: 1,
