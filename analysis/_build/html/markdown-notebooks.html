@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'markdown-notebooks';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Content with notebooks" href="notebooks.html" />
+    <link rel="prev" title="Query a person by name or cedula a single person" href="notebooks/query_by_person.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +180,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/company_analysis.html">Let’s only get the year 2023 and make the passivos by subtracting the patrimonio from the activos</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="notebooks/query_by_person.html">Query a person by name or cedula a single person</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -399,24 +403,16 @@ This page shows off a notebook written in MyST Markdown.</p>
 <section id="an-example-cell">
 <h2>An example cell<a class="headerlink" href="#an-example-cell" title="Link to this heading">#</a></h2>
 <p>With MyST Markdown, you can define code cells with a directive like so:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">code</span><span class="o">-</span><span class="n">cell</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
-</pre></div>
-</div>
-</div>
 </div>
 <p>When your book is built, the contents of any <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> blocks will be
 executed with your default Jupyter kernel, and their outputs will be displayed
 in-line with the rest of your content.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Jupyter Book uses <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> to convert text-based files to notebooks, and can support <a class="reference external" href="https://jupyterbook.org/file-types/jupytext.html">many other text-based notebook files</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">seealso</span><span class="p">}</span>
+<span class="n">Jupyter</span> <span class="n">Book</span> <span class="n">uses</span> <span class="p">[</span><span class="n">Jupytext</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">jupytext</span><span class="o">.</span><span class="n">readthedocs</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="p">)</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">text</span><span class="o">-</span><span class="n">based</span> <span class="n">files</span> <span class="n">to</span> <span class="n">notebooks</span><span class="p">,</span> <span class="ow">and</span> <span class="n">can</span> <span class="n">support</span> <span class="p">[</span><span class="n">many</span> <span class="n">other</span> <span class="n">text</span><span class="o">-</span><span class="n">based</span> <span class="n">notebook</span> <span class="n">files</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">jupyterbook</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">file</span><span class="o">-</span><span class="n">types</span><span class="o">/</span><span class="n">jupytext</span><span class="o">.</span><span class="n">html</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
 </div>
 </section>
 <section id="create-a-notebook-with-myst-markdown">
@@ -469,12 +465,12 @@ See the YAML at the top of this page for example.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="notebooks.html"
+       href="notebooks/query_by_person.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title">Query a person by name or cedula a single person</p>
       </div>
     </a>
 </div>

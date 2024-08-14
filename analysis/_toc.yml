@@ -5,5 +5,8 @@ format: jb-book
 root: intro
 chapters:
 - file: markdown
-- file: notebooks
+- file: notebooks/notebooks
+- file: notebooks/company_analysis
+- file: notebooks/large_companies_analysis
+- file: notebooks/query_by_person
 - file: markdown-notebooks
