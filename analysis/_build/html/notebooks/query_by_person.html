@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Notebooks with MyST Markdown" href="../markdown-notebooks.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="large_companies_analysis.html" />
+    <link rel="prev" title="Large company Analysis" href="large_companies_analysis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,9 +182,9 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../markdown.html">Markdown Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="company_analysis.html">Let’s only get the year 2023 and make the passivos by subtracting the patrimonio from the activos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="company_analysis.html">Supercias Companies Analysis</a></li>
 
-
+<li class="toctree-l1"><a class="reference internal" href="large_companies_analysis.html">Large company Analysis</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Query a person by name or cedula a single person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
@@ -394,16 +394,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="query-a-person-by-name-or-cedula-a-single-person">
+  <section class="tex2jax_ignore mathjax_ignore" id="query-a-person-by-name-or-cedula-a-single-person">
 <h1>Query a person by name or cedula a single person<a class="headerlink" href="#query-a-person-by-name-or-cedula-a-single-person" title="Link to this heading">#</a></h1>
 <p>This script will connect to the mongodb and query the database by person</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
 
-<span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;0.0.0.0:27017&#39;</span>
+<span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;10.0.10.5:27017&#39;</span>
 <span class="n">database</span> <span class="o">=</span> <span class="s1">&#39;supercias&#39;</span>
-<span class="n">collection</span> <span class="o">=</span> <span class="s1">&#39;consultas_personal&#39;</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="s1">&#39;consulta_personal&#39;</span>
 
 <span class="c1"># Connect to MongoDB</span>
 <span class="n">db</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;mongodb://&#39;</span><span class="o">+</span><span class="n">endpoint</span><span class="p">)[</span><span class="n">database</span><span class="p">]</span>
@@ -413,7 +413,6 @@ document.write(`
 <span class="n">entry</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
 
 <span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span>
-
 
 <span class="nb">print</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
 </pre></div>
@@ -537,7 +536,7 @@ administradores_anteriores:
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Large company Analysis</p>
       </div>
     </a>
     <a class="right-next"

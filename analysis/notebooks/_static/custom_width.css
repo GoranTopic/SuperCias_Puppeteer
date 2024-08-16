@@ -1,0 +1,14 @@
+/* Change the width of the content area */
+.wy-nav-content {
+    width: 2000px; /* Adjust this value to your preferred width */
+    margin: 0 auto;
+}
+
+/* Optionally, change the sidebar width as well */
+.wy-side-nav-search {
+    width: 250px; /* Adjust this value if needed */
+}
+
+.wy-nav-content-wrap {
+    margin-left: 250px; /* Same value as the sidebar width */
+}
