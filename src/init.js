@@ -4,7 +4,7 @@ import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
 
-const mongo_url = 'mongodb://192.168.1.10:27017';
+const mongo_url = 'mongodb://0.0.0.0:27017';
 const mongo_database = 'supercias';
 
 const makeFileStorage = async () => {

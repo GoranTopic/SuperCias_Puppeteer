@@ -35,7 +35,6 @@ const check_pdf = async pdf => {
     }
 }
 
-console.log('making the file storage');
 const fileStore = await makeFileStorage();
 
 Slavery({
@@ -49,7 +48,7 @@ Slavery({
     // all pdfs files
     console.log('Getting all files');
     let files = await fileStore.getAll();
-    console.log('Files:', files.length);
+    console.log('Files:', files.length)
     console.log('making the checklist');
     // make a checklist
     let checklist = new Checklist(
@@ -61,17 +60,20 @@ Slavery({
         });
     // get first file
     let file = checklist.next();
+    //console.log('first file:', file);
     while(file){
         // get idle slave
         let slave = await master.getIdle()
         // send the file to the slave
         slave.run({ file })
             .then(({ file, isValid }) => {
+                console.log('checking: ' + file)
                 checklist.check(file, isValid);
             })
         file = checklist.next();
     }
 }).slave(async ({ file }) => {
+    console.log('file on slave:', file)
     // get the pdf file
     const [ pdf ] = await fileStore.get({ filename: file });
     // check the pdf file
