@@ -1,0 +1,494 @@
+{
+    "header": {
+        "FORMULARIO": "101",
+        "Año": "102",
+        "RUC": "201",
+        "Razón o denominación social": "202"
+    },
+    "OPERACIONES CON PARTES RELACIONADAS LOCALES Y/O DEL EXTERIOR": {
+        "Operaciones de activo": "003",
+        "Operaciones de pasivo": "004",
+        "Operaciones de ingreso": "005",
+        "Operaciones de egreso": "006",
+        "Operaciones de regalías, servicios técnicos, administrativos, de consultoría y similares": "007",
+        "CON PARTES RELACIONADAS EN PARAÍSOS FISCALES, JURISDICCIONES DE MENOR IMPOSICIÓN Y RÉGIMENES FISCALES PREFERENTES": {
+            "Operaciones de activo": "008",
+            "Operaciones de pasivo": "009",
+            "Operaciones de ingreso": "010",
+            "Operaciones de egreso": "011",
+            "Operaciones de regalías, servicios técnicos, administrativos, de consultoría y similares": "012"
+        },
+        "CON PARTES RELACIONADAS EN OTRAS JURISDICCIONES O RÉGIMENES DEL EXTERIOR": {
+            "Operaciones de activo": "013",
+            "Operaciones de pasivo": "014",
+            "Operaciones de ingreso": "015",
+            "Operaciones de egreso": "016",
+            "Operaciones de regalías, servicios técnicos, administrativos, de consultoría y similares": "017"
+        },
+        "TOTAL OPERACIONES CON PARTES RELACIONADAS": "029",
+        "¿Sujeto pasivo exento de aplicación del régimen de precios de transferencia?": "030"
+    },
+    "ESTADO DE SITUACIÓN FINANCIERA": {
+        "ACTIVO": {
+            "ACTIVOS CORRIENTES": {
+                "Efectivo y equivalentes al efectivo": "311",
+                "CUENTAS Y DOCUMENTOS POR COBRAR CORRIENTES": {
+                    "CUENTAS Y DOCUMENTOS POR COBRAR COMERCIALES CORRIENTES": {
+                        "RELACIONADAS": {
+                            "Locales": "312",
+                            "Del exterior": "313",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar comerciales por incobrabilidad (provisiones para créditos incobrables)": "314"
+                        },
+                        "NO RELACIONADAS": {
+                            "Locales": "315",
+                            "Del exterior": "316",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar comerciales por incobrabilidad (provisiones para créditos incobrables)": "317"
+                        }
+                    },
+                    "OTRAS CUENTAS Y DOCUMENTOS POR COBRAR CORRIENTES": {
+                        "A ACCIONISTAS, SOCIOS, PARTICIPES, BENEFICIARIOS U OTROS TITULARES DE DERECHOS REPRESENTATIVOS DE CAPITAL": {
+                            "Locales": "318",
+                            "Del exterior": "319"
+                        },
+                        "DIVIDENDOS POR COBRAR": {
+                            "En efectivo": "320",
+                            "En activos diferentes del efectivo": "321"
+                        },
+                        "OTRAS RELACIONADAS": {
+                            "Locales": "322",
+                            "Del exterior": "323",
+                            "(-) Deterioro acumulado del valor de otras cuentas y documentos por cobrar por incobrabilidad (provisiones para créditos incobrables)": "324"
+                        },
+                        "OTRAS NO RELACIONADAS": {
+                            "Locales": "325",
+                            "Del exterior": "326",
+                            "(-) Deterioro acumulado del valor de otras cuentas y documentos por cobrar por incobrabilidad (provisiones para créditos incobrables)": "327"
+                        }
+                    }
+                },
+                "OTROS ACTIVOS FINANCIEROS CORRIENTES": {
+                    "A costo amortizado": "328",
+                    "(-) Deterioro acumulado del valor de otros activos financieros corrientes medidos a costo amortizado (provisiones para créditos incobrables)": "329",
+                    "A valor razonable": "330"
+                },
+                "PORCIÓN CORRIENTE DE ARRENDAMIENTOS FINANCIEROS POR COBRAR": {
+                    "Relacionadas": "331",
+                    "No relacionadas": "332"
+                },
+                "IMPORTE BRUTO ADEUDADO POR LOS CLIENTES POR EL TRABAJO EJECUTADO EN CONTRATOS DE CONSTRUCCIÓN": {
+                    "Relacionadas": "333",
+                    "No relacionadas": "334"
+                },
+                "ACTIVOS POR IMPUESTOS CORRIENTES": {
+                    "Crédito tributario a favor del sujeto pasivo (ISD)": "335",
+                    "Crédito tributario a favor del sujeto pasivo (IVA)": "336",
+                    "Crédito tributario a favor del sujeto pasivo (Impuesto a la Renta)": "337",
+                    "Otros": "338"
+                },
+                "INVENTARIOS": {
+                    "Mercaderías en tránsito": "339",
+                    "Inventario de materia prima (no para la construcción)": "340",
+                    "Inventario de productos en proceso (excluyendo obras/inmuebles en construcción para la venta)": "341",
+                    "Inventario de prod. term. y mercad. en almacén (excluyendo obras/inmuebles terminados para la venta)": "342",
+                    "Inventario de suministros, herramientas, repuestos y materiales (no para la construcción)": "343",
+                    "Inventario de materia prima, suministros y materiales para la construcción": "344",
+                    "Inventario de obras/inmuebles en construcción para la venta": "345",
+                    "Inventario de obras/inmuebles terminados para la venta": "346",
+                    "(-) Deterioro acumulado del valor de inventarios por ajuste al valor neto realizable": "347"
+                },
+                "ACTIVOS NO CORRIENTES MANTENIDOS PARA LA VENTA": {
+                    "Costo": "348",
+                    "(-) Deterioro acumulado del valor de activos no corrientes mantenidos para la venta": "349"
+                },
+                "ACTIVOS BIOLÓGICOS": {
+                    "PLANTAS VIVAS Y FRUTOS EN CRECIMIENTO": {
+                        "A costo": "350",
+                        "(-) Deterioro acumulado del valor de activos biológicos medidos a costo": "351",
+                        "A valor razonable menos los costos de venta": "352"
+                    },
+                    "ANIMALES VIVOS": {
+                        "A costo": "353",
+                        "(-) Deterioro acumulado del valor de activos biológicos medidos a costo": "354",
+                        "A valor razonable menos los costos de venta": "355"
+                    }
+                },
+                "GASTOS PAGADOS POR ANTICIPADO (PREPAGADOS)": {
+                    "Propaganda y publicidad prepagada": "356",
+                    "Arrendamientos operativos pagados por anticipado": "357",
+                    "Primas de seguro pagadas por anticipado": "358",
+                    "Otros": "359"
+                },
+                "Otros Activos Corrientes": "360",
+                "TOTAL ACTIVOS CORRIENTES": "361"
+            },
+            "ACTIVOS NO CORRIENTES": {
+                "PROPIEDADES, PLANTA Y EQUIPO": {
+                    "TERRENOS": {
+                        "Costo histórico antes de reexpresiones o revaluaciones": "362",
+                        "Ajuste acumulado por reexpresiones o revaluaciones": "363"
+                    },
+                    "EDIFICIOS Y OTROS INMUEBLES (EXCEPTO TERRENOS)": {
+                        "Costo histórico antes de reexpresiones o revaluaciones": "364",
+                        "Ajuste acumulado por reexpresiones o revaluaciones": "365"
+                    },
+                    "NAVES, AERONAVES, BARCAZAS Y SIMILARES": {
+                        "Costo histórico antes de reexpresiones o revaluaciones": "366",
+                        "Ajuste acumulado por reexpresiones o revaluaciones": "367"
+                    },
+                    "MAQUINARIA, EQUIPO, INSTALACIONES Y ADECUACIONES": {
+                        "Costo histórico antes de reexpresiones o revaluaciones": "368",
+                        "Ajuste acumulado por reexpresiones o revaluaciones": "369"
+                    },
+                    "PLANTAS PRODUCTORAS (AGRICULTURA)": {
+                        "Costo histórico antes de reexpresiones o revaluaciones": "370",
+                        "Ajuste acumulado por reexpresiones o revaluaciones": "371"
+                    },
+                    "Construcciones en Curso y Otros Activos en Tránsito": "372",
+                    "Muebles y enseres": "373",
+                    "Equipo de Computación": "374",
+                    "Vehículos, Equipo de Transporte y Caminero Móvil": "375",
+                    "PROPIEDADES, PLANTA Y EQUIPO POR CONTRATOS DE ARRENDAMIENTO FINANCIERO": {
+                        "Terrenos": "376",
+                        "Edificios y otros inmuebles (excepto terrenos)": "377",
+                        "Naves, aeronaves, barcazas y similares": "378",
+                        "Maquinaria, equipo, instalaciones y adecuaciones": "379",
+                        "Equipo de computación": "380",
+                        "Vehículos, equipo de transporte y caminero móvil": "381",
+                        "Otros": "382"
+                    },
+                    "Otras Propiedades, Planta y Equipo": "383",
+                    "(-) DEPRECIACIÒN ACUMULADA DE PROPIEDADES, PLANTA Y EQUIPO": {
+                        "Del costo histórico antes de reexpresiones o revaluaciones": "384",
+                        "Del ajuste acumulado por reexpresiones o revaluaciones": "385"
+                    },
+                    "(-) Deterioro acumulado del valor de propiedades, planta y equipo": "386"
+                },
+                "ACTIVOS INTANGIBLES": {
+                    "Plusvalía o goodwill (derecho de llave)": "387",
+                    "Marcas, patentes, licencias y otros similares": "388",
+                    "Adecuaciones y mejoras en bienes arrendados mediante arrendamiento operativo": "389",
+                    "Derechos en acuerdos de concesión": "390",
+                    "Otros": "391",
+                    "(-) Amortización acumulada de activos intangibles": "392",
+                    "(-) Deterioro acumulado de activos intangibles": "393",
+                    "Derechos de uso por activos arrendados": "490",
+                    "(-) Amortización acumulada de derechos de uso por activos arrendados": "491"
+                },
+                "PROPIEDADES DE INVERSIÓN": {
+                    "TERRENOS": {
+                        "A costo": "394",
+                        "A valor razonable": "395"
+                    },
+                    "EDIFICIOS": {
+                        "A costo": "396",
+                        "A valor razonable": "397"
+                    },
+                    "(-) Depreciación Acumulada de Propiedades de Inversión": "398",
+                    "(-) Deterioro Acumulado del Valor de Propiedades de Inversión": "399"
+                },
+                "ACTIVOS BIOLÓGICOS": {
+                    "PLANTAS VIVAS Y FRUTOS EN CRECIMIENTO": {
+                        "A costo": "400",
+                        "(-) Depreciación acumulada de activos biológicos medidos a costo": "401",
+                        "(-) Deterioro acumulado del valor de activos biológicos medidos a costo": "402",
+                        "A valor razonable menos los costos de venta": "403"
+                    },
+                    "ANIMALES VIVOS": {
+                        "A costo": "404",
+                        "(-) Depreciación acumulada de activos biológicos medidos a costo": "405",
+                        "(-) Deterioro acumulado del valor de activos biológicos medidos a costo": "406",
+                        "A valor razonable menos los costos de venta": "407"
+                    }
+                },
+                "ACTIVOS PARA EXPLORACIÓN, EVALUACIÓN Y EXPLOTACIÓN DE RECURSOS MINERALES": {
+                    "Tangibles": "408",
+                    "Intangibles": "409",
+                    "(-) Depreciación / amortización acumulada de activos para exploración, evaluación y explotación": "410",
+                    "(-) Deterioro acumulado del valor de activos para exploración, evaluación y explotación": "411"
+                },
+                "INVERSIONES NO CORRIENTES": {
+                    "EN SUBSIDIARIAS": {
+                        "Costo": "412",
+                        "Ajuste acumulado por aplicación del método de la participación (valor patrimonial proporcional)": "413"
+                    },
+                    "EN ASOCIADAS": {
+                        "Costo": "414",
+                        "Ajuste acumulado por aplicación del método de la participación (valor patrimonial proporcional)": "415"
+                    },
+                    "EN NEGOCIOS CONJUNTOS": {
+                        "Costo": "416",
+                        "Ajuste acumulado por aplicación del método de la participación (valor patrimonial proporcional)": "417"
+                    },
+                    "Otros Derechos Representativos de Capital en Sociedades que no son Subsidiarias, ni Asociadas, ni Negocios Conjuntos": "418",
+                    "(-) Deterioro Acumulado del Valor de Inversiones no Corrientes": "419"
+                },
+                "CUENTAS Y DOCUMENTOS POR COBRAR NO CORRIENTES": {
+                    "CUENTAS Y DOCUMENTOS POR COBRAR COMERCIALES NO CORRIENTES": {
+                        "RELACIONADAS": {
+                            "Locales": "420",
+                            "Del exterior": "421",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar comerciales por incobrabilidad (provisiones para créditos incobrables)": "422"
+                        },
+                        "NO RELACIONADAS": {
+                            "Locales": "423",
+                            "Del exterior": "424",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar comerciales por incobrabilidad (provisiones para créditos incobrables)": "425"
+                        }
+                    },
+                    "OTRAS CUENTAS Y DOCUMENTOS POR COBRAR NO CORRIENTES": {
+                        "A ACCIONISTAS, SOCIOS, PARTICIPES, BENEFICIARIOS U OTROS TITULARES DE DERECHOS REPRESENTATIVOS DE CAPITAL": {
+                            "Locales": "426",
+                            "Del exterior": "427",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar por incobrabilidad (provisiones para créditos incobrables)": "428"
+                        },
+                        "OTRAS RELACIONADAS": {
+                            "Locales": "429",
+                            "Del exterior": "430",
+                            "(-) Deterioro acumulado del valor de cuentas y documentos por cobrar por incobrabilidad (provisiones para créditos incobrables)": "431"
+                        },
+                        "OTRAS NO RELACIONADAS": {
+                            "Locales": "432",
+                            "Del exterior": "433",
+                            "(-) Deterioro acumulado del valor de otras cuentas y documentos por cobrar por incobrabilidad (provisiones para créditos incobrables)": "434"
+                        }
+                    }
+                },
+                "OTROS ACTIVOS FINANCIEROS NO CORRIENTES": {
+                    "A costo amortizado": "435",
+                    "(-) Deterioro acumulado del valor de otros activos financieros no corrientes medidos a costo amortizado (provisiones para créditos incobrables)": "436",
+                    "A valor razonable": "437"
+                },
+                "PORCIÓN NO CORRIENTE DE ARRENDAMIENTOS FINANCIEROS POR COBRAR": {
+                    "Relacionadas": "438",
+                    "No Relacionadas": "439"
+                },
+                "ACTIVOS POR IMPUESTOS DIFERIDOS": {
+                    "Por diferencias temporarias": "440",
+                    "Por pérdidas tributarias sujetas a amortización en periodos siguientes": "441",
+                    "POR CRÉDITOS FISCALES NO UTILIZADOS": {
+                        "Crédito tributario a favor del sujeto pasivo (ISD)": "442",
+                        "Crédito tributario a favor del sujeto pasivo (Impuesto a la Renta)": "443",
+                        "Otros": "444"
+                    },
+                    "Otros Activos No Corrientes": "445"
+                },
+                "TOTAL ACTIVOS NO CORRIENTES": "449"
+            },
+            "REVALUACIONES Y REEXPRESIONES DE ACTIVOS (INFORMATIVO)": {
+                "Ajustes acumulados por reexpresiones o revaluaciones de otras partidas de propiedades, planta y equipo (Informativo)": "460",
+                "(-) Depreciación acumulada de los ajustes acumulados por reexpresiones o revaluaciones de otras partidas de propiedades, planta y equipo (Informativo)": "461",
+                "Ajustes acumulados por reexpresiones o revaluaciones de activos intangibles (Informativo)": "462",
+                "(-) Amortización acumulada de los ajustes acumulados por reexpresiones o revaluaciones de activos intangibles (Informativo)": "463",
+                "Ajustes acumulados por reexpresiones o revaluaciones de propiedades de inversión (Informativo)": "464",
+                "(-) Depreciación acumulada de los ajustes acumulados por reexpresiones o revaluaciones de propiedades de inversión (Informativo)": "465",
+                "Ajustes acumulados por reexpresiones o revaluaciones de activos para exploración, evaluación y explotación de recursos minerales (Informativo)": "466",
+                "(-) Depreciación/amortización acumulada del ajuste acumulado por reexpresiones o revaluaciones de activos para exploración, evaluación y explotación de recursos minerales (Informativo)": "467",
+                "Total de las revaluaciones y otros ajustes positivos producto de valoraciones financieras excluidos del cálculo del anticipo, para todos los activos (Informativo)": "468",
+                "(-) Total depreciación acumulada del ajuste acumulado por revaluaciones y otros ajustes negativos producto de valoraciones financieras excluidos del cálculo del anticipo, para todos los activos (Informativo)": "469"
+            },
+            "TERRENOS QUE SE EXCLUYEN DEL CÁLCULO DEL ANTICIPO": {
+                "Total costo de terrenos en los que se desarrollan actividades agropecuarias (excluyendo sus revaluaciones o reexpresiones) (Informativo)": "470",
+                "Total deterioro acumulado del costo de terrenos en los que se desarrollan actividades agropecuarias (Informativo)": "471",
+                "Total costo de terrenos en los que se desarrollan proyectos inmobiliarios para la vivienda de interés social (excluyendo sus revaluaciones o reexpresiones) (Informativo)": "472",
+                "Total deterioro acumulado del costo de terrenos en los que se desarrollan proyectos inmobiliarios para la vivienda de interés social (Informativo)": "473"
+            },
+            "Total de intereses implícitos no devengados (futureos ingresos financieros en el estado de resultados) por acuerdos que constituyen efectivamente una transacción financiera o cobro diferido (Informativo)": "474",
+            "Activos (fideicomitidos y generados) en fideicomisos mercantiles o encargos fiduciarios donde el contribuyente es constituyente o aportante (Informativo)": "475",
+            "Activos adquiridos por el valor de las utilidades reinvertidas generadas en el período anterior al declarado (Informativo)": "476",
+            "TOTAL DEL ACTIVO": "499"
+        },
+        "PASIVO": {
+            "PASIVOS CORRIENTES": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR CORRIENTES": {
+                    "CUENTAS Y DOCUMENTOS POR PAGAR COMERCIALES CORRIENTES": {
+                        "RELACIONADAS": {
+                            "Locales": "511",
+                            "Del exterior": "512"
+                        },
+                        "NO RELACIONADAS": {
+                            "Locales": "513",
+                            "Del exterior": "514"
+                        }
+                    },
+                    "OTRAS CUENTAS Y DOCUMENTOS POR PAGAR CORRIENTES": {
+                        "A ACCIONISTAS, SOCIOS, PARTICIPES, BENEFIARIOS U OTROS TITULARES DE DERECHOS REPRESENTATIVOS DE CAPITAL": {
+                            "Locales": "515",
+                            "Del exterior": "516"
+                        },
+                        "DIVIDENDOS POR PAGAR": {
+                            "En efectivo": "517",
+                            "En activos diferentes del efectivo": "518"
+                        },
+                        "OTRAS RELACIONADAS": {
+                            "Locales": "519",
+                            "Del exterior": "520"
+                        },
+                        "OTRAS NO RELACIONADAS": {
+                            "Locales": "521",
+                            "Del exterior": "522"
+                        }
+                    }
+                },
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS - CORRIENTES": {
+                    "RELACIONADAS": {
+                        "Locales": "523",
+                        "Del exterior": "524"
+                    },
+                    "NO RELACIONADAS": {
+                        "Locales": "525",
+                        "Del exterior": "526"
+                    }
+                },
+                "Crédito a mutuo": "527",
+                "Porción corriente de obligaciones emitidas": "528",
+                "OTROS PASIVOS FINANCIEROS": {
+                    "A costo amortizado": "529",
+                    "A valor razonable": "530"
+                },
+                "Porción Corrientes de Arrendamientos Financieros Por Pagar": "531",
+                "Pasivo corriente por arrendamiento": "593",
+                "Impuesto a la Renta Por Pagar del Ejercicio": "532",
+                "PASIVOS CORRIENTES POR BENEFICIOS A LOS EMPLEADOS": {
+                    "Participación trabajadores por pagar del ejercicio": "533",
+                    "Obligaciones con el IESS": "534",
+                    "Jubilación Patronal": "535",
+                    "Otros Pasivos Corrientes Por Beneficios a Empleados": "536"
+                },
+                "PROVISIONES CORRIENTES": {
+                    "Por garantías": "537",
+                    "Por desmantelamiento": "538",
+                    "Por contratos onerosos": "539",
+                    "Por reestructuraciones de negocios": "540",
+                    "Por reembolsos a clientes": "541",
+                    "Por litigios": "542",
+                    "Por pasivos contingentes asumidos en una combinación de negocios": "543",
+                    "Otras": "544"
+                },
+                "PASIVOS POR INGRESOS DIFERIDOS": {
+                    "Anticipos de clientes": "545",
+                    "Subvenciones del Gobierno": "546",
+                    "Otros": "547"
+                },
+                "OTROS PASIVOS CORRIENTES": {
+                    "Transferencias casa matriz y sucursales (del exterior)": "548",
+                    "Otros": "549"
+                },
+                "TOTAL PASIVOS CORRIENTES": "550"
+            },
+            "PASIVOS NO CORRIENTES": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR NO CORRIENTES": {
+                    "CUENTAS Y DOCUMENTOS POR PAGAR COMERCIALES NO CORRIENTES": {
+                        "RELACIONADAS": {
+                            "Locales": "553",
+                            "Del exterior": "554"
+                        },
+                        "NO RELACIONADAS": {
+                            "Locales": "555",
+                            "Del exterior": "556"
+                        }
+                    },
+                    "OTRAS CUENTAS Y DOCUMENTOS POR PAGAR NO CORRIENTES": {
+                        "A ACCIONISTAS, SOCIOS, PARTICIPES, BENEFIARIOS U OTROS TITULARES DE DERECHOS REPRESENTATIVOS DE CAPITAL": {
+                            "Locales": "557",
+                            "Del exterior": "558"
+                        },
+                        "OTRAS RELACIONADAS": {
+                            "Locales": "559",
+                            "Del exterior": "560"
+                        },
+                        "OTRAS NO RELACIONADAS": {
+                            "Locales": "561",
+                            "Del exterior": "562"
+                        }
+                    }
+                },
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS - NO CORRIENTES": {
+                    "RELACIONADAS": {
+                        "Locales": "563",
+                        "Del exterior": "564"
+                    },
+                    "NO RELACIONADAS": {
+                        "Locales": "565",
+                        "Del exterior": "566"
+                    }
+                },
+                "Crédito a mutuo": "567",
+                "Porción no corriente de obligaciones emitidas": "568",
+                "OTROS PASIVOS FINANCIEROS NO CORRIENTES": {
+                    "A costo amortizado": "569",
+                    "A valor razonable": "570"
+                },
+                "Porción no corriente de arrendamientos financieros por pagar": "571",
+                "Pasivo no corriente por arrendamiento": "594",
+                "Pasivo por Impuesto a la Renta diferido": "572",
+                "PASIVOS NO CORRIENTES POR BENEFICIOS A LOS EMPLEADOS": {
+                    "Jubilación Patronal": "573",
+                    "Desahucio": "574",
+                    "Otros Pasivos No Corrientes Por Beneficios A Empleados": "575"
+                },
+                "PROVISIONES NO CORRIENTES": {
+                    "Por garantías": "576",
+                    "Por desmantelamiento": "577",
+                    "Por contratos onerosos": "578",
+                    "Por reestructuraciones de negocios": "579",
+                    "Por reembolsos a clientes": "580",
+                    "Por litigios": "581",
+                    "Por pasivos contingentes asumidos en una combinación de negocios": "582",
+                    "Otras": "583"
+                },
+                "PASIVOS POR INGRESOS DIFERIDOS": {
+                    "Anticipos de clientes": "584",
+                    "Subvenciones del gobierno": "585",
+                    "Otros": "586"
+                },
+                "OTROS PASIVOS NO CORRIENTES": {
+                    "Transferencias casa matriz y sucursales (del exterior)": "587",
+                    "Otros": "588"
+                },
+                "TOTAL PASIVOS NO CORRIENTES": "589"
+            },
+            "Total de Intereses Implícitos No Devengados (Futuros Gastos Financieros En El Estado De Resultados) Por Acuerdos Que Constituyen": "591",
+            "Pasivos incurridos en fideicomisos mercantiles o encargos fiduciarios donde el contribuyente es constituyente o aportante (Informativo)": "592",
+            "TOTAL DEL PASIVO": "599"
+        },
+        "PATRIMONIO": {
+            "Capital Suscrito y/o Asignado": "601",
+            "(-) Capital Suscrito No Pagado, Acciones en Tesorería": "602",
+            "Aportes de Socios, Accionistas, Partícipes, Fundadores, Constituyentes, Beneficiarios U Otros Titulares De Derechos Representativos De Capital Para Futura Capitalización": "603",
+            "RESERVAS": {
+                "Reserva legal": "604",
+                "Reserva facultativa": "605",
+                "Otras": "606"
+            },
+            "RESULTADOS ACUMULADOS": {
+                "Reserva de capital": "607",
+                "Reserva por donaciones": "608",
+                "Reserva por valuación (procedente de la aplicación de normas ecuatorianas de contabilidad - NEC)": "609",
+                "Superávit por revaluación de inversiones (procedente de la aplicación de normas ecuatorianas de contabilidad - NEC)": "610",
+                "Utilidades acumuladas de ejercicios anteriores": "611",
+                "(-) Pérdidas acumuladas de ejercicios anteriores": "612",
+                "Excedente / pérdida del ejercicio anterior (con socios)": "613",
+                "Resultados acumulados por adopción por primera vez de las NIIF": "614",
+                "Utilidad del ejercicio": "615",
+                "Pérdida del ejercicio": "616",
+                "Excedente / pérdida del ejercicio económico (con socios)": "617"
+            },
+            "OTROS RESULTADOS INTEGRALES ACUMULADOS": {
+                "SUPERÁVIT DE REVALUACIÓN ACUMULADO": {
+                    "Propiedades, Planta y Equipo": "618",
+                    "Activos intangibles": "619",
+                    "Otros": "620"
+                },
+                "Ganancias y pérdidas acumuladas por inversiones en instrumentos de patrimonio medidos a valor razonable con cambios en otro resultado integral": "621",
+                "Ganancias y pérdidas acumuladas por la conversión de estados financieros de un negocio en el extranjero": "622",
+                "Ganancias y pérdidas actuariales acumuladas": "623",
+                "La parte efectiva de las ganancias y pérdidas de los instrumentos de cobertura en una cobertura de flujos de efectivo": "624",
+                "Otros": "625"
+            },
+            "Dividendos declarados (distribuidos) a favor de titulares de derechos representativos de capital en el ejercicio fiscal (Informativo)": "626",
+            "Dividendos pagados (liquidados) a titulares de derechos representativos de capital en el ejercicio fiscal (Informativo)": "627",
+            "TOTAL DEL PATRIMONIO": "698"
+        },
+        "TOTAL PASIVO Y PATRIMONIO": "699"
+    }
+}
