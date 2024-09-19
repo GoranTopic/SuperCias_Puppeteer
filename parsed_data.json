@@ -1,0 +1,983 @@
+{
+    "ACTIVO": {
+        "ACTIVO": "2138.00",
+        "ACTIVO CORRIENTE": {
+            "ACTIVO CORRIENTE": "2138.00",
+            "EFECTIVO Y EQUIVALENTES DE EFECTIVO": {
+                "EFECTIVO Y EQUIVALENTES DE EFECTIVO": "0.00",
+                "CAJA": {
+                    "CAJA": "0.00"
+                },
+                "INSTITUCIONES FINANCIERAS P\u00daBLICAS": {
+                    "INSTITUCIONES FINANCIERAS P\u00daBLICAS": "0.00"
+                },
+                "INSTITUCIONES FINANCIERAS PRIVADAS": {
+                    "INSTITUCIONES FINANCIERAS PRIVADAS": "0.00"
+                }
+            },
+            "ACTIVOS FINANCIEROS": {
+                "ACTIVOS FINANCIEROS": "2138.00",
+                "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "0.00",
+                    "RENTA VARIABLE": {
+                        "RENTA VARIABLE": "0.00",
+                        "ACCIONES Y PARTICIPACIONES": {
+                            "ACCIONES Y PARTICIPACIONES": "0.00"
+                        },
+                        "CUOTAS DE FONDOS COLECTIVOS": {
+                            "CUOTAS DE FONDOS COLECTIVOS": "0.00"
+                        },
+                        "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": {
+                            "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": "0.00"
+                        },
+                        "UNIDADES DE PARTICIPACI\u00d3N": {
+                            "UNIDADES DE PARTICIPACI\u00d3N": "0.00"
+                        },
+                        "INVERSIONES EN EL EXTERIOR": {
+                            "INVERSIONES EN EL EXTERIOR": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    },
+                    "RENTA FIJA": {
+                        "RENTA FIJA": "0.00",
+                        "AVALES": {
+                            "AVALES": "0.00"
+                        },
+                        "BONOS DEL ESTADO": {
+                            "BONOS DEL ESTADO": "0.00"
+                        },
+                        "BONOS DE PRENDA": {
+                            "BONOS DE PRENDA": "0.00"
+                        },
+                        "C\u00c9DULAS HIPOTECARIAS": {
+                            "C\u00c9DULAS HIPOTECARIAS": "0.00"
+                        },
+                        "CERTIFICADOS FINANCIEROS": {
+                            "CERTIFICADOS FINANCIEROS": "0.00"
+                        },
+                        "CERTIFICADOS DE INVERSI\u00d3N": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "0.00"
+                        },
+                        "CERTIFICADOS DE TESORER\u00cdA": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "0.00"
+                        },
+                        "CERTIFICADOS DE DEP\u00d3SITO": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "0.00"
+                        },
+                        "CUPONES": {
+                            "CUPONES": "0.00"
+                        },
+                        "DEP\u00d3SITOS A PLAZO": {
+                            "DEP\u00d3SITOS A PLAZO": "0.00"
+                        },
+                        "LETRAS DE CAMBIO": {
+                            "LETRAS DE CAMBIO": "0.00"
+                        },
+                        "NOTAS DE CR\u00c9DITO": {
+                            "NOTAS DE CR\u00c9DITO": "0.00"
+                        },
+                        "OBLIGACIONES": {
+                            "OBLIGACIONES": "0.00"
+                        },
+                        "FACTURAS COMERCIALES NEGOCIABLES": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "0.00"
+                        },
+                        "OVERNIGHTS": {
+                            "OVERNIGHTS": "0.00"
+                        },
+                        "OBLIGACIONES CONVERTIBLES EN ACCIONES": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "0.00"
+                        },
+                        "PAPEL COMERCIAL": {
+                            "PAPEL COMERCIAL": "0.00"
+                        },
+                        "PAGAR\u00c9S": {
+                            "PAGAR\u00c9S": "0.00"
+                        },
+                        "P\u00d3LIZAS DE ACUMULACI\u00d3N": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "0.00"
+                        },
+                        "T\u00cdTULOS DEL BANCO CENTRAL": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "0.00"
+                        },
+                        "VALORES DE TITULARIZACI\u00d3N": {
+                            "VALORES DE TITULARIZACI\u00d3N": "0.00"
+                        },
+                        "INVERSIONES EN EL EXTERIOR": {
+                            "INVERSIONES EN EL EXTERIOR": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    },
+                    "DERIVADOS": {
+                        "DERIVADOS": "0.00",
+                        "FORWARD": {
+                            "FORWARD": "0.00"
+                        },
+                        "FUTUROS": {
+                            "FUTUROS": "0.00"
+                        },
+                        "OPCIONES": {
+                            "OPCIONES": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    }
+                },
+                "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "0.00",
+                    "RENTA VARIABLE": {
+                        "RENTA VARIABLE": "0.00",
+                        "ACCIONES Y PARTICIPACIONES": {
+                            "ACCIONES Y PARTICIPACIONES": "0.00"
+                        },
+                        "CUOTAS DE FONDOS COLECTIVOS": {
+                            "CUOTAS DE FONDOS COLECTIVOS": "0.00"
+                        },
+                        "UNIDADES DE PARTICIPACI\u00d3N": {
+                            "UNIDADES DE PARTICIPACI\u00d3N": "0.00"
+                        },
+                        "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": {
+                            "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": "0.00"
+                        },
+                        "INVERSIONES EN EL EXTERIOR": {
+                            "INVERSIONES EN EL EXTERIOR": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    },
+                    "RENTA FIJA": {
+                        "RENTA FIJA": "0.00",
+                        "AVALES": {
+                            "AVALES": "0.00"
+                        },
+                        "BONOS DEL ESTADO": {
+                            "BONOS DEL ESTADO": "0.00"
+                        },
+                        "BONOS DE PRENDA": {
+                            "BONOS DE PRENDA": "0.00"
+                        },
+                        "C\u00c9DULAS HIPOTECARIAS": {
+                            "C\u00c9DULAS HIPOTECARIAS": "0.00"
+                        },
+                        "CERTIFICADOS FINANCIEROS": {
+                            "CERTIFICADOS FINANCIEROS": "0.00"
+                        },
+                        "CERTIFICADOS DE INVERSI\u00d3N": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "0.00"
+                        },
+                        "CERTIFICADOS DE TESORER\u00cdA": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "0.00"
+                        },
+                        "CERTIFICADOS DE DEP\u00d3SITO": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "0.00"
+                        },
+                        "CUPONES": {
+                            "CUPONES": "0.00"
+                        },
+                        "DEP\u00d3SITOS A PLAZO": {
+                            "DEP\u00d3SITOS A PLAZO": "0.00"
+                        },
+                        "LETRAS DE CAMBIO": {
+                            "LETRAS DE CAMBIO": "0.00"
+                        },
+                        "NOTAS DE CR\u00c9DITO": {
+                            "NOTAS DE CR\u00c9DITO": "0.00"
+                        },
+                        "OBLIGACIONES": {
+                            "OBLIGACIONES": "0.00"
+                        },
+                        "FACTURAS COMERCIALES NEGOCIABLES": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "0.00"
+                        },
+                        "OVERNIGHTS": {
+                            "OVERNIGHTS": "0.00"
+                        },
+                        "OBLIGACIONES CONVERTIBLES EN ACCIONES": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "0.00"
+                        },
+                        "PAPEL COMERCIAL": {
+                            "PAPEL COMERCIAL": "0.00"
+                        },
+                        "PAGAR\u00c9S": {
+                            "PAGAR\u00c9S": "0.00"
+                        },
+                        "P\u00d3LIZAS DE ACUMULACI\u00d3N": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "0.00"
+                        },
+                        "T\u00cdTULOS DEL BANCO CENTRAL": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "0.00"
+                        },
+                        "VALORES DE TITULARIZACI\u00d3N": {
+                            "VALORES DE TITULARIZACI\u00d3N": "0.00"
+                        },
+                        "INVERSIONES EN EL EXTERIOR": {
+                            "INVERSIONES EN EL EXTERIOR": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    }
+                },
+                "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": {
+                    "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": "0.00",
+                    "RENTA FIJA": {
+                        "RENTA FIJA": "0.00",
+                        "AVALES": {
+                            "AVALES": "0.00"
+                        },
+                        "BONOS DEL ESTADO": {
+                            "BONOS DEL ESTADO": "0.00"
+                        },
+                        "BONOS DE PRENDA": {
+                            "BONOS DE PRENDA": "0.00"
+                        },
+                        "C\u00c9DULAS HIPOTECARIAS": {
+                            "C\u00c9DULAS HIPOTECARIAS": "0.00"
+                        },
+                        "CERTIFICADOS FINANCIEROS": {
+                            "CERTIFICADOS FINANCIEROS": "0.00"
+                        },
+                        "CERTIFICADOS DE INVERSI\u00d3N": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "0.00"
+                        },
+                        "CERTIFICADOS DE TESORER\u00cdA": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "0.00"
+                        },
+                        "CERTIFICADOS DE DEP\u00d3SITO": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "0.00"
+                        },
+                        "CUPONES": {
+                            "CUPONES": "0.00"
+                        },
+                        "DEP\u00d3SITOS A PLAZO": {
+                            "DEP\u00d3SITOS A PLAZO": "0.00"
+                        },
+                        "LETRAS DE CAMBIO": {
+                            "LETRAS DE CAMBIO": "0.00"
+                        },
+                        "NOTAS DE CR\u00c9DITO": {
+                            "NOTAS DE CR\u00c9DITO": "0.00"
+                        },
+                        "OBLIGACIONES": {
+                            "OBLIGACIONES": "0.00"
+                        },
+                        "FACTURAS COMERCIALES NEGOCIABLES": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "0.00"
+                        },
+                        "OVERNIGHTS": {
+                            "OVERNIGHTS": "0.00"
+                        },
+                        "OBLIGACIONES CONVERTIBLES EN ACCIONES": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "0.00"
+                        },
+                        "PAPEL COMERCIAL": {
+                            "PAPEL COMERCIAL": "0.00"
+                        },
+                        "PAGAR\u00c9S": {
+                            "PAGAR\u00c9S": "0.00"
+                        },
+                        "P\u00d3LIZAS DE ACUMULACI\u00d3N": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "0.00"
+                        },
+                        "T\u00cdTULOS DEL BANCO CENTRAL": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "0.00"
+                        },
+                        "VALORES DE TITULARIZACI\u00d3N": {
+                            "VALORES DE TITULARIZACI\u00d3N": "0.00"
+                        },
+                        "INVERSIONES EN EL EXTERIOR": {
+                            "INVERSIONES EN EL EXTERIOR": "0.00"
+                        },
+                        "OTROS": {
+                            "OTROS": "0.00"
+                        }
+                    }
+                },
+                "PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS": {
+                    "PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS": "0.00",
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": {
+                        "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "0.00"
+                    },
+                    "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": {
+                        "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": "0.00"
+                    },
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": {
+                        "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "0.00"
+                    }
+                },
+                "DEUDORES COMERCIALES Y OTRAS CUENTAS POR COBRAR NO RELACIONADOS": {
+                    "DEUDORES COMERCIALES Y OTRAS CUENTAS POR COBRAR NO RELACIONADOS": "0.00",
+                    "DE ACTIVIDADES ORDINARIAS QUE GENEREN INTERESES": {
+                        "DE ACTIVIDADES ORDINARIAS QUE GENEREN INTERESES": "0.00",
+                        "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": "0.00"
+                        },
+                        "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": "0.00"
+                        }
+                    },
+                    "DE ACTIVIDADES ORDINARIAS QUE NO GENEREN INTERESES": {
+                        "DE ACTIVIDADES ORDINARIAS QUE NO GENEREN INTERESES": "0.00",
+                        "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": "0.00"
+                        },
+                        "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": "0.00"
+                        },
+                        "CUENTAS POR COBRAR AL ORIGINADOR": {
+                            "CUENTAS POR COBRAR AL ORIGINADOR": "0.00"
+                        },
+                        "COMISIONES POR OPERACIONES  BURS\u00c1TILES": {
+                            "COMISIONES POR OPERACIONES  BURS\u00c1TILES": "0.00"
+                        },
+                        "CONTRATO DE UNDERWRITING": {
+                            "CONTRATO DE UNDERWRITING": "0.00"
+                        },
+                        "POR  ADMINISTRACI\u00d3N Y MANEJO DE PORTAFOLIOS DE TERCEROS": {
+                            "POR  ADMINISTRACI\u00d3N Y MANEJO DE PORTAFOLIOS DE TERCEROS": "0.00"
+                        },
+                        "POR ADMINISTRACI\u00d3N Y MANEJO DE FONDOS ADMINISTRADOS": {
+                            "POR ADMINISTRACI\u00d3N Y MANEJO DE FONDOS ADMINISTRADOS": "0.00"
+                        },
+                        "POR ADMINISTRACI\u00d3N Y MANEJO DE NEGOCIOS FIDUCIARIOS": {
+                            "POR ADMINISTRACI\u00d3N Y MANEJO DE NEGOCIOS FIDUCIARIOS": "0.00"
+                        },
+                        "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES MATERIALIZADOS": {
+                            "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES MATERIALIZADOS": "0.00"
+                        },
+                        "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES DESMATERIALIZADOS": {
+                            "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES DESMATERIALIZADOS": "0.00"
+                        },
+                        "POR MANEJO DE LIBRO DE ACCIONES Y ACCIONISTAS": {
+                            "POR MANEJO DE LIBRO DE ACCIONES Y ACCIONISTAS": "0.00"
+                        },
+                        "POR ASESOR\u00cdA": {
+                            "POR ASESOR\u00cdA": "0.00"
+                        },
+                        "DIVIDENDOS POR COBRAR": {
+                            "DIVIDENDOS POR COBRAR": "0.00"
+                        },
+                        "INTERESES POR COBRAR": {
+                            "INTERESES POR COBRAR": "0.00"
+                        },
+                        "DEUDORES POR INTERMEDIACI\u00d3N DE VALORES": {
+                            "DEUDORES POR INTERMEDIACI\u00d3N DE VALORES": "0.00"
+                        },
+                        "ANTICIPO A COMITENTES": {
+                            "ANTICIPO A COMITENTES": "0.00"
+                        },
+                        "ANTICIPO A CONSTRUCTOR POR AVANCE DE OBRA": {
+                            "ANTICIPO A CONSTRUCTOR POR AVANCE DE OBRA": "0.00"
+                        },
+                        "DERECHOS POR COMPROMISO DE RECOMPRA": {
+                            "DERECHOS POR COMPROMISO DE RECOMPRA": "0.00"
+                        },
+                        "OTRAS CUENTAS POR COBRAR NO RELACIONADAS": {
+                            "OTRAS CUENTAS POR COBRAR NO RELACIONADAS": "0.00"
+                        }
+                    }
+                },
+                "DOCUMENTOS Y CUENTAS POR COBRAR RELACIONADOS": {
+                    "DOCUMENTOS Y CUENTAS POR COBRAR RELACIONADOS": "2138.00",
+                    "POR COBRAR A ACCIONISTAS": {
+                        "POR COBRAR A ACCIONISTAS": "2138.00"
+                    },
+                    "POR COBRAR A COMPA\u00d1\u00cdAS RELACIONADAS": {
+                        "POR COBRAR A COMPA\u00d1\u00cdAS RELACIONADAS": "0.00"
+                    },
+                    "POR COBRAR A CLIENTES": {
+                        "POR COBRAR A CLIENTES": "0.00"
+                    },
+                    "OTRAS CUENTAS POR COBRAR RELACIONADAS": {
+                        "OTRAS CUENTAS POR COBRAR RELACIONADAS": "0.00"
+                    }
+                },
+                "PROVISI\u00d3N POR CUENTAS INCOBRABLES Y DETERIORO": {
+                    "PROVISI\u00d3N POR CUENTAS INCOBRABLES Y DETERIORO": "0.00"
+                }
+            },
+            "INVENTARIOS": {
+                "INVENTARIOS": "0.00",
+                "INVENTARIOS DE MATERIA PRIMA": {
+                    "INVENTARIOS DE MATERIA PRIMA": "0.00"
+                },
+                "INVENTARIOS DE PRODUCTOS EN PROCESO": {
+                    "INVENTARIOS DE PRODUCTOS EN PROCESO": "0.00"
+                },
+                "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN EL PROCESO DE PRODUCCION": {
+                    "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN EL PROCESO DE PRODUCCION": "0.00"
+                },
+                "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN LA PRESTACION DEL SERVICIO": {
+                    "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN LA PRESTACION DEL SERVICIO": "0.00"
+                },
+                "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - PRODUCIDO POR LA COMPA\u00d1\u00cdA": {
+                    "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - PRODUCIDO POR LA COMPA\u00d1\u00cdA": "0.00"
+                },
+                "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - COMPRADO A  TERCEROS": {
+                    "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - COMPRADO A  TERCEROS": "0.00"
+                },
+                "MERCADER\u00cdAS EN TR\u00c1NSITO": {
+                    "MERCADER\u00cdAS EN TR\u00c1NSITO": "0.00"
+                },
+                "OBRAS EN CONSTRUCCION": {
+                    "OBRAS EN CONSTRUCCION": "0.00"
+                },
+                "OBRAS TERMINADAS": {
+                    "OBRAS TERMINADAS": "0.00"
+                },
+                "MATERIALES O BIENES PARA LA CONSTRUCCION": {
+                    "MATERIALES O BIENES PARA LA CONSTRUCCION": "0.00"
+                },
+                "INVENTARIOS REPUESTOS, HERRAMIENTAS Y ACCESORIOS": {
+                    "INVENTARIOS REPUESTOS, HERRAMIENTAS Y ACCESORIOS": "0.00"
+                },
+                "OTROS INVENTARIOS": {
+                    "OTROS INVENTARIOS": "0.00"
+                },
+                "(-) PROVISI\u00d3N POR VALOR NETO DE REALIZACI\u00d3N Y OTRAS PERDIDAS EN INVENTARIO": {
+                    "(-) PROVISI\u00d3N POR VALOR NETO DE REALIZACI\u00d3N Y OTRAS PERDIDAS EN INVENTARIO": "0.00"
+                }
+            },
+            "SERVICIOS Y OTROS PAGOS ANTICIPADOS": {
+                "SERVICIOS Y OTROS PAGOS ANTICIPADOS": "0.00",
+                "SEGUROS PAGADOS POR ANTICIPADO": {
+                    "SEGUROS PAGADOS POR ANTICIPADO": "0.00"
+                },
+                "ARRIENDOS PAGADOS POR ANTICIPADO": {
+                    "ARRIENDOS PAGADOS POR ANTICIPADO": "0.00"
+                },
+                "ANTICIPOS A PROVEEDORES": {
+                    "ANTICIPOS A PROVEEDORES": "0.00"
+                },
+                "OTROS ANTICIPOS ENTREGADOS": {
+                    "OTROS ANTICIPOS ENTREGADOS": "0.00"
+                }
+            },
+            "ACTIVOS POR IMPUESTOS CORRIENTES": {
+                "ACTIVOS POR IMPUESTOS CORRIENTES": "0.00",
+                "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA (IVA)": {
+                    "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA (IVA)": "0.00"
+                },
+                "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA ( I. R.)": {
+                    "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA ( I. R.)": "0.00"
+                },
+                "ANTICIPO DE IMPUESTO A LA RENTA": {
+                    "ANTICIPO DE IMPUESTO A LA RENTA": "0.00"
+                }
+            },
+            "ACTIVOS CORRIENTES MANTENIDOS PARA LA VENTA Y OPERACIONES DISCONTINUADAS": {
+                "ACTIVOS CORRIENTES MANTENIDOS PARA LA VENTA Y OPERACIONES DISCONTINUADAS": "0.00"
+            },
+            "CONSTRUCCIONES EN PROCESO (NIC 11 Y SECC.23 PYMES)": {
+                "CONSTRUCCIONES EN PROCESO (NIC 11 Y SECC.23 PYMES)": "0.00"
+            },
+            "OTROS ACTIVOS CORRIENTES": {
+                "OTROS ACTIVOS CORRIENTES": "0.00"
+            }
+        },
+        "ACTIVOS NO CORRIENTES": {
+            "ACTIVOS NO CORRIENTES": "0.00",
+            "PROPIEDAD, PLANTA Y EQUIPO": {
+                "PROPIEDAD, PLANTA Y EQUIPO": "0.00",
+                "TERRENOS": {
+                    "TERRENOS": "0.00"
+                },
+                "EDIFICIOS": {
+                    "EDIFICIOS": "0.00"
+                },
+                "CONSTRUCCIONES EN CURSO": {
+                    "CONSTRUCCIONES EN CURSO": "0.00"
+                },
+                "INSTALACIONES": {
+                    "INSTALACIONES": "0.00"
+                },
+                "MUEBLES Y ENSERES": {
+                    "MUEBLES Y ENSERES": "0.00"
+                },
+                "MAQUINARIA Y EQUIPO": {
+                    "MAQUINARIA Y EQUIPO": "0.00"
+                },
+                "NAVES, AEREONAVES, BARCAZAS Y SIMILARES": {
+                    "NAVES, AEREONAVES, BARCAZAS Y SIMILARES": "0.00"
+                },
+                "EQUIPO DE COMPUTACI\u00d3N": {
+                    "EQUIPO DE COMPUTACI\u00d3N": "0.00"
+                },
+                "VEH\u00cdCULOS, EQUIPOS DE TRASPORTE Y EQUIPO CAMINERO M\u00d3VIL": {
+                    "VEH\u00cdCULOS, EQUIPOS DE TRASPORTE Y EQUIPO CAMINERO M\u00d3VIL": "0.00"
+                },
+                "OTROS PROPIEDADES, PLANTA Y EQUIPO": {
+                    "OTROS PROPIEDADES, PLANTA Y EQUIPO": "0.00"
+                },
+                "REPUESTOS Y HERRAMIENTAS": {
+                    "REPUESTOS Y HERRAMIENTAS": "0.00"
+                },
+                "(-) DEPRECIACI\u00d3N ACUMULADA PROPIEDADES, PLANTA Y EQUIPO": {
+                    "(-) DEPRECIACI\u00d3N ACUMULADA PROPIEDADES, PLANTA Y EQUIPO": "0.00"
+                },
+                "(-) DETERIORO  ACUMULADO DE PROPIEDADES, PLANTA Y EQUIPO": {
+                    "(-) DETERIORO  ACUMULADO DE PROPIEDADES, PLANTA Y EQUIPO": "0.00"
+                },
+                "ACTIVOS DE EXPLORACION Y EXPLOTACION": {
+                    "ACTIVOS DE EXPLORACION Y EXPLOTACION": "0.00",
+                    "(-) AMORTIZACION ACUMULADA DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": {
+                        "(-) AMORTIZACION ACUMULADA DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": "0.00"
+                    },
+                    "(-) DETERIORO  ACUMULADO DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": {
+                        "(-) DETERIORO  ACUMULADO DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": "0.00"
+                    }
+                }
+            },
+            "PROPIEDADES DE INVERSI\u00d3N": {
+                "PROPIEDADES DE INVERSI\u00d3N": "0.00",
+                "TERRENOS": {
+                    "TERRENOS": "0.00"
+                },
+                "EDIFICIOS": {
+                    "EDIFICIOS": "0.00"
+                },
+                "(-) DEPRECIACION ACUMULADA DE PROPIEDADES DE INVERSI\u00d3N": {
+                    "(-) DEPRECIACION ACUMULADA DE PROPIEDADES DE INVERSI\u00d3N": "0.00"
+                },
+                "(-) DETERIORO ACUMULADO DE PROPIEDADES DE INVERSI\u00d3N": {
+                    "(-) DETERIORO ACUMULADO DE PROPIEDADES DE INVERSI\u00d3N": "0.00"
+                }
+            },
+            "ACTIVOS BIOLOGICOS": {
+                "ACTIVOS BIOLOGICOS": "0.00",
+                "ANIMALES VIVOS EN CRECIMIENTO": {
+                    "ANIMALES VIVOS EN CRECIMIENTO": "0.00"
+                },
+                "ANIMALES VIVOS EN PRODUCCION": {
+                    "ANIMALES VIVOS EN PRODUCCION": "0.00"
+                },
+                "PLANTAS EN CRECIMIENTO": {
+                    "PLANTAS EN CRECIMIENTO": "0.00"
+                },
+                "PLANTAS EN PRODUCCION": {
+                    "PLANTAS EN PRODUCCION": "0.00"
+                },
+                "(-) DEPRECIACION ACUMULADA DE ACTIVOS BIOL\u00d3GICOS": {
+                    "(-) DEPRECIACION ACUMULADA DE ACTIVOS BIOL\u00d3GICOS": "0.00"
+                },
+                "(-) DETERIORO ACUMULADO DE ACTIVOS BIOLOG\u00cdCOS": {
+                    "(-) DETERIORO ACUMULADO DE ACTIVOS BIOLOG\u00cdCOS": "0.00"
+                }
+            },
+            "ACTIVO INTANGIBLE": {
+                "ACTIVO INTANGIBLE": "0.00",
+                "PLUSVAL\u00cdAS": {
+                    "PLUSVAL\u00cdAS": "0.00"
+                },
+                "MARCAS, PATENTES, DERECHOS DE LLAVE , CUOTAS PATRIMONIALES Y OTROS SIMILARES": {
+                    "MARCAS, PATENTES, DERECHOS DE LLAVE , CUOTAS PATRIMONIALES Y OTROS SIMILARES": "0.00"
+                },
+                "CONCESIONES Y LICENCIAS": {
+                    "CONCESIONES Y LICENCIAS": "0.00"
+                },
+                "ACTIVOS DE EXPLORACION Y EXPLOTACION": {
+                    "ACTIVOS DE EXPLORACION Y EXPLOTACION": "0.00"
+                },
+                "(-) AMORTIZACI\u00d3N ACUMULADA DE ACTIVOS INTANGIBLE": {
+                    "(-) AMORTIZACI\u00d3N ACUMULADA DE ACTIVOS INTANGIBLE": "0.00"
+                },
+                "(-) DETERIORO ACUMULADO DE ACTIVO INTANGIBLE": {
+                    "(-) DETERIORO ACUMULADO DE ACTIVO INTANGIBLE": "0.00"
+                },
+                "OTROS INTANGIBLES": {
+                    "OTROS INTANGIBLES": "0.00"
+                }
+            },
+            "ACTIVOS POR IMPUESTOS DIFERIDOS": {
+                "ACTIVOS POR IMPUESTOS DIFERIDOS": "0.00"
+            },
+            "ACTIVOS FINANCIEROS NO CORRIENTES": {
+                "ACTIVOS FINANCIEROS NO CORRIENTES": "0.00",
+                "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "0.00"
+                },
+                "(-) PROVISION POR DETERIORO DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO": {
+                    "(-) PROVISION POR DETERIORO DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO": "0.00"
+                },
+                "ACTIVOS FINANCIEROS A COSTO AMORTIZADO": {
+                    "ACTIVOS FINANCIEROS A COSTO AMORTIZADO": "0.00"
+                },
+                "(-) PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS A COSTO AMORTIZADO": {
+                    "(-) PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS A COSTO AMORTIZADO": "0.00"
+                }
+            },
+            "DERECHO DE USO POR ACTIVOS ARRENDADOS": {
+                "DERECHO DE USO POR ACTIVOS ARRENDADOS": "0.00"
+            },
+            "OTROS ACTIVOS NO CORRIENTES": {
+                "OTROS ACTIVOS NO CORRIENTES": "0.00",
+                "DERECHOS FIDUCIARIOS": {
+                    "DERECHOS FIDUCIARIOS": "0.00"
+                },
+                "DEP\u00d3SITOS EN GARANT\u00cdA": {
+                    "DEP\u00d3SITOS EN GARANT\u00cdA": "0.00"
+                },
+                "DEP\u00d3SITOS EN GARANT\u00cdA POR OPERACIONES BURS\u00c1TILES": {
+                    "DEP\u00d3SITOS EN GARANT\u00cdA POR OPERACIONES BURS\u00c1TILES": "0.00"
+                },
+                "ACCIONES DEL DEP\u00d3SITO CENTRALIZADO DE VALORES": {
+                    "ACCIONES DEL DEP\u00d3SITO CENTRALIZADO DE VALORES": "0.00"
+                },
+                "INVERSIONES SUBSIDIARIAS": {
+                    "INVERSIONES SUBSIDIARIAS": "0.00"
+                },
+                "INVERSIONES ASOCIADAS": {
+                    "INVERSIONES ASOCIADAS": "0.00"
+                },
+                "INVERSIONES NEGOCIOS CONJUNTOS": {
+                    "INVERSIONES NEGOCIOS CONJUNTOS": "0.00"
+                },
+                "OTRAS INVERSIONES": {
+                    "OTRAS INVERSIONES": "0.00"
+                },
+                "(-) PROVISI\u00d3N VALUACI\u00d3N DE INVERSIONES": {
+                    "(-) PROVISI\u00d3N VALUACI\u00d3N DE INVERSIONES": "0.00"
+                }
+            }
+        }
+    },
+    "PASIVO": {
+        "PASIVO": "0.00",
+        "PASIVO CORRIENTE": {
+            "PASIVO CORRIENTE": "0.00",
+            "PASIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": {
+                "PASIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "0.00"
+            },
+            "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": {
+                "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": "0.00"
+            },
+            "CUENTAS Y DOCUMENTOS POR PAGAR": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00",
+                    "PR\u00c9STAMOS": {
+                        "PR\u00c9STAMOS": "0.00"
+                    },
+                    "PROVEEDORES": {
+                        "PROVEEDORES": "0.00"
+                    },
+                    "OTRAS": {
+                        "OTRAS": "0.00"
+                    }
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": {
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00"
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "PROVISIONES": {
+                "PROVISIONES": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00"
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "PORCI\u00d3N CORRIENTE DE VALORES EMITIDOS": {
+                "PORCI\u00d3N CORRIENTE DE VALORES EMITIDOS": "0.00",
+                "OBLIGACIONES": {
+                    "OBLIGACIONES": "0.00"
+                },
+                "PAPEL COMERCIAL": {
+                    "PAPEL COMERCIAL": "0.00"
+                },
+                "VALORES DE TITULARIZACI\u00d3N": {
+                    "VALORES DE TITULARIZACI\u00d3N": "0.00"
+                },
+                "OTROS": {
+                    "OTROS": "0.00"
+                },
+                "INTERESES POR PAGAR": {
+                    "INTERESES POR PAGAR": "0.00"
+                }
+            },
+            "OTRAS OBLIGACIONES CORRIENTES": {
+                "OTRAS OBLIGACIONES CORRIENTES": "0.00",
+                "CON LA ADMINISTRACI\u00d3N TRIBUTARIA": {
+                    "CON LA ADMINISTRACI\u00d3N TRIBUTARIA": "0.00"
+                },
+                "IMPUESTO A LA RENTA POR PAGAR DEL EJERCICIO": {
+                    "IMPUESTO A LA RENTA POR PAGAR DEL EJERCICIO": "0.00"
+                },
+                "CON EL IESS": {
+                    "CON EL IESS": "0.00"
+                },
+                "POR BENEFICIOS DE LEY A EMPLEADOS": {
+                    "POR BENEFICIOS DE LEY A EMPLEADOS": "0.00"
+                },
+                "PARTICIPACI\u00d3N TRABAJADORES POR PAGAR DEL EJERCICIO": {
+                    "PARTICIPACI\u00d3N TRABAJADORES POR PAGAR DEL EJERCICIO": "0.00"
+                },
+                "DIVIDENDOS POR PAGAR": {
+                    "DIVIDENDOS POR PAGAR": "0.00"
+                },
+                "OTROS": {
+                    "OTROS": "0.00"
+                }
+            },
+            "CUENTAS POR PAGAR A RELACIONADAS": {
+                "CUENTAS POR PAGAR A RELACIONADAS": "0.00"
+            },
+            "OTROS PASIVOS FINANCIEROS": {
+                "OTROS PASIVOS FINANCIEROS": "0.00"
+            },
+            "ANTICIPOS": {
+                "ANTICIPOS": "0.00"
+            },
+            "PASIVOS DIRECTAMENTE ASOCIADOS CON LOS ACTIVOS NO CORRIENTES Y OPERACIONES DISCONTINUADAS": {
+                "PASIVOS DIRECTAMENTE ASOCIADOS CON LOS ACTIVOS NO CORRIENTES Y OPERACIONES DISCONTINUADAS": "0.00"
+            },
+            "PORCION CORRIENTE DE PROVISIONES POR BENEFICIOS A EMPLEADOS": {
+                "PORCION CORRIENTE DE PROVISIONES POR BENEFICIOS A EMPLEADOS": "0.00",
+                "JUBILACION PATRONAL": {
+                    "JUBILACION PATRONAL": "0.00"
+                },
+                "OTROS BENEFICIOS PARA LOS EMPLEADOS": {
+                    "OTROS BENEFICIOS PARA LOS EMPLEADOS": "0.00"
+                }
+            },
+            "OTROS PASIVOS CORRIENTES": {
+                "OTROS PASIVOS CORRIENTES": "0.00",
+                "COMISIONES POR PAGAR": {
+                    "COMISIONES POR PAGAR": "0.00"
+                },
+                "POR OPERACIONES BURS\u00c1TILES": {
+                    "POR OPERACIONES BURS\u00c1TILES": "0.00"
+                },
+                "POR CUSTODIA": {
+                    "POR CUSTODIA": "0.00"
+                },
+                "POR ADMINISTRACI\u00d3N": {
+                    "POR ADMINISTRACI\u00d3N": "0.00"
+                },
+                "OTRAS COMISIONES": {
+                    "OTRAS COMISIONES": "0.00"
+                },
+                "SANCIONES Y MULTAS": {
+                    "SANCIONES Y MULTAS": "0.00"
+                },
+                "INDEMNIZACIONES": {
+                    "INDEMNIZACIONES": "0.00"
+                },
+                "OBLIGACIONES JUDICIALES": {
+                    "OBLIGACIONES JUDICIALES": "0.00"
+                },
+                "ACREEDORES POR INTERMEDIACI\u00d3N": {
+                    "ACREEDORES POR INTERMEDIACI\u00d3N": "0.00"
+                },
+                "OBLIGACI\u00d3N POR COMPROMISO DE RECOMPRA": {
+                    "OBLIGACI\u00d3N POR COMPROMISO DE RECOMPRA": "0.00"
+                },
+                "POR CONTRATOS DE UNDERWRITING": {
+                    "POR CONTRATOS DE UNDERWRITING": "0.00"
+                },
+                "OTROS": {
+                    "OTROS": "0.00"
+                }
+            }
+        },
+        "PASIVO NO CORRIENTE": {
+            "PASIVO NO CORRIENTE": "0.00",
+            "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": {
+                "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": "0.00"
+            },
+            "CUENTAS Y DOCUMENTOS POR PAGAR": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00",
+                    "PR\u00c9STAMOS": {
+                        "PR\u00c9STAMOS": "0.00"
+                    },
+                    "PROVEEDORES": {
+                        "PROVEEDORES": "0.00"
+                    },
+                    "OTRAS": {
+                        "OTRAS": "0.00"
+                    }
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": {
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00"
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "CUENTAS POR PAGAR A": {
+                "CUENTAS POR PAGAR A": "0.00",
+                "LOCALES": {
+                    "LOCALES": "0.00"
+                },
+                "DEL EXTERIOR": {
+                    "DEL EXTERIOR": "0.00"
+                }
+            },
+            "PORCI\u00d3N NO CORRIENTE DE VALORES EMITIDOS": {
+                "PORCI\u00d3N NO CORRIENTE DE VALORES EMITIDOS": "0.00",
+                "OBLIGACIONES": {
+                    "OBLIGACIONES": "0.00"
+                },
+                "PAPEL COMERCIAL": {
+                    "PAPEL COMERCIAL": "0.00"
+                },
+                "VALORES DE TITULARIZACI\u00d3N": {
+                    "VALORES DE TITULARIZACI\u00d3N": "0.00"
+                },
+                "OTROS": {
+                    "OTROS": "0.00"
+                },
+                "INTERESES POR PAGAR": {
+                    "INTERESES POR PAGAR": "0.00"
+                }
+            },
+            "ANTICIPOS": {
+                "ANTICIPOS": "0.00"
+            },
+            "PROVISIONES POR BENEFICIOS A EMPLEADOS": {
+                "PROVISIONES POR BENEFICIOS A EMPLEADOS": "0.00",
+                "JUBILACION PATRONAL": {
+                    "JUBILACION PATRONAL": "0.00"
+                },
+                "OTROS BENEFICIOS NO CORRIENTES PARA LOS EMPLEADOS": {
+                    "OTROS BENEFICIOS NO CORRIENTES PARA LOS EMPLEADOS": "0.00"
+                }
+            },
+            "OTRAS PROVISIONES": {
+                "OTRAS PROVISIONES": "0.00"
+            },
+            "PASIVO DIFERIDO": {
+                "PASIVO DIFERIDO": "0.00",
+                "INGRESOS DIFERIDOS": {
+                    "INGRESOS DIFERIDOS": "0.00"
+                },
+                "PASIVOS POR IMPUESTOS DIFERIDOS": {
+                    "PASIVOS POR IMPUESTOS DIFERIDOS": "0.00"
+                }
+            },
+            "OTROS PASIVOS NO CORRIENTES": {
+                "OTROS PASIVOS NO CORRIENTES": "0.00"
+            }
+        }
+    },
+    "PATRIMONIO NETO": {
+        "PATRIMONIO NETO": "2138.00",
+        "PATRIMONIO NETO ATRIBUIBLE A LOS PROPIETARIOS DE LA CONTROLADORA": {
+            "PATRIMONIO NETO ATRIBUIBLE A LOS PROPIETARIOS DE LA CONTROLADORA": "0.00",
+            "CAPITAL": {
+                "CAPITAL": "2138.00",
+                "CAPITAL SUSCRITO O  ASIGNADO": {
+                    "CAPITAL SUSCRITO O  ASIGNADO": "2138.00"
+                },
+                "(-) CAPITAL SUSCRITO NO PAGADO, ACCIONES EN TESORER\u00cdA": {
+                    "(-) CAPITAL SUSCRITO NO PAGADO, ACCIONES EN TESORER\u00cdA": "0.00"
+                },
+                "FONDO PATRIMONIAL": {
+                    "FONDO PATRIMONIAL": "0.00"
+                },
+                "PATRIMONIO DE LOS NEGOCIOS FIDUCIARIOS": {
+                    "PATRIMONIO DE LOS NEGOCIOS FIDUCIARIOS": "0.00"
+                },
+                "PATRIMONIO DE LOS FONDOS DE INVERSI\u00d3N": {
+                    "PATRIMONIO DE LOS FONDOS DE INVERSI\u00d3N": "0.00",
+                    "PATRIMONIO DEL FONDO ADMINISTRADO": {
+                        "PATRIMONIO DEL FONDO ADMINISTRADO": "0.00"
+                    },
+                    "PATRIMONIO DEL FONDO COLECTIVO": {
+                        "PATRIMONIO DEL FONDO COLECTIVO": "0.00"
+                    }
+                }
+            },
+            "APORTES DE SOCIOS O ACCIONISTAS PARA FUTURA CAPITALIZACI\u00d3N": {
+                "APORTES DE SOCIOS O ACCIONISTAS PARA FUTURA CAPITALIZACI\u00d3N": "0.00"
+            },
+            "PRIMA POR EMISI\u00d3N PRIMARIA DE ACCIONES": {
+                "PRIMA POR EMISI\u00d3N PRIMARIA DE ACCIONES": "0.00"
+            },
+            "RESERVAS": {
+                "RESERVAS": "0.00",
+                "RESERVA LEGAL": {
+                    "RESERVA LEGAL": "0.00"
+                },
+                "RESERVAS FACULTATIVA Y ESTATUTARIA": {
+                    "RESERVAS FACULTATIVA Y ESTATUTARIA": "0.00"
+                }
+            },
+            "OTROS RESULTADOS INTEGRALES": {
+                "OTROS RESULTADOS INTEGRALES": "0.00",
+                "SUPERAVIT DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": {
+                    "SUPERAVIT DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "0.00"
+                },
+                "SUPERAVIT POR REVALUACI\u00d3N DE PROPIEDADES, PLANTA Y EQUIPO": {
+                    "SUPERAVIT POR REVALUACI\u00d3N DE PROPIEDADES, PLANTA Y EQUIPO": "0.00"
+                },
+                "SUPERAVIT POR REVALUACION DE ACTIVOS INTANGIBLES": {
+                    "SUPERAVIT POR REVALUACION DE ACTIVOS INTANGIBLES": "0.00"
+                },
+                "OTROS SUPERAVIT POR REVALUACION": {
+                    "OTROS SUPERAVIT POR REVALUACION": "0.00"
+                }
+            },
+            "RESULTADOS ACUMULADOS": {
+                "RESULTADOS ACUMULADOS": "0.00",
+                "GANANCIAS ACUMULADAS": {
+                    "GANANCIAS ACUMULADAS": "0.00"
+                },
+                "(-) P\u00c9RDIDAS ACUMULADAS": {
+                    "(-) P\u00c9RDIDAS ACUMULADAS": "0.00"
+                },
+                "RESULTADOS ACUMULADOS PROVENIENTES DE LA ADOPCION POR PRIMERA VEZ DE LAS NIIF": {
+                    "RESULTADOS ACUMULADOS PROVENIENTES DE LA ADOPCION POR PRIMERA VEZ DE LAS NIIF": "0.00"
+                },
+                "RESERVA DE CAPITAL": {
+                    "RESERVA DE CAPITAL": "0.00"
+                },
+                "RESERVA POR DONACIONES": {
+                    "RESERVA POR DONACIONES": "0.00"
+                },
+                "RESERVA POR VALUACI\u00d3N": {
+                    "RESERVA POR VALUACI\u00d3N": "0.00"
+                },
+                "SUPER\u00c1VIT POR REVALUACI\u00d3N DE INVERSIONES": {
+                    "SUPER\u00c1VIT POR REVALUACI\u00d3N DE INVERSIONES": "0.00"
+                }
+            },
+            "RESULTADOS DEL EJERCICIO": {
+                "RESULTADOS DEL EJERCICIO": "0.00",
+                "GANANCIA NETA DEL PERIODO": {
+                    "GANANCIA NETA DEL PERIODO": "0.00"
+                },
+                "(-) P\u00c9RDIDA NETA DEL PERIODO": {
+                    "(-) P\u00c9RDIDA NETA DEL PERIODO": "0.00"
+                }
+            }
+        },
+        "PARTICIPACI\u00d3N": {
+            "PARTICIPACI\u00d3N": "0.00"
+        }
+    }
+}

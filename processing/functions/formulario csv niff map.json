@@ -1,0 +1,1130 @@
+{
+    "1": {
+        "ACTIVO": "1",
+        "01": {
+            "ACTIVO CORRIENTE": "101",
+            "01": {
+                "EFECTIVO Y EQUIVALENTES DE EFECTIVO": "10101",
+                "01": {
+                    "CAJA": "1010101"
+                },
+                "02": {
+                    "INSTITUCIONES FINANCIERAS P\u00daBLICAS": "1010102"
+                },
+                "03": {
+                    "INSTITUCIONES FINANCIERAS PRIVADAS": "1010103"
+                }
+            },
+            "02": {
+                "ACTIVOS FINANCIEROS": "10102",
+                "01": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "1010201",
+                    "01": {
+                        "RENTA VARIABLE": "101020101",
+                        "01": {
+                            "ACCIONES Y PARTICIPACIONES": "10102010101"
+                        },
+                        "02": {
+                            "CUOTAS DE FONDOS COLECTIVOS": "10102010102"
+                        },
+                        "03": {
+                            "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": "10102010103"
+                        },
+                        "04": {
+                            "UNIDADES DE PARTICIPACI\u00d3N": "10102010104"
+                        },
+                        "05": {
+                            "INVERSIONES EN EL EXTERIOR": "10102010105"
+                        },
+                        "06": {
+                            "OTROS": "10102010106"
+                        }
+                    },
+                    "02": {
+                        "RENTA FIJA": "101020102",
+                        "01": {
+                            "AVALES": "10102010201"
+                        },
+                        "02": {
+                            "BONOS DEL ESTADO": "10102010202"
+                        },
+                        "03": {
+                            "BONOS DE PRENDA": "10102010203"
+                        },
+                        "04": {
+                            "C\u00c9DULAS HIPOTECARIAS": "10102010204"
+                        },
+                        "05": {
+                            "CERTIFICADOS FINANCIEROS": "10102010205"
+                        },
+                        "06": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "10102010206"
+                        },
+                        "07": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "10102010207"
+                        },
+                        "08": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "10102010208"
+                        },
+                        "09": {
+                            "CUPONES": "10102010209"
+                        },
+                        "10": {
+                            "DEP\u00d3SITOS A PLAZO": "10102010210"
+                        },
+                        "11": {
+                            "LETRAS DE CAMBIO": "10102010211"
+                        },
+                        "12": {
+                            "NOTAS DE CR\u00c9DITO": "10102010212"
+                        },
+                        "13": {
+                            "OBLIGACIONES": "10102010213"
+                        },
+                        "14": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "10102010214"
+                        },
+                        "15": {
+                            "OVERNIGHTS": "10102010215"
+                        },
+                        "16": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "10102010216"
+                        },
+                        "17": {
+                            "PAPEL COMERCIAL": "10102010217"
+                        },
+                        "18": {
+                            "PAGAR\u00c9S": "10102010218"
+                        },
+                        "19": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "10102010219"
+                        },
+                        "20": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "10102010220"
+                        },
+                        "21": {
+                            "VALORES DE TITULARIZACI\u00d3N": "10102010221"
+                        },
+                        "22": {
+                            "INVERSIONES EN EL EXTERIOR": "10102010222"
+                        },
+                        "23": {
+                            "OTROS": "10102010223"
+                        }
+                    },
+                    "03": {
+                        "DERIVADOS": "101020103",
+                        "01": {
+                            "FORWARD": "10102010301"
+                        },
+                        "02": {
+                            "FUTUROS": "10102010302"
+                        },
+                        "03": {
+                            "OPCIONES": "10102010303"
+                        },
+                        "04": {
+                            "OTROS": "10102010304"
+                        }
+                    }
+                },
+                "02": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "1010202",
+                    "01": {
+                        "RENTA VARIABLE": "101020201",
+                        "01": {
+                            "ACCIONES Y PARTICIPACIONES": "10102020101"
+                        },
+                        "02": {
+                            "CUOTAS DE FONDOS COLECTIVOS": "10102020102"
+                        },
+                        "03": {
+                            "UNIDADES DE PARTICIPACI\u00d3N": "10102020103"
+                        },
+                        "04": {
+                            "VALORES DE  TITULARIZACI\u00d3N DE PARTICIPACI\u00d3N": "10102020104"
+                        },
+                        "05": {
+                            "INVERSIONES EN EL EXTERIOR": "10102020105"
+                        },
+                        "06": {
+                            "OTROS": "10102020106"
+                        }
+                    },
+                    "02": {
+                        "RENTA FIJA": "101020202",
+                        "01": {
+                            "AVALES": "10102020201"
+                        },
+                        "02": {
+                            "BONOS DEL ESTADO": "10102020202"
+                        },
+                        "03": {
+                            "BONOS DE PRENDA": "10102020203"
+                        },
+                        "04": {
+                            "C\u00c9DULAS HIPOTECARIAS": "10102020204"
+                        },
+                        "05": {
+                            "CERTIFICADOS FINANCIEROS": "10102020205"
+                        },
+                        "06": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "10102020206"
+                        },
+                        "07": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "10102020207"
+                        },
+                        "08": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "10102020208"
+                        },
+                        "09": {
+                            "CUPONES": "10102020209"
+                        },
+                        "10": {
+                            "DEP\u00d3SITOS A PLAZO": "10102020210"
+                        },
+                        "11": {
+                            "LETRAS DE CAMBIO": "10102020211"
+                        },
+                        "12": {
+                            "NOTAS DE CR\u00c9DITO": "10102020212"
+                        },
+                        "13": {
+                            "OBLIGACIONES": "10102020213"
+                        },
+                        "14": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "10102020214"
+                        },
+                        "15": {
+                            "OVERNIGHTS": "10102020215"
+                        },
+                        "16": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "10102020216"
+                        },
+                        "17": {
+                            "PAPEL COMERCIAL": "10102020217"
+                        },
+                        "18": {
+                            "PAGAR\u00c9S": "10102020218"
+                        },
+                        "19": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "10102020219"
+                        },
+                        "20": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "10102020220"
+                        },
+                        "21": {
+                            "VALORES DE TITULARIZACI\u00d3N": "10102020221"
+                        },
+                        "22": {
+                            "INVERSIONES EN EL EXTERIOR": "10102020222"
+                        },
+                        "23": {
+                            "OTROS": "10102020223"
+                        }
+                    }
+                },
+                "03": {
+                    "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": "1010203",
+                    "02": {
+                        "RENTA FIJA": "101020302",
+                        "01": {
+                            "AVALES": "10102030201"
+                        },
+                        "02": {
+                            "BONOS DEL ESTADO": "10102030202"
+                        },
+                        "03": {
+                            "BONOS DE PRENDA": "10102030203"
+                        },
+                        "04": {
+                            "C\u00c9DULAS HIPOTECARIAS": "10102030204"
+                        },
+                        "05": {
+                            "CERTIFICADOS FINANCIEROS": "10102030205"
+                        },
+                        "06": {
+                            "CERTIFICADOS DE INVERSI\u00d3N": "10102030206"
+                        },
+                        "07": {
+                            "CERTIFICADOS DE TESORER\u00cdA": "10102030207"
+                        },
+                        "08": {
+                            "CERTIFICADOS DE DEP\u00d3SITO": "10102030208"
+                        },
+                        "09": {
+                            "CUPONES": "10102030209"
+                        },
+                        "10": {
+                            "DEP\u00d3SITOS A PLAZO": "10102030210"
+                        },
+                        "11": {
+                            "LETRAS DE CAMBIO": "10102030211"
+                        },
+                        "12": {
+                            "NOTAS DE CR\u00c9DITO": "10102030212"
+                        },
+                        "13": {
+                            "OBLIGACIONES": "10102030213"
+                        },
+                        "14": {
+                            "FACTURAS COMERCIALES NEGOCIABLES": "10102030214"
+                        },
+                        "15": {
+                            "OVERNIGHTS": "10102030215"
+                        },
+                        "16": {
+                            "OBLIGACIONES CONVERTIBLES EN ACCIONES": "10102030216"
+                        },
+                        "17": {
+                            "PAPEL COMERCIAL": "10102030217"
+                        },
+                        "18": {
+                            "PAGAR\u00c9S": "10102030218"
+                        },
+                        "19": {
+                            "P\u00d3LIZAS DE ACUMULACI\u00d3N": "10102030219"
+                        },
+                        "20": {
+                            "T\u00cdTULOS DEL BANCO CENTRAL": "10102030220"
+                        },
+                        "21": {
+                            "VALORES DE TITULARIZACI\u00d3N": "10102030221"
+                        },
+                        "22": {
+                            "INVERSIONES EN EL EXTERIOR": "10102030222"
+                        },
+                        "23": {
+                            "OTROS": "10102030223"
+                        }
+                    }
+                },
+                "04": {
+                    "PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS": "1010204",
+                    "01": {
+                        "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "101020401"
+                    },
+                    "02": {
+                        "ACTIVOS FINANCIEROS AL COSTO AMORTIZADO": "101020402"
+                    },
+                    "03": {
+                        "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "101020403"
+                    }
+                },
+                "05": {
+                    "DEUDORES COMERCIALES Y OTRAS CUENTAS POR COBRAR NO RELACIONADOS": "1010205",
+                    "01": {
+                        "DE ACTIVIDADES ORDINARIAS QUE GENEREN INTERESES": "101020501",
+                        "01": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": "10102050101"
+                        },
+                        "02": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": "10102050102"
+                        }
+                    },
+                    "02": {
+                        "DE ACTIVIDADES ORDINARIAS QUE NO GENEREN INTERESES": "101020502",
+                        "01": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": "10102050201"
+                        },
+                        "02": {
+                            "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": "10102050202"
+                        },
+                        "03": {
+                            "CUENTAS POR COBRAR AL ORIGINADOR": "10102050203"
+                        },
+                        "04": {
+                            "COMISIONES POR OPERACIONES  BURS\u00c1TILES": "10102050204"
+                        },
+                        "07": {
+                            "CONTRATO DE UNDERWRITING": "10102050207"
+                        },
+                        "08": {
+                            "POR  ADMINISTRACI\u00d3N Y MANEJO DE PORTAFOLIOS DE TERCEROS": "10102050208"
+                        },
+                        "09": {
+                            "POR ADMINISTRACI\u00d3N Y MANEJO DE FONDOS ADMINISTRADOS": "10102050209"
+                        },
+                        "10": {
+                            "POR ADMINISTRACI\u00d3N Y MANEJO DE NEGOCIOS FIDUCIARIOS": "10102050210"
+                        },
+                        "11": {
+                            "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES MATERIALIZADOS": "10102050211"
+                        },
+                        "12": {
+                            "POR CUSTODIA Y CONSERVACI\u00d3N DE VALORES DESMATERIALIZADOS": "10102050212"
+                        },
+                        "13": {
+                            "POR MANEJO DE LIBRO DE ACCIONES Y ACCIONISTAS": "10102050213"
+                        },
+                        "14": {
+                            "POR ASESOR\u00cdA": "10102050214"
+                        },
+                        "15": {
+                            "DIVIDENDOS POR COBRAR": "10102050215"
+                        },
+                        "16": {
+                            "INTERESES POR COBRAR": "10102050216"
+                        },
+                        "17": {
+                            "DEUDORES POR INTERMEDIACI\u00d3N DE VALORES": "10102050217"
+                        },
+                        "18": {
+                            "ANTICIPO A COMITENTES": "10102050218"
+                        },
+                        "19": {
+                            "ANTICIPO A CONSTRUCTOR POR AVANCE DE OBRA": "10102050219"
+                        },
+                        "20": {
+                            "DERECHOS POR COMPROMISO DE RECOMPRA": "10102050220"
+                        },
+                        "21": {
+                            "OTRAS CUENTAS POR COBRAR NO RELACIONADAS": "10102050221"
+                        }
+                    }
+                },
+                "06": {
+                    "DOCUMENTOS Y CUENTAS POR COBRAR RELACIONADOS": "1010206",
+                    "01": {
+                        "POR COBRAR A ACCIONISTAS": "101020601"
+                    },
+                    "02": {
+                        "POR COBRAR A COMPA\u00d1\u00cdAS RELACIONADAS": "101020602"
+                    },
+                    "03": {
+                        "POR COBRAR A CLIENTES": "101020603"
+                    },
+                    "04": {
+                        "OTRAS CUENTAS POR COBRAR RELACIONADAS": "101020604"
+                    }
+                },
+                "07": {
+                    "PROVISI\u00d3N POR CUENTAS INCOBRABLES Y DETERIORO": "1010207"
+                }
+            },
+            "03": {
+                "INVENTARIOS": "10103",
+                "01": {
+                    "INVENTARIOS DE MATERIA PRIMA": "1010301"
+                },
+                "02": {
+                    "INVENTARIOS DE PRODUCTOS EN PROCESO": "1010302"
+                },
+                "03": {
+                    "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN EL PROCESO DE PRODUCCION": "1010303"
+                },
+                "04": {
+                    "INVENTARIOS DE SUMINISTROS O MATERIALES A SER CONSUMIDOS EN LA PRESTACION DEL SERVICIO": "1010304"
+                },
+                "05": {
+                    "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - PRODUCIDO POR LA COMPA\u00d1\u00cdA": "1010305"
+                },
+                "06": {
+                    "INVENTARIOS DE PROD. TERM. Y MERCAD. EN ALMAC\u00c9N - COMPRADO A  TERCEROS": "1010306"
+                },
+                "07": {
+                    "MERCADER\u00cdAS EN TR\u00c1NSITO": "1010307"
+                },
+                "08": {
+                    "OBRAS EN CONSTRUCCION": "1010308"
+                },
+                "09": {
+                    "OBRAS TERMINADAS": "1010309"
+                },
+                "10": {
+                    "MATERIALES O BIENES PARA LA CONSTRUCCION": "1010310"
+                },
+                "11": {
+                    "INVENTARIOS REPUESTOS, HERRAMIENTAS Y ACCESORIOS": "1010311"
+                },
+                "12": {
+                    "OTROS INVENTARIOS": "1010312"
+                },
+                "13": {
+                    "(-) PROVISI\u00d3N POR VALOR NETO DE REALIZACI\u00d3N Y OTRAS PERDIDAS EN INVENTARIO": "1010313"
+                }
+            },
+            "04": {
+                "SERVICIOS Y OTROS PAGOS ANTICIPADOS": "10104",
+                "01": {
+                    "SEGUROS PAGADOS POR ANTICIPADO": "1010401"
+                },
+                "02": {
+                    "ARRIENDOS PAGADOS POR ANTICIPADO": "1010402"
+                },
+                "03": {
+                    "ANTICIPOS A PROVEEDORES": "1010403"
+                },
+                "04": {
+                    "OTROS ANTICIPOS ENTREGADOS": "1010404"
+                }
+            },
+            "05": {
+                "ACTIVOS POR IMPUESTOS CORRIENTES": "10105",
+                "01": {
+                    "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA (IVA)": "1010501"
+                },
+                "02": {
+                    "CR\u00c9DITO TRIBUTARIO A FAVOR DE LA EMPRESA ( I. R.)": "1010502"
+                },
+                "03": {
+                    "ANTICIPO DE IMPUESTO A LA RENTA": "1010503"
+                }
+            },
+            "06": {
+                "ACTIVOS CORRIENTES MANTENIDOS PARA LA VENTA Y OPERACIONES DISCONTINUADAS": "10106"
+            },
+            "07": {
+                "CONSTRUCCIONES EN PROCESO (NIC 11 Y SECC.23 PYMES)": "10107"
+            },
+            "08": {
+                "OTROS ACTIVOS CORRIENTES": "10108"
+            }
+        },
+        "02": {
+            "ACTIVOS NO CORRIENTES": "102",
+            "01": {
+                "PROPIEDAD, PLANTA Y EQUIPO": "10201",
+                "01": {
+                    "TERRENOS": "1020101"
+                },
+                "02": {
+                    "EDIFICIOS": "1020102"
+                },
+                "03": {
+                    "CONSTRUCCIONES EN CURSO": "1020103"
+                },
+                "04": {
+                    "INSTALACIONES": "1020104"
+                },
+                "05": {
+                    "MUEBLES Y ENSERES": "1020105"
+                },
+                "06": {
+                    "MAQUINARIA Y EQUIPO": "1020106"
+                },
+                "07": {
+                    "NAVES, AEREONAVES, BARCAZAS Y SIMILARES": "1020107"
+                },
+                "08": {
+                    "EQUIPO DE COMPUTACI\u00d3N": "1020108"
+                },
+                "09": {
+                    "VEH\u00cdCULOS, EQUIPOS DE TRASPORTE Y EQUIPO CAMINERO M\u00d3VIL": "1020109"
+                },
+                "10": {
+                    "OTROS PROPIEDADES, PLANTA Y EQUIPO": "1020110"
+                },
+                "11": {
+                    "REPUESTOS Y HERRAMIENTAS": "1020111"
+                },
+                "12": {
+                    "(-) DEPRECIACI\u00d3N ACUMULADA PROPIEDADES, PLANTA Y EQUIPO": "1020112"
+                },
+                "13": {
+                    "(-) DETERIORO  ACUMULADO DE PROPIEDADES, PLANTA Y EQUIPO": "1020113"
+                },
+                "14": {
+                    "ACTIVOS DE EXPLORACION Y EXPLOTACION": "1020114",
+                    "01": {
+                        "ACTIVOS DE EXPLORACION Y EXPLOTACION": "102011401"
+                    },
+                    "02": {
+                        "(-) AMORTIZACION ACUMULADA DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": "102011402"
+                    },
+                    "03": {
+                        "(-) DETERIORO  ACUMULADO DE ACTIVOS DE EXPLORACI\u00d3N Y EXPLOTACI\u00d3N": "102011403"
+                    }
+                }
+            },
+            "02": {
+                "PROPIEDADES DE INVERSI\u00d3N": "10202",
+                "01": {
+                    "TERRENOS": "1020201",
+                    "01": {
+                        "TERRENOS": "102020101"
+                    },
+                    "02": {
+                        "DERECHOS DE USO SOBRE TERRENOS SUBARRENDADOS": "102020102"
+                    }
+                },
+                "02": {
+                    "EDIFICIOS": "1020202",
+                    "01": {
+                        "EDIFICIOS": "102020201"
+                    },
+                    "02": {
+                        "DERECHOS DE USO SOBRE EDIFICIOS SUBARRENDADOS": "102020202"
+                    }
+                },
+                "03": {
+                    "(-) DEPRECIACION ACUMULADA DE PROPIEDADES DE INVERSI\u00d3N": "1020203"
+                },
+                "04": {
+                    "(-) DETERIORO ACUMULADO DE PROPIEDADES DE INVERSI\u00d3N": "1020204"
+                }
+            },
+            "03": {
+                "ACTIVOS BIOLOGICOS": "10203",
+                "01": {
+                    "ANIMALES VIVOS EN CRECIMIENTO": "1020301"
+                },
+                "02": {
+                    "ANIMALES VIVOS EN PRODUCCION": "1020302"
+                },
+                "03": {
+                    "PLANTAS EN CRECIMIENTO": "1020303"
+                },
+                "04": {
+                    "PLANTAS EN PRODUCCION": "1020304"
+                },
+                "05": {
+                    "(-) DEPRECIACION ACUMULADA DE ACTIVOS BIOL\u00d3GICOS": "1020305"
+                },
+                "06": {
+                    "(-) DETERIORO ACUMULADO DE ACTIVOS BIOLOG\u00cdCOS": "1020306"
+                }
+            },
+            "04": {
+                "ACTIVO INTANGIBLE": "10204",
+                "01": {
+                    "PLUSVAL\u00cdAS": "1020401"
+                },
+                "02": {
+                    "MARCAS, PATENTES, DERECHOS DE LLAVE , CUOTAS PATRIMONIALES Y OTROS SIMILARES": "1020402"
+                },
+                "03": {
+                    "CONCESIONES Y LICENCIAS": "1020403"
+                },
+                "04": {
+                    "ACTIVOS DE EXPLORACION Y EXPLOTACION": "1020404"
+                },
+                "05": {
+                    "(-) AMORTIZACI\u00d3N ACUMULADA DE ACTIVOS INTANGIBLE": "1020405"
+                },
+                "06": {
+                    "(-) DETERIORO ACUMULADO DE ACTIVO INTANGIBLE": "1020406"
+                },
+                "07": {
+                    "OTROS INTANGIBLES": "1020407"
+                }
+            },
+            "05": {
+                "ACTIVOS POR IMPUESTOS DIFERIDOS": "10205"
+            },
+            "06": {
+                "ACTIVOS FINANCIEROS NO CORRIENTES": "10206",
+                "01": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "1020601"
+                },
+                "02": {
+                    "(-) PROVISION POR DETERIORO DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO": "1020602"
+                },
+                "03": {
+                    "ACTIVOS FINANCIEROS A COSTO AMORTIZADO": "1020603"
+                },
+                "04": {
+                    "(-) PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS A COSTO AMORTIZADO": "1020604"
+                },
+                "05": {
+                    "ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "1020605"
+                },
+                "06": {
+                    "(-)PROVISI\u00d3N POR DETERIORO DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "1020606"
+                }
+            },
+            "07": {
+                "DERECHO DE USO POR ACTIVOS ARRENDADOS": "10207",
+                "01": {
+                    "(-) DEPRECIACI\u00d3N ACUMULADA DE ACTIVOS PROVENIENTES POR DERECHOS DE USO": "1020701"
+                },
+                "02": {
+                    "(-) DETERIORO ACUMULADO DE ACTIVOS PROVENIENTES POR DERECHOS DE USO": "1020702"
+                },
+                "03": {
+                    "DERECHO DE USO POR ACTIVOS ARRENDADOS": "1020703"
+                }
+            },
+            "08": {
+                "OTROS ACTIVOS NO CORRIENTES": "10208",
+                "01": {
+                    "DERECHOS FIDUCIARIOS": "1020801"
+                },
+                "02": {
+                    "DEP\u00d3SITOS EN GARANT\u00cdA": "1020802"
+                },
+                "03": {
+                    "DEP\u00d3SITOS EN GARANT\u00cdA POR OPERACIONES BURS\u00c1TILES": "1020803"
+                },
+                "05": {
+                    "ACCIONES DEL DEP\u00d3SITO CENTRALIZADO DE VALORES": "1020805"
+                },
+                "06": {
+                    "INVERSIONES SUBSIDIARIAS": "1020806"
+                },
+                "07": {
+                    "INVERSIONES ASOCIADAS": "1020807"
+                },
+                "08": {
+                    "INVERSIONES NEGOCIOS CONJUNTOS": "1020808"
+                },
+                "09": {
+                    "OTRAS INVERSIONES": "1020809"
+                },
+                "10": {
+                    "(-) PROVISI\u00d3N VALUACI\u00d3N DE INVERSIONES": "1020810"
+                },
+                "11": {
+                    "OTROS ACTIVOS NO CORRIENTES": "1020811"
+                }
+            },
+            "09": {
+                "DOCUMENTOS Y CUENTAS POR COBRAR NO RELACIONADOS": "10209",
+                "01": {
+                    "CUENTAS Y DOCUMENTOS A COBRAR  A CLIENTES": "1020901"
+                },
+                "02": {
+                    "CUENTAS Y DOCUMENTOS A COBRAR  A TERCEROS": "1020902"
+                },
+                "03": {
+                    "OTRAS CUENTAS POR COBRAR NO RELACIONADAS": "1020903"
+                }
+            },
+            "10": {
+                "DOCUMENTOS Y CUENTAS POR COBRAR RELACIONADOS": "10210",
+                "01": {
+                    "POR COBRAR A ACCIONISTAS": "1021001"
+                },
+                "02": {
+                    "POR COBRAR A COMPA\u00d1\u00cdAS RELACIONADAS": "1021002"
+                },
+                "03": {
+                    "POR COBRAR A CLIENTES": "1021003"
+                },
+                "04": {
+                    "OTRAS CUENTAS POR COBRAR RELACIONADAS": "1021004"
+                }
+            }
+        }
+    },
+    "2": {
+        "PASIVO": "2",
+        "01": {
+            "PASIVO CORRIENTE": "201",
+            "01": {
+                "PASIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN RESULTADOS": "20101"
+            },
+            "02": {
+                "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": "20102"
+            },
+            "03": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR": "20103",
+                "01": {
+                    "LOCALES": "2010301",
+                    "01": {
+                        "PR\u00c9STAMOS": "201030101"
+                    },
+                    "02": {
+                        "PROVEEDORES": "201030102"
+                    },
+                    "03": {
+                        "OTRAS": "201030103"
+                    }
+                },
+                "02": {
+                    "DEL EXTERIOR": "2010302",
+                    "01": {
+                        "PR\u00c9STAMOS": "201030201"
+                    },
+                    "02": {
+                        "PROVEEDORES": "201030202"
+                    },
+                    "03": {
+                        "OTRAS": "201030203"
+                    }
+                }
+            },
+            "04": {
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": "20104",
+                "01": {
+                    "LOCALES": "2010401"
+                },
+                "02": {
+                    "DEL EXTERIOR": "2010402"
+                }
+            },
+            "05": {
+                "PROVISIONES": "20105",
+                "01": {
+                    "LOCALES": "2010501"
+                },
+                "02": {
+                    "DEL EXTERIOR": "2010502"
+                }
+            },
+            "06": {
+                "PORCI\u00d3N CORRIENTE DE VALORES EMITIDOS": "20106",
+                "01": {
+                    "OBLIGACIONES": "2010601"
+                },
+                "02": {
+                    "PAPEL COMERCIAL": "2010602"
+                },
+                "03": {
+                    "VALORES DE TITULARIZACI\u00d3N": "2010603"
+                },
+                "04": {
+                    "OTROS": "2010604"
+                },
+                "05": {
+                    "INTERESES POR PAGAR": "2010605"
+                }
+            },
+            "07": {
+                "OTRAS OBLIGACIONES CORRIENTES": "20107",
+                "01": {
+                    "CON LA ADMINISTRACI\u00d3N TRIBUTARIA": "2010701"
+                },
+                "02": {
+                    "IMPUESTO A LA RENTA POR PAGAR DEL EJERCICIO": "2010702"
+                },
+                "03": {
+                    "CON EL IESS": "2010703"
+                },
+                "04": {
+                    "POR BENEFICIOS DE LEY A EMPLEADOS": "2010704"
+                },
+                "05": {
+                    "PARTICIPACI\u00d3N TRABAJADORES POR PAGAR DEL EJERCICIO": "2010705"
+                },
+                "06": {
+                    "DIVIDENDOS POR PAGAR": "2010706"
+                },
+                "07": {
+                    "OTROS": "2010707"
+                }
+            },
+            "08": {
+                "CUENTAS POR PAGAR A RELACIONADAS": "20108",
+                "01": {
+                    "LOCALES": "2010801",
+                    "01": {
+                        "PR\u00c9STAMOS DE ACCIONISTAS": "201080101"
+                    },
+                    "02": {
+                        "PR\u00c9STAMOS DE COMPA\u00d1\u00cdAS RELACIONADAS": "201080102"
+                    },
+                    "03": {
+                        "PROVEEDORES": "201080103"
+                    },
+                    "04": {
+                        "OTROS": "201080104"
+                    }
+                },
+                "02": {
+                    "DEL EXTERIOR": "2010802",
+                    "01": {
+                        "PR\u00c9STAMOS DE ACCIONISTAS": "201080201"
+                    },
+                    "02": {
+                        "PR\u00c9STAMOS DE COMPA\u00d1\u00cdAS RELACIONADAS": "201080202"
+                    },
+                    "03": {
+                        "PROVEEDORES": "201080203"
+                    },
+                    "04": {
+                        "OTROS": "201080204"
+                    }
+                }
+            },
+            "09": {
+                "OTROS PASIVOS FINANCIEROS": "20109"
+            },
+            "10": {
+                "ANTICIPOS": "20110",
+                "01": {
+                    "ANTICIPOS DE CLIENTES": "2011001"
+                },
+                "02": {
+                    "OTROS ANTICIPOS RECIBIDOS": "2011002"
+                }
+            },
+            "11": {
+                "PASIVOS DIRECTAMENTE ASOCIADOS CON LOS ACTIVOS NO CORRIENTES Y OPERACIONES DISCONTINUADAS": "20111"
+            },
+            "12": {
+                "PORCION CORRIENTE DE PROVISIONES POR BENEFICIOS A EMPLEADOS": "20112",
+                "01": {
+                    "JUBILACION PATRONAL": "2011201"
+                },
+                "02": {
+                    "OTROS BENEFICIOS PARA LOS EMPLEADOS": "2011202"
+                }
+            },
+            "13": {
+                "OTROS PASIVOS CORRIENTES": "20113",
+                "01": {
+                    "COMISIONES POR PAGAR": "2011301"
+                },
+                "02": {
+                    "POR OPERACIONES BURS\u00c1TILES": "2011302"
+                },
+                "03": {
+                    "POR CUSTODIA": "2011303"
+                },
+                "04": {
+                    "POR ADMINISTRACI\u00d3N": "2011304"
+                },
+                "05": {
+                    "OTRAS COMISIONES": "2011305"
+                },
+                "06": {
+                    "SANCIONES Y MULTAS": "2011306"
+                },
+                "07": {
+                    "INDEMNIZACIONES": "2011307"
+                },
+                "08": {
+                    "OBLIGACIONES JUDICIALES": "2011308"
+                },
+                "09": {
+                    "ACREEDORES POR INTERMEDIACI\u00d3N": "2011309"
+                },
+                "10": {
+                    "OBLIGACI\u00d3N POR COMPROMISO DE RECOMPRA": "2011310"
+                },
+                "11": {
+                    "POR CONTRATOS DE UNDERWRITING": "2011311"
+                },
+                "12": {
+                    "OTROS": "2011312"
+                }
+            },
+            "14": {
+                "PASIVOS FINANCIEROS AL COSTO AMORTIZADO": "20114"
+            }
+        },
+        "02": {
+            "PASIVO NO CORRIENTE": "202",
+            "01": {
+                "PASIVOS POR CONTRATOS DE ARRENDAMIENTO": "20201"
+            },
+            "02": {
+                "CUENTAS Y DOCUMENTOS POR PAGAR": "20202",
+                "01": {
+                    "LOCALES": "2020201",
+                    "01": {
+                        "PR\u00c9STAMOS": "202020101"
+                    },
+                    "02": {
+                        "PROVEEDORES": "202020102"
+                    },
+                    "03": {
+                        "OTRAS": "202020103"
+                    }
+                },
+                "02": {
+                    "DEL EXTERIOR": "2020202",
+                    "01": {
+                        "PR\u00c9STAMOS": "202020201"
+                    },
+                    "02": {
+                        "PROVEEDORES": "202020202"
+                    },
+                    "03": {
+                        "OTRAS": "202020203"
+                    }
+                }
+            },
+            "03": {
+                "OBLIGACIONES CON INSTITUCIONES FINANCIERAS": "20203",
+                "01": {
+                    "LOCALES": "2020301"
+                },
+                "02": {
+                    "DEL EXTERIOR": "2020302"
+                }
+            },
+            "04": {
+                "CUENTAS POR PAGAR A": "20204",
+                "01": {
+                    "LOCALES": "2020401",
+                    "01": {
+                        "PR\u00c9STAMOS DE ACCIONISTAS": "202040101"
+                    },
+                    "02": {
+                        "PR\u00c9STAMOS DE COMPA\u00d1\u00cdAS RELACIONADAS": "202040102"
+                    },
+                    "03": {
+                        "PROVEEDORES": "202040103"
+                    },
+                    "04": {
+                        "OTROS": "202040104"
+                    }
+                },
+                "02": {
+                    "DEL EXTERIOR": "2020402",
+                    "01": {
+                        "PR\u00c9STAMOS DE ACCIONISTAS": "202040201"
+                    },
+                    "02": {
+                        "PR\u00c9STAMOS DE COMPA\u00d1\u00cdAS RELACIONADAS": "202040202"
+                    },
+                    "03": {
+                        "PROVEEDORES": "202040203"
+                    },
+                    "04": {
+                        "OTROS": "202040204"
+                    }
+                }
+            },
+            "05": {
+                "PORCI\u00d3N NO CORRIENTE DE VALORES EMITIDOS": "20205",
+                "01": {
+                    "OBLIGACIONES": "2020501"
+                },
+                "02": {
+                    "PAPEL COMERCIAL": "2020502"
+                },
+                "03": {
+                    "VALORES DE TITULARIZACI\u00d3N": "2020503"
+                },
+                "04": {
+                    "OTROS": "2020504"
+                },
+                "05": {
+                    "INTERESES POR PAGAR": "2020505"
+                }
+            },
+            "06": {
+                "ANTICIPOS": "20206",
+                "01": {
+                    "ANTICIPOS DE CLIENTES": "2020601"
+                },
+                "02": {
+                    "OTROS ANTICIPOS RECIBIDOS": "2020602"
+                }
+            },
+            "07": {
+                "PROVISIONES POR BENEFICIOS A EMPLEADOS": "20207",
+                "01": {
+                    "JUBILACION PATRONAL": "2020701"
+                },
+                "02": {
+                    "OTROS BENEFICIOS NO CORRIENTES PARA LOS EMPLEADOS": "2020702"
+                }
+            },
+            "08": {
+                "OTRAS PROVISIONES": "20208"
+            },
+            "09": {
+                "PASIVO DIFERIDO": "20209",
+                "01": {
+                    "INGRESOS DIFERIDOS": "2020901"
+                },
+                "02": {
+                    "PASIVOS POR IMPUESTOS DIFERIDOS": "2020902"
+                }
+            },
+            "10": {
+                "OTROS PASIVOS NO CORRIENTES": "20210"
+            }
+        }
+    },
+    "3": {
+        "PATRIMONIO NETO": "3",
+        "0": {
+            "PATRIMONIO NETO ATRIBUIBLE A LOS PROPIETARIOS DE LA CONTROLADORA": "30",
+            "1": {
+                "CAPITAL": "301",
+                "01": {
+                    "CAPITAL SUSCRITO O  ASIGNADO": "30101"
+                },
+                "02": {
+                    "(-) CAPITAL SUSCRITO NO PAGADO, ACCIONES EN TESORER\u00cdA": "30102"
+                },
+                "03": {
+                    "FONDO PATRIMONIAL": "30103"
+                },
+                "04": {
+                    "PATRIMONIO DE LOS NEGOCIOS FIDUCIARIOS": "30104"
+                },
+                "05": {
+                    "PATRIMONIO DE LOS FONDOS DE INVERSI\u00d3N": "30105",
+                    "01": {
+                        "PATRIMONIO DEL FONDO ADMINISTRADO": "3010501"
+                    },
+                    "02": {
+                        "PATRIMONIO DEL FONDO COLECTIVO": "3010502"
+                    }
+                }
+            },
+            "2": {
+                "APORTES DE SOCIOS O ACCIONISTAS PARA FUTURA CAPITALIZACI\u00d3N": "302"
+            },
+            "3": {
+                "PRIMA POR EMISI\u00d3N PRIMARIA DE ACCIONES": "303"
+            },
+            "4": {
+                "RESERVAS": "304",
+                "01": {
+                    "RESERVA LEGAL": "30401"
+                },
+                "02": {
+                    "RESERVAS FACULTATIVA Y ESTATUTARIA": "30402"
+                }
+            },
+            "5": {
+                "OTROS RESULTADOS INTEGRALES": "305",
+                "01": {
+                    "SUPERAVIT DE ACTIVOS FINANCIEROS A VALOR RAZONABLE CON CAMBIOS EN OTRO RESULTADO INTEGRAL": "30501"
+                },
+                "02": {
+                    "SUPERAVIT POR REVALUACI\u00d3N DE PROPIEDADES, PLANTA Y EQUIPO": "30502"
+                },
+                "03": {
+                    "SUPERAVIT POR REVALUACION DE ACTIVOS INTANGIBLES": "30503"
+                },
+                "04": {
+                    "OTROS SUPERAVIT POR REVALUACION": "30504"
+                }
+            },
+            "6": {
+                "RESULTADOS ACUMULADOS": "306",
+                "01": {
+                    "GANANCIAS ACUMULADAS": "30601"
+                },
+                "02": {
+                    "(-) P\u00c9RDIDAS ACUMULADAS": "30602"
+                },
+                "03": {
+                    "RESULTADOS ACUMULADOS PROVENIENTES DE LA ADOPCION POR PRIMERA VEZ DE LAS NIIF": "30603"
+                },
+                "04": {
+                    "RESERVA DE CAPITAL": "30604"
+                },
+                "05": {
+                    "RESERVA POR DONACIONES": "30605"
+                },
+                "06": {
+                    "RESERVA POR VALUACI\u00d3N": "30606"
+                },
+                "07": {
+                    "SUPER\u00c1VIT POR REVALUACI\u00d3N DE INVERSIONES": "30607"
+                }
+            },
+            "7": {
+                "RESULTADOS DEL EJERCICIO": "307",
+                "01": {
+                    "GANANCIA NETA DEL PERIODO": "30701"
+                },
+                "02": {
+                    "(-) P\u00c9RDIDA NETA DEL PERIODO": "30702"
+                }
+            }
+        },
+        "1": {
+            "PARTICIPACI\u00d3N": "31"
+        }
+    }
+}
