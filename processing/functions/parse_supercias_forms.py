@@ -188,8 +188,8 @@ def parse_pdf(pdf_path):
 
 
 #form_101_file = './storage/pdfs/1793173071001_DocumentosEconomicos_Balance  Estado de Situación Financiera_2021-12-31.pdf'
-form_csv_niif_file = './storage/pdfs/1793173071001_DocumentosEconomicos_Balance  Estado de Situación Financiera_2022-01-26.pdf'
-parse_pdf(form_csv_niif_file)
+#form_csv_niif_file = './storage/pdfs/1793173071001_DocumentosEconomicos_Balance  Estado de Situación Financiera_2022-01-26.pdf'
+#parse_pdf(form_csv_niif_file)
 
 
 

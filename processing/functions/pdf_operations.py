@@ -1,12 +1,16 @@
 import os
 import shutil
 from gridfs import GridFS
-
+from functions.extract_text_from_pdf import extract_text_from_pdf
 class PDFOperations:
     def __init__(self, db, collection, pdfs_path):
         self.db = db
         self.pdfs_path = pdfs_path
-        print('this is the pdfs_path', pdfs_path)
+        # make path if it does not exist
+        if not os.path.exists(self.pdfs_path):
+            os.makedirs(self.pdfs_path)
+        print(collection)
+        # make gridfs
         self.fs = GridFS(self.db, collection=collection)
 
     def write_to_disk(self, filename):
@@ -35,3 +39,12 @@ class PDFOperations:
             shutil.move(self.pdfs_path, target_path)
         except Exception as e:
             print(e)
+
+    def extract_text(self, filename):
+        # write file 
+        self.write_to_disk(filename)
+        # extract file 
+        self.extract_text(self.pdfs_path + '/' + filename)
+        # remove file 
+        self.delete_from_disk(filename)
+        
