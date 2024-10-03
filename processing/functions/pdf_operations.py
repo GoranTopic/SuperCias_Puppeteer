@@ -9,7 +9,6 @@ class PDFOperations:
         # make path if it does not exist
         if not os.path.exists(self.pdfs_path):
             os.makedirs(self.pdfs_path)
-        print(collection)
         # make gridfs
         self.fs = GridFS(self.db, collection=collection)
 
@@ -44,7 +43,8 @@ class PDFOperations:
         # write file 
         self.write_to_disk(filename)
         # extract file 
-        self.extract_text(self.pdfs_path + '/' + filename)
+        text = extract_text_from_pdf(self.pdfs_path + '/' + filename)
         # remove file 
         self.delete_from_disk(filename)
+        return text
         
