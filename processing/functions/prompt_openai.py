@@ -11,11 +11,14 @@ client = OpenAI(
     api_key=api_key,
 )
 
-
 def query_openai(prompt):
     # Create a chat completion
+    query = {
+        "role": "system",
+        "content": prompt
+    }
     chat_completion = client.chat.completions.create(
-        messages=[ prompt ],
+        messages=[ query ],
         model="gpt-3.5-turbo",
     )
     return chat_completion.choices[0].message.content
@@ -30,17 +33,12 @@ def test_openai():
     return response == "The capital of France is Paris."
 
 def prompt_acta_de_la_junta_general(text):
-
     data_format = '''{ 
         fecha,
         attendentes: [ { nombre, titulo, compania, numero_de_actiones }, ], 
         agenda : [ { punto, descripcion, conclusion }, ],
         conclusion,
     }'''
-
-    prompt = {
-        "role": "system",
-        "content": "please provide me with the details of the acta de la junta general, into a json with the following format: " + data_format + "." + text
-    }
+    prompt = "please provide me with the details of the acta de la junta general, into a json with the following format: " + data_format + "." + text
     response = query_openai(prompt)
     return response

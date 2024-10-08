@@ -8,23 +8,33 @@ class PDFOperations:
         self.pdfs_path = pdfs_path
         # make path if it does not exist
         if not os.path.exists(self.pdfs_path):
-            os.makedirs(self.pdfs_path)
+            os.make
         # make gridfs
         self.fs = GridFS(self.db, collection=collection)
 
-    def write_to_disk(self, filename):
-        # get pdf from GridFS
-        pdf = self.fs.find({'filename': filename})
-        try:
-            pdf = next(pdf)
+    def exists(self, filename):
+        does_exist = self.fs.exists({'filename': filename})
+        return does_exist
+
+    def write_to_disk(self, filename=None, ruc=None, type=None, title=None, year=None):
+        if(filename):
+            # get pdfs from GridFS
+            pdfs = self.fs.find({'filename': filename})
+        elif(ruc or type or title or year):
+            # Retrieve all files from GridFS collection that have in the filen ethe substring 'Balance  Estado de Situación'
+            pdfs = self.fs.find({'filename': {'$regex': '.*'+ruc+'.*'+type+'.*'+title+'.*'+year+'.*'}})
+        else:
+            # throw error
+            raise Exception('No filename or ruc, type, title, year provided')
+        count = 0
+        # get first pdf
+        for pdf in pdfs: 
             # write file to disk
-            with open(self.pdfs_path + filename, 'wb') as f:
+            with open(self.pdfs_path + pdf.filename, 'wb') as f:
                 f.write(pdf.read())
-                return f.name
-        # catch error
-        except Exception as e:
-            #throw error
-            print(e)
+                count += 1
+        return count
+        
 
     def delete_from_disk(self, filename):
         try:
@@ -40,11 +50,16 @@ class PDFOperations:
             print(e)
 
     def extract_text(self, filename):
-        # write file 
-        self.write_to_disk(filename)
-        # extract file 
-        text = extract_text_from_pdf(self.pdfs_path + '/' + filename)
-        # remove file 
-        self.delete_from_disk(filename)
-        return text
-        
+        try:
+            # write file 
+            written_count = self.write_to_disk(filename)
+            if(written_count == 0):
+                print('No file found')
+                return None
+            # extract file 
+            text = extract_text_from_pdf(self.pdfs_path + filename)
+        except Exception as e:
+            print(e)
+        finally:
+            self.delete_from_disk(filename)
+            return text
