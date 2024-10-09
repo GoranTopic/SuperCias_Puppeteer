@@ -36,9 +36,7 @@ def extract_text_from_pdf(pdf_filename):
 
     return text
 
-# Example usage
-pdf_filename = "./storage/pdfs/1790721450001_DocumentosGenerales_Oficio Nombramiento Administradores_2020-09-04_ALVERNIA DE CHACON IMELDA_PRESIDENTE.pdf"
-
-text = extract_text_from_pdf(pdf_filename)
-
-print(text)
+# Example usage for testing purposes
+#pdf_filename = "./storage/pdfs/1790721450001_DocumentosGenerales_Oficio Nombramiento Administradores_2020-09-04_ALVERNIA DE CHACON IMELDA_PRESIDENTE.pdf"
+#text = extract_text_from_pdf(pdf_filename)
+#print(text)
