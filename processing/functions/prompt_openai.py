@@ -11,15 +11,23 @@ client = OpenAI(
     api_key=api_key,
 )
 
-def query_openai(prompt):
+def query_openai(prompt, schema=None):
     # Create a chat completion
     query = {
         "role": "system",
         "content": prompt
     }
+    # if we pass a schema we will get a json response
+    json_schema = {
+        'type': "json_schema",
+        'json_schema': schema
+    } if schema else None
+    # Create a chat completion
     chat_completion = client.chat.completions.create(
-        messages=[ query ],
         model="gpt-3.5-turbo",
+        messages=[ query ],
+        response_format=json_schema,
+        
     )
     return chat_completion.choices[0].message.content
 
@@ -31,14 +39,3 @@ def test_openai():
     }
     response = query_openai(prompt)
     return response == "The capital of France is Paris."
-
-def prompt_acta_de_la_junta_general(text):
-    data_format = '''{ 
-        fecha,
-        attendentes: [ { nombre, titulo, compania, numero_de_actiones }, ], 
-        agenda : [ { punto, descripcion, conclusion }, ],
-        conclusion,
-    }'''
-    prompt = "please provide me with the details of the acta de la junta general, into a json with the following format: " + data_format + "." + text
-    response = query_openai(prompt)
-    return response
