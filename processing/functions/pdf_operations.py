@@ -1,4 +1,5 @@
 import os
+import traceback
 import shutil
 from gridfs import GridFS
 from functions.extract_text_from_pdf import extract_text_from_pdf
@@ -50,6 +51,7 @@ class PDFOperations:
             print(e)
 
     def extract_text(self, filename):
+        text = None
         try:
             # write file 
             written_count = self.write_to_disk(filename)
@@ -60,6 +62,8 @@ class PDFOperations:
             text = extract_text_from_pdf(self.pdfs_path + filename)
         except Exception as e:
             print(e)
+            # print traceback
+            print(traceback.print_exc())
         finally:
             self.delete_from_disk(filename)
             return text

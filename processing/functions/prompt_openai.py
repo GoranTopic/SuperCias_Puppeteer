@@ -13,23 +13,23 @@ client = OpenAI(
 
 def query_openai(prompt, schema=None):
     # Create a chat completion
-    query = {
+    system_role = {
         "role": "system",
+        "content": 'You are a Spanish data parser who is able to read and extract data from PDFs.'
+    }
+    query = {
+        "role": "user",
         "content": prompt
     }
     # if we pass a schema we will get a json response
-    json_schema = {
-        'type': "json_schema",
-        'json_schema': schema
-    } if schema else None
+    format = schema if schema else "davinci"
     # Create a chat completion
-    chat_completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[ query ],
-        response_format=json_schema,
-        
+    chat_completion = client.beta.chat.completions.parse(
+        model="gpt-4o-2024-08-06",
+        messages=[ system_role, query ],
+        response_format=format,
     )
-    return chat_completion.choices[0].message.content
+    return chat_completion.choices[0].message.parsed
 
 def test_openai():
     prompt = { 
