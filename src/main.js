@@ -27,3 +27,6 @@ if(data) {
 } else {
     console.log(`[${company.ruc}][${proxy}] ${company.name} not checked!`);
 }
+
+// close browser
+//await close_browser(browser);

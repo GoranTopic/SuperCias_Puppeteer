@@ -6,6 +6,7 @@ import goto_company_search_page from './goto_company_search_page.js';
 import select_company_script from './menus_items/select_company_script.js';
 import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 //import scrap_administradores_actuales from './menus_items/administradores_actuales/scrap_administradores_actuales.js';
+import scrap_kardex_de_accionista from './menus_items/kardex_de_accionista/scrap_kardex_de_accionista.js';
 import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
 
 const scrap_company = async (browser, company) => {
@@ -46,10 +47,10 @@ const scrap_company = async (browser, company) => {
         'Administradores anteriores': null,
         'Actos jurídicos': null,
         'Accionistas': null,
-        'Kárdex de accionistas': null,
+        'Kárdex de accionistas': null, //scrap_kardex_de_accionista,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,
-        'Documentos online': scrap_documents_script,
+        'Documentos online': null, // scrap_documents_script,
         'Valores adeudados': null,
         'Valores pagados': null,
         'Notificaciones generales': null,
