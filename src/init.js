@@ -32,6 +32,7 @@ const makeCompanyStore = async () => {
     });
     // open the store
     let store = await storage.open('kradek_de_accioniestas');
+    // return store
     return store;
 }
 
@@ -71,6 +72,24 @@ const makeChecklist = async (rucs_to_scrap) => {
     return checklist;
 }
 
+const check_done_recoreds = async (store, checklist) => {
+    // get all values from the store
+    let companies = await store.get({});
+    // for every compnay in the store
+    for (let company of companies) {
+        // remove the 'Kárdex de accionistas' and '_id' keys
+        delete company['Kárdex de accionistas'];
+        delete company['_id'];
+        // sort keys by id, ruc, name
+        company = ({ ...['id', 'ruc', 'name'].reduce((acc, key) => 
+            (company[key] ? { ...acc, [key]: company[key] } : acc), {}), ...company });
+        // check off the company in the checklist
+        checklist.check(company);
+        console.log(company.name, 'already in the store');
+    }
+}
+    
+
 const init = async () => {
     // get a lsit of cedulas from mongodb
     let rucs_to_scrap = await getRucsToScrap();
@@ -79,6 +98,8 @@ const init = async () => {
     let store = await makeCompanyStore();
     // make checklist dir
     let checklist = await makeChecklist(rucs_to_scrap);   
+    // check if the records are already in the store
+    let checked = await check_done_recoreds(store, checklist);
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {
         shuffle: true,

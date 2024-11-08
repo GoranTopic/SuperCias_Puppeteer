@@ -9,6 +9,7 @@ const goto_page_script = async browser => {
     // go to page
     await page.goto(busqueda_de_companias_url, {
         waitUntil: 'networkidle0',
+        timeout: 0,
     });
 }
 
