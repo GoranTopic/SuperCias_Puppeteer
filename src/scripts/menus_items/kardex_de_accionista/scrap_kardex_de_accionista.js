@@ -1,31 +1,48 @@
-import Checklist from 'checklist-js';
+//import Checklist from 'checklist-js';
 import send_request from '../../../reverse_engineer/send_request.js';
-import query_administradores_actuales from '../../../reverse_engineer/queries/query_administradores_actuales.js';
-import options from '../../../options.js';
-
-// the nuber of pdf is ok not have
-let error_threshold = options.pdf_missing_threshold;
+import query_kardex_de_accionistas from '../../../reverse_engineer/queries/query_kardek_de_accionistas.js';
+import query_excel_link from '../../../reverse_engineer/queries/query_excel_link.js';
+import download_pdf from '../../../utils/download_pdf.js';
 
 /**
- * Scrap Documents
+ * Scrap kardex de accionista
  *
  * @param {} page
  * @param {} company
  */
 export default async (page, company) => {
-
     // query the documentos online
     console.log('sending query to change to karde de accionista');
-    await send_request(
-        query_administradores_actuales, // paramter need to make the reuqe
+    let number_of_rows = await send_request(
+        query_kardex_de_accionistas, // the query
         // the callback, this is goin to run in the browser,
-        (response, status, i, C) =>  // the first table is general documentos
-        window.extract_number_of_pdfs(response, 'AdministradoresActuales', true),
+        (response, status, i, C) => 
+            window.extract_number_of_kardek_rows(response),
         page, // puppetter page
         false, // followAlong to false so we don't rquest the captchan twice 
     );
-    console.log('query documents request finished' + page);
+    console.log('number of rows: ', number_of_rows);
+    if(number_of_rows > 200000){
+        console.log('too many rows, skipping');
+        return 'too_many_rows'
+    }
 
+    let excel_filename = company.ruc + '.pdf';
+    // Download the execel kardex de accionista
+    let excel_url = await send_request(
+        query_excel_link(), 
+        // the callback
+        (response, status, i, C) => response['pfArgs']['rutaArchivoExcel'],
+        page, // puppetter page
+        false, 
+    );
+    // download the pdf
+    let result = await download_pdf(
+        excel_url, // the url to download from
+        page,// the page to download with 
+        excel_filename, // the filename to save as
+    );
+    return result;
 
     /*
     // store number of rows

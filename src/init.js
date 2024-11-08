@@ -18,7 +18,7 @@ const makeFileStorage = async () => {
         database: mongo_database,
     });
     // Create a file
-    let fileStore = await fileStorage.open('companies');
+    let fileStore = await fileStorage.open('kradek_de_accioniestas');
     return fileStore;
 }
 
@@ -31,7 +31,7 @@ const makeCompanyStore = async () => {
         database: mongo_database,
     });
     // open the store
-    let store = await storage.open('companies');
+    let store = await storage.open('kradek_de_accioniestas');
     return store;
 }
 

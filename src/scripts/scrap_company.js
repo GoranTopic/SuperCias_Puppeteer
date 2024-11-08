@@ -4,7 +4,7 @@ import insert_custom_components from '../reverse_engineer/insert_custom_componen
 import check_server_offline from './check_server_offline.js';
 import goto_company_search_page from './goto_company_search_page.js';
 import select_company_script from './menus_items/select_company_script.js';
-import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
+//import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 //import scrap_administradores_actuales from './menus_items/administradores_actuales/scrap_administradores_actuales.js';
 import scrap_kardex_de_accionista from './menus_items/kardex_de_accionista/scrap_kardex_de_accionista.js';
 import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
@@ -42,12 +42,12 @@ const scrap_company = async (browser, company) => {
     // this is a list of all the menu tabs,
     // with their corresponding scraper
     let tab_menus = {
-        'Información general': scrap_informacion_general_script,
+        'Información general': null, // scrap_informacion_general_script,
         'Administradores actuales': null, // scrap_administradores_actuales, 
         'Administradores anteriores': null,
         'Actos jurídicos': null,
         'Accionistas': null,
-        'Kárdex de accionistas': null, //scrap_kardex_de_accionista,
+        'Kárdex de accionistas': scrap_kardex_de_accionista,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,
         'Documentos online': null, // scrap_documents_script,

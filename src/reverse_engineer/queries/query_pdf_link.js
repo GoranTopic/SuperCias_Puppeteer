@@ -1,5 +1,5 @@
 /**
- * this are the parameters extracted when the website queries the backedn for the pdf link
+ * this are the parameters extracted when the website queries the backend for the pdf link
  *
  * This code was grabed from the webite console, printed by a custom AB Function on nov 2, 2022
  **/

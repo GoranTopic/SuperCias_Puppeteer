@@ -79,10 +79,9 @@ export default () => {
         return table;
     }
 
-
     /**
-     * extract_number_of_pdfs
-     * from a response, looks for the tags and extracts the number of rows a pdf has 
+     * extract_number_of_rows in a given table
+     * from a response, looks for the tags and extracts the number of rows a table has
      * it relies on a span tag in the paginator
      *
      * @param {} response
@@ -94,15 +93,64 @@ export default () => {
      * @param {} response
      * @param {} table
      */
+    window.extact_number_of_rows = (response, table) => {
+        
+    }
+
+    /**
+     * extract_number_of_pdfs
+     * from a response, looks for the tags and extracts the number of rows a pdf has 
+     * it relies the previous function extract_number_of_rows
+     *
+     * @param {} response
+     * @param {} table
+     */
+    /**
+     * window.extract_number_of_pdfs.
+     *
+     * @param {} response
+     * @param {} table
+     */
     window.extract_number_of_pdfs = (response, table) => {
+        // get the number of rows
+        table = `frmInformacionCompanias:tabViewDocumentacion:tbl${table}_paginator_bottom`
         // let's parse the html respose
         let html = window.parse_html_str(response.responseText);
         // let get the update from the table's 
         let paginator_el = html
-            .getElementById(`frmInformacionCompanias:tabViewDocumentacion:tbl${table}_paginator_bottom`);
+            .getElementById(table)
         // check
         if(!paginator_el) {
-            console.error(`Could not extract number of pdfs from table: ${table}`)
+            console.error(`Could not extract number of rows from table: ${table}`)
+            return null;
+        }
+        // get the number of rows
+        let rows_span = paginator_el
+            .getElementsByTagName('span')[0]
+            .innerHTML
+            .split(' ')[2]
+        // parse the number
+        let rows_int = Number.parseInt(rows_span);
+        // success
+        return rows_int;
+    }
+
+    /**
+     * return the number of rows from the kardeks table
+     * @param {} response
+     * @param {} table
+     */ 
+    window.extract_number_of_kardek_rows = response => {
+        // get the number of rows
+        let table = 'frmInformacionCompanias:tblKardexAccionistas_paginator_bottom';
+         // let's parse the html respose
+        let html = window.parse_html_str(response.responseText);
+        // let get the update from the table's 
+        let paginator_el = html
+            .getElementById(table)
+        // check
+        if(!paginator_el) {
+            console.error(`Could not extract number of rows from table: ${table}`)
             return null;
         }
         // get the number of rows

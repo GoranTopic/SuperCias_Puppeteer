@@ -18,7 +18,6 @@ const scrap_table = async (table, page, company) => {
     // except if it is the general row, in which case it is 
     console.log(`scraping ${table} Table`);
 
-
     if (table !== 'DocumentosGenerales') {
         // If it is not the general table, we need to change the table
         //debugger

@@ -22,13 +22,13 @@ const scrap_row = async (id, page, path) =>
         );
         console.log(`src: ${src}`);
         // downloading pdf
-        let pdf_str = await download_pdf(
+        let result = await download_pdf(
             src, // where to download
             page,// the page to download with 
             path // where to save
         );
         clearTimeout(time_out);
-        resolve(pdf_str);
+        resolve(result);
     });
 
 export default scrap_row;

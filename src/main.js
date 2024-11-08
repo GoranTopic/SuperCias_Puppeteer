@@ -18,7 +18,7 @@ console.log(`setting up browser with proxy: ${proxy}`);
 let data = await scrap_company(browser, company);
 console.log('scraped company', data);
 // clean up
-//await close_browser( browser );
+await close_browser( browser );
 
 if(data) {
     await store.push(data);
@@ -27,6 +27,3 @@ if(data) {
 } else {
     console.log(`[${company.ruc}][${proxy}] ${company.name} not checked!`);
 }
-
-// close browser
-//await close_browser(browser);
