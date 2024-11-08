@@ -72,7 +72,7 @@ const makeChecklist = async (rucs_to_scrap) => {
     return checklist;
 }
 
-const check_done_recoreds = async (store, checklist) => {
+const check_done_companies = async (store, checklist) => {
     // get all values from the store
     let companies = await store.get({});
     // for every compnay in the store
@@ -99,7 +99,7 @@ const init = async () => {
     // make checklist dir
     let checklist = await makeChecklist(rucs_to_scrap);   
     // check if the records are already in the store
-    let checked = await check_done_recoreds(store, checklist);
+    await check_done_companies(store, checklist);
     // create a proxy rotator
     let proxies = new ProxyRotator('./storage/proxies/proxyscrape_premium_http_proxies.txt', {
         shuffle: true,
