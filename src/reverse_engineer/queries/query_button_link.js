@@ -4,20 +4,20 @@
  * This code was grabed from the webite console, printed by a custom AB Function on nov 2, 2022
  **/
 /**
- *  Query the excel link for the table
- *  This function is called when the user clicks the download excel button
+ *  Query the button link for the table
+ *  This function is called when the user clicks on a download button
  *  it might just work with any table 
  *
  */
-const query_excel_link = () => ({
+const query_button_link = button_id => ({
     ext: undefined,
     oncomplete: function(xhr,status,args){
         handleMostrarDialogoCaptcha(xhr,status,args);
     },
     partialSubmit: true,
-    process : "frmInformacionCompanias:j_idt660",
-    source : "frmInformacionCompanias:j_idt660",
+    process : `frmInformacionCompanias:${button_id}`,
+    source : `frmInformacionCompanias:${button_id}`,
     update : "dlgCaptcha frmCaptcha:panelCaptcha",
 })
 
-export default  query_excel_link;
+export default query_button_link;

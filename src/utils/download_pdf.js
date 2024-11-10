@@ -4,6 +4,8 @@ import options from '../../src/options.js';
 let debugging = options.debugging;
 
 const download_pdf = async (url, page, path) => {
+    if(url === undefined || url === null || url === '')
+        throw new Error('url is not defined');
     let pdfString = await page.evaluate( async url => 
         new Promise( async (resolve, reject) => {
             let timeout = setTimeout(() => // 5 minutes

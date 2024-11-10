@@ -4,9 +4,8 @@ import ProxyRotator from 'proxy-rotator-js'
 import Checklist from 'checklist-js';
 import Storage from 'dstore-js';
 
-// vpn
-const mongo_url = 'mongodb://10.0.10.5:27017';
-//const mongo_url = 'mongodb://0.0.0.0:27017';
+//const mongo_url = 'mongodb://10.0.10.5:27017'; // vpn
+const mongo_url = 'mongodb://0.0.0.0:27017';
 const mongo_database = 'supercias';
 
 const makeFileStorage = async () => {
@@ -48,6 +47,7 @@ const getRucsToScrap = async () => {
     let suggestions_store = await fileStorage.open('ranking');
     // get the companies that have activos greater then 500k
     let rucs_to_scrap = await suggestions_store.get({
+        //"ruc": "1790319857001", // for testing
         "activos": { $gt: 500000 }
     })
     // close the store

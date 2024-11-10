@@ -10,7 +10,7 @@ let company = await checklist.next();
 console.log('next company', company);
 
 // set up browser
-let browser = await setup_browser(proxy);
+let browser = await setup_browser() //proxy);
 console.log(`setting up browser with proxy: ${proxy}`);
 // save fileStore in to the page so that it can be used in the browser
 (await browser.pages())[0]['fileStore'] = fileStore;

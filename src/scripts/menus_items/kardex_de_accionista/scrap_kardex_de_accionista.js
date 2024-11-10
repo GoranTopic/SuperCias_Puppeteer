@@ -1,8 +1,9 @@
 //import Checklist from 'checklist-js';
 import send_request from '../../../reverse_engineer/send_request.js';
 import query_kardex_de_accionistas from '../../../reverse_engineer/queries/query_kardek_de_accionistas.js';
-import query_excel_link from '../../../reverse_engineer/queries/query_excel_link.js';
+import query_button_link from '../../../reverse_engineer/queries/query_button_link.js';
 import download_pdf from '../../../utils/download_pdf.js';
+import selectWidgetIdByTextContent from '../../../utils/selectWidgetIdByTextContent.js';
 
 /**
  * Scrap kardex de accionista
@@ -27,16 +28,20 @@ export default async (page, company) => {
         return 'too_many_rows'
     }
 
-    let excel_filename = company.ruc + '.pdf';
+    let button_id = 
+        await selectWidgetIdByTextContent(page, 'Exportar a Excel');
+    console.log('button id: ', button_id);
     // Download the execel kardex de accionista
     let excel_url = await send_request(
-        query_excel_link(), 
+        query_button_link(button_id), // the query
         // the callback
         (response, status, i, C) => response['pfArgs']['rutaArchivoExcel'],
         page, // puppetter page
         false, 
     );
-    // download the pdf
+    console.log('excel url: ', excel_url);
+    let excel_filename = company.ruc + '.xlsx';
+// download the pdf
     let result = await download_pdf(
         excel_url, // the url to download from
         page,// the page to download with 
@@ -44,57 +49,4 @@ export default async (page, company) => {
     );
     return result;
 
-    /*
-    // store number of rows
-    let rows = {};
-    tables.forEach( table => {
-        if(table === 'AdministradoresActuales')
-            rows[table] = numberOfGeneralPdfs;
-        else
-            rows[table] = null;
-    });
-    console.log(company);
-    // checklist tables
-    let tbl_checklist = new Checklist(tables, {
-        name: `document tables for ${company.ruc}`,
-        path: './storage/checklists'
-    });
-
-    // make checklists
-    let pdf_checklists = {};
-    tables.forEach(table =>
-        pdf_checklists[table] = new Checklist(null, {
-                name: table + ' pdfs for ' + company.ruc,
-                path: './storage/checklists',
-            })
-    );
-
-    let downloaded = {};
-    // let try to scrap every table =)
-    for( let table of tables ){
-        if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company);
-            if(pdf_checklists[table].missingLeft() <= error_threshold){
-                // if there are less pdfs left than the threshold, 
-                // mark as done
-                tbl_checklist.check(table);
-                pdf_checklists[table].delete();
-            }
-        }
-    }
-    console.log('downloaded')
-    console.log(downloaded)
-    // check how we did
-    tables.forEach( table =>
-        console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
-    );
-    // if everyt checklist has less than missing pdfs
-    if( tbl_checklist.isDone() ){
-        tbl_checklist.delete();
-        console.log('scrap documents finished')
-    }else // did not pass
-        console.log('scrap documents did not finish')
-    // return list of downloaded pdfs
-    return downloaded;
-    */
 }
