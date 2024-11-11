@@ -29,4 +29,16 @@ for file in files_collection.find():
         except gridfs.errors.NoFile:
             print(f"No file found for _id: {file_id}")
 
+# for every file in the collection
+for file in collection.find():
+    ruc = file['ruc']
+    count = files_collection.count_documents({ 'filename': ruc + '.xlsx' })
+    if(count < 1):
+        collection.delete_one({'ruc': ruc})
+        print(f"Deleted file with ruc: {ruc})")
+    
+
+
+
+
 print("Cleanup complete.")
