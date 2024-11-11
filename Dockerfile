@@ -3,7 +3,7 @@ FROM ghcr.io/puppeteer/puppeteer:latest
 # root user to be able to access ount directory
 USER root
 
-WORKDIR supercias
+WORKDIR /home/$(USER)/data-mining/supercias
 # pass our own package.json
 COPY package.json package.json
 COPY src/ src/
