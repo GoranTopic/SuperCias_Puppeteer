@@ -7,7 +7,7 @@ import select_company_script from './menus_items/select_company_script.js';
 //import scrap_informacion_general_script from './menus_items/scrap_informacion_general.js';
 //import scrap_administradores_actuales from './menus_items/administradores_actuales/scrap_administradores_actuales.js';
 import scrap_kardex_de_accionista from './menus_items/kardex_de_accionista/scrap_kardex_de_accionista.js';
-import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
+//import scrap_documents_script from './menus_items/documentos_online/scrap_documents.js';
 
 const scrap_company = async (browser, company) => {
     // get page

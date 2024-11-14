@@ -1,6 +1,6 @@
 export default {
     "browser": {
-        "headless": true,
+        "headless": false,
         "slowMo": 0,
         "devtools": false,
         "timeout": 1000000000,
@@ -9,7 +9,8 @@ export default {
             "--no-sandbox",
             "--disable-web-security",
             "--disable-setuid-sandbox",
-            "--allow-file-access-from-files"
+            "--allow-file-access-from-files",
+            "--ignore-certificate-errors"
         ]
     },
     "storage": "./storage/",
