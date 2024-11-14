@@ -1,9 +1,11 @@
 FROM ghcr.io/puppeteer/puppeteer:latest
 
+ENV USERNAME=telix
+
 # root user to be able to access ount directory
 USER root
 
-WORKDIR /home/$(USER)/data-mining/supercias
+WORKDIR /home/${USERNAME}/data-mining/supercias
 # pass our own package.json
 COPY package.json package.json
 COPY src/ src/

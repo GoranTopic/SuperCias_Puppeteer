@@ -12,6 +12,7 @@ Slaver({
 }).slave(async ({ company, proxy }) => {
     let browser = null;
     let data = null;
+    proxy = null;
     // set up browser
     console.log(`setting up browser with proxy: ${proxy}`);
     browser = await setup_browser(proxy);
