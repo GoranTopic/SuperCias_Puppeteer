@@ -4,7 +4,7 @@ services:
     image: supercias
     command: npm run slave
     volumes:
-      - /home/${USERNAME}/data-mining/supercias/storage/:/home/pptruser/supercias/storage
+      - /home/telix/data-mining/supercias/storage/:/home/pptruser/supercias/storage/
     network_mode: host
     restart: always
 
