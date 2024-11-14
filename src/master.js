@@ -7,7 +7,6 @@ Slavery({
 }).master(async master => {
     // master is a slave object
     const { proxies, store, checklist } = await init();
-    console.log(`Companies to check: ${checklist.valuesCount()}`);
     // get next company
     let company = checklist.next();
     
