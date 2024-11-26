@@ -26,6 +26,9 @@ export default async (page, company) => {
     if(number_of_rows > 200000){
         console.log('too many rows, skipping');
         return 'too_many_rows'
+    }else if(number_of_rows === 0){
+        console.log('informacion no disponible')
+        return 'informacion no displinble'
     }
 
     let button_id = 
