@@ -18,7 +18,7 @@ export default async (page, company) => {
         query_kardex_de_accionistas, // the query
         // the callback, this is goin to run in the browser,
         (response, status, i, C) => 
-            window.extract_number_of_kardek_rows(response),
+        window.extract_number_of_kardek_rows(response),
         page, // puppetter page
         false, // followAlong to false so we don't rquest the captchan twice 
     );
@@ -28,6 +28,13 @@ export default async (page, company) => {
         return 'too_many_rows'
     }else if(number_of_rows === 0){
         console.log('informacion no disponible')
+        // get fieStore from page
+        let fileStore = page['fileStore']; 
+        // save pdf buffer 
+        await fileStore.set(Buffer.from(""), {
+            filename: company.ruc + '.xlsx',
+            type: 'application/pdf', 
+        });
         return 'informacion no displinble'
     }
 
