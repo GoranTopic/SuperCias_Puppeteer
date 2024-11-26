@@ -40,7 +40,6 @@ const download_pdf = async (url, page, path) => {
         await fileStore.set(Buffer.from(pdfData), {
             filename: path, 
             type: 'application/pdf',
-            ruc: path.split('.')[0]
         });
         // write to fs
         //fs.writeFileSync( path , pdfData);
