@@ -3,7 +3,7 @@ import options from '../../src/options.js';
 
 let debugging = options.debugging;
 
-const download_pdf = async (url, page, path) => {
+const download_pdf = async (url, page, path, store) => {
     if(url === undefined || url === null || url === '')
         throw new Error('url is not defined');
     let pdfString = await page.evaluate( async url => 
@@ -28,22 +28,24 @@ const download_pdf = async (url, page, path) => {
             reader.readAsBinaryString(data);
         }), url
     );
-
     try{ 
         // save pdf binary string 
         const pdfData = Buffer.from(pdfString, 'binary');
-        //let filename = path + ".pdf"
         debugger;
-        // get fieStore from page
-        let fileStore = page['fileStore'];
-        // save pdf buffer
-        await fileStore.set(Buffer.from(pdfData), {
-            filename: path, 
-            type: 'application/pdf',
-        });
-        // write to fs
-        //fs.writeFileSync( path , pdfData);
-        //if(debugging) console.log(`downloaded pdf: ${filename}`);
+        // if a store has been passed
+        if(store){
+            // save to store
+            await store.set(Buffer.from(pdfData), {
+                filename: path, 
+                type: 'application/pdf',
+            });
+            console.log(`downloaded in store: ${path}`);
+        } else { 
+            // if the store is not passed write to the file system
+            // write to fs
+            fs.writeFileSync(path , pdfData);
+            console.log(`downloaded in fs: ${path}`);
+        }
         return true;
     }catch(e){
         // did it downloaded

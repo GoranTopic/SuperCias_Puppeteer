@@ -1,92 +1,66 @@
-import Checklist from 'checklist-js';
-import send_request from '../../reverse_engineer/send_request.js';
-import query_administradores_anteriores from '../../reverse_engineer/queries/query_administradores_anteriores.js';
-import scrap_table from './scrap_doc_tables_opction.js';
-import options from '../../options.js';
-
-// the nuber of pdf is ok not have
-let error_threshold = options.pdf_missing_threshold;
+import send_request from '../../../reverse_engineer/send_request.js';
+import query_administradores_anteriores from '../../../reverse_engineer/queries/query_administradores_anteriores.js';
+import query_button_link from '../../../reverse_engineer/queries/query_button_link.js';
+import download_pdf from '../../../utils/download_pdf.js';
+import selectWidgetIdByTextContent from '../../../utils/selectWidgetIdByTextContent.js';
 
 /**
- * Scrap Documents
+ * Scrap administradores anteriores
  *
  * @param {} page
  * @param {} company
  */
 export default async (page, company) => {
-   // tables to scrap
-   let tables = [
-    'AdministradoresAnteriores'
-    ];
-
-    // query the documentos online
-    console.log('sending query documentos request')
-    let numberOfGeneralPdfs = await send_request(
-        query_administradores_anteriores, // paramter need to make the reuqe
+    // query the page pf the administradores anteriores
+    console.log('sending query to change to administradores anteriores');
+    let number_of_rows = await send_request(
+        query_administradores_anteriores,
         // the callback, this is goin to run in the browser,
-        (response, status, i, C) =>  // the first table is general documentos
-        window.extract_number_of_pdfs(response, 'AdministradoresActuales',true),
+        (response, status, i, C) => 
+            window.number_of_rows_administradores_anteriores(response),
         page, // puppetter page
-        console, // logger
         false, // followAlong to false so we don't rquest the captchan twice 
     );
-    console.log(`numberOfGeneralPdfs: ${numberOfGeneralPdfs}`);
-    console.log('query documents request finished' + page);
-
-
-    /* *
-    *  Here we will loop ove the three document tabs:
-    *  DocumentosGenerales, DocumentosEconomicos, DocumentosJudiciales
-    * */
-    // store number of rows
-    let rows = {};
-    tables.forEach( table => {
-        if(table === 'AdministradoresAnteriores')
-            rows[table] = numberOfGeneralPdfs;
-        else
-            rows[table] = null;
-    });
-    console.log(company);
-    // checklist tables
-    let tbl_checklist = new Checklist(tables, {
-        name: `document tables for ${company.ruc}`,
-        path: './storage/checklists'
-    });
-
-    // make checklists
-    let pdf_checklists = {};
-    tables.forEach(table =>
-        pdf_checklists[table] = new Checklist(null, {
-                name: table + ' pdfs for ' + company.ruc,
-                path: './storage/checklists',
-            })
-    );
-
-    let downloaded = {};
-    // let try to scrap every table =)
-    for( let table of tables ){
-        if(!tbl_checklist.isChecked(table)){
-            downloaded[table] = await scrap_table(table, rows, pdf_checklists, page, company, console);
-            if(pdf_checklists[table].missingLeft() <= error_threshold){
-                // if there are less pdfs left than the threshold, 
-                // mark as done
-                tbl_checklist.check(table);
-                pdf_checklists[table].delete();
-            }
-        }
+    console.log('number of rows: ', number_of_rows);
+    if(number_of_rows > 400000){
+        console.log('too many rows, skipping');
+        return 'too_many_rows'
+    }else if(number_of_rows === 0){
+        console.log('informacion no disponible')
+        // get fieStore from page
+        let fileStore = page['admin_anterior_store'];
+        // save pdf buffer 
+        await fileStore.set(Buffer.from(""), {
+            filename: company.ruc + '.pdf',
+            type: 'application/pdf', 
+        });
+        return 'informacion no disponible';
     }
-    console.log('downloaded')
-    console.log(downloaded)
-    // check how we did
-    tables.forEach( table =>
-        console.log(`For ${table} we got ${pdf_checklists[table].valuesDone()}/${rows[table]}`)
+
+    let button_id = 
+        await selectWidgetIdByTextContent(page, 'Imprimir certificado');
+    console.log('button id: ', button_id);
+    // Download the pdf of the administradores actuales
+    let pdf_url = await send_request(
+        query_button_link(button_id), // the query
+        // the callback
+        (response, status, i, C) => {
+            console.log('response: ', response);
+            return response['pfArgs']['urlDocumentoPdf'];
+        },
+        page, // puppetter page
+        false, 
     );
-    // if everyt checklist has less than missing pdfs
-    if( tbl_checklist.isDone() ){
-        tbl_checklist.delete();
-        console.log('scrap documents finished')
-    }else // did not pass
-        console.log('scrap documents did not finish')
-    // return list of downloaded pdfs
-    return downloaded;
+    console.log('pdf url: ', pdf_url);
+    let pdf_filename = company.ruc + '.pdf';
+    // get the file store
+    let fileStore = page['admin_anterior_store'];
+    // download the pdf
+    let result = await download_pdf(
+        pdf_url, // the url to download from
+        page,// the page to download with 
+        pdf_filename, // the filename to save as
+        fileStore, // the file store to save the file
+    );
+    return result;
 }

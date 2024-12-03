@@ -136,13 +136,14 @@ export default () => {
     }
 
     /**
-     * return the number of rows from the kardeks table
+     * return a function which will extract the number of rows from a table
      * @param {} response
-     * @param {} table
+     * @param {} table, ex 'KardexAccionistas', 'AdministradoresActuales'
      */ 
-    window.extract_number_of_kardek_rows = response => {
+    window.make_extract_number_of_rows = (table_name) => (response) => {
         // get the number of rows
-        let table = 'frmInformacionCompanias:tblKardexAccionistas_paginator_bottom';
+        let table = `frmInformacionCompanias:tbl${table_name}_paginator_bottom`;
+        console.log('table to query:', table)
          // let's parse the html respose
         let html = window.parse_html_str(response.responseText);
         // let get the update from the table's 
@@ -163,6 +164,12 @@ export default () => {
         // success
         return rows_int;
     }
+    // administadores actuales
+    window.number_of_rows_administradores_actuales = make_extract_number_of_rows('AdministradoresActuales');
+    // administadores anteriores
+    window.number_of_rows_administradores_anteriores = make_extract_number_of_rows('AdministradoresAnteriores');
+    // kardex accionistas
+    window.number_of_rows_kardex_accionistas = make_extract_number_of_rows('KardexAccionistas');
 
     window.parse_table_html = table_id => {
         // get the table
@@ -193,7 +200,6 @@ export default () => {
         }
         return parsed_rows;
     }
-    
 
     /*** 
         this function will the parse table html function but check every second 

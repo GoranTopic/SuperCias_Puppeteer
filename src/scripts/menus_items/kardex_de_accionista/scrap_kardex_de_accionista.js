@@ -1,4 +1,3 @@
-//import Checklist from 'checklist-js';
 import send_request from '../../../reverse_engineer/send_request.js';
 import query_kardex_de_accionistas from '../../../reverse_engineer/queries/query_kardek_de_accionistas.js';
 import query_button_link from '../../../reverse_engineer/queries/query_button_link.js';
@@ -18,7 +17,7 @@ export default async (page, company) => {
         query_kardex_de_accionistas, // the query
         // the callback, this is goin to run in the browser,
         (response, status, i, C) => 
-        window.extract_number_of_kardek_rows(response),
+        window.number_of_rows_kardex_accionistas(response),
         page, // puppetter page
         false, // followAlong to false so we don't rquest the captchan twice 
     );

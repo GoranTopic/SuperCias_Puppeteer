@@ -8,7 +8,7 @@ const mongo_url = 'mongodb://10.0.10.5:27017'; // vpn
 //const mongo_url = 'mongodb://0.0.0.0:27017';
 const mongo_database = 'supercias';
 
-const makeFileStorage = async () => {
+const makeFileStorage = async (fileStore_name) => {
     /* make storage to store pdfs */
     // Create a storage
     let fileStorage = new Storage({
@@ -17,11 +17,11 @@ const makeFileStorage = async () => {
         database: mongo_database,
     });
     // Create a file
-    let fileStore = await fileStorage.open('kradek_de_accioniestas');
+    let fileStore = await fileStorage.open(fileStore_name);
     return fileStore;
 }
 
-const makeCompanyStore = async () => {
+const makeCompanyStore = async (store_name) => {
     /* make a store to store the companies */
     // Create a storage
     let storage = new Storage({
@@ -30,7 +30,7 @@ const makeCompanyStore = async () => {
         database: mongo_database,
     });
     // open the store
-    let store = await storage.open('kradek_de_accioniestas');
+    let store = await storage.open(store_name);
     // return store
     return store;
 }
@@ -95,7 +95,7 @@ const init = async () => {
     let rucs_to_scrap = await getRucsToScrap();
     console.log('cedulas to scrap:', rucs_to_scrap.length);
     // make a store
-    let store = await makeCompanyStore();
+    let store = await makeCompanyStore('kardex_de_accionistas');
     // make checklist dir
     let checklist = await makeChecklist(rucs_to_scrap);   
     // check if the records are already in the store
@@ -105,7 +105,7 @@ const init = async () => {
         shuffle: true,
     });
     // make fileStore 
-    let fileStore = await makeFileStorage();
+    let fileStore = await makeFileStorage('kardex_de_accionistas');
     // return values
     return {
         checklist,
