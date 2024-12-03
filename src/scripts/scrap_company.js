@@ -49,11 +49,11 @@ const scrap_company = async (browser, company) => {
     // with their corresponding scraper
     let tab_menus = {
         'Información general': null, // scrap_informacion_general_script,
-        'Administradores actuales': null, // scrap_administradores_actuales, 
-        'Administradores anteriores': null,
+        'Administradores actuales': null, //scrap_administradores_actuales, 
+        'Administradores anteriores': null, // scrap_administradores_anteriores,
         'Actos jurídicos': null,
         'Accionistas': null,
-        'Kárdex de accionistas': scrap_kardex_de_accionista,
+        'Kárdex de accionistas': null, //scrap_kardex_de_accionista,
         'Información anual presentada': null,
         'Consulta de cumplimiento': null,
         'Documentos online': null, // scrap_documents_script,
