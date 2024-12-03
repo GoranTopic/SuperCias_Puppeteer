@@ -24,8 +24,9 @@ import options from '../../options.js';
 const handle_company_search =  async (page, company) => {
     // let sent the request to select the company and get the captchan
     console.log('sending request')
+    let captchan_src;
     try{
-        let captchan_src = await send_request(
+        captchan_src = await send_request(
             select_autocomplete_company(company), // parameters
             (response, status, i, C) => { 
                 console.log("response:", response);
@@ -63,7 +64,7 @@ const handle_company_search =  async (page, company) => {
         }, 
         captchan_src
     )
-    console.log('bin_str: ', bin_str);
+    //console.log('bin_str: ', bin_str);
     // let convert imgae back to binary
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
