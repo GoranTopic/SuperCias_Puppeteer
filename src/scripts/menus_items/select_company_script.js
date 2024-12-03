@@ -23,25 +23,28 @@ import options from '../../options.js';
  */
 const handle_company_search =  async (page, company) => {
     // let sent the request to select the company and get the captchan
+    console.log('sending request')
     let captchan_src = await send_request(
         select_autocomplete_company(company), // parameters
         (response, status, i, C) => { 
             console.log("response:", response);
             // we knwo the server is going to awnser with a captchan
             // let parse the response html send by the server
-            let html = window.parse_html_str(response.responseText);
+            //let html = window.parse_html_str(response.responseText);
             // get captchan url
-            let captchan_src = window.get_captchan_src(html);
+            //let captchan_src = window.get_captchan_src(html);
             // return captchan src
-            console.log("captchan_src:", captchan_src);
-            return captchan_src
+            //console.log("captchan_src:", captchan_src);
+            //return captchan_src
         },
         page,
         console,
         // followAlong false so that we query the server for captchan only once
         //false,
     );
-    //console.log('captchan_src: ', captchan_src);
+
+    /*
+    console.log('captchan_src: ', captchan_src);
     // now let's fetch the url captchan image
     let bin_str = await page.evaluate( 
         async ( captchan_src ) => {
@@ -55,7 +58,7 @@ const handle_company_search =  async (page, company) => {
         }, 
         captchan_src
     )
-    //console.log('bin_str: ', bin_str);
+    console.log('bin_str: ', bin_str);
     // let convert imgae back to binary
     let captchan_bin = str_to_binary(bin_str);
     // recognize the bytes image
@@ -118,6 +121,7 @@ const handle_company_search =  async (page, company) => {
 
     // return page
     return page;
+    */
 }
 
 export default handle_company_search;

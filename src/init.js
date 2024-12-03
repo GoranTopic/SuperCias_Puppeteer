@@ -57,7 +57,7 @@ const getRucsToScrap = async () => {
     return rucs_to_scrap;
 }
 
-const makeChecklist = async (rucs_to_scrap) => {
+const makeChecklist = async rucs_to_scrap => {
     /* make a checklist with the rucs to scrap */
     mkdir('./storage/checklists');
     // Read the file

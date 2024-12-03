@@ -20,12 +20,15 @@ const scrap_company = async (browser, company) => {
     if( await check_server_offline(browser) )
         throw new Error('server is offline');
 
+    console.log('inserting componenets')
     // insert custom ajax, functions, jsonfn and eventListeners
     page = await insert_custom_components(page);
-
+    
+    console.log('selecting company')
     // selecting company
     page = await select_company_script(page, company);
 
+    /*
     console.log('waiting for table to load');
     // wait for table to load
     await page.waitForNavigation({ waitUntil: 'networkidle0' });
@@ -35,6 +38,7 @@ const scrap_company = async (browser, company) => {
     
     /*--------- company scrap ---------*/
     // now that captachn has been accpeted we can load company page
+    /*
 
     // insert custom ajax, functions, jsonfn and eventListeners
     page = await insert_custom_components(page);
@@ -90,6 +94,7 @@ const scrap_company = async (browser, company) => {
     }
 
     return null;
+    */
 }
 
 export default scrap_company;

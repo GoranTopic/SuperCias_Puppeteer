@@ -21,8 +21,8 @@ Slaver({
     console.log(`scraping company: ${company.name} with proxy: ${proxy}`);
     data = await scrap_company(browser, company);
     // close browser
-    await close_browser(browser);
+    //await close_browser(browser);
     // return data
-    return ({ company, proxy, data });
+    //return ({ company, proxy, data });
 });
 
