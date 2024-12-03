@@ -76,7 +76,9 @@ let send_request = async (parameters, callback, page, followAlong=true) => {
                 ...parameters,
                 oncomplete: async (response, status, i, C) => {
                     // is respose successfull?
-                    if(status !== "success"){ reject(status); return; }
+                    if(status !== "success"){
+                        reject(new Error('request rejected with status: ' + status));
+                    }
                     // let's parse the result html repsose
                     let html = window.parse_html_str(response.responseText);
                     // check extension to see if there is capthacn
@@ -115,10 +117,12 @@ let send_request = async (parameters, callback, page, followAlong=true) => {
             original_oncomplete_str, onsuccess_str} // passed to browser
     );
     //debugger
+    // if we got an error from the request then the response will be an error
+    if(response instanceof Error){
+        return { error: response };
+    }else if(response.isCaptchan === false)
     // we just got the response from the query
-    //log("response:", response)
     // if we did not get a capthan
-    if(response.isCaptchan === false) 
         // return the return of the callback
         return response.return_value;
     else{ // if we have response that is capthan
