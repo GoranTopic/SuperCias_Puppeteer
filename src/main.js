@@ -8,7 +8,6 @@ const { proxies, checklist } = await init();
 let admin_actual_store = await makeFileStorage('administradores_actuales');
 let admin_anterior_store = await makeFileStorage('administradores_anteriores');
 
-
 let proxy = await proxies.next();
 let company = await checklist.next();
 console.log('next company', company);
@@ -24,9 +23,8 @@ console.log(`setting up browser with proxy: ${proxy}`);
 let data = await scrap_company(browser, company);
 console.log('scraped company', data);
 // clean up
-//await close_browser( browser );
+await close_browser( browser );
 
-/*
 if(data) {
     await store.push(data);
     checklist.check(company);
@@ -34,4 +32,3 @@ if(data) {
 } else {
     console.log(`[${company.ruc}][${proxy}] ${company.name} not checked!`);
 }
-*/

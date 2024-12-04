@@ -6,10 +6,10 @@ Slavery({
     port: 3000,
 }).master(async master => {
     // master is a slave object
-    const { proxies, store, checklist } = await init();
+    const { proxies, checklist } = await init();
     // get next company
     let company = checklist.next();
-    
+    // loop through every company  
     while (company) {
         // get idle slave
         let slave = await master.getIdle()
