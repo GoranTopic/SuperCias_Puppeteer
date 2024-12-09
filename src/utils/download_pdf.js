@@ -10,7 +10,7 @@ const download_pdf = async (url, page, path, store) => {
         new Promise( async (resolve, reject) => {
             let timeout = setTimeout(() => // 5 minutes
                 reject("pdf fetch timeout"),
-                    5 * 1000 * 60);
+                5 * 1000 * 60);
             const reader = new FileReader();
             //console.log('created reader')
             const response = await window.fetch(url);
@@ -28,30 +28,25 @@ const download_pdf = async (url, page, path, store) => {
             reader.readAsBinaryString(data);
         }), url
     );
-    try{ 
-        // save pdf binary string 
-        const pdfData = Buffer.from(pdfString, 'binary');
-        debugger;
-        // if a store has been passed
-        if(store){
-            // save to store
-            await store.set(Buffer.from(pdfData), {
-                filename: path, 
-                type: 'application/pdf',
-            });
-            console.log(`downloaded in store: ${path}`);
-        } else { 
-            // if the store is not passed write to the file system
-            // write to fs
-            fs.writeFileSync(path , pdfData);
-            console.log(`downloaded in fs: ${path}`);
-        }
-        return true;
-    }catch(e){
-        // did it downloaded
-        console.error(`could not downloaded pdf: ${path}`, e);
-        return false
+    console.log('path:', path)
+    // save pdf binary string 
+    const pdfData = Buffer.from(pdfString, 'binary');
+    debugger;
+    // if a store has been passed
+    if(store){
+        // save to store
+        await store.set(Buffer.from(pdfData), {
+            filename: path, 
+            type: 'application/pdf',
+        });
+        console.log(`downloaded in store: ${path}`);
+    } else { 
+        // if the store is not passed write to the file system
+        // write to fs
+        fs.writeFileSync(path , pdfData);
+        console.log(`downloaded in fs: ${path}`);
     }
+    return true;
 }
 
 export default download_pdf

@@ -6,7 +6,7 @@ Slavery({
     port: 3000,
 }).master(async master => {
     // master is a slave object
-    const { proxies, checklist } = await init();
+    const { proxies, checklist, store } = await init();
     // get next company
     let company = checklist.next();
     // loop through every company  

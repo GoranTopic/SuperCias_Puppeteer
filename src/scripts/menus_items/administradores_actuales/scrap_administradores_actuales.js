@@ -28,7 +28,7 @@ export default async (page, company) => {
     }else if(number_of_rows === 0){
         console.log('informacion no disponible')
         // get fieStore from page
-        let fileStore = page['admin_actuales_store'];
+        let fileStore = page['admin_actual_store'];
         // save pdf buffer 
         await fileStore.set(Buffer.from(""), {
             filename: company.ruc + '.pdf',

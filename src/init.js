@@ -21,7 +21,7 @@ const makeFileStorage = async (fileStore_name) => {
     return fileStore;
 }
 
-const makeCompanyStore = async (store_name) => {
+const makeCompanyStore = async store_name => {
     /* make a store to store the companies */
     // Create a storage
     let storage = new Storage({
@@ -77,7 +77,7 @@ const init = async () => {
     let rucs_to_scrap = await getRucsToScrap();
     console.log('cedulas to scrap:', rucs_to_scrap.length);
     // make a store
-    let store = await makeCompanyStore('companies')
+    let store = await makeCompanyStore('administradores_checklist')
     // make checklist dir
     let checklist = await makeChecklist(rucs_to_scrap);   
     // check if the records are already in the store
