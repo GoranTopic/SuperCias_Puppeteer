@@ -56,8 +56,9 @@ class GridFsFileOperations:
         Raises:
         - Exception: If neither `filename` nor filtering criteria are provided.
         """
+        query = {} if filename is None else {'filename': filename}
         # Retrieve files matching the exact filename from GridFS
-        pdfs = self.fs.find({'filename': filename})
+        pdfs = self.fs.find(query)
         
         count = 0
         # Iterate through the files and write them to disk
@@ -67,14 +68,15 @@ class GridFsFileOperations:
                 count += 1
         return count
 
-    def get_files_list(self):
+    def get_files_list(self, filename=None):
         """
         Returns a list of all files in the GridFS collection.
         
         Returns:
         - list: List of filenames in the GridFS collection.
         """
-        files = self.fs.find({})
+        query = {} if filename is None else {'filename': filename}
+        files = self.fs.find(query)
         return [file.filename for file in files]
 
 
