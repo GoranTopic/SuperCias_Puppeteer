@@ -1,58 +1,69 @@
-import os
-import gridfs
-from pymongo import MongoClient
 import pandas as pd
+import unicodedata
+from pymongo import MongoClient
+from gridfs import GridFS
+from concurrent.futures import ThreadPoolExecutor
+# we run this so that we can access relative paths
+import os, sys
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
+
+parent_dir = os.path.abspath('..')
+if parent_dir not in sys.path: sys.path.append(parent_dir)
+from functions.GridFsFileOperations import GridFsFileOperations
+
+endpoint = '10.0.10.5:27017'
+#endpoint = '192.168.1.10:27017'
+database = 'supercias'
+collection = 'kardek_de_accionistas'
+path = '../storage/kardek_de_accionistas/'
 
 
-def parse_excel_file(buffer):
-    """
-    Parses an Excel file from a buffer and returns the data as a dictionary of DataFrames.
+def parse_excel(file_path):
+    file_size = os.path.getsize(file_path)
+    # Convert the size to a human-readable format (optional)
+    print('File size in bytes:', file_size)
+    if(file_size <= 100): return 
+    df = pd.read_excel(file_path)
+    # get the ruc from the filename
+    ruc = file_path.split('.')[-2].split('/')[-1]
+    # get the comapny name
+    name = df.iloc[0,0]
+    df.columns = df.iloc[3]
+    # Remove accents from column names
+    df.columns = [ unicodedata.normalize('NFKD', col).encode('ascii', 'ignore').decode('utf-8') for col in df.columns ]
+    df = df[3:].reset_index(drop=True) 
+    # remove the first column
+    df = df.drop(df.columns[0], axis=1)  
+    df = df.dropna(subset=["IDENTIFICACION"])
+    # add the rows for NOMBRE COMPANIA and RUC
+    df['RUC'] = ruc
+    df['NOMBRE DE COMPANIA'] = name
+    print('ruc:', ruc, 'nombre', name)
+    return df
 
-    Parameters:
-        buffer: file-like object (e.g., BytesIO or uploaded file)
-
-    Returns:
-        A dictionary where each key is a sheet name and each value is a DataFrame containing the sheet's data.
-    """
-    try:
-        # Read the Excel file from the buffer
-        excel_data = pd.ExcelFile(buffer)
-
-        # Parse all sheets into a dictionary of DataFrames
-        data = {sheet_name: excel_data.parse(sheet_name) for sheet_name in excel_data.sheet_names}
-
-        return data
-
-    except Exception as e:
-        print(f"Error parsing Excel file: {e}")
-        return None
-
-def parse_files_from_gridfs(db_name, collection_name, output_folder):
-    # Establish a connection to MongoDB
-    client = MongoClient('mongodb://10.0.10.5:27017/')
-    db = client[db_name]
-    fs = gridfs.GridFS(db, collection=collection_name)
-
-    # Create the output folder if it doesn't exist
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
+def upload_rows(df, collection):
+    collection.insert_many(df.to_dict('records'))
 
 
-    # Read files from GridFS and save them locally
-    for grid_out in fs.find({}): # {'filename': { '$regex': "^0991475532001" } }
-        file_name = grid_out.filename
-        file_path = os.path.join(output_folder, file_name)
+# Connect to MongoDB
+db = MongoClient('mongodb://'+endpoint)[database]
+# output the collections
+upload_collection = db["kardex_de_accionistas"] 
+# Create instance of GridFsFileOperations
+filesOps = GridFsFileOperations(db, collection, path)
 
-        excel_file = grid_out.read()
-        print(f"parseing: {file_name}")   
-        data = parse_excel_file(excel_file)
-        print(data)
-        
+# get all files
+files = filesOps.get_files_list()
 
-if __name__ == "__main__":
-    db_name = "supercias"  # Replace with your database name
-    collection_name = "kradek_de_accioniestas"
-    output_collection = "kradek_de_accioniestas"
-
-    parse_files_from_gridfs(db_name, collection_name, output_collection)
-    print("All files have been saved successfully!")
+for file in files:
+    # write the file to disk
+    filesOps.write_to_disk(file)
+    # read execl fil into pd dataframe
+    df = parse_excel(path + file)
+    if(df is None): continue
+    else:
+        upload_rows(df, upload_collection)
+        # remove the file from the storage
+        os.remove(path + file)
+        print (f"Uploaded {file}")

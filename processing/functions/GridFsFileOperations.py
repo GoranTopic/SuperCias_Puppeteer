@@ -74,7 +74,7 @@ class GridFsFileOperations:
         Returns:
         - list: List of filenames in the GridFS collection.
         """
-        files = self.fs.find()
+        files = self.fs.find({})
         return [file.filename for file in files]
 
 
