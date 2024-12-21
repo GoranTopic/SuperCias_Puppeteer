@@ -1,4 +1,3 @@
-# %% [markdown]
 # ## Extract the kardex de accionistas execl file from mongodb and parse into a json fin another colletion
 # #### Connect to mongodb and make sure we have access to the excel files
 
@@ -24,13 +23,10 @@ db = MongoClient('mongodb://'+endpoint)[database]
 # Create instance of GridFsFileOperations
 filesOps = GridFsFileOperations(db, collection, path)
 
-# %% [markdown]
 # Read download every file and parse data into mongodb
 
-# %% [markdown]
 # First let's define the parser
 
-# %%
 import pandas as pd
 import unicodedata
 def parse_excel(file_path):
@@ -57,12 +53,10 @@ def parse_excel(file_path):
     df = df[1:]
     return df
 
-# %%
 def upload_rows(df, collection):
     collection.insert_many(df.to_dict('records'))
 
 
-# %%
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 import os
@@ -89,5 +83,3 @@ for file in files:
         filesOps.delete_from_disk(file)
 
 df.head()
-
-
