@@ -118,7 +118,14 @@ for file in files_actuales:
     # download pdf file
     filesActuales.write_to_disk(file)
     # parse the pdf file
-    df = parse_pdf(path_actuales + file)
+    try: 
+        df = parse_pdf(path_actuales + file)
+    except Exception as e:
+        print('Error parsing file', file)
+        print(e)
+        os.remove(path_actuales + file)
+        continue
+    # if the df is None, we remove the file
     if(df is None): 
         os.remove(path_actuales + file)
         continue
@@ -135,9 +142,12 @@ for file in files_anteriores:
     # download pdf file
     filesAnteriores.write_to_disk(file)
     # parse the pdf file
-    df = parse_pdf(path_anteriores + file)
-    if(df is None): 
-        os.remove(path_anteriores + file)
+    try: 
+        df = parse_pdf(path_anteriores + file)
+    except Exception as e:
+        print('Error parsing file', file)
+        print(e)
+        os.remove(path_actuales + file)
         continue
     # upload to mongodb
     upload_rows(df, upload_collection_anteriores)
