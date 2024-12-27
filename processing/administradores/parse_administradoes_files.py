@@ -114,6 +114,7 @@ def upload_rows(df, collection):
 files_actuales = filesActuales.get_files_list()
 print('found', len(files_actuales), 'files de administradores actuales')
 
+'''
 for file in files_actuales:
     # download pdf file
     filesActuales.write_to_disk(file)
@@ -133,6 +134,7 @@ for file in files_actuales:
     upload_rows(df, upload_collection_actuales)
     # remove the file
     os.remove(path_actuales + file)
+'''
 
 
 # get all files anteriores
@@ -147,7 +149,11 @@ for file in files_anteriores:
     except Exception as e:
         print('Error parsing file', file)
         print(e)
-        os.remove(path_actuales + file)
+        os.remove(path_anteriores + file)
+        continue
+    # if the df is None, we remove the file
+    if(df is None): 
+        os.remove(path_anteriores + file)
         continue
     # upload to mongodb
     upload_rows(df, upload_collection_anteriores)
